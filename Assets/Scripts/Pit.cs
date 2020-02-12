@@ -17,9 +17,16 @@ public class Pit : MonoBehaviour
         {
             Debug.Log("Pit says: Go to sleep" + other.gameObject + "!");
             //Destroy(other.gameObject);
+            if (other.gameObject.CompareTag("Marble"))
+            {
+                gameController.DestroyMarble(other.gameObject);
+                gameController.SpawnMarble();
+            }
+            else if (other.gameObject.CompareTag("Player"))
+            {
+                gameController.DestroyPlayer();
+            }
             
-            gameController.DestroyMarble(other.gameObject);
-            gameController.SpawnMarble();
         }
     }
 }

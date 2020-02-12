@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ForceMultiplier: 10
+  MarbleCount: 2
 --- !u!114 &2606928710311212360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,10 +58,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e6bc92c9e98ede418358c3afbfc4120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pooledMarbles: []
-  marbleToPool: {fileID: 2626821578083694134, guid: 5adef9eee92f8c34c8f45bb4a9333310,
-    type: 3}
-  amountToPoolMarbles: 5
-  pooledMonsters: []
-  monsterToPool: {fileID: 0}
-  amountToPoolMonsters: 0
+  objectsToPool: []
+  itemsToPool:
+  - amountToPool: 5
+    objectToPool: {fileID: 2626821578083694134, guid: 5adef9eee92f8c34c8f45bb4a9333310,
+      type: 3}
+    shouldExpand: 0
+  pooledObjects: []

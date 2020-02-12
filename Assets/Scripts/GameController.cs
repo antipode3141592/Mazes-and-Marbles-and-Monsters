@@ -1,28 +1,51 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;    //text mesh pro library for UI stuff
 
 public class GameController : MonoBehaviour
 {
     public float ForceMultiplier;
+    public int MarbleCount;
+    TextMeshProUGUI winText;
+
+    bool isPaused;
 
     GameObject player;
     List<GameObject> activeMarbles;
     GameObject monster;
     GameObject[] marbleSpawnPoints;
+    GameObject playerSpawnpoint;
     // Start is called before the first frame update
     private void Awake()
     {
-        player = GameObject.Find("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         activeMarbles = new List<GameObject>();
-        activeMarbles.AddRange(GameObject.FindGameObjectsWithTag("Marble"));
+        //activeMarbles.AddRange(GameObject.FindGameObjectsWithTag("Marble"));
         marbleSpawnPoints = GameObject.FindGameObjectsWithTag("Spawn_Marble");
+        playerSpawnpoint = GameObject.FindGameObjectWithTag("Spawn_Player");
+        winText = GameObject.FindObjectOfType<TextMeshProUGUI>();
+        winText.text = "";
+    }
+
+    private void Start()
+    {
+        //activeMarbles.AddRange(GameObject.FindGameObjectsWithTag("Marble"));
+        for (int i=0; i < MarbleCount; i++)
+        {
+            SpawnMarble();
+        }
+        isPaused = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        MoveActiveObjects();
+        if (!isPaused)
+        {
+            MoveActiveObjects();
+        }
     }
 
     void MoveActiveObjects()
@@ -66,7 +89,7 @@ public class GameController : MonoBehaviour
         Debug.Log("Spawn a Marble!");
         int randomNumber = (int)Random.Range(0, marbleSpawnPoints.Length - 1);
         var spawnTransform = marbleSpawnPoints[randomNumber].transform;
-        GameObject marble = ObjectPooler.SharedInstance.GetPooledMarble();
+        GameObject marble = ObjectPooler.SharedInstance.GetPooledObject("Marble");
         if (marble != null) //make sure it exists!
         {
             marble.transform.position = spawnTransform.position;
@@ -75,5 +98,30 @@ public class GameController : MonoBehaviour
             marble.SetActive(true); //awake!
         }
      
+    }
+
+    public void PlayerLevelComplete()
+    {
+        Debug.Log("Player got to the exit!");
+        isPaused = true;
+        //winText.text = "NAILED IT!";
+        SceneManager.LoadSceneAsync("Scenes/Level_02");
+    }
+
+    public void DestroyPlayer()
+    {
+        player.SetActive(false);
+        Debug.Log("Player died!  So sad!");
+        SpawnPlayer();
+    }
+
+    public void SpawnPlayer()
+    {
+        if (player != null)
+        {
+            player.transform.position = playerSpawnpoint.transform.position;
+            player.transform.rotation = playerSpawnpoint.transform.rotation;
+            player.SetActive(true);
+        }
     }
 }
