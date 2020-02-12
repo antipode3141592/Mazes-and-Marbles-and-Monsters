@@ -20,39 +20,42 @@ public class Player : MonoBehaviour
         //invincible check
 
         //movement check
-        MoveIt();
+        //MoveIt();
 
         //hit check
         
     }
 
-    private void MoveIt()
-    {
-        //float x_acc = 0.0f;  //
-        //float y_acc = 0.0f;
+    //private void MoveIt()
+    //{
+    //    //float x_acc = 0.0f;  //
+    //    //float y_acc = 0.0f;
 
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        Vector2 move = new Vector2(horizontal, vertical);
+    //    //float horizontal = Input.GetAxis("Horizontal");
+    //    //float vertical = Input.GetAxis("Vertical");
 
-        //if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
-        //{
-        //    lookDirection.Set(move.x, move.y);
-        //    lookDirection.Normalize();
-        //}
+    //    float horizontal = Input.acceleration.x;
+    //    float vertical = Input.acceleration.y;
+    //    Vector2 move = new Vector2(horizontal, vertical);
 
-        //animator.SetFloat("Look X", lookDirection.x);
-        //animator.SetFloat("Look Y", lookDirection.y);
-        //animator.SetFloat("Speed", move.magnitude);
+    //    //if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
+    //    //{
+    //    //    lookDirection.Set(move.x, move.y);
+    //    //    lookDirection.Normalize();
+    //    //}
 
-        //float _speed = speed * isRunning() * Time.deltaTime;
-        //Vector2 position = rigidbody2D.position;
+    //    //animator.SetFloat("Look X", lookDirection.x);
+    //    //animator.SetFloat("Look Y", lookDirection.y);
+    //    //animator.SetFloat("Speed", move.magnitude);
 
-        //position.x += horizontal* _speed;
-        //position.y += vertical* _speed;
-        //position = position + move * _speed;
-        //rigidbody2D.MovePosition(position);
-        //Debug.Log("float force applied!");
-        rigidbody2D.AddForce(move* forceMultiplier);
-    }
+    //    //float _speed = speed * isRunning() * Time.deltaTime;
+    //    //Vector2 position = rigidbody2D.position;
+
+    //    //position.x += horizontal* _speed;
+    //    //position.y += vertical* _speed;
+    //    //position = position + move * _speed;
+    //    //rigidbody2D.MovePosition(position);
+    //    //Debug.Log("float force applied!");
+    //    rigidbody2D.AddForce(move* forceMultiplier);
+    //}
 }

@@ -4,24 +4,22 @@ using UnityEngine;
 
 public class Pit : MonoBehaviour
 {
+    GameController gameController;
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        gameController = GameController.FindObjectOfType<GameController>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other)
         {
-            Debug.Log("Destroy the other " + other.gameObject + "!");
-            Destroy(other.gameObject);
+            Debug.Log("Pit says: Go to sleep" + other.gameObject + "!");
+            //Destroy(other.gameObject);
+            
+            gameController.DestroyMarble(other.gameObject);
+            gameController.SpawnMarble();
         }
     }
 }

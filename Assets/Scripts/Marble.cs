@@ -16,38 +16,43 @@ public class Marble : MonoBehaviour
     void Update()
     {
         //movement check
-        MoveIt();
+        //MoveIt();
 
         //hit check
 
     }
 
-    private void MoveIt()
-    {
-        //float x_acc = 0.0f;  //
-        //float y_acc = 0.0f;
+    //private void MoveIt()
+    //{
+    //    //float x_acc = 0.0f;  //
+    //    //float y_acc = 0.0f;
 
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        Vector2 move = new Vector2(horizontal, vertical);
 
-        //if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
-        //{
-        //    lookDirection.Set(move.x, move.y);
-        //    lookDirection.Normalize();
-        //}
+    //    //get acceleration data
+    //    float horizontal = Input.acceleration.x;
+    //    float vertical = Input.acceleration.y;
 
-        //animator.SetFloat("Look X", lookDirection.x);
-        //animator.SetFloat("Look Y", lookDirection.y);
-        //animator.SetFloat("Speed", move.magnitude);
+    //    //float horizontal = Input.GetAxis("Horizontal");
+    //    //float vertical = Input.GetAxis("Vertical");
+    //    Vector2 move = new Vector2(horizontal, vertical);
 
-        //float _speed = speed * isRunning() * Time.deltaTime;
-        //Vector2 position = rigidbody2D.position;
+    //    //if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
+    //    //{
+    //    //    lookDirection.Set(move.x, move.y);
+    //    //    lookDirection.Normalize();
+    //    //}
 
-        //position.x += horizontal* _speed;
-        //position.y += vertical* _speed;
-        //position = position + move * _speed;
-        //rigidbody2D.MovePosition(position);
-        rigidbody2D.AddForce(move * forceMultiplier);
-    }
+    //    //animator.SetFloat("Look X", lookDirection.x);
+    //    //animator.SetFloat("Look Y", lookDirection.y);
+    //    //animator.SetFloat("Speed", move.magnitude);
+
+    //    //float _speed = speed * isRunning() * Time.deltaTime;
+    //    //Vector2 position = rigidbody2D.position;
+
+    //    //position.x += horizontal* _speed;
+    //    //position.y += vertical* _speed;
+    //    //position = position + move * _speed;
+    //    //rigidbody2D.MovePosition(position);
+    //    rigidbody2D.AddForce(move * forceMultiplier);
+    //}
 }
