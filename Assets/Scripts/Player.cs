@@ -5,57 +5,73 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    Rigidbody2D rigidbody2D;
-    public float forceMultiplier;
+    ////Rigidbody2D rigidbody2D;
+    //GameController gameController;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        rigidbody2D = GetComponent<Rigidbody2D>();
-    }
+    //public int maxHealth = 5;
+    //int currentHealth = 3;
 
-    // Update is called once per frame
-    void Update()
-    {
-        //invincible check
+    //public float timeInvincible = 2.0f;
+    //bool isInvincible;
+    //float invincibleTimer;
 
-        //movement check
-        //MoveIt();
+    ////Public Properties
+    //public int health { get { return currentHealth; } }
 
-        //hit check
-        
-    }
-
-    //private void MoveIt()
+    //// Start is called before the first frame update
+    //void Start()
     //{
-    //    //float x_acc = 0.0f;  //
-    //    //float y_acc = 0.0f;
+    //    //initialize health to max health
+    //    currentHealth = maxHealth;
+    //    //rigidbody2D = GetComponent<Rigidbody2D>();
+    //    gameController = FindObjectOfType<GameController>();
+    //}
 
-    //    //float horizontal = Input.GetAxis("Horizontal");
-    //    //float vertical = Input.GetAxis("Vertical");
+    //private void Update()
+    //{
+    //    //invincibleUpdate();
+    //    //DeathCheck();
+    //}
 
-    //    float horizontal = Input.acceleration.x;
-    //    float vertical = Input.acceleration.y;
-    //    Vector2 move = new Vector2(horizontal, vertical);
+    //public void DeathCheck()
+    //{
+    //    if (currentHealth <= 0) 
+    //    {
+    //        gameController.DestroyPlayer();
+    //    }
+    //}
 
-    //    //if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
-    //    //{
-    //    //    lookDirection.Set(move.x, move.y);
-    //    //    lookDirection.Normalize();
-    //    //}
+    //public void ChangeHealth(int amount)
+    //{
+    //    if (amount < 0)
+    //    {
+            
+    //        if (!isInvincible)
+    //        {
+    //            //healthEffect.Play(); //play "hit" particle effect
+    //            //animator.SetTrigger("Hit");
+    //            //PlaySound(hitSound);
+    //            currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+    //            Debug.Log("Player says: Ouch!  (" + currentHealth + ")");
+    //            isInvincible = true;
+    //            invincibleTimer = timeInvincible;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+    //    }
+    //}
 
-    //    //animator.SetFloat("Look X", lookDirection.x);
-    //    //animator.SetFloat("Look Y", lookDirection.y);
-    //    //animator.SetFloat("Speed", move.magnitude);
-
-    //    //float _speed = speed * isRunning() * Time.deltaTime;
-    //    //Vector2 position = rigidbody2D.position;
-
-    //    //position.x += horizontal* _speed;
-    //    //position.y += vertical* _speed;
-    //    //position = position + move * _speed;
-    //    //rigidbody2D.MovePosition(position);
-    //    //Debug.Log("float force applied!");
-    //    rigidbody2D.AddForce(move* forceMultiplier);
+    //private void invincibleUpdate()
+    //{
+    //    if (isInvincible)
+    //    {
+    //        invincibleTimer -= Time.deltaTime;
+    //        if (invincibleTimer <= 0.0f)
+    //        {
+    //            isInvincible = false;
+    //        }
+    //    }
     //}
 }
