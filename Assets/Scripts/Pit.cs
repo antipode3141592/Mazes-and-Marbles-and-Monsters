@@ -8,11 +8,24 @@ using HutongGames.Utility;
 public class Pit : MonoBehaviour
 {
     GameController gameController;
+    GameObject player;
+    PlayMakerFSM playerFSM;
+    PlayMakerFSM[] playerFSMs;
     //public GameObject playerController;
     // Start is called before the first frame update
     private void Awake()
     {
         gameController = GameController.FindObjectOfType<GameController>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerFSMs = player.GetComponents<PlayMakerFSM>();
+        foreach (PlayMakerFSM fsm in playerFSMs)
+        {
+            if (fsm.FsmName == "MovementManager")
+            {
+                playerFSM = fsm;
+                break;
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -27,22 +40,27 @@ public class Pit : MonoBehaviour
                 //Debug.Log("respawn a marble!");
                 gameController.SpawnMarble();
             }
+            else if (other.gameObject.CompareTag("Monster"))
+            {
+                other.gameObject.SetActive(false);  //go to sleep, monster!
+            }
             else if (other.gameObject.CompareTag("Player"))
             {
-                //Debug.Log("pit detects player collision");
-                PlayMakerFSM[] fsms = other.gameObject.GetComponents<PlayMakerFSM>();
-                PlayMakerFSM playerFSM = null;
-                foreach(PlayMakerFSM fsm in fsms)
-                {
-                    if(fsm.FsmName == "MovementManager")
-                    {
-                        playerFSM = fsm;
-                        break;
-                    }
-                }
-                //fsm = FindFsmOnGameObject(other.gameObject, "MovementManager");
+                Debug.Log("pit detects player collision");
+                //PlayMakerFSM[] fsms = other.gameObject.GetComponents<PlayMakerFSM>();
+                //PlayMakerFSM playerFSM = null;
+                //foreach(PlayMakerFSM fsm in fsms)
+                //{
+                //    if(fsm.FsmName == "MovementManager")
+                //    {
+                //        playerFSM = fsm;
+                //        break;
+                //    }
+                //}
+                ////fsm = FindFsmOnGameObject(other.gameObject, "MovementManager");
                 if (playerFSM != null)
                 {
+                    Debug.Log("Send IsFalling event from pit collider script");
                     playerFSM.SendEvent("IsFalling");
                 }
             }

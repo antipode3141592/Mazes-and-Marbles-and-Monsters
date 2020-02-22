@@ -10,10 +10,12 @@ public class GameController : MonoBehaviour
     public float ForceMultiplier;
     public int MarbleCount;
     public GameObject playerPrefab;
-    public PlayMakerFSM fsm;
+    PlayMakerFSM playerHealthManagerFSM;
+    PlayMakerFSM playerMovementManagerFSM;
+    
+
 
     string[] levelNameArray;
-    //bool isPaused;
     GameObject player;
     List<GameObject> activeMarbles;
     GameObject monster;
@@ -27,26 +29,20 @@ public class GameController : MonoBehaviour
         activeMarbles = new List<GameObject>();
         marbleSpawnPoints = GameObject.FindGameObjectsWithTag("Spawn_Marble");
         playerSpawnpoint = GameObject.FindGameObjectWithTag("Spawn_Player");
+
+        PlayMakerFSM[] playerFSMs;
+        playerFSMs = player.GetComponents<PlayMakerFSM>();
+        foreach (PlayMakerFSM fsm in playerFSMs)
+        {
+            if (fsm.FsmName == "MovementManager")
+            {
+                playerMovementManagerFSM = fsm;
+            } else if (fsm.FsmName == "HealthManager")
+            {
+                playerHealthManagerFSM = fsm;
+            }
+        }
     }
-
-    //private void Start()
-    //{
-    //    //activeMarbles.AddRange(GameObject.FindGameObjectsWithTag("Marble"));
-    //    for (int i=0; i < MarbleCount; i++)
-    //    {
-    //        SpawnMarble();
-    //    }
-    //    isPaused = false;
-    //}
-
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    if (!isPaused)
-    //    {
-    //        MoveActiveObjects();
-    //    }
-    //}
 
     public void MoveActiveObjects()
     {
@@ -54,14 +50,12 @@ public class GameController : MonoBehaviour
         float horizontal = Input.acceleration.x;
         float vertical = Input.acceleration.y;
         Vector2 move = new Vector2(horizontal, vertical);
-
         //Debug.Log("acceration output: " + move);
-        if (player)
+        if (player.activeSelf)
         {
             var playerbody = player.GetComponent<Rigidbody2D>();
             playerbody.AddForce(move * playerbody.mass *ForceMultiplier);
         }
-
         if (activeMarbles.Count > 0)
         {
             for(int i = 0; i < activeMarbles.Count; i++)
@@ -69,12 +63,7 @@ public class GameController : MonoBehaviour
                 var marbleBody = activeMarbles[i].GetComponent<Rigidbody2D>();
                 marbleBody.AddForce(move * marbleBody.mass * ForceMultiplier);
             }
-        }
-        
-        //collect active gameObjects (pc, npc, marble)
-
-
-        //GetComponent<Rigidbody2D>().AddForce(move * forceMultiplier);
+        }      
     }
 
     public void DestroyMarble(GameObject marble)
@@ -111,25 +100,17 @@ public class GameController : MonoBehaviour
             
     }
 
-    //public void PlayerLevelComplete()
-    //{
-    //    Debug.Log("Player got to the exit!");
-    //    isPaused = true;
-    //    //winText.text = "NAILED IT!";
-    //    //SceneManager.LoadSceneAsync("Scenes/Level_02");
-    //    SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-    //}
-
     public void DestroyPlayer()
     {
         player.SetActive(false);
-      
         Debug.Log("DestroyPlayer(), player set active false");
         //SpawnPlayer();
     }
 
     public void SpawnPlayer()
+        
     {
+        Debug.Log("SpawnPlayer() called");
         if (player != null)
         {
             player.SetActive(true);
@@ -143,18 +124,7 @@ public class GameController : MonoBehaviour
         player.transform.position = playerSpawnpoint.transform.position;
         player.transform.rotation = playerSpawnpoint.transform.rotation;
         //fsm.SetState("Spawned");
-    }
-
-    //no longer used
-    public void SpawnAll()
-    {
-        //spawn marbles
-        for (int i = activeMarbles.Count; i < MarbleCount; i++)
-        {
-            SpawnMarble();
-        }
-        //spawn player
-        SpawnPlayer();
-        //spawn monsters
+        playerHealthManagerFSM.SendEvent("START");
+        playerMovementManagerFSM.SendEvent("START");
     }
 }

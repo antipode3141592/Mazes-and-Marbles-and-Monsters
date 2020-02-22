@@ -8,6 +8,7 @@ TagManager:
   - Spawn_Marble
   - Spawn_Monster
   - Spawn_Player
+  - Monster
   layers:
   - Default
   - TransparentFX
