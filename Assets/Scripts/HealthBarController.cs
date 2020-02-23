@@ -37,7 +37,7 @@ public class HealthBarController : MonoBehaviour
             heartAnimators[i].Play("FullHeart");   
         }
         //deactivate remaining hearts
-        for (int i = playerMaxHealth + 1; i < heartArray.Length; i++)
+        for (int i = playerMaxHealth; i < heartArray.Length; i++)
         {
             heartArray[i].SetActive(false);
         }

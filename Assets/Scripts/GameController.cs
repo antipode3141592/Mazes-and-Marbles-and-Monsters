@@ -10,15 +10,16 @@ public class GameController : MonoBehaviour
     public float ForceMultiplier;
     public int MarbleCount;
     public GameObject playerPrefab;
+
     PlayMakerFSM playerHealthManagerFSM;
     PlayMakerFSM playerMovementManagerFSM;
-
     string[] levelNameArray;
     GameObject player;
     List<GameObject> activeMarbles;
     GameObject monster;
     GameObject[] marbleSpawnPoints;
     GameObject playerSpawnpoint;
+    DeathCounterController deathCountUI;
 
     // Start is called before the first frame update
     private void Awake()
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour
         activeMarbles = new List<GameObject>();
         marbleSpawnPoints = GameObject.FindGameObjectsWithTag("Spawn_Marble");
         playerSpawnpoint = GameObject.FindGameObjectWithTag("Spawn_Player");
+        deathCountUI = GameObject.FindObjectOfType<DeathCounterController>();
 
         PlayMakerFSM[] playerFSMs;
         playerFSMs = player.GetComponents<PlayMakerFSM>();
@@ -101,6 +103,7 @@ public class GameController : MonoBehaviour
     public void DestroyPlayer()
     {
         player.SetActive(false);
+        deathCountUI.UpdateDeathCountUI();
         Debug.Log("DestroyPlayer(), player set active false");
         //SpawnPlayer();
     }
