@@ -1,22 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HutongGames.PlayMaker;
 
 public class HealthBarController : MonoBehaviour
 {
     public GameObject[] heartArray;
+    Animator[] heartAnimators;
     public int playerMaxHealth;
     public int playerCurrentHealth;
-    // Start is called before the first frame update
+    
+
     void Awake()
     {
-        
+        heartAnimators = new Animator[heartArray.Length];
+        //populate array of Animators
+        for (int i = 0; i < heartArray.Length; i++)
+        {
+            heartAnimators[i] = heartArray[i].GetComponent<Animator>();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        playerCurrentHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerHealth_global").Value;
+        playerMaxHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value;
     }
 
     public void ResetHealth()
@@ -26,20 +34,33 @@ public class HealthBarController : MonoBehaviour
         for (int i = 0; i < playerMaxHealth; i++)
         {
             heartArray[i].SetActive(true);
-            heartArray[i].GetComponent<Animator>().Play("FullHeart");   
+            heartAnimators[i].Play("FullHeart");   
+        }
+        //deactivate remaining hearts
+        for (int i = playerMaxHealth + 1; i < heartArray.Length; i++)
+        {
+            heartArray[i].SetActive(false);
         }
     }
 
     public void AdjustHealth(int health)
     {
-        int targerHealth = Mathf.Clamp(playerCurrentHealth + health, 0, playerMaxHealth);
-        Animator animator;
-        for (int i = targerHealth; i < playerCurrentHealth; i++)
+        int targetHealth = Mathf.Clamp(playerCurrentHealth + health, 0, playerMaxHealth);
+        if (targetHealth < playerCurrentHealth)
         {
-            animator = heartArray[i].GetComponent<Animator>();
-            animator.SetTrigger("LoseHealth");
+            for (int i = targetHealth; i < playerCurrentHealth; i++)
+            {
+                heartAnimators[i].SetTrigger("LoseHealth");
+            }
+        } else if (targetHealth > playerCurrentHealth){
+            for (int i = playerCurrentHealth; i < targetHealth; i++) 
+            {
+                Debug.Log("send GainHealth trigger");
+                heartAnimators[i].SetTrigger("GainHealth");
+            }
         }
-        playerCurrentHealth = targerHealth;
+        playerCurrentHealth = targetHealth;
+        FsmVariables.GlobalVariables.FindFsmInt("PlayerHealth_global").Value = targetHealth;
 
     }
 }

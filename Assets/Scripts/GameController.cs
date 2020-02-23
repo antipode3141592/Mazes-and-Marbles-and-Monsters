@@ -12,8 +12,6 @@ public class GameController : MonoBehaviour
     public GameObject playerPrefab;
     PlayMakerFSM playerHealthManagerFSM;
     PlayMakerFSM playerMovementManagerFSM;
-    
-
 
     string[] levelNameArray;
     GameObject player;

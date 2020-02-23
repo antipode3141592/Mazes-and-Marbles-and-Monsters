@@ -6,7 +6,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public ParticleSystem hitEffect;
+    public ParticleSystem healEffect;
     HealthBarController healthBarController;
+
 
     private void Awake()
     {
@@ -27,5 +29,10 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Fire the particles!");
         hitEffect.Play();
+    }
+
+    public void IsHealedEffectParticles()
+    {
+        Debug.Log("Fire the particles... of HEALING!");
     }
 }

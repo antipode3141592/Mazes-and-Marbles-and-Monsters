@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 1236707307626652087}
   - component: {fileID: 1236707307626652084}
   - component: {fileID: 1236707307626652086}
-  - component: {fileID: 1888599972198331300}
   - component: {fileID: 8540972382757629427}
   - component: {fileID: 1613584069746271358}
   - component: {fileID: 1675193957519097715}
   - component: {fileID: 5024499731912051238}
+  - component: {fileID: 1537434581188572169}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -56,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,7 +101,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 3
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -110,22 +110,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!70 &1888599972198331300
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1236707307626652074}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.09623194, y: 0.49669087}
-  m_Size: {x: 0.7450361, y: 0.99338174}
-  m_Direction: 0
 --- !u!114 &8540972382757629427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -779,8 +763,7 @@ MonoBehaviour:
               tooltip: 
               showInInspector: 1
               networkSync: 0
-              value: {fileID: 2606928710311212361, guid: 1de6dcc15fb31244abcf41af23365990,
-                type: 3}
+              value: {fileID: 0}
           fsmName:
             useVariable: 0
             name: 
@@ -1086,8 +1069,7 @@ MonoBehaviour:
               tooltip: 
               showInInspector: 1
               networkSync: 0
-              value: {fileID: 2606928710311212361, guid: 1de6dcc15fb31244abcf41af23365990,
-                type: 3}
+              value: {fileID: 0}
           fsmName:
             useVariable: 0
             name: 
@@ -1119,8 +1101,7 @@ MonoBehaviour:
               tooltip: 
               showInInspector: 1
               networkSync: 0
-              value: {fileID: 2606928710311212361, guid: 1de6dcc15fb31244abcf41af23365990,
-                type: 3}
+              value: {fileID: 0}
           fsmName:
             useVariable: 0
             name: 
@@ -1739,8 +1720,7 @@ MonoBehaviour:
         tooltip: 
         showInInspector: 1
         networkSync: 0
-        value: {fileID: 2606928710311212361, guid: 1de6dcc15fb31244abcf41af23365990,
-          type: 3}
+        value: {fileID: 0}
       - useVariable: 1
         name: 
         tooltip: 
@@ -1824,6 +1804,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &1537434581188572169
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236707307626652074}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.081986666, y: -0.17142624}
+  serializedVersion: 2
+  m_Radius: 0.29705396
 --- !u!1001 &3361788737880468083
 PrefabInstance:
   m_ObjectHideFlags: 0
