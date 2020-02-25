@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     public ParticleSystem hitEffect;
     public ParticleSystem healEffect;
+    public ParticleSystem treasureEffect;
     HealthBarController healthBarController;
 
 
@@ -27,12 +28,18 @@ public class Player : MonoBehaviour
 
     public void IsHitEffectParticles()
     {
-        Debug.Log("Fire the particles!");
+        //Debug.Log("Fire the particles!");
         hitEffect.Play();
     }
 
     public void IsHealedEffectParticles()
     {
-        Debug.Log("Fire the particles... of HEALING!");
+        //Debug.Log("Fire the particles... of HEALING!");
+        healEffect.Play();
+    }
+
+    public void PlayTreasureParticles()
+    {
+        treasureEffect.Play();
     }
 }

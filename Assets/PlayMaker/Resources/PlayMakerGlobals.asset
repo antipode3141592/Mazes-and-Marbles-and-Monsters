@@ -33,6 +33,12 @@ MonoBehaviour:
       showInInspector: 0
       networkSync: 0
       value: 0
+    - useVariable: 1
+      name: TreasureCount_global
+      tooltip: 
+      showInInspector: 0
+      networkSync: 0
+      value: 0
     boolVariables:
     - useVariable: 1
       name: PlayerInvincible
@@ -61,7 +67,7 @@ MonoBehaviour:
       intValue: 0
     categories:
     - 
-    variableCategoryIDs: 0000000000000000000000000000000000000000
+    variableCategoryIDs: 000000000000000000000000000000000000000000000000
   events:
   - Is Dead
   - LosingGame

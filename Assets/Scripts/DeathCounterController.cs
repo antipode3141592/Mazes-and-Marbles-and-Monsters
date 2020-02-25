@@ -12,13 +12,14 @@ public class DeathCounterController : MonoBehaviour
 
     void Awake()
     {
-        deathCount = FsmVariables.GlobalVariables.FindFsmInt("PlayerDeaths_global").Value;
+        //deathCount = FsmVariables.GlobalVariables.FindFsmInt("PlayerDeaths_global").Value;
+        UpdateDeathCountUI();
     }
 
     public void UpdateDeathCountUI()
     {
         deathCount = FsmVariables.GlobalVariables.FindFsmInt("PlayerDeaths_global").Value;
         deathCountText.text = deathCount.ToString();
-        Debug.Log("Update deathcount UI!");
+        //Debug.Log("Update deathcount UI!");
     }
 }

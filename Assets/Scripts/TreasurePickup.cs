@@ -6,14 +6,11 @@ using HutongGames.PlayMaker;
 
 public class TreasurePickup : MonoBehaviour
 {
-    GameObject player;
     Player playerController;
     TreasureCounterController treasureUI;
 
-    // Start is called before the first frame update
     void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         playerController = GameObject.FindObjectOfType<Player>();   //grab that player controller
         treasureUI = GameObject.FindObjectOfType<TreasureCounterController>();
     }
@@ -25,6 +22,7 @@ public class TreasurePickup : MonoBehaviour
         {
             FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value += 1;
             treasureUI.UpdateTreasureCountUI();
+            playerController.PlayTreasureParticles();
             Destroy(gameObject);
         }
     }
