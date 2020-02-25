@@ -741,7 +741,7 @@ MonoBehaviour:
         - 
         - 
         - 
-        actionEnabled: 0101010101010001
+        actionEnabled: 0101000000000001
         actionIsOpen: 0101010101010101
         actionStartIndex: 00000000060000000d0000001200000016000000190000001c00000020000000
         actionHashCodes: ca51e900ca51e900141809032181e802603dd9059c59e5015e69bb0409faa102
@@ -952,7 +952,7 @@ MonoBehaviour:
           networkSync: 0
           value: 0
         - useVariable: 1
-          name: HitPoints
+          name: PlayerHealth_global
           tooltip: 
           showInInspector: 0
           networkSync: 0
@@ -1870,7 +1870,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.8
+  m_FalloffIntensity: 0.4
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
@@ -1884,7 +1884,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 1
+  m_PointLightOuterRadius: 6
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5

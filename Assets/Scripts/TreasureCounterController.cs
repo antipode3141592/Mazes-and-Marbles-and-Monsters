@@ -11,13 +11,14 @@ public class TreasureCounterController : MonoBehaviour
 
     void Awake()
     {
-        treasureCount = FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value;
+        //treasureCount = FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value;
+        UpdateTreasureCountUI();
     }
 
     public void UpdateTreasureCountUI()
     {
         treasureCount = FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value;
         treasureCountText.text = treasureCount.ToString();
-        Debug.Log("Update treasureCount UI!");
+        //Debug.Log("Update treasureCount UI!");
     }
 }

@@ -46,6 +46,8 @@ public class HealthBarController : MonoBehaviour
     public void AdjustHealth(int health)
     {
         int targetHealth = Mathf.Clamp(playerCurrentHealth + health, 0, playerMaxHealth);
+        
+        FsmVariables.GlobalVariables.FindFsmInt("PlayerHealth_global").Value = targetHealth;
         if (targetHealth < playerCurrentHealth)
         {
             for (int i = targetHealth; i < playerCurrentHealth; i++)
@@ -60,7 +62,6 @@ public class HealthBarController : MonoBehaviour
             }
         }
         playerCurrentHealth = targetHealth;
-        FsmVariables.GlobalVariables.FindFsmInt("PlayerHealth_global").Value = targetHealth;
 
     }
 }
