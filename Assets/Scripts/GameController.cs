@@ -5,11 +5,17 @@ using UnityEngine.SceneManagement;
 using TMPro;    //text mesh pro library for UI stuff
 using HutongGames.PlayMaker;
 
+//persistent singleton class for controlling most of the game actions
 public class GameController : MonoBehaviour
 {
-    public float ForceMultiplier;
-    public int MarbleCount;
-    public GameObject playerPrefab;
+    [SerializeField]
+    private float forceMultiplier;
+    [SerializeField]
+    private int marbleCount;
+    [SerializeField]
+    private GameObject playerPrefab;
+
+    private static GameController _gameController;
 
     PlayMakerFSM playerHealthManagerFSM;
     PlayMakerFSM playerMovementManagerFSM;
@@ -21,9 +27,25 @@ public class GameController : MonoBehaviour
     GameObject playerSpawnpoint;
     DeathCounterController deathCountUI;
 
+    public static GameController gameController
+    {
+        get { return _gameController; }
+    }
+
     // Start is called before the first frame update
     private void Awake()
     {
+        //that singleton pattern
+        if (_gameController !=null && _gameController != this)
+        {
+            Destroy(this.gameObject);
+        }else
+        {
+            _gameController = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+
+
         player = GameObject.FindGameObjectWithTag("Player");
         activeMarbles = new List<GameObject>();
         marbleSpawnPoints = GameObject.FindGameObjectsWithTag("Spawn_Marble");
@@ -54,14 +76,14 @@ public class GameController : MonoBehaviour
         if (player.activeSelf)
         {
             var playerbody = player.GetComponent<Rigidbody2D>();
-            playerbody.AddForce(move * playerbody.mass *ForceMultiplier);
+            playerbody.AddForce(move * playerbody.mass *forceMultiplier);
         }
         if (activeMarbles.Count > 0)
         {
             for(int i = 0; i < activeMarbles.Count; i++)
             {
                 var marbleBody = activeMarbles[i].GetComponent<Rigidbody2D>();
-                marbleBody.AddForce(move * marbleBody.mass * ForceMultiplier);
+                marbleBody.AddForce(move * marbleBody.mass * forceMultiplier);
             }
         }      
     }

@@ -15,7 +15,7 @@ public class Pit : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        gameController = GameController.FindObjectOfType<GameController>();
+        gameController = FindObjectOfType<GameController>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerFSMs = player.GetComponents<PlayMakerFSM>();
         foreach (PlayMakerFSM fsm in playerFSMs)
