@@ -7,7 +7,7 @@ using HutongGames.Utility;
 
 public class Pit : MonoBehaviour
 {
-    GameController gameController;
+    //GameController gameController;
     GameObject player;
     PlayMakerFSM playerFSM;
     PlayMakerFSM[] playerFSMs;
@@ -15,7 +15,7 @@ public class Pit : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        gameController = FindObjectOfType<GameController>();
+        //gameController = FindObjectOfType<GameController>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerFSMs = player.GetComponents<PlayMakerFSM>();
         foreach (PlayMakerFSM fsm in playerFSMs)
@@ -36,9 +36,9 @@ public class Pit : MonoBehaviour
             //Destroy(other.gameObject);
             if (other.gameObject.CompareTag("Marble"))
             {
-                gameController.DestroyMarble(other.gameObject);
+                GameController.Instance.DestroyMarble(other.gameObject);
                 //Debug.Log("respawn a marble!");
-                gameController.SpawnMarble();
+                GameController.Instance.SpawnMarble();
             }
             else if (other.gameObject.CompareTag("Monster"))
             {

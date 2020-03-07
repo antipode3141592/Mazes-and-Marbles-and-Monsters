@@ -5,15 +5,27 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Level_01.unity
-    guid: 72f76e4873568ce42923bb660193d313
+    path: Assets/Scenes/SplashScreen.unity
+    guid: 019c625deae66254e975c32c0b09203b
   - enabled: 1
-    path: Assets/Scenes/Level_02.unity
-    guid: 339b8f1c9cdd2814484d1e33a8294bd1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 1c5550538a5696a40a5bce6b0081b07d
+  - enabled: 1
+    path: Assets/Scenes/Dungeon/Level_01.unity
+    guid: 95cddc6935a21c94f8651ffaa8ad1079
+  - enabled: 1
+    path: Assets/Scenes/Dungeon/Level_02.unity
+    guid: b513348839c8d8a4eb38f21c251bb104
+  - enabled: 1
+    path: Assets/Scenes/Dungeon/Level_03.unity
+    guid: 71472f950773bbd4e88220d34f249e66
+  - enabled: 1
+    path: Assets/Scenes/Dungeon/Level_04.unity
+    guid: 7c485daca920ce549ba95bb8095128ac
+  - enabled: 1
+    path: Assets/Scenes/Dungeon/Level_05.unity
+    guid: 880b793376e7942448fa329c705b9230
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 6833314bdb7262f468fe2d7278527dbf,
       type: 2}

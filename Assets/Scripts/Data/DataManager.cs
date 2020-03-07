@@ -1,0 +1,55 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace LevelManagement.Data
+{
+    public class DataManager : MonoBehaviour
+    {
+        private SaveData saveData;
+        private JSONSaver jsonSaver;
+
+        public float MasterVolume { get { return saveData.masterVolume; } set { saveData.masterVolume = value; } }
+        public float SFXVolume { get { return saveData.sfxVolume; } set { saveData.sfxVolume = value; } }
+        public float MusicVolume { get { return saveData.musicVolume; } set { saveData.musicVolume = value; } }
+        public int HigestLevelUnlocked { get { return saveData.highestLevelUnlocked; } set { saveData.highestLevelUnlocked = value; } }
+
+        private static DataManager _instance;
+        public static DataManager Instance
+        {
+            get { return _instance;  }
+        }
+
+        private void Awake()
+        {
+            if (_instance != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _instance = this;
+                DontDestroyOnLoad(gameObject);
+                saveData = new SaveData();
+                jsonSaver = new JSONSaver();
+            }
+        }
+        private void OnDestroy()
+        {
+            if (_instance == this)
+            {
+                _instance = null;
+            }
+        }
+
+        public void Save()
+        {
+            jsonSaver.Save(saveData);
+        }
+
+        public void Load()
+        {
+            jsonSaver.Load(saveData);
+        }
+    }
+}

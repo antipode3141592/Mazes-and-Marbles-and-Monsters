@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7f54f932bc2994dae2cdb26ef3c21e, type: 3}
+  m_Name: LevelList
+  m_EditorClassIdentifier: 
+  _levels:
+  - _name: 
+    _description: 
+    _campaignName: Intro
+    _sceneName: Assets/Scenes/Dungeon/Level_01.unity
+    _id: d1
+    _image: {fileID: 0}
+  - _name: 
+    _description: 
+    _campaignName: Intro
+    _sceneName: Assets/Scenes/Dungeon/Level_02.unity
+    _id: d2
+    _image: {fileID: 0}
+  - _name: 
+    _description: 
+    _campaignName: Intro
+    _sceneName: Assets/Scenes/Dungeon/Level_03.unity
+    _id: d3
+    _image: {fileID: 0}
+  - _name: 
+    _description: 
+    _campaignName: Intro
+    _sceneName: Assets/Scenes/Dungeon/Level_04.unity
+    _id: d4
+    _image: {fileID: 0}
+  - _name: 
+    _description: 
+    _campaignName: Intro
+    _sceneName: Assets/Scenes/Dungeon/Level_05.unity
+    _id: d5
+    _image: {fileID: 0}

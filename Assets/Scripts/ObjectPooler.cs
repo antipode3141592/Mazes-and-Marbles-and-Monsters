@@ -21,8 +21,15 @@ public class ObjectPooler : MonoBehaviour
     {
         SharedInstance = this;
         pooledObjects = new List<GameObject>();
+        CreatePools();
+    }
+
+    //
+    public void CreatePools()
+    {
         foreach (ObjectPoolItem item in itemsToPool)
         {
+            //check
             for (int i = 0; i < item.amountToPool; i++)
             {
                 GameObject obj = (GameObject)Instantiate(item.objectToPool);

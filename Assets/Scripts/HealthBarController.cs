@@ -29,18 +29,31 @@ public class HealthBarController : MonoBehaviour
 
     public void ResetHealth()
     {
-        playerCurrentHealth = playerMaxHealth;
+        playerCurrentHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerHealth_global").Value;
+        playerMaxHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value;
         //activate heart objects equal to max health
-        for (int i = 0; i < playerMaxHealth; i++)
+        int i = 0;
+        for (; i < playerCurrentHealth; i++)
         {
             heartArray[i].SetActive(true);
             heartAnimators[i].Play("FullHeart");   
         }
+        //set hearts up to max health to empty
+        for(; i < playerMaxHealth; i++)
+        {
+            heartArray[i].SetActive(true);
+            heartAnimators[i].Play("LoseHeart");
+        }
         //deactivate remaining hearts
-        for (int i = playerMaxHealth; i < heartArray.Length; i++)
+        for (; i < heartArray.Length; i++)
         {
             heartArray[i].SetActive(false);
         }
+    }
+
+    public void UpdateHealthUI()
+    {
+        AdjustHealth(0);
     }
 
     public void AdjustHealth(int health)

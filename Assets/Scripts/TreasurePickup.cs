@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using HutongGames.PlayMaker;
+using LevelManagement;
 
 
 public class TreasurePickup : MonoBehaviour
 {
     Player playerController;
-    TreasureCounterController treasureUI;
+    //TreasureCounterController treasureUI;
 
     void Awake()
     {
         playerController = GameObject.FindObjectOfType<Player>();   //grab that player controller
-        treasureUI = GameObject.FindObjectOfType<TreasureCounterController>();
+        //treasureUI = GameObject.FindObjectOfType<TreasureCounterController>();
     }
 
 
@@ -21,7 +22,7 @@ public class TreasurePickup : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value += 1;
-            treasureUI.UpdateTreasureCountUI();
+            GameMenu.Instance.UpdateTreasureCounter();
             playerController.PlayTreasureParticles();
             Destroy(gameObject);
         }
