@@ -56,6 +56,14 @@ public class HealthBarController : MonoBehaviour
         AdjustHealth(0);
     }
 
+    //increase player health by amount (probably just 1 heart at a time, but maybe not)
+    public void IncreaseMaxHealth(int amount)
+    {
+        FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value += amount;
+        playerMaxHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value;
+        AdjustHealth(amount);
+    }
+
     public void AdjustHealth(int health)
     {
         int targetHealth = Mathf.Clamp(playerCurrentHealth + health, 0, playerMaxHealth);
@@ -70,11 +78,14 @@ public class HealthBarController : MonoBehaviour
         } else if (targetHealth > playerCurrentHealth){
             for (int i = playerCurrentHealth; i < targetHealth; i++) 
             {
-                Debug.Log("send GainHealth trigger");
-                heartAnimators[i].SetTrigger("GainHealth");
+                if (!heartArray[i].activeInHierarchy) { heartArray[i].SetActive(true); }
+                else
+                {
+                    //Debug.Log("send GainHealth trigger");
+                    heartAnimators[i].SetTrigger("GainHealth");
+                }
             }
         }
         playerCurrentHealth = targetHealth;
-
     }
 }

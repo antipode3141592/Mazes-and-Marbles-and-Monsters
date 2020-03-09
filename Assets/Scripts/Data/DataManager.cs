@@ -14,6 +14,10 @@ namespace LevelManagement.Data
         public float MusicVolume { get { return saveData.musicVolume; } set { saveData.musicVolume = value; } }
         public int HigestLevelUnlocked { get { return saveData.highestLevelUnlocked; } set { saveData.highestLevelUnlocked = value; } }
 
+        public int PlayerMaxHealth { get { return saveData.playerMaxHealth; } set { saveData.playerMaxHealth = value; } }
+
+        public int PlayerTotalDeathCount { get { return saveData.playerDeathCount; }  set { saveData.playerDeathCount = value; } }
+
         private static DataManager _instance;
         public static DataManager Instance
         {

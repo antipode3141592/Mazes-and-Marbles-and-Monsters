@@ -128,6 +128,7 @@ MonoBehaviour:
   hitEffect: {fileID: 8233079541745003472}
   healEffect: {fileID: 3735710819123007440}
   treasureEffect: {fileID: 4097187610937647480}
+  addMaxHealthEffect: {fileID: 0}
 --- !u!114 &1613584069746271358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,7 +649,7 @@ MonoBehaviour:
     locked: 0
     manualUpdate: 0
     keepDelayedEventsOnStateExit: 0
-    preprocessed: 0
+    preprocessed: 1
     ExposedEvents: []
     RestartOnEnable: 1
     EnableDebugFlow: 0
@@ -682,7 +683,7 @@ MonoBehaviour:
     handleAnimatorMove: 0
     handleAnimatorIK: 0
   fsmTemplate: {fileID: 0}
-  eventHandlerComponentsAdded: 0
+  eventHandlerComponentsAdded: 1
 --- !u!114 &1675193957519097715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1229,8 +1230,8 @@ MonoBehaviour:
         - 
         - 
         - 
-        actionEnabled: 010101010101
-        actionIsOpen: 010101010101
+        actionEnabled: 000000010001
+        actionIsOpen: 010000010001
         actionStartIndex: 000000000300000006000000090000000c0000000f000000
         actionHashCodes: 9c59e5019845b305603dd905603dd905603dd905ca51e900
         unityObjectParams: []
@@ -1296,7 +1297,7 @@ MonoBehaviour:
           tooltip: 
           showInInspector: 0
           networkSync: 0
-          value: 0
+          value: 2
         - useVariable: 0
           name: 
           tooltip: 
@@ -1315,15 +1316,9 @@ MonoBehaviour:
           tooltip: 
           showInInspector: 0
           networkSync: 0
-          value: 2
-        - useVariable: 1
-          name: PlayerHealth_global
-          tooltip: 
-          showInInspector: 0
-          networkSync: 0
           value: 0
         - useVariable: 1
-          name: HitPoints
+          name: PlayerHealth_global
           tooltip: 
           showInInspector: 0
           networkSync: 0
@@ -1333,7 +1328,13 @@ MonoBehaviour:
           tooltip: 
           showInInspector: 0
           networkSync: 0
-          value: 0
+          value: 2
+        - useVariable: 1
+          name: PlayerMaxHealth_global
+          tooltip: 
+          showInInspector: 0
+          networkSync: 0
+          value: 2
         - useVariable: 1
           name: HitPoints
           tooltip: 
@@ -1438,7 +1439,7 @@ MonoBehaviour:
           tooltip: 
           showInInspector: 0
           networkSync: 0
-          value: 0
+          value: 2
         - useVariable: 1
           name: invincibleTimer
           tooltip: 
@@ -1450,7 +1451,7 @@ MonoBehaviour:
           tooltip: 
           showInInspector: 0
           networkSync: 0
-          value: 0
+          value: 2
         - useVariable: 1
           name: deltaTime
           tooltip: 
@@ -1668,7 +1669,7 @@ MonoBehaviour:
         tooltip: 
         showInInspector: 0
         networkSync: 0
-        value: 0
+        value: 2
       - useVariable: 1
         name: invincibleTimer
         tooltip: 
@@ -1755,7 +1756,7 @@ MonoBehaviour:
     locked: 0
     manualUpdate: 0
     keepDelayedEventsOnStateExit: 0
-    preprocessed: 0
+    preprocessed: 1
     ExposedEvents: []
     RestartOnEnable: 1
     EnableDebugFlow: 0
@@ -1789,7 +1790,7 @@ MonoBehaviour:
     handleAnimatorMove: 0
     handleAnimatorIK: 0
   fsmTemplate: {fileID: 0}
-  eventHandlerComponentsAdded: 0
+  eventHandlerComponentsAdded: 1
 --- !u!95 &5024499731912051238
 Animator:
   serializedVersion: 3

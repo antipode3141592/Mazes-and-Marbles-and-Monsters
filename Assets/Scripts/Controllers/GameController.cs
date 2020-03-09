@@ -7,6 +7,7 @@ using LevelManagement.Data;
 using LevelManagement.Levels;
 using TMPro;    //text mesh pro library for UI stuff
 using HutongGames.PlayMaker;
+using MarblesAndMonsters;
 
 //persistent singleton class for controlling most of the game actions
 public class GameController : MonoBehaviour
@@ -30,6 +31,7 @@ public class GameController : MonoBehaviour
     GameObject player;
     //List<GameObject> activeMarbles;
     List<GameObject> marblePool;
+    List<Roller> rollers;
     //GameObject monster;
     List<GameObject> marbleSpawnPoints;
     Bag marbleBag;
@@ -73,7 +75,7 @@ public class GameController : MonoBehaviour
         //deathCountUI = GameObject.FindObjectOfType<DeathCounterController>();
 
         levelSelector = Object.FindObjectOfType<LevelSelector>();
-
+        rollers = new List<Roller>(GameObject.FindObjectsOfType<Roller>());
 
         PlayMakerFSM[] playerFSMs;
         playerFSMs = player.GetComponents<PlayMakerFSM>();
@@ -142,7 +144,10 @@ public class GameController : MonoBehaviour
         //    StartCoroutine(WinRoutine());
         //}
 
+        Time.timeScale = 0f;
         DataManager.Instance.HigestLevelUnlocked = levelSelector.CurrentIndex+1;    //unlock next index
+        DataManager.Instance.PlayerMaxHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value;
+        DataManager.Instance.PlayerTotalDeathCount = FsmVariables.GlobalVariables.FindFsmInt("PlayerDeaths_global").Value;
         //DataManager.Instance.
         DataManager.Instance.Save();
         
@@ -173,17 +178,26 @@ public class GameController : MonoBehaviour
         //Debug.Log("acceration output: " + move);
         if (player != null && player.activeInHierarchy)
         {
-            var playerbody = player.GetComponent<Rigidbody2D>();
-            playerbody.AddForce(move * playerbody.mass *forceMultiplier);
+            //var playerbody = player.GetComponent<Rigidbody2D>();
+            //playerbody.AddForce(move * playerbody.mass *forceMultiplier);
+            player.GetComponent<Player>().Move(move, forceMultiplier);
         }
         for(int i = 0; i < marblePool.Count; i++)
         {
             if (marblePool[i] != null && marblePool[i].activeInHierarchy)
             {
-                var marbleBody = marblePool[i].GetComponent<Rigidbody2D>();
-                marbleBody.AddForce(move * marbleBody.mass * forceMultiplier);
+                marblePool[i].GetComponent<Marble>().Move(move, forceMultiplier);
+                //var marbleBody = marblePool[i].GetComponent<Rigidbody2D>();
+                //marbleBody.AddForce(move * marbleBody.mass * forceMultiplier);
             }
-        }      
+        }
+        for(int i = 0; i< rollers.Count; i++)
+        {
+            if (rollers[i] != null)
+            {
+                rollers[i].Move(move, forceMultiplier);
+            }
+        }
     }
 
     public void SpawnAll()

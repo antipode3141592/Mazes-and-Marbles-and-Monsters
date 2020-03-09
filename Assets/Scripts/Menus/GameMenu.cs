@@ -54,6 +54,11 @@ namespace LevelManagement
             healthBarController.ResetHealth();
         }
 
+        public void AddMaxHealthUI(int amount)
+        {
+            healthBarController.IncreaseMaxHealth(amount);
+        }
+
         public void UpdateTreasureCounter()
         {
             treasureUI.UpdateTreasureCountUI();
