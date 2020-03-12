@@ -11,11 +11,17 @@ public class Player : BoardMovable<Player>
     public ParticleSystem healEffect;
     public ParticleSystem treasureEffect;
     public ParticleSystem addMaxHealthEffect;
+
+    
+    private List<InventoryItem> inventory;
+
+    public List<InventoryItem> Inventory => inventory;//read only accessor
     //HealthBarController healthBarController;
 
 
     private void Awake()
     {
+        inventory = new List<InventoryItem>();
         //healthBarController = GameObject.FindObjectOfType<HealthBarController>();
     }
 
@@ -54,5 +60,18 @@ public class Player : BoardMovable<Player>
     public void PlayAddMaxHealthParticles()
     {
         Debug.Log("Fire the particles of player max health increase!");
+    }
+
+    public void AddItemToInventory(InventoryItem itemToAdd)
+    {
+        inventory.Add(itemToAdd);
+        GameMenu.Instance.AddItemToInventory(itemToAdd);
+        Debug.Log("Added a " + itemToAdd.name + "to inventory!");
+    }
+
+    public void RemoveItemFromInventory(InventoryItem itemToRemove)
+    {
+        inventory.Remove(itemToRemove);
+        GameMenu.Instance.RemoveItemFromInventory(itemToRemove);
     }
 }

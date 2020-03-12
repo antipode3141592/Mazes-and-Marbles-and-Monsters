@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SampleGame;
+using MarblesAndMonsters;
 
 namespace LevelManagement
 {
@@ -10,6 +11,7 @@ namespace LevelManagement
         private DeathCounterController deathCountUI;
         private HealthBarController healthBarController;
         private TreasureCounterController treasureUI;
+        private InventoryUI inventoryUI;
 
         protected override void Awake()
         {
@@ -17,7 +19,7 @@ namespace LevelManagement
             deathCountUI = GameObject.FindObjectOfType<DeathCounterController>();
             healthBarController = GameObject.FindObjectOfType<HealthBarController>();
             treasureUI = GameObject.FindObjectOfType<TreasureCounterController>();
-
+            inventoryUI = GameObject.FindObjectOfType<InventoryUI>();
         }
 
         public void OnEnable()
@@ -30,6 +32,7 @@ namespace LevelManagement
             UpdateDeathCount();
             ResetHealth();
             UpdateTreasureCounter();
+            UpdateInventoryUI();
         }
         
         public void OnPausePressed()
@@ -62,6 +65,22 @@ namespace LevelManagement
         public void UpdateTreasureCounter()
         {
             treasureUI.UpdateTreasureCountUI();
+        }
+
+        public void AddItemToInventory(InventoryItem item)
+        {
+            inventoryUI.AddInventoryItem(item);
+        }
+
+        public void RemoveItemFromInventory(InventoryItem item)
+        {
+            inventoryUI.RemoveInventoryItem(item);
+        }
+
+        public void UpdateInventoryUI()
+        {
+            //update inventory in UI
+            inventoryUI.UpdateUI();
         }
     }
 }
