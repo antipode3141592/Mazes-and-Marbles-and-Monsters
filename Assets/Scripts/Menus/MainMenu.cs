@@ -14,13 +14,17 @@ namespace LevelManagement
         [SerializeField]
         private TransitionFader startTransitionPrefab;
 
-        //protected override void Awake()
-        //{
-        //    base.Awake();
-        //}
+        private LevelLoader levelLoader;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            
+        }
 
         public void Start()
         {
+            levelLoader = GameObject.FindObjectOfType<LevelLoader>();
             //LoadData();
         }
 
@@ -50,7 +54,8 @@ namespace LevelManagement
         private IEnumerator OnPlayPressedRoutine()
         {
             TransitionFader.PlayTransition(startTransitionPrefab);
-            LevelLoader.LoadNextLevel();
+            //LevelLoader.LoadNextLevel();
+            levelLoader.LoadNextLevel();
             yield return new WaitForSeconds(_playDelay);
             GameMenu.Open();
         }

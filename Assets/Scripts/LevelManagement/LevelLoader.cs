@@ -2,13 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using LevelManagement.Levels;
 
 
 namespace LevelManagement
 {
     public class LevelLoader : MonoBehaviour
     {
-        private static int mainMenuIndex = 1;
+        private static int mainMenuIndex = 1;   //splash screen is build index 0
+        private LevelSelector levelSelector;
+
+
+        private void Awake()
+        {
+            levelSelector = gameObject.GetComponent<LevelSelector>();
+        }
 
         //reload current level, no need to specificy scene name or index
         public static void ReloadLevel()
@@ -16,13 +24,30 @@ namespace LevelManagement
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        public static void LoadNextLevel()
-        {
+        //public static void LoadNextLevel()
+        //{
 
-            int nextSceneIndex = (SceneManager.GetActiveScene().buildIndex + 1)
-                % SceneManager.sceneCountInBuildSettings;
-            nextSceneIndex = Mathf.Clamp(nextSceneIndex, mainMenuIndex, SceneManager.sceneCountInBuildSettings);
-            LoadLevel(nextSceneIndex);
+        //    int nextSceneIndex = (SceneManager.GetActiveScene().buildIndex + 1)
+        //        % SceneManager.sceneCountInBuildSettings;
+        //    nextSceneIndex = Mathf.Clamp(nextSceneIndex, mainMenuIndex, SceneManager.sceneCountInBuildSettings);
+        //    LoadLevel(nextSceneIndex);
+        //}
+
+        public void LoadNextLevel()
+        {
+            if (SceneManager.GetActiveScene().buildIndex == mainMenuIndex)
+            {
+                levelSelector.SetIndex(0);
+                LoadLevel(levelSelector.GetLevelSpecsAtIndex(0).SceneName);
+            }
+            else
+            {
+                int nextSceneIndex = (levelSelector.CurrentIndex + 1)
+                    % levelSelector.TotalLevelCount();
+                nextSceneIndex = Mathf.Clamp(nextSceneIndex, mainMenuIndex, levelSelector.TotalLevelCount());
+                LevelSpecs levelSpecs = levelSelector.GetLevelSpecsAtIndex(nextSceneIndex);
+                LoadLevel(levelSpecs.SceneName);
+            }
         }
 
         public static void LoadLevel(int levelIndex)

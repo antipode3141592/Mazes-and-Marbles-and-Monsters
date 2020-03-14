@@ -49,3 +49,9 @@ MonoBehaviour:
     _sceneName: Assets/Scenes/Dungeon/Level_06.unity
     _id: d6
     _image: {fileID: 0}
+  - _name: 
+    _description: 
+    _campaignName: Intro
+    _sceneName: Assets/Scenes/Dungeon/Level_07.unity
+    _id: d7
+    _image: {fileID: 0}

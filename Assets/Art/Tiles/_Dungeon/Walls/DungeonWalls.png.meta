@@ -77,6 +77,12 @@ TextureImporter:
   - first:
       213: 7292529995695992787
     second: EastGateRed
+  - first:
+      213: 4549203215292085801
+    second: Torch_Lit
+  - first:
+      213: 8288535355925325702
+    second: Torch_Unlit
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -821,7 +827,7 @@ TextureImporter:
         width: 32
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -829,6 +835,48 @@ TextureImporter:
       bones: []
       spriteID: 3df2753c465443560800000000000000
       internalID: 7292529995695992787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torch_Lit
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 926bc8ab834022f30800000000000000
+      internalID: 4549203215292085801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torch_Unlit
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 687e13eddfac60370800000000000000
+      internalID: 8288535355925325702
       vertices: []
       indices: 
       edges: []

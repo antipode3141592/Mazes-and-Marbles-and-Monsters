@@ -19,6 +19,11 @@ namespace LevelManagement.Levels
             ClampIndex();
         }
 
+        public int TotalLevelCount()
+        {
+            return levelList.TotalLevels;
+        }
+
         private void ClampIndex()
         {
             if (levelList.TotalLevels == 0)
