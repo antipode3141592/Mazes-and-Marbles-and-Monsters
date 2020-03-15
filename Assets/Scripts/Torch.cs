@@ -5,6 +5,9 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class Torch : MonoBehaviour
 {
+    [SerializeField]
+    private bool initialState = false;
+
     private Light2D lightObject;
     private Animator animationController;
 
@@ -14,11 +17,19 @@ public class Torch : MonoBehaviour
         animationController = gameObject.GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        if (initialState)
+        {
+            animationController.SetBool("initialState", true);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other != null && other.gameObject.CompareTag("Player"))
         {
-            lightObject.intensity = 1.0f;
+            //lightObject.intensity = 1.0f;
             animationController.SetTrigger("Light");
         }
         
