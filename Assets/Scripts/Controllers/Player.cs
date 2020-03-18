@@ -19,8 +19,9 @@ public class Player : BoardMovable<Player>
     //HealthBarController healthBarController;
 
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         inventory = new List<InventoryItem>();
         //healthBarController = GameObject.FindObjectOfType<HealthBarController>();
     }

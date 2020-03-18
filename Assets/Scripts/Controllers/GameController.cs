@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour
     //List<GameObject> activeMarbles;
     List<GameObject> marblePool;
     List<Roller> rollers;
+    List<MoveTowardPlayer> moveTowardPlayerObjects;
     //GameObject monster;
     List<GameObject> marbleSpawnPoints;
     Bag marbleBag;
@@ -76,6 +77,8 @@ public class GameController : MonoBehaviour
 
         levelSelector = Object.FindObjectOfType<LevelSelector>();
         rollers = new List<Roller>(GameObject.FindObjectsOfType<Roller>());
+        moveTowardPlayerObjects = new List<MoveTowardPlayer>(GameObject.FindObjectsOfType<MoveTowardPlayer>());
+
 
         PlayMakerFSM[] playerFSMs;
         playerFSMs = player.GetComponents<PlayMakerFSM>();
@@ -196,6 +199,13 @@ public class GameController : MonoBehaviour
             if (rollers[i] != null)
             {
                 rollers[i].Move(move, forceMultiplier);
+            }
+        }
+        for (int i = 0; i < moveTowardPlayerObjects.Count; i++)
+        {
+            if (moveTowardPlayerObjects[i] != null)
+            {
+                moveTowardPlayerObjects[i].Move(move, forceMultiplier);
             }
         }
     }
