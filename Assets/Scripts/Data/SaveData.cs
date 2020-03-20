@@ -14,6 +14,7 @@ namespace LevelManagement.Data
         public int highestLevelUnlocked;
         public int playerMaxHealth;
         public int playerDeathCount;
+        public int playerTreasureCounter;
         public LevelSpecs playerCurrentLevel;
 
 
@@ -27,6 +28,7 @@ namespace LevelManagement.Data
             highestLevelUnlocked = 0;
             playerMaxHealth = 2; //default max health is 2 hearts
             playerDeathCount = 0;
+            playerTreasureCounter = 0;
             playerCurrentLevel = new LevelSpecs();
 
             hashValue = "";

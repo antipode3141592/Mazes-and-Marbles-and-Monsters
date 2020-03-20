@@ -18,6 +18,8 @@ namespace LevelManagement.Data
 
         public int PlayerTotalDeathCount { get { return saveData.playerDeathCount; }  set { saveData.playerDeathCount = value; } }
 
+        public int PlayerTreasureCount { get { return saveData.playerTreasureCounter; } set { saveData.playerTreasureCounter = value; } }
+
         private static DataManager _instance;
         public static DataManager Instance
         {

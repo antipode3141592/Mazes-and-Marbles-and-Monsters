@@ -38,6 +38,11 @@ namespace MarblesAndMonsters
         //    }
         //}
 
+        //public void RemoteUnlock(SwitchItem remoteSwitch)
+        //{
+        //    StartCoroutine(Unlock());
+        //}
+
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other != null && other.gameObject.CompareTag("Player"))
@@ -53,16 +58,27 @@ namespace MarblesAndMonsters
                         _locked = false;
 
                         //unlocking animation for locked item
-
+                        StartCoroutine(Unlock(item));
                         //remove key from inventory
-                        playerController.RemoveItemFromInventory(item);
+                        //playerController.RemoveItemFromInventory(item);
 
-                        //for now, disable the parent object representing the lock
-                        gameObject.SetActive(false);
+                        ////for now, disable the parent object representing the lock
+                        //gameObject.SetActive(false);
                         //lockedItem.SetActive(false);
+                        break;  //we broke the enumeration by removing it, so stop the loop
                     }
                 }
             }
+        }
+
+        private IEnumerator Unlock(KeyItem item)
+        {
+            yield return new WaitForSeconds(0.2f);
+
+            playerController.RemoveItemFromInventory(item);
+
+            //for now, disable the parent object representing the lock
+            gameObject.SetActive(false);
         }
     }
 }

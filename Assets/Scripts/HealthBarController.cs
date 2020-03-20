@@ -29,25 +29,28 @@ public class HealthBarController : MonoBehaviour
 
     public void ResetHealth()
     {
-        playerCurrentHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerHealth_global").Value;
-        playerMaxHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value;
-        //activate heart objects equal to max health
-        int i = 0;
-        for (; i < playerCurrentHealth; i++)
+        if (FsmVariables.GlobalVariables != null)
         {
-            heartArray[i].SetActive(true);
-            heartAnimators[i].Play("FullHeart");   
-        }
-        //set hearts up to max health to empty
-        for(; i < playerMaxHealth; i++)
-        {
-            heartArray[i].SetActive(true);
-            heartAnimators[i].Play("LoseHeart");
-        }
-        //deactivate remaining hearts
-        for (; i < heartArray.Length; i++)
-        {
-            heartArray[i].SetActive(false);
+            playerCurrentHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerHealth_global").Value;
+            playerMaxHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value;
+            //activate heart objects equal to max health
+            int i = 0;
+            for (; i < playerCurrentHealth; i++)
+            {
+                heartArray[i].SetActive(true);
+                heartAnimators[i].Play("FullHeart");
+            }
+            //set hearts up to max health to empty
+            for (; i < playerMaxHealth; i++)
+            {
+                heartArray[i].SetActive(true);
+                heartAnimators[i].Play("LoseHeart");
+            }
+            //deactivate remaining hearts
+            for (; i < heartArray.Length; i++)
+            {
+                heartArray[i].SetActive(false);
+            }
         }
     }
 

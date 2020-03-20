@@ -29,7 +29,7 @@ namespace MarblesAndMonsters
             {
                 Vector2 directionToPlayer = playerController.transform.position - gameObject.transform.position;
                 directionToPlayer = directionToPlayer / directionToPlayer.magnitude; //normalize
-                rigidbody2D.AddForce(directionToPlayer * speedModifier * forceMultiplier * rigidbody2D.mass);
+                _rigidbody.AddForce(directionToPlayer * speedModifier * forceMultiplier * _rigidbody.mass);
             }
         }
     }

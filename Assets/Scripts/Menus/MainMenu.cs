@@ -13,6 +13,18 @@ namespace LevelManagement
         private float _playDelay = 0.5f;
         [SerializeField]
         private TransitionFader startTransitionPrefab;
+        [SerializeField]
+        private Text currentLevel;
+        [SerializeField]
+        private Text playerHealth;
+        [SerializeField]
+        private Text treasureCount;
+        [SerializeField]
+        private Text deathCount;
+        [SerializeField]
+        private GameObject currentGameGroup;
+        [SerializeField]
+        private GameObject resumeButton;
 
         private LevelLoader levelLoader;
 
@@ -25,25 +37,45 @@ namespace LevelManagement
         public void Start()
         {
             levelLoader = GameObject.FindObjectOfType<LevelLoader>();
-            //LoadData();
+            LoadData();
+
+            if (DataManager.Instance.HigestLevelUnlocked >= 1)
+            {
+                currentGameGroup.SetActive(true);
+                resumeButton.SetActive(true);
+                treasureCount.text = "Treasures Collected: " + DataManager.Instance.PlayerTreasureCount;
+                currentLevel.text = "Current Level: " + (DataManager.Instance.HigestLevelUnlocked + 1);
+                playerHealth.text = "Max Health: " + DataManager.Instance.PlayerMaxHealth;
+                deathCount.text = "Deaths: " + DataManager.Instance.PlayerTotalDeathCount;
+
+            } else
+            {
+                currentGameGroup.SetActive(false);
+                resumeButton.SetActive(false);
+            }
         }
 
         private void LoadData()
         {
-            //if (playerNameInputField == null)
-            //{
-            //    return;
-            //} else
-            //{
-            //    DataManager.Instance.Load();
-            //    playerNameInputField.SetTextWithoutNotify(DataManager.Instance.PlayerName);
-            //}
-
+            DataManager.Instance.Load();
         }
 
         public void SaveData()
         {
             DataManager.Instance.Save();
+        }
+
+        public void OnResumePressed()
+        {
+            StartCoroutine(OnResumePressedRoutine());
+        }
+
+        private IEnumerator OnResumePressedRoutine()
+        {
+            TransitionFader.PlayTransition(startTransitionPrefab);
+            levelLoader.LoadLevel(DataManager.Instance.HigestLevelUnlocked);
+            yield return new WaitForSeconds(_playDelay);
+            GameMenu.Open();
         }
 
         public void OnPlayPressed()
@@ -54,7 +86,6 @@ namespace LevelManagement
         private IEnumerator OnPlayPressedRoutine()
         {
             TransitionFader.PlayTransition(startTransitionPrefab);
-            //LevelLoader.LoadNextLevel();
             levelLoader.LoadNextLevel();
             yield return new WaitForSeconds(_playDelay);
             GameMenu.Open();

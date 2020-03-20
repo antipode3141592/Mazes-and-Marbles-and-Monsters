@@ -14,7 +14,10 @@ namespace MarblesAndMonsters
             {
                 if (other.gameObject.CompareTag("Player"))
                 {
+                    Debug.Log("Player has entered Mummy's trigger collider!");
                     isAwake = true;
+                    var collider = this.gameObject.GetComponent<BoxCollider2D>();
+                    collider.enabled = false;
                 }
             }
         }

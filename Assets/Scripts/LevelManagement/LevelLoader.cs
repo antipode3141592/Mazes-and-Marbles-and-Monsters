@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using LevelManagement.Levels;
+using LevelManagement.Data;
 
 
 namespace LevelManagement
@@ -37,6 +38,7 @@ namespace LevelManagement
         {
             if (SceneManager.GetActiveScene().buildIndex == mainMenuIndex)
             {
+                Debug.Log("currently in main menu, loading first level from level list");
                 levelSelector.SetIndex(0);
                 LoadLevel(levelSelector.GetLevelSpecsAtIndex(0).SceneName);
             }
@@ -44,28 +46,34 @@ namespace LevelManagement
             {
                 int nextSceneIndex = (levelSelector.CurrentIndex + 1)
                     % levelSelector.TotalLevelCount();
-                nextSceneIndex = Mathf.Clamp(nextSceneIndex, mainMenuIndex, levelSelector.TotalLevelCount());
+                //nextSceneIndex = Mathf.Clamp(nextSceneIndex, mainMenuIndex, levelSelector.TotalLevelCount());
                 LevelSpecs levelSpecs = levelSelector.GetLevelSpecsAtIndex(nextSceneIndex);
+                levelSelector.SetIndex(nextSceneIndex);
+                DataManager.Instance.HigestLevelUnlocked = nextSceneIndex;    //unlock next index
+                DataManager.Instance.Save();
                 LoadLevel(levelSpecs.SceneName);
             }
         }
 
-        public static void LoadLevel(int levelIndex)
+        public void LoadLevel(int levelIndex)
         {
-            if (levelIndex >= 0 && levelIndex < SceneManager.sceneCountInBuildSettings)
-            {
-                if (levelIndex == mainMenuIndex)
-                {
-                    MainMenu.Open();
-                }
-            }
-            SceneManager.LoadScene(levelIndex);
+            LoadLevel(levelSelector.GetLevelSpecsAtIndex(levelIndex).SceneName);
+            //if (levelIndex >= 0 && levelIndex < SceneManager.sceneCountInBuildSettings)
+            //{
+            //    if (levelIndex == mainMenuIndex)
+            //    {
+            //        MainMenu.Open();
+            //    }
+            //}
+            //SceneManager.LoadScene(levelIndex);
         }
 
         private static void LoadLevel(string levelName)
         {
+            Debug.Log("attempting to load " + levelName);
             if (Application.CanStreamedLevelBeLoaded(levelName))
             {
+                Debug.Log("level is valid, now loading");
                 SceneManager.LoadScene(levelName);
             }
             else
@@ -76,7 +84,8 @@ namespace LevelManagement
 
         public static void LoadMainMenuLevel()
         {
-            LoadLevel(mainMenuIndex);
+            //LoadLevel(mainMenuIndex);
+            SceneManager.LoadScene(mainMenuIndex);
         }
     }
 }

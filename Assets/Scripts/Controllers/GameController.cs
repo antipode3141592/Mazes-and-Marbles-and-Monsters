@@ -22,24 +22,21 @@ public class GameController : MonoBehaviour
     private GameObject marblePrefab;
 
     private LevelSelector levelSelector;
-    private static GameController _instance;
-
-    PlayMakerFSM playerHealthManagerFSM;
-    PlayMakerFSM playerMovementManagerFSM;
-    PlayMakerFSM gameControllerFSM;
+    private PlayMakerFSM playerHealthManagerFSM;
+    private PlayMakerFSM playerMovementManagerFSM;
+    private PlayMakerFSM gameControllerFSM;
     string[] levelNameArray;
-    GameObject player;
-    //List<GameObject> activeMarbles;
-    List<GameObject> marblePool;
-    List<Roller> rollers;
-    List<MoveTowardPlayer> moveTowardPlayerObjects;
-    //GameObject monster;
-    List<GameObject> marbleSpawnPoints;
-    Bag marbleBag;
-    List<GameObject> monsterSpawnPoints;
-    //List<GameObject> treasureSpawnPoints;
-    GameObject playerSpawnpoint;
-    //DeathCounterController deathCountUI;
+    private GameObject player;
+    private List<Marble> marblePool;
+    private List<Roller> rollers;
+    private List<MoveTowardPlayer> moveTowardPlayerObjects;
+    private List<GameObject> marbleSpawnPoints;
+    private Bag marbleBag;
+    private List<GameObject> monsterSpawnPoints;
+    private GameObject playerSpawnpoint;
+
+
+    private static GameController _instance;
 
     public static GameController Instance
     {
@@ -64,20 +61,20 @@ public class GameController : MonoBehaviour
     private void InitializeReferences()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        //activeMarbles = new List<GameObject>(); //empty array of active Marbles
-        marblePool = new List<GameObject>();
-        
-        marbleSpawnPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Spawn_Marble"));
-        Debug.Log("There are " + marbleSpawnPoints.Count + " marble spawn points!");
-        marbleBag = new Bag(marbleSpawnPoints.Count);
+        //lists
+        marblePool = new List<Marble>();  //empty marble pool
+        marbleSpawnPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Spawn_Marble"));  // find all marble spawn points
         monsterSpawnPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Spawn_Monster"));
-        //treasureSpawnPoints = new List<GameObject>(GameObject.Findga
-        playerSpawnpoint = GameObject.FindGameObjectWithTag("Spawn_Player");
-        //deathCountUI = GameObject.FindObjectOfType<DeathCounterController>();
-
-        levelSelector = Object.FindObjectOfType<LevelSelector>();
         rollers = new List<Roller>(GameObject.FindObjectsOfType<Roller>());
         moveTowardPlayerObjects = new List<MoveTowardPlayer>(GameObject.FindObjectsOfType<MoveTowardPlayer>());
+
+        //initialize marble bag for randomizing marble spawns
+        marbleBag = new Bag(marbleSpawnPoints.Count);
+
+
+        playerSpawnpoint = GameObject.FindGameObjectWithTag("Spawn_Player");
+        levelSelector = Object.FindObjectOfType<LevelSelector>();
+        
 
 
         PlayMakerFSM[] playerFSMs;
@@ -105,13 +102,13 @@ public class GameController : MonoBehaviour
         }
     }
     // check for the end game condition on each frame
-    private void Update()
-    {
-        //if (_objective != null && _objective.IsComplete)
-        //{
-        //    EndLevel();
-        //}
-    }
+    //private void Update()
+    //{
+    //    //if (_objective != null && _objective.IsComplete)
+    //    //{
+    //    //    EndLevel();
+    //    //}
+    //}
 
     public void EndLevel()
     {
@@ -148,11 +145,16 @@ public class GameController : MonoBehaviour
         //}
 
         Time.timeScale = 0f;
-        DataManager.Instance.HigestLevelUnlocked = levelSelector.CurrentIndex+1;    //unlock next index
-        DataManager.Instance.PlayerMaxHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value;
-        DataManager.Instance.PlayerTotalDeathCount = FsmVariables.GlobalVariables.FindFsmInt("PlayerDeaths_global").Value;
-        //DataManager.Instance.
-        DataManager.Instance.Save();
+
+        if (FsmVariables.GlobalVariables != null)
+        {
+            //if the Fsm global variables are available, save some of them to disk
+            DataManager.Instance.PlayerMaxHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value;
+            DataManager.Instance.PlayerTotalDeathCount = FsmVariables.GlobalVariables.FindFsmInt("PlayerDeaths_global").Value;
+            DataManager.Instance.PlayerTreasureCount = FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value;
+            
+            DataManager.Instance.Save();
+        }
         
         gameControllerFSM.SendEvent("WinningGame");
 
@@ -187,9 +189,9 @@ public class GameController : MonoBehaviour
         }
         for(int i = 0; i < marblePool.Count; i++)
         {
-            if (marblePool[i] != null && marblePool[i].activeInHierarchy)
+            if (marblePool[i] != null && marblePool[i].gameObject.activeInHierarchy)
             {
-                marblePool[i].GetComponent<Marble>().Move(move, forceMultiplier);
+                marblePool[i].Move(move, forceMultiplier);
                 //var marbleBody = marblePool[i].GetComponent<Rigidbody2D>();
                 //marbleBody.AddForce(move * marbleBody.mass * forceMultiplier);
             }
@@ -203,7 +205,7 @@ public class GameController : MonoBehaviour
         }
         for (int i = 0; i < moveTowardPlayerObjects.Count; i++)
         {
-            if (moveTowardPlayerObjects[i] != null)
+            if (moveTowardPlayerObjects[i] != null && moveTowardPlayerObjects[i].gameObject.activeInHierarchy)
             {
                 moveTowardPlayerObjects[i].Move(move, forceMultiplier);
             }
@@ -221,7 +223,7 @@ public class GameController : MonoBehaviour
         {
             GameObject obj = (GameObject)Instantiate(marblePrefab);
             obj.SetActive(false);
-            marblePool.Add(obj);
+            marblePool.Add(obj.GetComponent<Marble>());
         }   //this should ensure that there are an equal number of instantiated (inactive) marbles to marble SpawnPoints
         //now place marbles on each spawn point
         for (int i = 0; i < marblePool.Count; i++)
@@ -243,7 +245,7 @@ public class GameController : MonoBehaviour
         {
             if (marble != null) 
             { 
-                marble.SetActive(false); //deactivate all marbles in marblePool
+                marble.gameObject.SetActive(false); //deactivate all marbles in marblePool
             }
         }
     }
@@ -264,9 +266,9 @@ public class GameController : MonoBehaviour
 
         for (int i = 0; i < marblePool.Count; i++)
         {
-            if (!marblePool[i].activeInHierarchy)   //grab first available inactive marble
+            if (!marblePool[i].gameObject.activeInHierarchy)   //grab first available inactive marble
             {
-                marble = marblePool[i];
+                marble = marblePool[i].gameObject;
                 break;
             }
         }
