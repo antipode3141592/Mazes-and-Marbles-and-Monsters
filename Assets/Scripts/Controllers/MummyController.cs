@@ -3,23 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using MarblesAndMonsters;
 
-namespace MarblesAndMonsters
+public class MummyController : ActionController
 {
-    public class MummyController : MoveTowardPlayer
-    {
+    // Start is called before the first frame update
+    
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other != null)
-            {
-                if (other.gameObject.CompareTag("Player"))
-                {
-                    Debug.Log("Player has entered Mummy's trigger collider!");
-                    isAwake = true;
-                    var collider = this.gameObject.GetComponent<BoxCollider2D>();
-                    collider.enabled = false;
-                }
-            }
-        }
+    
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+            
     }
 }

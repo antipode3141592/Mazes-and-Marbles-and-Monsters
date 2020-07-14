@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+//  Class Name:  MenuManager
+//  Interacts with:  Menu
+//  Purpose:  A UI controller with 
+//  
 
 namespace LevelManagement
 {
@@ -14,7 +20,7 @@ namespace LevelManagement
         [SerializeField]
         private CreditsMenu creditsScreenPrefab;
         [SerializeField]
-        private GameMenu gameMenuPrefab;
+        private GameMenu gameMenuPrefab;    //the ingame UI
         [SerializeField]
         private PauseMenu pauseMenuPrefab;
         [SerializeField]
@@ -78,9 +84,14 @@ namespace LevelManagement
                     if (prefab != mainMenuPrefab)
                     {
                         menuInstance.gameObject.SetActive(false);
+                    } else if (SceneManager.GetActiveScene().buildIndex <= 1)
+                    {
+                        Debug.Log(SceneManager.GetActiveScene().buildIndex);
+                        OpenMenu(menuInstance);
                     } else
                     {
-                        OpenMenu(menuInstance);
+                        menuInstance.gameObject.SetActive(false);
+                        OpenMenu(gameMenuPrefab);
                     }
                 }
             }

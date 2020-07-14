@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 1675193957519097715}
   - component: {fileID: 5024499731912051238}
   - component: {fileID: 1537434581188572169}
+  - component: {fileID: 8033061730288465647}
+  - component: {fileID: 8861542608265353331}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -31,7 +33,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1236707307626652074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.3721, y: -1.98, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 0.7057, y: 0.7057, z: 0.7057}
   m_Children:
   - {fileID: 2371440412233807255}
@@ -1826,6 +1828,38 @@ CircleCollider2D:
   m_Offset: {x: 0.08198662, y: -0.09057334}
   serializedVersion: 2
   m_Radius: 0.37790677
+--- !u!114 &8033061730288465647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236707307626652074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9c6b6e68a423447a0be67e008d7d70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 20
+  strength: 0
+  armor: 0
+  attacks: []
+  damageImmunities: 
+  respawnFlag: 0
+  respawnPeriod: 0
+--- !u!114 &8861542608265353331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236707307626652074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfc084c56f6f5449947cfc56d091772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _forceMultiplier: 9.81
 --- !u!1001 &1730117940445132589
 PrefabInstance:
   m_ObjectHideFlags: 0

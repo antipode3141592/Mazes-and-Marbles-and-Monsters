@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using LevelManagement;
 using MarblesAndMonsters;
+using MarblesAndMonsters.Characters;
 
-public class Player : BoardMovable<Player>
+public class Player : CharacterSheetController<Player>
 {
     public ParticleSystem hitEffect;
     public ParticleSystem healEffect;
@@ -24,6 +25,12 @@ public class Player : BoardMovable<Player>
         base.Awake();
         inventory = new List<InventoryItem>();
         //healthBarController = GameObject.FindObjectOfType<HealthBarController>();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
     }
 
     public void AdjustHealthUI(int health)

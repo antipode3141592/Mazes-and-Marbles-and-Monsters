@@ -17,6 +17,13 @@ public class TreasurePickup : MonoBehaviour
     }
 
 
+    private void Reset()
+    {
+        gameObject.SetActive(true);
+        FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value -= 1;
+        GameMenu.Instance.UpdateTreasureCounter();
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -24,7 +31,8 @@ public class TreasurePickup : MonoBehaviour
             FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value += 1;
             GameMenu.Instance.UpdateTreasureCounter();
             playerController.PlayTreasureParticles();
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

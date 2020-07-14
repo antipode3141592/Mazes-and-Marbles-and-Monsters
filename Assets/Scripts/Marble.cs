@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MarblesAndMonsters;
+using MarblesAndMonsters.Characters;
 
 namespace MarblesAndMonsters
 {
-    public class Marble : BoardMovable<Marble>
+    public class Marble : CharacterSheetController<Marble>
     {
         //Rigidbody2D rigidbody2D;
         //Player player;
@@ -26,5 +27,11 @@ namespace MarblesAndMonsters
         //    }
 
         //}
+
+        protected override void Update()
+        {
+            base.Update();
+
+        }
     }
 }

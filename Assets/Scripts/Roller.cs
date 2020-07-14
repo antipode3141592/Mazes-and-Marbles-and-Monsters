@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MarblesAndMonsters;
+using MarblesAndMonsters.Characters;
 
-public class Roller : BoardMovable<Roller>
+public class Roller : CharacterSheetController<Roller>
 {
     [SerializeField]
     private Vector2 orientation; //rollers only move along one axis.  probably only vertical and horizontal, but for now keep it open to any vector

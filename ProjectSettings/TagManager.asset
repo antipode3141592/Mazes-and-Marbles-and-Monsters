@@ -9,6 +9,7 @@ TagManager:
   - Spawn_Monster
   - Spawn_Player
   - Monster
+  - Pickup
   layers:
   - Default
   - TransparentFX

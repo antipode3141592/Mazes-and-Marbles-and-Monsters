@@ -29,11 +29,12 @@ public class GameController : MonoBehaviour
     private GameObject player;
     private List<Marble> marblePool;
     private List<Roller> rollers;
-    private List<MoveTowardPlayer> moveTowardPlayerObjects;
+    private List<FollowPlayer> moveTowardPlayerObjects;
     private List<GameObject> marbleSpawnPoints;
     private Bag marbleBag;
     private List<GameObject> monsterSpawnPoints;
     private GameObject playerSpawnpoint;
+    private List<GameObject> pickupSpawnPoints;
 
 
     private static GameController _instance;
@@ -66,16 +67,14 @@ public class GameController : MonoBehaviour
         marbleSpawnPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Spawn_Marble"));  // find all marble spawn points
         monsterSpawnPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Spawn_Monster"));
         rollers = new List<Roller>(GameObject.FindObjectsOfType<Roller>());
-        moveTowardPlayerObjects = new List<MoveTowardPlayer>(GameObject.FindObjectsOfType<MoveTowardPlayer>());
+        moveTowardPlayerObjects = new List<FollowPlayer>(GameObject.FindObjectsOfType<FollowPlayer>());
+        pickupSpawnPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Pickup")); //find all pickups
 
         //initialize marble bag for randomizing marble spawns
         marbleBag = new Bag(marbleSpawnPoints.Count);
 
-
         playerSpawnpoint = GameObject.FindGameObjectWithTag("Spawn_Player");
         levelSelector = Object.FindObjectOfType<LevelSelector>();
-        
-
 
         PlayMakerFSM[] playerFSMs;
         playerFSMs = player.GetComponents<PlayMakerFSM>();
@@ -144,7 +143,7 @@ public class GameController : MonoBehaviour
         //    StartCoroutine(WinRoutine());
         //}
 
-        Time.timeScale = 0f;
+        Time.timeScale = 0f;    //pause time
 
         if (FsmVariables.GlobalVariables != null)
         {
@@ -174,43 +173,43 @@ public class GameController : MonoBehaviour
         WinMenu.Open();
     }
 
-    public void MoveActiveObjects()
-    {
-        //get controller input
-        float horizontal = Input.acceleration.x;
-        float vertical = Input.acceleration.y;
-        Vector2 move = new Vector2(horizontal, vertical);
-        //Debug.Log("acceration output: " + move);
-        if (player != null && player.activeInHierarchy)
-        {
-            //var playerbody = player.GetComponent<Rigidbody2D>();
-            //playerbody.AddForce(move * playerbody.mass *forceMultiplier);
-            player.GetComponent<Player>().Move(move, forceMultiplier);
-        }
-        for(int i = 0; i < marblePool.Count; i++)
-        {
-            if (marblePool[i] != null && marblePool[i].gameObject.activeInHierarchy)
-            {
-                marblePool[i].Move(move, forceMultiplier);
-                //var marbleBody = marblePool[i].GetComponent<Rigidbody2D>();
-                //marbleBody.AddForce(move * marbleBody.mass * forceMultiplier);
-            }
-        }
-        for(int i = 0; i< rollers.Count; i++)
-        {
-            if (rollers[i] != null)
-            {
-                rollers[i].Move(move, forceMultiplier);
-            }
-        }
-        for (int i = 0; i < moveTowardPlayerObjects.Count; i++)
-        {
-            if (moveTowardPlayerObjects[i] != null && moveTowardPlayerObjects[i].gameObject.activeInHierarchy)
-            {
-                moveTowardPlayerObjects[i].Move(move, forceMultiplier);
-            }
-        }
-    }
+    //public void MoveActiveObjects()
+    //{
+    //    //get controller input
+    //    float horizontal = Input.acceleration.x;
+    //    float vertical = Input.acceleration.y;
+    //    Vector2 move = new Vector2(horizontal, vertical);
+    //    //Debug.Log("acceration output: " + move);
+    //    if (player != null && player.activeInHierarchy)
+    //    {
+    //        //var playerbody = player.GetComponent<Rigidbody2D>();
+    //        //playerbody.AddForce(move * playerbody.mass *forceMultiplier);
+    //        player.GetComponent<Player>().Move(move, forceMultiplier);
+    //    }
+    //    for(int i = 0; i < marblePool.Count; i++)
+    //    {
+    //        if (marblePool[i] != null && marblePool[i].gameObject.activeInHierarchy)
+    //        {
+    //            marblePool[i].Move(move, forceMultiplier);
+    //            //var marbleBody = marblePool[i].GetComponent<Rigidbody2D>();
+    //            //marbleBody.AddForce(move * marbleBody.mass * forceMultiplier);
+    //        }
+    //    }
+    //    for(int i = 0; i< rollers.Count; i++)
+    //    {
+    //        if (rollers[i] != null)
+    //        {
+    //            rollers[i].Move(move, forceMultiplier);
+    //        }
+    //    }
+    //    for (int i = 0; i < moveTowardPlayerObjects.Count; i++)
+    //    {
+    //        if (moveTowardPlayerObjects[i] != null && moveTowardPlayerObjects[i].gameObject.activeInHierarchy)
+    //        {
+    //            moveTowardPlayerObjects[i].Move(move, forceMultiplier);
+    //        }
+    //    }
+    //}
 
     public void SpawnAll()
     {
