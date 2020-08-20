@@ -1,38 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using HutongGames.PlayMaker;
+//using HutongGames.PlayMaker;
 using LevelManagement;
+using MarblesAndMonsters.Characters;
 
-
-public class TreasurePickup : MonoBehaviour
+namespace MarblesAndMonsters.Items
 {
-    Player playerController;
-    //TreasureCounterController treasureUI;
-
-    void Awake()
+    public class TreasurePickup : MonoBehaviour
     {
-        playerController = GameObject.FindObjectOfType<Player>();   //grab that player controller
-        //treasureUI = GameObject.FindObjectOfType<TreasureCounterController>();
-    }
+        //Player playerController;
+        ////TreasureCounterController treasureUI;
+
+        //void Awake()
+        //{
+        //    playerController = GameObject.FindObjectOfType<Player>();   //grab that player controller
+        //                                                                //treasureUI = GameObject.FindObjectOfType<TreasureCounterController>();
+        //}
 
 
-    private void Reset()
-    {
-        gameObject.SetActive(true);
-        FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value -= 1;
-        GameMenu.Instance.UpdateTreasureCounter();
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
+        private void Reset()
         {
-            FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value += 1;
-            GameMenu.Instance.UpdateTreasureCounter();
-            playerController.PlayTreasureParticles();
-            //Destroy(gameObject);
-            gameObject.SetActive(false);
+            gameObject.SetActive(true);
+            //FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value -= 1;
+            //GameMenu.Instance.UpdateTreasureCounter();
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                //FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value += 1;
+                //GameMenu.Instance.UpdateTreasureCounter();
+                Player.Instance.AddTreasure(+1);
+                //Destroy(gameObject);
+                gameObject.SetActive(false);
+            }
         }
     }
 }

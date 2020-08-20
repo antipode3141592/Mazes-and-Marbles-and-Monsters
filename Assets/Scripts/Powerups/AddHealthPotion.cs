@@ -1,27 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using HutongGames.PlayMaker;
+using MarblesAndMonsters.Characters;
 
-public class AddHealthPotion : MonoBehaviour
+namespace MarblesAndMonsters.Items
 {
-    GameObject player;
-    Player playerController;
-
-    // Start is called before the first frame update
-    void Awake()
+    public class AddHealthPotion : MonoBehaviour
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerController = GameObject.FindObjectOfType<Player>();   //grab that player controller
-    }
+        [SerializeField]
+        private int strength;
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            playerController.AddMaxHealthUI(1);
-            playerController.PlayAddMaxHealthParticles();
-            Destroy(gameObject);    //destroy self (these are relatively rare, so no need for pooling)
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                Player.Instance.AddMaxHealth(strength);
+                Destroy(gameObject);    //destroy self (these are relatively rare, so no need for pooling)
+            }
         }
     }
 }

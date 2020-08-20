@@ -1,43 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using HutongGames.PlayMaker;
+using MarblesAndMonsters.Characters;
 
-public class HealthPotion : MonoBehaviour
+namespace MarblesAndMonsters.Items
 {
-    //PlayMakerFSM playerHealthManagerFSM;
-    GameObject player;
-    Player playerController;
-
-    // Start is called before the first frame update
-    void Awake()
+    public class HealthPotion : MonoBehaviour
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerController = GameObject.FindObjectOfType<Player>();   //grab that player controller
-        //PlayMakerFSM[] playerFSMs;
-        //playerFSMs = player.GetComponents<PlayMakerFSM>();
-        //foreach (PlayMakerFSM fsm in playerFSMs)
-        //{
-        //    if (fsm.FsmName == "HealthManager")
-        //    {
-        //        playerHealthManagerFSM = fsm;
-        //    }
-        //}
-    }
+        [SerializeField]
+        private int strength;
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (FsmVariables.GlobalVariables.FindFsmInt("PlayerHealth_global").Value < FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value)
+            //only Player objects can pickup and use 
+            if (collision.gameObject.CompareTag("Player"))
             {
-                playerController.AdjustHealthUI(+1);
-                playerController.IsHealedEffectParticles();
-                Destroy(gameObject);    //destroy self (these are relatively rare, so no need for pooling)
-            }
-            else
-            {
-                //nothing (only pick up when player has available health
+                if (Player.Instance != null)
+                {
+                    //check for damage
+                    if (Player.Instance.MySheet.CurrentHealth < Player.Instance.MySheet.MaxHealth)
+                    {
+                        Player.Instance.AdjustHealth(strength);
+                        Destroy(gameObject);    //destroy self (these are relatively rare, so no need for pooling)
+                    }
+                    else
+                    {
+                        //nothing
+                    }
+                }
             }
         }
     }

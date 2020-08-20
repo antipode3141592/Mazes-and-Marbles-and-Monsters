@@ -38,7 +38,8 @@ public class Pit : MonoBehaviour
             {
                 GameController.Instance.DestroyMarble(other.gameObject);
                 //Debug.Log("respawn a marble!");
-                GameController.Instance.SpawnMarble();
+                StartCoroutine(SpawnMarble());
+                //GameController.Instance.SpawnMarble();
             }
             else if (other.gameObject.CompareTag("Monster"))
             {
@@ -68,5 +69,9 @@ public class Pit : MonoBehaviour
         }
     }
 
-
+    private IEnumerator SpawnMarble()
+    {
+        yield return new WaitForSeconds(1.5f);
+        GameController.Instance.SpawnMarble();
+    }
 }

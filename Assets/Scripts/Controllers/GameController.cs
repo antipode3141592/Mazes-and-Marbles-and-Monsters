@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using LevelManagement;
+﻿using LevelManagement;
 using LevelManagement.Data;
 using LevelManagement.Levels;
-using TMPro;    //text mesh pro library for UI stuff
-using HutongGames.PlayMaker;
 using MarblesAndMonsters;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 //persistent singleton class for controlling most of the game actions
 public class GameController : MonoBehaviour
@@ -22,14 +19,16 @@ public class GameController : MonoBehaviour
     private GameObject marblePrefab;
 
     private LevelSelector levelSelector;
-    private PlayMakerFSM playerHealthManagerFSM;
-    private PlayMakerFSM playerMovementManagerFSM;
-    private PlayMakerFSM gameControllerFSM;
+
+    //private PlayMakerFSM playerHealthManagerFSM;
+    //private PlayMakerFSM playerMovementManagerFSM;
+    //private PlayMakerFSM gameControllerFSM;
+
     string[] levelNameArray;
     private GameObject player;
     private List<Marble> marblePool;
     private List<Roller> rollers;
-    private List<FollowPlayer> moveTowardPlayerObjects;
+    //private List<FollowPlayer> moveTowardPlayerObjects;
     private List<GameObject> marbleSpawnPoints;
     private Bag marbleBag;
     private List<GameObject> monsterSpawnPoints;
@@ -67,7 +66,7 @@ public class GameController : MonoBehaviour
         marbleSpawnPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Spawn_Marble"));  // find all marble spawn points
         monsterSpawnPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Spawn_Monster"));
         rollers = new List<Roller>(GameObject.FindObjectsOfType<Roller>());
-        moveTowardPlayerObjects = new List<FollowPlayer>(GameObject.FindObjectsOfType<FollowPlayer>());
+        //moveTowardPlayerObjects = new List<FollowPlayer>(GameObject.FindObjectsOfType<FollowPlayer>());
         pickupSpawnPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Pickup")); //find all pickups
 
         //initialize marble bag for randomizing marble spawns
@@ -75,22 +74,6 @@ public class GameController : MonoBehaviour
 
         playerSpawnpoint = GameObject.FindGameObjectWithTag("Spawn_Player");
         levelSelector = Object.FindObjectOfType<LevelSelector>();
-
-        PlayMakerFSM[] playerFSMs;
-        playerFSMs = player.GetComponents<PlayMakerFSM>();
-        foreach (PlayMakerFSM fsm in playerFSMs)
-        {
-            if (fsm.FsmName == "MovementManager")
-            {
-                playerMovementManagerFSM = fsm;
-            }
-            else if (fsm.FsmName == "HealthManager")
-            {
-                playerHealthManagerFSM = fsm;
-            }
-        }
-
-        gameControllerFSM = Instance.GetComponent<PlayMakerFSM>();
     }
 
     private void OnDestroy()
@@ -100,68 +83,32 @@ public class GameController : MonoBehaviour
             _instance = null;
         }
     }
-    // check for the end game condition on each frame
-    //private void Update()
-    //{
-    //    //if (_objective != null && _objective.IsComplete)
-    //    //{
-    //    //    EndLevel();
-    //    //}
-    //}
 
-    public void EndLevel()
+    public void EndLevel(bool isVictorious = true)
     {
-        //if (_player != null)
-        //{
-        //    // disable the player controls
-        //    ThirdPersonUserControl thirdPersonControl =
-        //        _player.GetComponent<ThirdPersonUserControl>();
-
-        //    if (thirdPersonControl != null)
-        //    {
-        //        thirdPersonControl.enabled = false;
-        //    }
-
-        //    // remove any existing motion on the player
-        //    Rigidbody rbody = _player.GetComponent<Rigidbody>();
-        //    if (rbody != null)
-        //    {
-        //        rbody.velocity = Vector3.zero;
-        //    }
-
-        //    // force the player to a stand still
-        //    _player.Move(Vector3.zero, false, false);
-        //}
-
-        //// check if we have set IsGameOver to true, only run this logic once
-        //if (_goalEffect != null && !_isGameOver)
-        //{
-
-
-        //    _isGameOver = true;
-        //    _goalEffect.PlayEffect();
-        //    StartCoroutine(WinRoutine());
-        //}
-
         Time.timeScale = 0f;    //pause time
 
-        if (FsmVariables.GlobalVariables != null)
+        if (isVictorious)
         {
-            //if the Fsm global variables are available, save some of them to disk
-            DataManager.Instance.PlayerMaxHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value;
-            DataManager.Instance.PlayerTotalDeathCount = FsmVariables.GlobalVariables.FindFsmInt("PlayerDeaths_global").Value;
-            DataManager.Instance.PlayerTreasureCount = FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value;
-            
+            //save data
             DataManager.Instance.Save();
-        }
-        
-        gameControllerFSM.SendEvent("WinningGame");
 
-        WinMenu.Open();
-        //if (true)
-        //{
-        //    StartCoroutine(WinRoutine());
-        //}
+            //if (FsmVariables.GlobalVariables != null)
+            //{
+            //    //if the Fsm global variables are available, save some of them to disk
+            //    DataManager.Instance.PlayerMaxHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value;
+            //    DataManager.Instance.PlayerTotalDeathCount = FsmVariables.GlobalVariables.FindFsmInt("PlayerDeaths_global").Value;
+            //    DataManager.Instance.PlayerTreasureCount = FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value;
+            //    DataManager.Instance.Save();
+            //}
+
+            //level complete screen
+            StartCoroutine(WinRoutine());
+            WinMenu.Open();
+        } else
+        {
+            //restart level, respawn/relocate objects
+        }
     }
 
     private IEnumerator WinRoutine()
@@ -172,44 +119,6 @@ public class GameController : MonoBehaviour
         //yield return new WaitForSeconds(fadeDelay);
         WinMenu.Open();
     }
-
-    //public void MoveActiveObjects()
-    //{
-    //    //get controller input
-    //    float horizontal = Input.acceleration.x;
-    //    float vertical = Input.acceleration.y;
-    //    Vector2 move = new Vector2(horizontal, vertical);
-    //    //Debug.Log("acceration output: " + move);
-    //    if (player != null && player.activeInHierarchy)
-    //    {
-    //        //var playerbody = player.GetComponent<Rigidbody2D>();
-    //        //playerbody.AddForce(move * playerbody.mass *forceMultiplier);
-    //        player.GetComponent<Player>().Move(move, forceMultiplier);
-    //    }
-    //    for(int i = 0; i < marblePool.Count; i++)
-    //    {
-    //        if (marblePool[i] != null && marblePool[i].gameObject.activeInHierarchy)
-    //        {
-    //            marblePool[i].Move(move, forceMultiplier);
-    //            //var marbleBody = marblePool[i].GetComponent<Rigidbody2D>();
-    //            //marbleBody.AddForce(move * marbleBody.mass * forceMultiplier);
-    //        }
-    //    }
-    //    for(int i = 0; i< rollers.Count; i++)
-    //    {
-    //        if (rollers[i] != null)
-    //        {
-    //            rollers[i].Move(move, forceMultiplier);
-    //        }
-    //    }
-    //    for (int i = 0; i < moveTowardPlayerObjects.Count; i++)
-    //    {
-    //        if (moveTowardPlayerObjects[i] != null && moveTowardPlayerObjects[i].gameObject.activeInHierarchy)
-    //        {
-    //            moveTowardPlayerObjects[i].Move(move, forceMultiplier);
-    //        }
-    //    }
-    //}
 
     public void SpawnAll()
     {
@@ -237,6 +146,7 @@ public class GameController : MonoBehaviour
 
     }
 
+    //set each active game piece
     public void DeactivateAll()
     {
 
@@ -305,7 +215,6 @@ public class GameController : MonoBehaviour
     }
 
     public void SpawnPlayer()
-        
     {
         Debug.Log("SpawnPlayer() called");
         if (player != null)
@@ -321,7 +230,7 @@ public class GameController : MonoBehaviour
         player.transform.position = playerSpawnpoint.transform.position;
         player.transform.rotation = playerSpawnpoint.transform.rotation;
         //fsm.SetState("Spawned");
-        playerHealthManagerFSM.SendEvent("START");
-        playerMovementManagerFSM.SendEvent("START");
+        //playerHealthManagerFSM.SendEvent("START");
+        //playerMovementManagerFSM.SendEvent("START");
     }
 }

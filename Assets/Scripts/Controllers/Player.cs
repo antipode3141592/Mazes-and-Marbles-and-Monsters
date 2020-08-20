@@ -4,82 +4,86 @@ using System.Collections.Generic;
 using UnityEngine;
 using LevelManagement;
 using MarblesAndMonsters;
-using MarblesAndMonsters.Characters;
 
-public class Player : CharacterSheetController<Player>
+namespace MarblesAndMonsters.Characters
 {
-    public ParticleSystem hitEffect;
-    public ParticleSystem healEffect;
-    public ParticleSystem treasureEffect;
-    public ParticleSystem addMaxHealthEffect;
-
-    
-    private List<InventoryItem> inventory;
-
-    public List<InventoryItem> Inventory => inventory;//read only accessor
-    //HealthBarController healthBarController;
-
-
-    protected override void Awake()
+    // Player is a special type of Character Sheet Controller
+    //  singleton pattern
+    public class Player : CharacterSheetController<Player>
     {
-        base.Awake();
-        inventory = new List<InventoryItem>();
-        //healthBarController = GameObject.FindObjectOfType<HealthBarController>();
-    }
+        public ParticleSystem treasureEffect;
+        public ParticleSystem addMaxHealthEffect;
 
-    protected override void Update()
-    {
-        base.Update();
+        private int treasureCount;
 
-    }
+        private List<InventoryItem> inventory;
 
-    public void AdjustHealthUI(int health)
-    {
-        GameMenu.Instance.UpdateHealth(health);
-    }
+        public List<InventoryItem> Inventory => inventory;//read only accessor
+                                                          //HealthBarController healthBarController;
 
-    public void RestetHealthUI()
-    {
-        GameMenu.Instance.ResetHealth();
-    }
+        private static Player _instance;
 
-    public void IsHitEffectParticles()
-    {
-        //Debug.Log("Fire the particles!");
-        hitEffect.Play();
-    }
+        public static Player Instance   //singleton accessor
+        {
+            get { return _instance; }
+        }
 
-    public void IsHealedEffectParticles()
-    {
-        //Debug.Log("Fire the particles... of HEALING!");
-        healEffect.Play();
-    }
+        public int TreasureCount { get { return treasureCount; } set { treasureCount = value; } }
 
-    public void PlayTreasureParticles()
-    {
-        treasureEffect.Play();
-    }
+        protected override void Awake()
+        {
+            //singleton check
+            if (_instance != null)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                _instance = (Player)this;
+                DontDestroyOnLoad(gameObject);
+            }
+            base.Awake();
+            inventory = new List<InventoryItem>();
+            //healthBarController = GameObject.FindObjectOfType<HealthBarController>();
+        }
+        
+        //cleanup for static instance
+        protected virtual void OnDestroy()
+        {
+            if (_instance == this)
+            {
+                _instance = null;
+            }
+        }
 
-    public void AddMaxHealthUI(int amount)
-    {
-        GameMenu.Instance.AddMaxHealthUI(amount);
-    }
+        public void AddMaxHealth(int amount)
+        {
+            //adjust max health
+            mySheet.MaxHealth += amount;
+            //trigger animation
+            //trigger particle effects
+            addMaxHealthEffect.Play();
+            //
+            GameMenu.Instance.AddMaxHealthUI(amount);
+        }
 
-    public void PlayAddMaxHealthParticles()
-    {
-        Debug.Log("Fire the particles of player max health increase!");
-    }
+        public void AddTreasure(int value)
+        {
+            treasureCount += value;
+            treasureEffect.Play();
+        }
 
-    public void AddItemToInventory(InventoryItem itemToAdd)
-    {
-        inventory.Add(itemToAdd);
-        GameMenu.Instance.AddItemToInventory(itemToAdd);
-        Debug.Log("Added a " + itemToAdd.name + "to inventory!");
-    }
+        public void AddItemToInventory(InventoryItem itemToAdd)
+        {
+            inventory.Add(itemToAdd);
+            GameMenu.Instance.AddItemToInventory(itemToAdd);
+            Debug.Log("Added a " + itemToAdd.name + "to inventory!");
+        }
 
-    public void RemoveItemFromInventory(InventoryItem itemToRemove)
-    {
-        inventory.Remove(itemToRemove);
-        GameMenu.Instance.RemoveItemFromInventory(itemToRemove);
+        public void RemoveItemFromInventory(InventoryItem itemToRemove)
+        {
+            inventory.Remove(itemToRemove);
+            GameMenu.Instance.RemoveItemFromInventory(itemToRemove);
+        }
     }
 }

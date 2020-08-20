@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MarblesAndMonsters;
+using MarblesAndMonsters.Characters;
 
-namespace MarblesAndMonsters
+namespace MarblesAndMonsters.Items
 {
 
     public enum KeyType { Red, Blue, Green, Purple, Skeleton }
@@ -14,26 +15,21 @@ namespace MarblesAndMonsters
         [SerializeField]
         private KeyType keyType;
 
-        private Player playerController;
+        //private Player playerController;
 
         public KeyType KeyType => keyType;
 
-        void Awake()
-        {
-            playerController = GameObject.FindObjectOfType<Player>(); //grab player controller
-        }
+        //void Awake()
+        //{
+        //    playerController = GameObject.FindObjectOfType<Player>(); //grab player controller
+        //}
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other != null && other.gameObject.CompareTag("Player"))
             {
-                Debug.Log("player picked up a " + other.gameObject.name);
                 //add key to player's inventory
-                playerController.AddItemToInventory(this);
-
-                //play pickup animation/particles
-
-
+                Player.Instance.AddItemToInventory(this);
                 //disable the object
                 this.gameObject.SetActive(false);
             }

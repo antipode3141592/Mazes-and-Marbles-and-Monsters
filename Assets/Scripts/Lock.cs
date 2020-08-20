@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MarblesAndMonsters;
+using MarblesAndMonsters.Characters;
+using MarblesAndMonsters.Items;
 
 namespace MarblesAndMonsters
 {
@@ -14,41 +16,21 @@ namespace MarblesAndMonsters
         private GameObject lockedItem;
 
         private bool _locked = true;
-        private Player playerController;
 
         public bool Locked => _locked;
         public KeyType RequiredKeyType => requiredKeyType;
-
-        void Awake()
-        {
-            playerController = GameObject.FindObjectOfType<Player>();
-        }
 
         public bool IsLocked()
         {
             if (_locked) { return true; } else { return false; }
         }
 
-        //public void UnLock(KeyItem keyItem)
-        //{
-        //    //check if the keytype matches the requirement
-        //    if (keyItem.KeyType == requiredKeyType) 
-        //    {
-        //        //open the item!
-        //    }
-        //}
-
-        //public void RemoteUnlock(SwitchItem remoteSwitch)
-        //{
-        //    StartCoroutine(Unlock());
-        //}
-
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other != null && other.gameObject.CompareTag("Player"))
             {
                 //grab keys from inventory and test for match (or skeleton)
-                var inventory = playerController.Inventory;
+                var inventory = Player.Instance.Inventory;
                 foreach (KeyItem item in inventory)
                 {
                     if (item.KeyType == requiredKeyType || item.KeyType == KeyType.Skeleton)
@@ -75,7 +57,7 @@ namespace MarblesAndMonsters
         {
             yield return new WaitForSeconds(0.2f);
 
-            playerController.RemoveItemFromInventory(item);
+            Player.Instance.RemoveItemFromInventory(item);
 
             //for now, disable the parent object representing the lock
             gameObject.SetActive(false);

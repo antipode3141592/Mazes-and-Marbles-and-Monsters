@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using MarblesAndMonsters;
+using MarblesAndMonsters.UI;
 using UnityEngine;
-using SampleGame;
-using MarblesAndMonsters;
 
 namespace LevelManagement
 {
@@ -37,7 +35,7 @@ namespace LevelManagement
         
         public void OnPausePressed()
         {
-            Time.timeScale = 0; //now STOP!  :-P
+            Time.timeScale = 0; //now STOP!
 
             PauseMenu.Open();
         }
@@ -47,10 +45,10 @@ namespace LevelManagement
             deathCountUI.UpdateDeathCountUI();
         }
 
-        public void UpdateHealth(int health)
-        {
-            healthBarController.AdjustHealth(health);
-        }
+        //public void UpdateHealth()
+        //{
+        //    healthBarController.AdjustHealth();
+        //}
 
         public void ResetHealth()
         {
