@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using LevelManagement.Menus;
 using System.Collections.Generic;
 using UnityEngine;
-using LevelManagement;
-using MarblesAndMonsters;
+using MarblesAndMonsters.Items;
 
 namespace MarblesAndMonsters.Characters
 {
@@ -13,6 +11,8 @@ namespace MarblesAndMonsters.Characters
     {
         public ParticleSystem treasureEffect;
         public ParticleSystem addMaxHealthEffect;
+
+        private int deathCount;
 
         private int treasureCount;
 
@@ -29,6 +29,7 @@ namespace MarblesAndMonsters.Characters
         }
 
         public int TreasureCount { get { return treasureCount; } set { treasureCount = value; } }
+        public int DeathCount { get { return deathCount; } set { deathCount = value; } }
 
         protected override void Awake()
         {
@@ -46,7 +47,13 @@ namespace MarblesAndMonsters.Characters
             inventory = new List<InventoryItem>();
             //healthBarController = GameObject.FindObjectOfType<HealthBarController>();
         }
-        
+
+        protected override void Start()
+        {
+            base.Start();
+            GameMenu.Instance.RefreshUI();
+        }
+
         //cleanup for static instance
         protected virtual void OnDestroy()
         {
@@ -71,6 +78,13 @@ namespace MarblesAndMonsters.Characters
         {
             treasureCount += value;
             treasureEffect.Play();
+            GameMenu.Instance.UpdateTreasureCounter();
+        }
+
+        public void RemoveTreasure(int value)
+        {
+            treasureCount -= value;
+            GameMenu.Instance.UpdateTreasureCounter();
         }
 
         public void AddItemToInventory(InventoryItem itemToAdd)
@@ -84,6 +98,19 @@ namespace MarblesAndMonsters.Characters
         {
             inventory.Remove(itemToRemove);
             GameMenu.Instance.RemoveItemFromInventory(itemToRemove);
+        }
+
+        public override void CharacterDeath()
+        {
+            base.CharacterDeath();
+            //trigger death on controller
+            GameController.Instance.EndLevel(false);
+        }
+
+        public override void TakeDamage(int damageAmount, DamageType damageType)
+        {
+            base.TakeDamage(damageAmount, damageType);
+            GameMenu.Instance.ResetHealth();
         }
     }
 }

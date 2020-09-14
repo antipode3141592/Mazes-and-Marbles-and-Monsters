@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using SampleGame;
-
-namespace LevelManagement
+﻿namespace LevelManagement.Menus
 {
     public class CreditsMenu : Menu<CreditsMenu>
     {

@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿using MarblesAndMonsters.Items;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using MarblesAndMonsters;
 
 
-namespace MarblesAndMonsters {
+namespace MarblesAndMonsters
+{
     public class InventoryUI : MonoBehaviour
     {
         [SerializeField]

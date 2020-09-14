@@ -1,28 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using MarblesAndMonsters;
-using MarblesAndMonsters.Characters;
+﻿using UnityEngine;
 
 namespace MarblesAndMonsters.Actions
 {
-    public class FollowPlayer : Action<FollowPlayer>
+    public class FollowPlayer : Movement<FollowPlayer>
     {
         [SerializeField]
         private float speedModifier = 0.5f;
 
-        //private ActionController _actionController;
-        
-        //private Player playerController;
-
-        //protected override void Awake()
-        //{
-        //    base.Awake();
-        //    playerController = GameObject.FindObjectOfType<Player>();
-        //    _actionController = gameObject.GetComponent<ActionController>();
-        //}
-
-        public override void Move(Vector2 force, float forceMultiplier)
+        public override void Move()
         {
             //base.Move(force, forceMultiplier);  //apply normal board action (accelerate based on tilt)
             //if (PlayerExit.in.isAwake)

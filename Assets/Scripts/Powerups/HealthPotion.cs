@@ -1,14 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using MarblesAndMonsters.Characters;
 using UnityEngine;
-using MarblesAndMonsters.Characters;
 
 namespace MarblesAndMonsters.Items
 {
-    public class HealthPotion : MonoBehaviour
+    public class HealthPotion : InventoryItem<HealthPotion>
     {
         [SerializeField]
         private int strength;
+
+        
 
         private void OnTriggerEnter2D(Collider2D collision)
         {

@@ -1,30 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using SampleGame;
+﻿using UnityEngine;
+using MarblesAndMonsters;
 
-namespace LevelManagement
+namespace LevelManagement.Menus
 {
     public class PauseMenu : Menu<PauseMenu>
     {
         public void OnResumePressed()
         {
-            Time.timeScale = 1;
-            base.OnBackPressed();
+            GameController.Instance.UnpauseGame();
+            base.OnBackPressed();   //return to GameMenu
         }
 
         public void OnRestartPressed() {
-            Time.timeScale = 1;
-            LevelLoader.ReloadLevel();
-            base.OnBackPressed();
+            //LevelLoader.ReloadLevel();
+            GameController.Instance.EndLevel(false);    
+            base.OnBackPressed();   //return to GameMenu
         }
 
         public void OnMainMenuPressed()
         {
-            Time.timeScale = 1;
             LevelLoader.LoadMainMenuLevel();
-            //SceneManager.LoadScene(mainMenuIndex);
             MainMenu.Open();
         }
 

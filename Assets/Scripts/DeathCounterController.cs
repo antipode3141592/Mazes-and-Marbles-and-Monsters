@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using LevelManagement.Data;
 using UnityEngine;
 using UnityEngine.UI;
-using HutongGames.PlayMaker;
 
 public class DeathCounterController : MonoBehaviour
 {
@@ -10,7 +8,7 @@ public class DeathCounterController : MonoBehaviour
     public Text deathCountText;
     
 
-    void Awake()
+    void Start()
     {
         //deathCount = FsmVariables.GlobalVariables.FindFsmInt("PlayerDeaths_global").Value;
         UpdateDeathCountUI();
@@ -18,7 +16,7 @@ public class DeathCounterController : MonoBehaviour
 
     public void UpdateDeathCountUI()
     {
-        deathCount = FsmVariables.GlobalVariables.FindFsmInt("PlayerDeaths_global").Value;
+        deathCount = DataManager.Instance.PlayerTotalDeathCount;
         deathCountText.text = deathCount.ToString();
         //Debug.Log("Update deathcount UI!");
     }

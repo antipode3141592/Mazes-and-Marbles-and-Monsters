@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerExit : MonoBehaviour
+namespace MarblesAndMonsters
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    public class PlayerExit : MonoBehaviour
     {
-        if (other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Player"))
+            if (other)
             {
-                GameController.Instance.EndLevel();
+                if (other.gameObject.CompareTag("Player"))
+                {
+                    GameController.Instance.EndLevel(true);
+                }
             }
         }
     }

@@ -1,8 +1,9 @@
 ﻿using MarblesAndMonsters;
 using MarblesAndMonsters.UI;
+using MarblesAndMonsters.Items;
 using UnityEngine;
 
-namespace LevelManagement
+namespace LevelManagement.Menus
 {
     public class GameMenu : Menu<GameMenu>
     {
@@ -20,10 +21,10 @@ namespace LevelManagement
             inventoryUI = GameObject.FindObjectOfType<InventoryUI>();
         }
 
-        public void OnEnable()
-        {
-            RefreshUI();
-        }
+        //public void Start()
+        //{
+        //    RefreshUI();
+        //}
 
         public void RefreshUI() 
         {
@@ -35,9 +36,7 @@ namespace LevelManagement
         
         public void OnPausePressed()
         {
-            Time.timeScale = 0; //now STOP!
-
-            PauseMenu.Open();
+            GameController.Instance.PauseGame();
         }
 
         public void UpdateDeathCount()
@@ -45,10 +44,10 @@ namespace LevelManagement
             deathCountUI.UpdateDeathCountUI();
         }
 
-        //public void UpdateHealth()
-        //{
-        //    healthBarController.AdjustHealth();
-        //}
+        public void UpdateHealth(int amount)
+        {
+            healthBarController.AdjustHealth(amount);
+        }
 
         public void ResetHealth()
         {

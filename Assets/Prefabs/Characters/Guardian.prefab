@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 3791814110835269669}
   - component: {fileID: 3791814110835269668}
   - component: {fileID: 3791814110835269671}
-  - component: {fileID: 1019125731856998623}
   - component: {fileID: 7381757233835065411}
   - component: {fileID: 9020480391629329720}
+  - component: {fileID: 4269122127764340499}
+  - component: {fileID: 5337798479434945216}
   m_Layer: 11
   m_Name: Guardian
   m_TagString: Monster
@@ -50,6 +51,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -107,19 +109,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1019125731856998623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3791814110835269673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bda01fbc6ec43f48a9b7b388fa7351a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  strength: 0
 --- !u!95 &7381757233835065411
 Animator:
   serializedVersion: 3
@@ -155,3 +144,36 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.15402097}
   serializedVersion: 2
   m_Radius: 0.5803016
+--- !u!114 &4269122127764340499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3791814110835269673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9c6b6e68a423447a0be67e008d7d70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  strength: 1
+  armor: 1
+  damageImmunities: 
+  respawnFlag: 0
+  respawnPeriod: 0
+  isAsleep: 0
+--- !u!114 &5337798479434945216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3791814110835269673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea967e72d06e5941a27c4e1c8d82660, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitEffect: {fileID: 0}
+  healEffect: {fileID: 0}

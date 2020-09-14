@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace LevelManagement.Levels
 {
@@ -45,12 +42,12 @@ namespace LevelManagement.Levels
 
         public LevelSpecs GetLevelSpecsAtIndex(int index)
         {
-            return levelList.GetLevel(index);
+            return levelList.GetLevelSpecs(index);
         }
 
         public LevelSpecs GetCurrentLevelSpecs()
         {
-            return levelList.GetLevel(_currentIndex);
+            return levelList.GetLevelSpecs(_currentIndex);
         }
     }
 }

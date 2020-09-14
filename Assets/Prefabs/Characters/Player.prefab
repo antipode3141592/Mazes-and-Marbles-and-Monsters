@@ -177,12 +177,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9c6b6e68a423447a0be67e008d7d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 2
+  startingHealth: 2
   strength: 0
   armor: 0
   damageImmunities: 
-  respawnFlag: 0
-  respawnPeriod: 0
+  respawnFlag: 1
+  respawnPeriod: 1.5
+  isAsleep: 0
+  spawnPoint: {fileID: 0}
 --- !u!114 &8861542608265353331
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5214159076484851901}
   - component: {fileID: 5214159076484851902}
   - component: {fileID: 5214159076484851903}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: HealthPotion
   m_TagString: Pickup
   m_Icon: {fileID: 0}
@@ -48,6 +48,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -122,3 +123,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4313a0a9ced0870489b8551ed208126c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  strength: 0

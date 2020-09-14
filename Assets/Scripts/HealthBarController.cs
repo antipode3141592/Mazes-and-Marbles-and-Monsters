@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using MarblesAndMonsters.Characters;
 using UnityEngine;
-using MarblesAndMonsters.Characters;
-using MarblesAndMonsters;
 
 namespace MarblesAndMonsters.UI
 {
@@ -13,7 +10,7 @@ namespace MarblesAndMonsters.UI
         public GameObject[] heartArray; //currently set in Unity to twenty hearts
         Animator[] heartAnimators;
 
-        void Awake()
+        private void Awake()
         {
             heartAnimators = new Animator[heartArray.Length];
             //populate array of Animators
@@ -23,16 +20,9 @@ namespace MarblesAndMonsters.UI
             }
         }
 
-        //private void Start()
-        //{
-        //    //playerCurrentHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerHealth_global").Value;
-        //    //playerMaxHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value;
-
-        //}
-
         public void ResetHealth()
         {
-            if (Player.Instance != null)
+            if ((Player.Instance != null) && (Player.Instance.MySheet != null))
             {
                 //playerCurrentHealth = Player.Instance.MySheet.CurrentHealth;
                 //playerMaxHealth = Player.Instance.MySheet.MaxHealth;
@@ -75,7 +65,6 @@ namespace MarblesAndMonsters.UI
         {
             int targetHealth = Mathf.Clamp(Player.Instance.MySheet.CurrentHealth + health, 0, Player.Instance.MySheet.MaxHealth);
 
-            //FsmVariables.GlobalVariables.FindFsmInt("PlayerHealth_global").Value = targetHealth;
             if (targetHealth < Player.Instance.MySheet.CurrentHealth)
             {
                 for (int i = targetHealth; i < Player.Instance.MySheet.CurrentHealth; i++)

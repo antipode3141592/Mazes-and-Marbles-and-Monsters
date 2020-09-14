@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using SampleGame;
+﻿using UnityEngine;
+using MarblesAndMonsters;
 
-namespace LevelManagement
+namespace LevelManagement.Menus
 {
     public class WinMenu : Menu<WinMenu>
     {
@@ -17,15 +15,17 @@ namespace LevelManagement
 
         public void OnNextLevelPressed()
         {
-            base.OnBackPressed(); //return to game menu
-            //LevelLoader.LoadNextLevel();
+            base.OnBackPressed(); //return to GameMenu
+            //LevelLoader.LoadNextLevel();  //static method relies on well ordered scene list
             levelLoader.LoadNextLevel();
         }
 
+        //restarting the level means killing the PC and resetting all items/monsters/obstacles
         public void OnRestartPressed() 
         {
-            base.OnBackPressed();
-            LevelLoader.ReloadLevel();
+            base.OnBackPressed();   //returns to the GameMenu
+            GameController.Instance.EndLevel(false);    //
+
         }
 
         public void OnMainMenuPressed()

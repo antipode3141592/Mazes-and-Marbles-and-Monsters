@@ -1,24 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using MarblesAndMonsters.Characters;
 using UnityEngine;
 using UnityEngine.UI;
-using HutongGames.PlayMaker;
 
-public class TreasureCounterController : MonoBehaviour
+namespace MarblesAndMonsters
 {
-    int treasureCount;
-    public Text treasureCountText;
-
-    void Awake()
+    public class TreasureCounterController : MonoBehaviour
     {
-        //treasureCount = FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value;
-        UpdateTreasureCountUI();
-    }
+        int treasureCount;
+        public Text treasureCountText;
 
-    public void UpdateTreasureCountUI()
-    {
-        treasureCount = FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value;
-        treasureCountText.text = treasureCount.ToString();
-        //Debug.Log("Update treasureCount UI!");
+        void Start()
+        {
+            UpdateTreasureCountUI();
+        }
+
+        public void UpdateTreasureCountUI()
+        {
+            if (treasureCountText != null)
+            {
+                treasureCount = Player.Instance.TreasureCount;
+                treasureCountText.text = treasureCount.ToString();
+            }
+        }
     }
 }

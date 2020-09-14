@@ -8,14 +8,21 @@ namespace LevelManagement.Data
     [Serializable]
     public class SaveData
     {
+        //general game settings
         public float masterVolume;
         public float sfxVolume;
         public float musicVolume;
-        public int highestLevelUnlocked;
+        //current level info
+        //public int CurrentLevelIndex;
+        //public string CurrentLevelName;
+        public LevelSpecs playerCurrentLevelSpecs;
+
         public int playerMaxHealth;
         public int playerDeathCount;
         public int playerTreasureCounter;
-        public LevelSpecs playerCurrentLevel;
+
+        public List<TimeSpan> sessionTimes;
+        public TimeSpan totalPlaytime;
 
 
         public string hashValue;
@@ -25,12 +32,12 @@ namespace LevelManagement.Data
             masterVolume = 0f;
             sfxVolume = 0f;
             musicVolume = 0f;
-            highestLevelUnlocked = 0;
+            //CurrentLevelIndex = 0;
             playerMaxHealth = 2; //default max health is 2 hearts
             playerDeathCount = 0;
             playerTreasureCounter = 0;
-            playerCurrentLevel = new LevelSpecs();
-
+            playerCurrentLevelSpecs = new LevelSpecs();
+            sessionTimes = new List<TimeSpan>();
             hashValue = "";
         }
 

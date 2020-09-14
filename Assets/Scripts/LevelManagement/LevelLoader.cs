@@ -36,7 +36,7 @@ namespace LevelManagement
 
         public void LoadNextLevel()
         {
-            if (SceneManager.GetActiveScene().buildIndex == mainMenuIndex)
+            if (SceneManager.GetActiveScene().buildIndex == mainMenuIndex) 
             {
                 Debug.Log("currently in main menu, loading first level from level list");
                 levelSelector.SetIndex(0);
@@ -47,11 +47,11 @@ namespace LevelManagement
                 int nextSceneIndex = (levelSelector.CurrentIndex + 1)
                     % levelSelector.TotalLevelCount();
                 //nextSceneIndex = Mathf.Clamp(nextSceneIndex, mainMenuIndex, levelSelector.TotalLevelCount());
-                LevelSpecs levelSpecs = levelSelector.GetLevelSpecsAtIndex(nextSceneIndex);
+                LevelSpecs nextLevelSpecs = levelSelector.GetLevelSpecsAtIndex(nextSceneIndex);
                 levelSelector.SetIndex(nextSceneIndex);
-                DataManager.Instance.HigestLevelUnlocked = nextSceneIndex;    //unlock next index
+                DataManager.Instance.CurrentLevelSpecs = nextLevelSpecs;    //unlock next index
                 DataManager.Instance.Save();
-                LoadLevel(levelSpecs.SceneName);
+                LoadLevel(nextLevelSpecs.SceneName);
             }
         }
 
@@ -68,7 +68,7 @@ namespace LevelManagement
             //SceneManager.LoadScene(levelIndex);
         }
 
-        private static void LoadLevel(string levelName)
+        public void LoadLevel(string levelName)
         {
             Debug.Log("attempting to load " + levelName);
             if (Application.CanStreamedLevelBeLoaded(levelName))

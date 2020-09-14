@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2501149897828435521}
   - component: {fileID: 2501149897828435534}
   - component: {fileID: 2501149897828435535}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Treasure
   m_TagString: Pickup
   m_Icon: {fileID: 0}
@@ -74,6 +74,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -121,3 +122,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af42c0e8bf838c84daa7154455681e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleEffect: {fileID: 0}

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using SampleGame;
+﻿using UnityEngine;
 
 //  Class Name:  Menu
 //  Interacts with:  MenuManager
@@ -9,7 +6,7 @@ using SampleGame;
 //      a)  Menus are singletons
 //      b)  Menu is an abstract class
 
-namespace LevelManagement
+namespace LevelManagement.Menus
 {
     public abstract class Menu<T>: Menu where T : Menu<T>
     {

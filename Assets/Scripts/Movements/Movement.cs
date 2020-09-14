@@ -1,14 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace MarblesAndMonsters
 {
-
-
     public abstract class Movement<T> : Movement where T : Movement<T>
     {
-
+        protected virtual void Awake()
+        {
+            _rigidbody = this.GetComponent<Rigidbody2D>();
+        }
+        public override void Move()
+        {
+            _rigidbody.AddForce((Vector2)Input.acceleration * _rigidbody.mass * _forceMultiplier);
+        }
     }
 
     public abstract class Movement : MonoBehaviour
@@ -18,13 +21,6 @@ namespace MarblesAndMonsters
         [SerializeField]
         protected float _forceMultiplier = 9.81f; //default to 1g
 
-        protected virtual void Awake()
-        {
-            _rigidbody = this.GetComponent<Rigidbody2D>();
-        }
-        public virtual void Move()
-        {
-            _rigidbody.AddForce((Vector2)Input.acceleration * _rigidbody.mass * _forceMultiplier);
-        }
+        public abstract void Move();
     }
 }

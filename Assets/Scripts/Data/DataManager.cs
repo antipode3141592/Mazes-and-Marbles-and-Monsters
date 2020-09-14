@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LevelManagement.Levels;
 
 namespace LevelManagement.Data
 {
@@ -12,7 +13,9 @@ namespace LevelManagement.Data
         public float MasterVolume { get { return saveData.masterVolume; } set { saveData.masterVolume = value; } }
         public float SFXVolume { get { return saveData.sfxVolume; } set { saveData.sfxVolume = value; } }
         public float MusicVolume { get { return saveData.musicVolume; } set { saveData.musicVolume = value; } }
-        public int HigestLevelUnlocked { get { return saveData.highestLevelUnlocked; } set { saveData.highestLevelUnlocked = value; } }
+        //public int HigestLevelUnlocked { get { return saveData.CurrentLevelIndex; } set { saveData.CurrentLevelIndex = value; } }
+
+        public LevelSpecs CurrentLevelSpecs { get { return saveData.playerCurrentLevelSpecs; } set { saveData.playerCurrentLevelSpecs = value; } }
 
         public int PlayerMaxHealth { get { return saveData.playerMaxHealth; } set { saveData.playerMaxHealth = value; } }
 
@@ -56,6 +59,12 @@ namespace LevelManagement.Data
         public void Load()
         {
             jsonSaver.Load(saveData);
+        }
+
+        public void Clear()
+        {
+            saveData = new SaveData();
+            jsonSaver = new JSONSaver();
         }
     }
 }

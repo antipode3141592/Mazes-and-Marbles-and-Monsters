@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace LevelManagement.Levels
@@ -16,7 +15,7 @@ namespace LevelManagement.Levels
         public int TotalLevels => _levels.Count;
         #endregion
 
-        public LevelSpecs GetLevel(int index)
+        public LevelSpecs GetLevelSpecs(int index)
         {
             return _levels[index];
         }

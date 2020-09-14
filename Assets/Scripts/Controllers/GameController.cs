@@ -1,236 +1,203 @@
-﻿using LevelManagement;
+﻿using FiniteStateMachine;
+using FiniteStateMachine.States.GameStates;
 using LevelManagement.Data;
 using LevelManagement.Levels;
-using MarblesAndMonsters;
+using LevelManagement.Menus;
+using MarblesAndMonsters.Characters;
+using MarblesAndMonsters.Items;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//persistent singleton class for controlling most of the game actions
-public class GameController : MonoBehaviour
+
+
+namespace MarblesAndMonsters
 {
-    [SerializeField]
-    private float forceMultiplier;
-    [SerializeField]
-    private GameObject playerPrefab;
-    [SerializeField]
-    private TransitionFader transitionPrefab;
-    [SerializeField]
-    private GameObject marblePrefab;
+    public enum DeathType { Falling, Fire, Poison , Damage, Push }
 
-    private LevelSelector levelSelector;
-
-    //private PlayMakerFSM playerHealthManagerFSM;
-    //private PlayMakerFSM playerMovementManagerFSM;
-    //private PlayMakerFSM gameControllerFSM;
-
-    string[] levelNameArray;
-    private GameObject player;
-    private List<Marble> marblePool;
-    private List<Roller> rollers;
-    //private List<FollowPlayer> moveTowardPlayerObjects;
-    private List<GameObject> marbleSpawnPoints;
-    private Bag marbleBag;
-    private List<GameObject> monsterSpawnPoints;
-    private GameObject playerSpawnpoint;
-    private List<GameObject> pickupSpawnPoints;
-
-
-    private static GameController _instance;
-
-    public static GameController Instance
+    //persistent singleton class for controlling most of the game actions
+    public class GameController : MonoBehaviour
     {
-        get { return _instance; }
-    }
+        [SerializeField]
+        private TransitionFader transitionPrefab;
 
-    private void Awake()
-    {
-        //that singleton pattern
-        if (_instance != null)
+        [SerializeField]
+        private float defaultEffectTime = 3.0f;    //fire, poison, freeze lasts for N seconds
+
+        private List<CharacterSheetController> characters;
+        private List<InventoryItem> inventoryItems;
+
+        private TimeSpan sessionTimeElapsed;
+        private DateTime startTime;
+        private DateTime endTime;
+
+        protected StateMachine gameStateMachine;
+        public START start;
+        public PopulateLevel populateLevel;
+        public Playing playing;
+        public Paused paused;
+        public Victory victory;
+        public Defeat defeat;
+        public END end;
+
+        private static GameController _instance;
+
+        public static GameController Instance
         {
-            Destroy(this.gameObject);
+            get { return _instance; }
         }
-        else
+
+        public float DefaultEffectTime => defaultEffectTime;
+
+        private void Awake()
         {
-            _instance = this;
-            //DontDestroyOnLoad(this.gameObject);
-            InitializeReferences();
+            //that singleton pattern
+            if (_instance != null)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                _instance = this;
+                InitializeReferences();
+            }
         }
-    }
 
-    private void InitializeReferences()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-        //lists
-        marblePool = new List<Marble>();  //empty marble pool
-        marbleSpawnPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Spawn_Marble"));  // find all marble spawn points
-        monsterSpawnPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Spawn_Monster"));
-        rollers = new List<Roller>(GameObject.FindObjectsOfType<Roller>());
-        //moveTowardPlayerObjects = new List<FollowPlayer>(GameObject.FindObjectsOfType<FollowPlayer>());
-        pickupSpawnPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("Pickup")); //find all pickups
-
-        //initialize marble bag for randomizing marble spawns
-        marbleBag = new Bag(marbleSpawnPoints.Count);
-
-        playerSpawnpoint = GameObject.FindGameObjectWithTag("Spawn_Player");
-        levelSelector = Object.FindObjectOfType<LevelSelector>();
-    }
-
-    private void OnDestroy()
-    {
-        if (_instance == this)
+        private void Start()
         {
-            _instance = null;
+            gameStateMachine = new StateMachine();
+
+            start = new START(gameStateMachine);
+            populateLevel = new PopulateLevel(gameStateMachine);
+            playing = new Playing(gameStateMachine);
+            paused = new Paused(gameStateMachine);
+            victory = new Victory(gameStateMachine);
+            defeat = new Defeat(gameStateMachine);
+            end = new END(gameStateMachine);
+
+
+            gameStateMachine.Initialize(start);
         }
-    }
 
-    public void EndLevel(bool isVictorious = true)
-    {
-        Time.timeScale = 0f;    //pause time
-
-        if (isVictorious)
+        private void Update()
         {
-            //save data
-            DataManager.Instance.Save();
+            gameStateMachine.CurrentState.HandleInput();
+            gameStateMachine.CurrentState.LogicUpdate();
+        }
 
-            //if (FsmVariables.GlobalVariables != null)
-            //{
-            //    //if the Fsm global variables are available, save some of them to disk
-            //    DataManager.Instance.PlayerMaxHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value;
-            //    DataManager.Instance.PlayerTotalDeathCount = FsmVariables.GlobalVariables.FindFsmInt("PlayerDeaths_global").Value;
-            //    DataManager.Instance.PlayerTreasureCount = FsmVariables.GlobalVariables.FindFsmInt("TreasureCount_global").Value;
-            //    DataManager.Instance.Save();
-            //}
+        public void UnpauseGame()
+        {
+            gameStateMachine.ChangeState(playing);
+            GameMenu.Open();
+        }
 
-            //level complete screen
-            StartCoroutine(WinRoutine());
+        public void PauseGame()
+        {
+            gameStateMachine.ChangeState(paused);
+            PauseMenu.Open();
+        }
+
+        //store the locations of each marb
+        private void InitializeReferences()
+        {
+            startTime = DateTime.Now;
+            sessionTimeElapsed = new TimeSpan();
+
+            characters = new List<CharacterSheetController>(GameObject.FindObjectsOfType<CharacterSheetController>());
+            inventoryItems = new List<InventoryItem>(GameObject.FindObjectsOfType<InventoryItem>());
+        }
+
+        private void OnDestroy()
+        {
+            if (_instance == this)
+            {
+                _instance = null;
+            }
+        }
+
+        public void EndLevel(bool isVictorious = true)
+        {
+            //Time.timeScale = 0f;    //pause time
+            if (isVictorious)
+            {
+                SaveGameData();
+                StartCoroutine(WinRoutine());
+            }
+            else
+            {
+                Player.Instance.DeathCount++;
+                DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;
+                DataManager.Instance.Save();
+                gameStateMachine.ChangeState(defeat);
+            }
+        }
+
+        private IEnumerator WinRoutine()
+        {
+            yield return new WaitForSeconds(0.5f);
+            //TransitionFader.PlayTransition(transitionPrefab);
+            //float fadeDelay = transitionPrefab != null ? transitionPrefab.Delay + transitionPrefab.FadeOnDuration : 0f;
+            //yield return new WaitForSeconds(fadeDelay);
             WinMenu.Open();
-        } else
-        {
-            //restart level, respawn/relocate objects
         }
-    }
 
-    private IEnumerator WinRoutine()
-    {
-        yield return new WaitForSeconds(0.5f);
-        //TransitionFader.PlayTransition(transitionPrefab);
-        //float fadeDelay = transitionPrefab != null ? transitionPrefab.Delay + transitionPrefab.FadeOnDuration : 0f;
-        //yield return new WaitForSeconds(fadeDelay);
-        WinMenu.Open();
-    }
-
-    public void SpawnAll()
-    {
-        //deactivate all
-        DeactivateAll();
-
-        //spawn marbles equal to number of marble spawn points
-            //instantiate any marbles that are not all ready in the scene (in case of respawn)
-        for (int i = marblePool.Count; i < marbleSpawnPoints.Count; i++)
+        public void SaveGameData()
         {
-            GameObject obj = (GameObject)Instantiate(marblePrefab);
-            obj.SetActive(false);
-            marblePool.Add(obj.GetComponent<Marble>());
-        }   //this should ensure that there are an equal number of instantiated (inactive) marbles to marble SpawnPoints
-        //now place marbles on each spawn point
-        for (int i = 0; i < marblePool.Count; i++)
+            if (Player.Instance != null)
+            {
+                //if the Fsm global variables are available, save some of them to disk
+                DataManager.Instance.PlayerMaxHealth = Player.Instance.MySheet.MaxHealth;
+                DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;
+                DataManager.Instance.PlayerTreasureCount = Player.Instance.TreasureCount;
+                DataManager.Instance.Save();
+            }
+        }
+
+        public void UpdateSessionTime()
         {
-            SpawnMarble();
+            endTime = DateTime.Now;
+            sessionTimeElapsed += endTime - startTime;
+            startTime = DateTime.Now;   //update 
+        }
+
+        public void StartSessionTime()
+        {
+            startTime = DateTime.Now;
+        }
+
+        public void SpawnAll()
+        {
+            //deactivate all
+            DeactivateAll();
+            foreach (CharacterSheetController character in characters)
+            {
+                character.CharacterSpawn();
+            }
+            foreach (InventoryItem item in inventoryItems)
+            {
+                item.Reset();
+            }
+        }
+
+        public void RespawnCharacter(CharacterSheetController character, float respawntime)
+        {
+            StartCoroutine(RespawnCharacterProcess(character, respawntime));
         }
         
-
-        //placeholder for monster respawns
-
-        //placeholder for treasure respawn and treasure counter reset
-
-    }
-
-    //set each active game piece
-    public void DeactivateAll()
-    {
-
-        foreach (var marble in marblePool)
+        private IEnumerator RespawnCharacterProcess(CharacterSheetController character, float respawntime)
         {
-            if (marble != null) 
-            { 
-                marble.gameObject.SetActive(false); //deactivate all marbles in marblePool
-            }
+            yield return new WaitForSeconds(respawntime);
+            character.CharacterSpawn();
         }
-    }
 
-    public void DestroyMarble(GameObject marble)
-    {
-        //Debug.Log("DestroyMarble says, 'Marble be gone!'");
-        //activeMarbles.Remove(marble);   //out of the active list (so they aren't moved)
-        marble.SetActive(false);      //go to sleep
-    }
-
-    public void SpawnMarble()
-    {
-        //Debug.Log("Spawn a Marble!");
-        //int randomNumber = (int)Random.Range(0, marbleSpawnPoints.Count - 1);
-        var spawnTransform = marbleSpawnPoints[marbleBag.DrawFromBag()].transform;
-        GameObject marble = null;  // = ObjectPooler.SharedInstance.GetPooledObject("Marble");
-
-        for (int i = 0; i < marblePool.Count; i++)
+        //set each active game piece inactive
+        public void DeactivateAll()
         {
-            if (!marblePool[i].gameObject.activeInHierarchy)   //grab first available inactive marble
+            foreach (CharacterSheetController character in characters)
             {
-                marble = marblePool[i].gameObject;
-                break;
+                character.CharacterReset();
             }
         }
-        if (marble != null) //make sure it exists, most to spawn point and then activate!
-        {
-            marble.transform.position = spawnTransform.position;
-            marble.transform.rotation = spawnTransform.rotation;
-            //activeMarbles.Add(marble);  //add to active list so it can move
-            marble.SetActive(true); //awake!
-            //probably need to add a spawn animation here
-        }
-
-    }
-
-    public void SpawnMarbles(int N)
-    {
-        int i = 0;
-        if (marblePool.Count > 0) { i = marblePool.Count; }
-        for(; i < N; i++)
-        {
-            SpawnMarble();
-        }
-            
-    }
-
-    public void DestroyPlayer()
-    {
-        player.SetActive(false);
-        //deathCountUI.UpdateDeathCountUI();
-        GameMenu.Instance.UpdateDeathCount();
-        Debug.Log("DestroyPlayer(), player set active false");
-
-
-        //SpawnPlayer();
-    }
-
-    public void SpawnPlayer()
-    {
-        Debug.Log("SpawnPlayer() called");
-        if (player != null)
-        {
-            player.SetActive(true);
-        }
-        else
-        {
-            Debug.Log("Player arrives in level for first time!");
-            player = (GameObject)Instantiate(playerPrefab);
-        }
-        Debug.Log("reset player position to spawn point");
-        player.transform.position = playerSpawnpoint.transform.position;
-        player.transform.rotation = playerSpawnpoint.transform.rotation;
-        //fsm.SetState("Spawned");
-        //playerHealthManagerFSM.SendEvent("START");
-        //playerMovementManagerFSM.SendEvent("START");
     }
 }

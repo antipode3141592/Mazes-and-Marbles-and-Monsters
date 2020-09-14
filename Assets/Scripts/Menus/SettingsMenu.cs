@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using LevelManagement.Data; //include data classes
 using UnityEngine;
 using UnityEngine.UI;
-using SampleGame;
-using LevelManagement.Data; //include data classes
 
-namespace LevelManagement
+namespace LevelManagement.Menus
 {
     public class SettingsMenu : Menu<SettingsMenu>
     {

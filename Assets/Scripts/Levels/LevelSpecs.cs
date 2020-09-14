@@ -13,7 +13,8 @@ namespace LevelManagement.Levels
         [SerializeField] protected string _name;
         [SerializeField] protected string _description;
         [SerializeField] protected string _campaignName;
-        [SerializeField] protected string _sceneName; //exast scene name in Unity
+        [SerializeField] protected string _levelName; //the display name
+        [SerializeField] protected string _sceneName; //exact scene name in Unity
         [SerializeField] protected string _id; //sorter unique id for level
         [SerializeField] protected Sprite _image;    //thumbnail of level
         #endregion
@@ -22,6 +23,7 @@ namespace LevelManagement.Levels
         public string Name => _name; //shorthand for readonly get 
         public string Description => _description;
         public string CampaignName => _campaignName;
+        public string LevelName => _levelName;
         public string SceneName => _sceneName;
         public string Id => _id;
         public Sprite Image => _image;

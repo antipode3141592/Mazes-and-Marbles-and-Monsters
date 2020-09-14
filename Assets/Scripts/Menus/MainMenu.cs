@@ -1,11 +1,9 @@
-﻿using SampleGame;
+﻿using LevelManagement.Data;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using LevelManagement.Data;
 
-namespace LevelManagement
+namespace LevelManagement.Menus
 {
     public class MainMenu : Menu<MainMenu>
     {
@@ -39,12 +37,12 @@ namespace LevelManagement
             levelLoader = GameObject.FindObjectOfType<LevelLoader>();
             LoadData();
 
-            if (DataManager.Instance.HigestLevelUnlocked >= 1)
+            if (DataManager.Instance != null)
             {
                 currentGameGroup.SetActive(true);
                 resumeButton.SetActive(true);
                 treasureCount.text = "Treasures Collected: " + DataManager.Instance.PlayerTreasureCount;
-                currentLevel.text = "Current Level: " + (DataManager.Instance.HigestLevelUnlocked + 1);
+                currentLevel.text = "Current Level: " + (DataManager.Instance.CurrentLevelSpecs.LevelName);
                 playerHealth.text = "Max Health: " + DataManager.Instance.PlayerMaxHealth;
                 deathCount.text = "Deaths: " + DataManager.Instance.PlayerTotalDeathCount;
 
@@ -65,6 +63,12 @@ namespace LevelManagement
             DataManager.Instance.Save();
         }
 
+        public void ResetData()
+        {
+            //TODO should confirm first
+            DataManager.Instance.Clear();
+        }
+
         public void OnResumePressed()
         {
             StartCoroutine(OnResumePressedRoutine());
@@ -73,7 +77,7 @@ namespace LevelManagement
         private IEnumerator OnResumePressedRoutine()
         {
             TransitionFader.PlayTransition(startTransitionPrefab);
-            levelLoader.LoadLevel(DataManager.Instance.HigestLevelUnlocked);
+            levelLoader.LoadLevel(DataManager.Instance.CurrentLevelSpecs.SceneName);
             yield return new WaitForSeconds(_playDelay);
             GameMenu.Open();
         }
@@ -86,7 +90,7 @@ namespace LevelManagement
         private IEnumerator OnPlayPressedRoutine()
         {
             TransitionFader.PlayTransition(startTransitionPrefab);
-            levelLoader.LoadNextLevel();
+            //levelLoader.LoadNextLevel();
             yield return new WaitForSeconds(_playDelay);
             GameMenu.Open();
         }
@@ -105,6 +109,11 @@ namespace LevelManagement
         {
             SaveData();
             Application.Quit();
+        }
+
+        public void OnResetSaveDataPressed()
+        {
+            ResetData();
         }
     }
 }

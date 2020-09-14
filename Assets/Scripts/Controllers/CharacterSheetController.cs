@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MarblesAndMonsters;
-using MarblesAndMonsters.Characters;
 
 namespace MarblesAndMonsters.Characters
 {
@@ -20,37 +18,139 @@ namespace MarblesAndMonsters.Characters
 
         //[SerializeField]
         protected CharacterSheet mySheet;
+        protected List<Collider2D> myColliders;
+        protected bool Respawn = false;
+        
+
         public CharacterSheet MySheet => mySheet; //read-only accessor for accessing stats directly (for hp, attack/def values, etc)
 
         protected virtual void Awake()
         {
             //grab CharacterSheet reference
-            mySheet = this.GetComponent<CharacterSheet>();
+            mySheet = GetComponent<CharacterSheet>();
+            myColliders = new List<Collider2D>(GetComponents<Collider2D>());
         }
 
+        protected virtual void Start()
+        {
+            mySheet.CurrentHealth = mySheet.MaxHealth;
+        }
+
+        //saddest state machine
         protected virtual void Update()
         {
             //default Update action
-
-            //state checks:
-            //  fire - if firetoken.count > 0, take 1 damage and remove fire token
-            //  poison - if poison
-            //  death - after all other state checks, check for death
-
-            //movement
             
-            if (mySheet.Movements.Count > 0)
+            //state checks:
+            //  invincible
+            if (mySheet.IsInvincible)
             {
-                foreach (Movement movement in mySheet.Movements)
+                mySheet.InvincibleTimeCounter -= Time.deltaTime;
+                if (mySheet.InvincibleTimeCounter <= 0.0f)
                 {
-                    movement.Move();
+                    mySheet.IsInvincible = false;
                 }
             }
-            
+            //  fire - if firetoken.count > 0, take 1 damage and remove fire token
+            //  poison - if poison... "  "
+            //  frozen - ... "   "
+            //  death for 0 or less hp
+            if (mySheet.CurrentHealth <= 0)
+            {
+                CharacterDeath();
+            }
+
+
         }
 
-        //adjust health
-        public void AdjustHealth(int value)
+        protected virtual void FixedUpdate()
+        {
+            //movements, if not asleep
+            if (!mySheet.IsAsleep)
+            {
+                if (mySheet.Movements.Count > 0)
+                {
+                    foreach (Movement movement in mySheet.Movements)
+                    {
+                        movement.Move();
+                    }
+                }
+            }
+        }
+
+        //protected virtual void OnDisable()
+        //{
+        //    if (Respawn)
+        //    {
+        //        StartCoroutine(RespawnCharacter());
+        //    }
+        //}
+
+        
+
+        public override void TakeDamage(int damageAmount, DamageType damageType)
+        {
+            //check for invincibility
+            if (mySheet.IsInvincible)
+            {
+                Debug.Log(string.Format("{0} is invincible!", gameObject.name));
+            }
+            //check immunity to damage type
+            else if (mySheet.DamageImmunities.Contains(damageType))
+            {
+                Debug.Log(string.Format("{0} is immune to {1} and takes no damage!", gameObject.name, damageType));
+            }
+            //check damage > armor
+            else if (damageAmount <= mySheet.Armor)
+            {
+                Debug.Log(string.Format("{0}'s armor absorbs all damage!", gameObject.name));
+            }
+            else
+            {
+                //take that damage!
+                //adjust current health
+                mySheet.CurrentHealth -= (damageAmount - mySheet.Armor);
+                //set state for unique damage types
+                if (damageType == DamageType.Fire) { ApplyFire(); }
+                if (damageType == DamageType.Poison) { ApplyPoison(); }
+                if (damageType == DamageType.Ice) { ApplyIce(); }
+                //play hit effect
+                hitEffect.Play();
+                //become invincible!
+                ApplyInvincible();
+            }
+            //
+        }
+
+        public void ApplyInvincible()
+        {
+            mySheet.IsInvincible = true;
+            mySheet.InvincibleTimeCounter = GameController.Instance.DefaultEffectTime;
+        }
+
+        internal override void ApplyFire()
+        {
+            //add 
+        }
+
+        internal override void ApplyPoison()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        internal override void ApplyIce()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void HealDamage(int healAmount)
+        {
+
+        }
+
+        //Adjust Health
+        //  adds value to current health
+        public virtual void AdjustHealth(int value)
         {
             //add health or subtract health?
             if (value >= 0)
@@ -62,8 +162,10 @@ namespace MarblesAndMonsters.Characters
                     mySheet.CurrentHealth += value;
                     //add health animation
 
-                    //ad health particle effect
+                    //add health particle effect
                     healEffect.Play();
+                    //update UI
+                    //GameMenu.Instance.UpdateHealth()
                 } else
                 {
                     //no effect
@@ -73,27 +175,79 @@ namespace MarblesAndMonsters.Characters
             } else
             {
                 //subtract health;
-                //death check;
+                mySheet.CurrentHealth -= value;
                 //damage animation;
+
+                //death check;
+                if (MySheet.CurrentHealth <= 0) 
+                {
+                    CharacterDeath();
+                }
+                
 
             }
         }
 
-        public bool CharacterDeath()
+        public override void CharacterSpawn()
         {
-            //check for Player
+            gameObject.SetActive(true);
+            gameObject.transform.position = mySheet.SpawnPoint.position;
+            gameObject.transform.rotation = mySheet.SpawnPoint.rotation;
+            foreach (Collider2D collider in myColliders)
+            {
+                collider.enabled = true;
+            }
+            mySheet.CurrentHealth = mySheet.MaxHealth;
+        }
 
+        public override void CharacterDeath()
+        {
+            //turn off colliders
+            foreach (Collider2D collider in myColliders)
+            {
+                collider.enabled = false;
+            }
             //death animation
-            //respawn check
+            StartCoroutine(DeathAnimation());
+        }
+
+        public override void CharacterReset()
+        {
+            gameObject.SetActive(false);
+        }
+
+        //private IEnumerator RespawnCharacter()
+        //{
+        //    yield return new WaitForSeconds(mySheet.RespawnPeriod);
+        //    CharacterSpawn();
+        //}
+
+        private IEnumerator DeathAnimation()
+        {
+            Debug.Log(string.Format("{0} has died!", gameObject.name));
+            yield return new WaitForSeconds(0.5f);
             
-            //trigger death on controller
-            GameController.Instance.EndLevel(false);
-            return false;
+            if (mySheet.RespawnFlag)
+            {
+                GameController.Instance.RespawnCharacter(this, mySheet.RespawnPeriod);
+            }
+            gameObject.SetActive(false);
         }
     }
 
     public abstract class CharacterSheetController: MonoBehaviour
     {
+        public abstract void CharacterReset();
+        public abstract void CharacterDeath();
+
+        public abstract void CharacterSpawn();
+        public abstract void TakeDamage(int damageAmount, DamageType damageType);
+        public abstract void HealDamage(int healAmount);
+
+        internal abstract void ApplyFire();
+        internal abstract void ApplyPoison();
+        internal abstract void ApplyIce();
+
 
     }
 }
