@@ -10,7 +10,7 @@ namespace MarblesAndMonsters.Items
         public override void Reset()
         {
             base.Reset();
-            Player.Instance.RemoveTreasure(value);
+            //Player.Instance.RemoveTreasure(value);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

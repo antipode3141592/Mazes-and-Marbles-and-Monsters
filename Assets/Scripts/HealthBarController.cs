@@ -1,7 +1,7 @@
 ﻿using MarblesAndMonsters.Characters;
 using UnityEngine;
 
-namespace MarblesAndMonsters.UI
+namespace LevelManagement.Menus.Components
 {
     //View Controller for HealthBar
     //  current system uses animated hearts to represent health, one heart = 1hp

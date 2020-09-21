@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using MarblesAndMonsters;
+using MarblesAndMonsters.Characters;
 
 namespace LevelManagement.Menus
 {
@@ -12,8 +13,7 @@ namespace LevelManagement.Menus
         }
 
         public void OnRestartPressed() {
-            //LevelLoader.ReloadLevel();
-            GameController.Instance.EndLevel(false);    
+            Player.Instance.CharacterDeath();
             base.OnBackPressed();   //return to GameMenu
         }
 
@@ -23,9 +23,9 @@ namespace LevelManagement.Menus
             MainMenu.Open();
         }
 
-        public override void OnBackPressed()
-        {
-            Application.Quit();
-        }
+        //public override void OnBackPressed()
+        //{
+        //    Application.Quit();
+        //}
     }
 }

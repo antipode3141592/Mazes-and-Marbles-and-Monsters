@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace MarblesAndMonsters
+namespace MarblesAndMonsters.Objects
 {
     public class PlayerExit : MonoBehaviour
     {

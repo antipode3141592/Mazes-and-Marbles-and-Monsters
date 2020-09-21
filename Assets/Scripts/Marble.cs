@@ -10,8 +10,8 @@ namespace MarblesAndMonsters.Characters
             CharacterSheetController otherController = other.gameObject.GetComponent<CharacterSheetController>();
             if (otherController)
             {
-                Debug.Log(string.Format("{0} touch attacks {1} for {2} {3} damage!",
-                gameObject.name, other.gameObject.name, mySheet.Strength + mySheet.TouchAttack.DamageModifier, mySheet.TouchAttack.DamageType));
+                //Debug.Log(string.Format("{0} touch attacks {1} for {2} {3} damage!",
+                //gameObject.name, other.gameObject.name, mySheet.Strength + mySheet.TouchAttack.DamageModifier, mySheet.TouchAttack.DamageType));
                 otherController.TakeDamage(mySheet.Strength + mySheet.TouchAttack.DamageModifier, mySheet.TouchAttack.DamageType);
             }
             

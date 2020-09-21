@@ -58,14 +58,6 @@ namespace LevelManagement
         public void LoadLevel(int levelIndex)
         {
             LoadLevel(levelSelector.GetLevelSpecsAtIndex(levelIndex).SceneName);
-            //if (levelIndex >= 0 && levelIndex < SceneManager.sceneCountInBuildSettings)
-            //{
-            //    if (levelIndex == mainMenuIndex)
-            //    {
-            //        MainMenu.Open();
-            //    }
-            //}
-            //SceneManager.LoadScene(levelIndex);
         }
 
         public void LoadLevel(string levelName)

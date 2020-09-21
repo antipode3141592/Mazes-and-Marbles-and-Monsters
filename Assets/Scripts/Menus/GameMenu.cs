@@ -1,5 +1,5 @@
-﻿using MarblesAndMonsters;
-using MarblesAndMonsters.UI;
+﻿using LevelManagement.Menus.Components;
+using MarblesAndMonsters;
 using MarblesAndMonsters.Items;
 using UnityEngine;
 
@@ -20,11 +20,10 @@ namespace LevelManagement.Menus
             treasureUI = GameObject.FindObjectOfType<TreasureCounterController>();
             inventoryUI = GameObject.FindObjectOfType<InventoryUI>();
         }
-
-        //public void Start()
-        //{
-        //    RefreshUI();
-        //}
+         protected void Start()
+        {
+            RefreshUI();
+        }
 
         public void RefreshUI() 
         {

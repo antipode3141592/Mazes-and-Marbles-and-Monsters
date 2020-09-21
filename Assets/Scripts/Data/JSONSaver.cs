@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 using System.IO;
-using System.Text;
 using System.Security.Cryptography;
-using System;
+using System.Text;
+using UnityEngine;
 
 namespace LevelManagement.Data
 {
@@ -70,6 +68,12 @@ namespace LevelManagement.Data
                 return true;
             }
             return false;
+        }
+        //returns false if there is no save file present
+        public static bool CheckSaveFile()
+        {
+            if (File.Exists(GetSaveFilename())) { return true; }
+            else { return false; }
         }
 
         public void Delete()

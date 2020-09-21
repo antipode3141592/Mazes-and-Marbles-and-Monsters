@@ -8,6 +8,8 @@ namespace FiniteStateMachine.States.GameStates
 {
     //    START, PopulateLevel, Playing, Paused, Victory, Defeat, END
 
+
+    //Start occurs when a new level/scene is loaded, so take this opportunity to check for Player, assign spawn points, etc
     public class START : State
     {
         //use the base class constructor
@@ -77,6 +79,12 @@ namespace FiniteStateMachine.States.GameStates
             base.Enter();
             WinMenu.Open();
         }
+
+        public override void Exit()
+        {
+            base.Exit();
+            stateMachine.ChangeState(GameController.Instance.start);
+        }
     }
 
     public class Defeat : State
@@ -86,13 +94,12 @@ namespace FiniteStateMachine.States.GameStates
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            stateMachine.ChangeState(GameController.Instance.populateLevel);
+            stateMachine.ChangeState(GameController.Instance.start);
         }
     }
 
     public class END : State
     {
         public END(StateMachine stateMachine) : base(stateMachine) { }
-
     }
 }

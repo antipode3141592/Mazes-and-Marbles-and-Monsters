@@ -12,23 +12,38 @@ namespace MarblesAndMonsters.Characters
 
     public abstract class CharacterSheetController<T> : CharacterSheetController where T : CharacterSheetController<T>
     {
+        private Vector3 offScreenPosition;
+        private static readonly float offScreenDefault_x = -1000f;
+        private static readonly float offScreenDefault_y = 1000f;
+
         //particle effects
         public ParticleSystem hitEffect;    //plays when stuck/attacked/damaged
         public ParticleSystem healEffect;   //plays when healing (players use a potion, monster regenerates, etc.)
+        public ParticleSystem invincibilityEffect;
 
-        //[SerializeField]
-        protected CharacterSheet mySheet;
+        //rigidbody and collider references
+        protected Rigidbody2D myRigidbody;
         protected List<Collider2D> myColliders;
+        protected CharacterSheet mySheet;
+        protected SpriteRenderer mySpriteRenderer;
+
+        [SerializeField]
+        protected SpawnPoint spawnPoint;
+
         protected bool Respawn = false;
-        
 
         public CharacterSheet MySheet => mySheet; //read-only accessor for accessing stats directly (for hp, attack/def values, etc)
 
+
+        #region Unity Scripts
         protected virtual void Awake()
         {
             //grab CharacterSheet reference
             mySheet = GetComponent<CharacterSheet>();
             myColliders = new List<Collider2D>(GetComponents<Collider2D>());
+            myRigidbody = GetComponent<Rigidbody2D>();
+            mySpriteRenderer = GetComponent<SpriteRenderer>();
+            offScreenPosition = new Vector3(offScreenDefault_x, offScreenDefault_y, 0f);
         }
 
         protected virtual void Start()
@@ -40,7 +55,6 @@ namespace MarblesAndMonsters.Characters
         protected virtual void Update()
         {
             //default Update action
-            
             //state checks:
             //  invincible
             if (mySheet.IsInvincible)
@@ -49,6 +63,8 @@ namespace MarblesAndMonsters.Characters
                 if (mySheet.InvincibleTimeCounter <= 0.0f)
                 {
                     mySheet.IsInvincible = false;
+                    //disable invincibility effect
+                    invincibilityEffect.Stop();
                 }
             }
             //  fire - if firetoken.count > 0, take 1 damage and remove fire token
@@ -59,8 +75,6 @@ namespace MarblesAndMonsters.Characters
             {
                 CharacterDeath();
             }
-
-
         }
 
         protected virtual void FixedUpdate()
@@ -78,16 +92,9 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
-        //protected virtual void OnDisable()
-        //{
-        //    if (Respawn)
-        //    {
-        //        StartCoroutine(RespawnCharacter());
-        //    }
-        //}
+        #endregion
 
-        
-
+        #region Damage and Effects
         public override void TakeDamage(int damageAmount, DamageType damageType)
         {
             //check for invincibility
@@ -98,7 +105,7 @@ namespace MarblesAndMonsters.Characters
             //check immunity to damage type
             else if (mySheet.DamageImmunities.Contains(damageType))
             {
-                Debug.Log(string.Format("{0} is immune to {1} and takes no damage!", gameObject.name, damageType));
+                //Debug.Log(string.Format("{0} is immune to {1} and takes no damage!", gameObject.name, damageType));
             }
             //check damage > armor
             else if (damageAmount <= mySheet.Armor)
@@ -125,6 +132,8 @@ namespace MarblesAndMonsters.Characters
         public void ApplyInvincible()
         {
             mySheet.IsInvincible = true;
+            //apply invincibility effect
+            invincibilityEffect.Play();
             mySheet.InvincibleTimeCounter = GameController.Instance.DefaultEffectTime;
         }
 
@@ -187,67 +196,89 @@ namespace MarblesAndMonsters.Characters
 
             }
         }
+        #endregion
 
+        #region Life and Death
         public override void CharacterSpawn()
         {
-            gameObject.SetActive(true);
-            gameObject.transform.position = mySheet.SpawnPoint.position;
-            gameObject.transform.rotation = mySheet.SpawnPoint.rotation;
+            gameObject.transform.position = mySheet.SpawnPoint;
+            mySheet.Wakeup();
             foreach (Collider2D collider in myColliders)
             {
                 collider.enabled = true;
             }
+            myRigidbody.WakeUp();
+            mySheet.CurrentHealth = mySheet.MaxHealth;
+        }
+
+        public override void CharacterSpawn(Vector3 spawnPosition)
+        {
+            gameObject.transform.position = spawnPosition;
+            mySheet.Wakeup();
+            foreach (Collider2D collider in myColliders)
+            {
+                collider.enabled = true;
+            }
+            myRigidbody.WakeUp();
             mySheet.CurrentHealth = mySheet.MaxHealth;
         }
 
         public override void CharacterDeath()
         {
-            //turn off colliders
+            //stop movement immediately
+            myRigidbody.velocity = Vector2.zero;
+            mySheet.PutToSleep();   //go to sleep so Move() is not called on character
+            //turn off colliders so other objects can pass through
             foreach (Collider2D collider in myColliders)
             {
                 collider.enabled = false;
             }
             //death animation
             StartCoroutine(DeathAnimation());
+            //DeathAnimation();
         }
 
-        public override void CharacterReset()
+        public override void CharacterDeath(DeathType deathType)
         {
-            gameObject.SetActive(false);
+            throw new System.NotImplementedException();
         }
-
-        //private IEnumerator RespawnCharacter()
-        //{
-        //    yield return new WaitForSeconds(mySheet.RespawnPeriod);
-        //    CharacterSpawn();
-        //}
 
         private IEnumerator DeathAnimation()
+        //private void DeathAnimation()
         {
             Debug.Log(string.Format("{0} has died!", gameObject.name));
+            gameObject.transform.position = offScreenPosition;  //move offscreen
             yield return new WaitForSeconds(0.5f);
-            
+
             if (mySheet.RespawnFlag)
             {
-                GameController.Instance.RespawnCharacter(this, mySheet.RespawnPeriod);
+                StartCoroutine(RespawnCharacterProcess());
             }
-            gameObject.SetActive(false);
         }
+
+        private IEnumerator RespawnCharacterProcess()
+        {
+            yield return new WaitForSeconds(mySheet.RespawnPeriod);
+            spawnPoint.QueueSpawn(this);
+        }
+        #endregion
     }
 
     public abstract class CharacterSheetController: MonoBehaviour
     {
-        public abstract void CharacterReset();
-        public abstract void CharacterDeath();
-
+        //life and death functions
         public abstract void CharacterSpawn();
+        public abstract void CharacterSpawn(Vector3 spawnPosition);
+        public abstract void CharacterDeath();  //generic death script
+        public abstract void CharacterDeath(DeathType deathType);   //specific types of character death
+        
+        //health adjustment
         public abstract void TakeDamage(int damageAmount, DamageType damageType);
         public abstract void HealDamage(int healAmount);
 
+        //status effects
         internal abstract void ApplyFire();
         internal abstract void ApplyPoison();
         internal abstract void ApplyIce();
-
-
     }
 }

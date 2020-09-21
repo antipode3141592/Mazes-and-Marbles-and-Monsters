@@ -36,8 +36,12 @@ namespace LevelManagement.Menus
         {
             levelLoader = GameObject.FindObjectOfType<LevelLoader>();
             LoadData();
+            UpdateCurrentGameStats();
+        }
 
-            if (DataManager.Instance != null)
+        public void UpdateCurrentGameStats()
+        {
+            if (DataManager.Instance != null && JSONSaver.CheckSaveFile())
             {
                 currentGameGroup.SetActive(true);
                 resumeButton.SetActive(true);
@@ -46,7 +50,8 @@ namespace LevelManagement.Menus
                 playerHealth.text = "Max Health: " + DataManager.Instance.PlayerMaxHealth;
                 deathCount.text = "Deaths: " + DataManager.Instance.PlayerTotalDeathCount;
 
-            } else
+            }
+            else
             {
                 currentGameGroup.SetActive(false);
                 resumeButton.SetActive(false);
@@ -67,6 +72,8 @@ namespace LevelManagement.Menus
         {
             //TODO should confirm first
             DataManager.Instance.Clear();
+            //update UI
+            UpdateCurrentGameStats();
         }
 
         public void OnResumePressed()
@@ -79,7 +86,7 @@ namespace LevelManagement.Menus
             TransitionFader.PlayTransition(startTransitionPrefab);
             levelLoader.LoadLevel(DataManager.Instance.CurrentLevelSpecs.SceneName);
             yield return new WaitForSeconds(_playDelay);
-            GameMenu.Open();
+
         }
 
         public void OnPlayPressed()
@@ -90,9 +97,11 @@ namespace LevelManagement.Menus
         private IEnumerator OnPlayPressedRoutine()
         {
             TransitionFader.PlayTransition(startTransitionPrefab);
-            //levelLoader.LoadNextLevel();
+            //load first level
+            //levelLoader.LoadLevel(0);  //load first level in the level list
+            levelLoader.LoadNextLevel();
             yield return new WaitForSeconds(_playDelay);
-            GameMenu.Open();
+
         }
 
         public void OnSettingsPressed()
@@ -113,6 +122,7 @@ namespace LevelManagement.Menus
 
         public void OnResetSaveDataPressed()
         {
+            //clear data
             ResetData();
         }
     }

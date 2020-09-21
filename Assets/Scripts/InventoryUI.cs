@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace MarblesAndMonsters
+namespace LevelManagement.Menus.Components
 {
     public class InventoryUI : MonoBehaviour
     {
@@ -13,23 +13,14 @@ namespace MarblesAndMonsters
         [SerializeField]
         private List<GameObject> contents;
 
-
         private List<InventoryItem> inventoryItems; //list of 
-
 
         public int Capacity => capacity;
         public List<InventoryItem> InventoryItems => inventoryItems;
-
         
         void Awake()
         {
             inventoryItems = new List<InventoryItem>();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
 
         public void AddInventoryItem(InventoryItem item)

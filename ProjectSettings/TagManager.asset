@@ -10,6 +10,7 @@ TagManager:
   - Spawn_Player
   - Monster
   - Pickup
+  - OffScreenPoint
   layers:
   - Default
   - TransparentFX

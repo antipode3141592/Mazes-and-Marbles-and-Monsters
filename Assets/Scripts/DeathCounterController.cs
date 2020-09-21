@@ -1,23 +1,23 @@
-﻿using LevelManagement.Data;
+﻿using MarblesAndMonsters.Characters;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DeathCounterController : MonoBehaviour
+namespace LevelManagement.Menus.Components
 {
-    int deathCount;
-    public Text deathCountText;
-    
 
-    void Start()
+    public class DeathCounterController : MonoBehaviour
     {
-        //deathCount = FsmVariables.GlobalVariables.FindFsmInt("PlayerDeaths_global").Value;
-        UpdateDeathCountUI();
-    }
+        public Text deathCountText;
 
-    public void UpdateDeathCountUI()
-    {
-        deathCount = DataManager.Instance.PlayerTotalDeathCount;
-        deathCountText.text = deathCount.ToString();
-        //Debug.Log("Update deathcount UI!");
+        void Start()
+        {
+            UpdateDeathCountUI();
+        }
+
+        public void UpdateDeathCountUI()
+        {
+            Debug.Log(string.Format("UpdateDeathCountUI() deathcount = {0}", Player.Instance.DeathCount.ToString()));
+            deathCountText.text = Player.Instance.DeathCount.ToString();
+        }
     }
 }

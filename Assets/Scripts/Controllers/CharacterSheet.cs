@@ -43,7 +43,7 @@ namespace MarblesAndMonsters.Characters
         private bool isFrozen;
         private bool isInvincible;
         [SerializeField]
-        private Transform spawnPoint;
+        private Vector3 spawnPoint;
 
         private float sleepTimeCounter;
         private float poisonTimeCounter;
@@ -76,7 +76,7 @@ namespace MarblesAndMonsters.Characters
         public float FireTimeCounter { get => fireTimeCounter; set => fireTimeCounter = value; }
         public float InvincibleTimeCounter { get => invincibleTimeCounter; set => invincibleTimeCounter = value; }
 
-        public Transform SpawnPoint => spawnPoint;
+        public Vector3 SpawnPoint => spawnPoint;
 
         //read-only accessors
         public List<DamageType> DamageImmunities => damageImmunities;
@@ -84,8 +84,6 @@ namespace MarblesAndMonsters.Characters
         public ReachAttack ReachAttack => reachAttack;
         public RangedAttack RangedAttack => rangedAttack;
         public List<Movement> Movements => movements;
-
-     
 
         private void Awake()
         {
@@ -107,10 +105,9 @@ namespace MarblesAndMonsters.Characters
             isAsleep = true;
         }
 
-        public void SetSpawnLocation(Transform transform)
+        public void SetSpawnLocation(Transform _transform)
         {
-            spawnPoint.transform.position = transform.position;
-            spawnPoint.transform.rotation = transform.rotation;
+            spawnPoint = _transform.position;
         }
     }
 

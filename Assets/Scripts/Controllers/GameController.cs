@@ -50,6 +50,8 @@ namespace MarblesAndMonsters
 
         public float DefaultEffectTime => defaultEffectTime;
 
+        #region Unity Overrides
+
         private void Awake()
         {
             //that singleton pattern
@@ -60,6 +62,7 @@ namespace MarblesAndMonsters
             else
             {
                 _instance = this;
+                DontDestroyOnLoad(gameObject);
                 InitializeReferences();
             }
         }
@@ -76,36 +79,14 @@ namespace MarblesAndMonsters
             defeat = new Defeat(gameStateMachine);
             end = new END(gameStateMachine);
 
-
             gameStateMachine.Initialize(start);
         }
 
+        //gamecontroller doesn't move any rigidbodies, so only needs Update()
         private void Update()
         {
             gameStateMachine.CurrentState.HandleInput();
             gameStateMachine.CurrentState.LogicUpdate();
-        }
-
-        public void UnpauseGame()
-        {
-            gameStateMachine.ChangeState(playing);
-            GameMenu.Open();
-        }
-
-        public void PauseGame()
-        {
-            gameStateMachine.ChangeState(paused);
-            PauseMenu.Open();
-        }
-
-        //store the locations of each marb
-        private void InitializeReferences()
-        {
-            startTime = DateTime.Now;
-            sessionTimeElapsed = new TimeSpan();
-
-            characters = new List<CharacterSheetController>(GameObject.FindObjectsOfType<CharacterSheetController>());
-            inventoryItems = new List<InventoryItem>(GameObject.FindObjectsOfType<InventoryItem>());
         }
 
         private void OnDestroy()
@@ -115,6 +96,27 @@ namespace MarblesAndMonsters
                 _instance = null;
             }
         }
+        #endregion
+
+        public void UnpauseGame()
+        {
+            gameStateMachine.ChangeState(playing);
+            //GameMenu.Open();
+        }
+
+        public void PauseGame()
+        {
+            gameStateMachine.ChangeState(paused);
+            //PauseMenu.Open();
+        }
+
+        protected void InitializeReferences()
+        {
+            characters = new List<CharacterSheetController>(GameObject.FindObjectsOfType<CharacterSheetController>());
+            inventoryItems = new List<InventoryItem>(GameObject.FindObjectsOfType<InventoryItem>());
+        }
+
+        #region LevelManagement
 
         public void EndLevel(bool isVictorious = true)
         {
@@ -126,11 +128,15 @@ namespace MarblesAndMonsters
             }
             else
             {
-                Player.Instance.DeathCount++;
-                DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;
+                DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;  //increment, THEN store, silly
                 DataManager.Instance.Save();
                 gameStateMachine.ChangeState(defeat);
             }
+        }
+
+        public void LoadNextLevel()
+        {
+            gameStateMachine.ChangeState(start);
         }
 
         private IEnumerator WinRoutine()
@@ -141,6 +147,14 @@ namespace MarblesAndMonsters
             //yield return new WaitForSeconds(fadeDelay);
             WinMenu.Open();
         }
+
+        private IEnumerator DefeatRoutine()
+        {
+            yield return null;//delay execution for a frame
+
+        }
+        #endregion
+
 
         public void SaveGameData()
         {
@@ -168,35 +182,20 @@ namespace MarblesAndMonsters
 
         public void SpawnAll()
         {
-            //deactivate all
-            DeactivateAll();
+            //check for existence and run initialization if not
+            if (characters[0] == null) {
+                InitializeReferences();
+            }
+
+
             foreach (CharacterSheetController character in characters)
             {
+                //character.CharacterReset();
                 character.CharacterSpawn();
             }
             foreach (InventoryItem item in inventoryItems)
             {
                 item.Reset();
-            }
-        }
-
-        public void RespawnCharacter(CharacterSheetController character, float respawntime)
-        {
-            StartCoroutine(RespawnCharacterProcess(character, respawntime));
-        }
-        
-        private IEnumerator RespawnCharacterProcess(CharacterSheetController character, float respawntime)
-        {
-            yield return new WaitForSeconds(respawntime);
-            character.CharacterSpawn();
-        }
-
-        //set each active game piece inactive
-        public void DeactivateAll()
-        {
-            foreach (CharacterSheetController character in characters)
-            {
-                character.CharacterReset();
             }
         }
     }

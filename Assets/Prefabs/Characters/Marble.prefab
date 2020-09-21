@@ -122,7 +122,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.016690493, y: 0.51835954}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.46828818
 --- !u!114 &8347004472980754765
@@ -166,6 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1
   startingHealth: 1
+  maxHealthLimit: 10
   strength: 1
   armor: 0
   damageImmunities: 000000000200000003000000

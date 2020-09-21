@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MarblesAndMonsters.Characters;
+using UnityEngine;
 using MarblesAndMonsters;
 
 namespace LevelManagement.Menus
@@ -16,16 +17,15 @@ namespace LevelManagement.Menus
         public void OnNextLevelPressed()
         {
             base.OnBackPressed(); //return to GameMenu
-            //LevelLoader.LoadNextLevel();  //static method relies on well ordered scene list
             levelLoader.LoadNextLevel();
+            GameController.Instance.LoadNextLevel();
         }
 
         //restarting the level means killing the PC and resetting all items/monsters/obstacles
         public void OnRestartPressed() 
         {
             base.OnBackPressed();   //returns to the GameMenu
-            GameController.Instance.EndLevel(false);    //
-
+            Player.Instance.CharacterDeath();
         }
 
         public void OnMainMenuPressed()

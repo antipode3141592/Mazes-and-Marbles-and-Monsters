@@ -9,7 +9,7 @@ using LevelManagement.Menus;
 //  Purpose:  A UI controller with 
 //  
 
-namespace LevelManagement
+namespace LevelManagement.Menus
 {
     public class MenuManager : MonoBehaviour
     {
@@ -86,7 +86,7 @@ namespace LevelManagement
                         menuInstance.gameObject.SetActive(false);
                     } else if (SceneManager.GetActiveScene().buildIndex <= 1)
                     {
-                        Debug.Log(SceneManager.GetActiveScene().buildIndex);
+                        Debug.Log(string.Format("Active Scene Index: {0}", SceneManager.GetActiveScene().buildIndex));
                         OpenMenu(menuInstance);
                     } else
                     {
@@ -101,9 +101,10 @@ namespace LevelManagement
         {
             if (menuInstance == null)
             {
-                Debug.LogWarning("menuInstance is null in MenuManagare");
+                Debug.LogWarning("menuInstance is null in MenuManager");
                 return;
             }
+            Debug.Log(string.Format("Opening Menu: {0}", menuInstance.name));
             //if menus exist in stack, deactivate everything
             if (_menuStack.Count > 0)
             {

@@ -63,8 +63,7 @@ namespace LevelManagement.Data
 
         public void Clear()
         {
-            saveData = new SaveData();
-            jsonSaver = new JSONSaver();
+            jsonSaver.Delete(); //delete saved data
         }
     }
 }

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MarblesAndMonsters
+namespace LevelManagement.Menus.Components
 {
     public class TreasureCounterController : MonoBehaviour
     {
