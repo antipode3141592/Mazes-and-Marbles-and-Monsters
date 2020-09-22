@@ -27,6 +27,18 @@ namespace MarblesAndMonsters.Characters
         protected CharacterSheet mySheet;
         protected SpriteRenderer mySpriteRenderer;
 
+        //input storage
+        protected Vector2 input_acceleration;
+        protected float input_horizontal;
+        protected float input_vertical;
+
+        public Vector2 Input_Acceleration => input_acceleration;
+
+        //animation control
+        protected Animator animator;
+        protected float _speed;
+        protected Vector2 lookDirection = new Vector2(1,0); //default look right
+
         [SerializeField]
         protected SpawnPoint spawnPoint;
 
@@ -44,6 +56,7 @@ namespace MarblesAndMonsters.Characters
             myRigidbody = GetComponent<Rigidbody2D>();
             mySpriteRenderer = GetComponent<SpriteRenderer>();
             offScreenPosition = new Vector3(offScreenDefault_x, offScreenDefault_y, 0f);
+            animator = GetComponent<Animator>();
         }
 
         protected virtual void Start()
@@ -54,6 +67,21 @@ namespace MarblesAndMonsters.Characters
         //saddest state machine
         protected virtual void Update()
         {
+            //grab inputs
+            input_horizontal = Input.GetAxis("Horizontal");
+            input_vertical = Input.GetAxis("Vertical");
+            input_acceleration = (Vector2)Input.acceleration;
+
+            if (!Mathf.Approximately(input_acceleration.x, 0.0f) || !Mathf.Approximately(input_acceleration.y, 0.0f))
+            {
+                lookDirection = input_acceleration;
+                lookDirection.Normalize();
+            }
+
+            animator.SetFloat("Look X", lookDirection.x);
+            animator.SetFloat("Look Y", lookDirection.y);
+            animator.SetFloat("Speed", input_acceleration.magnitude);
+
             //default Update action
             //state checks:
             //  invincible
@@ -266,6 +294,8 @@ namespace MarblesAndMonsters.Characters
 
     public abstract class CharacterSheetController: MonoBehaviour
     {
+        public Vector2 Input_Acceleration;
+
         //life and death functions
         public abstract void CharacterSpawn();
         public abstract void CharacterSpawn(Vector3 spawnPosition);

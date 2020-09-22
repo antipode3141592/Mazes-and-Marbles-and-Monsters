@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 847608114787040653}
   - component: {fileID: 6014678518830894473}
   - component: {fileID: 4579781963234093208}
+  - component: {fileID: 8042973779161212819}
   m_Layer: 11
   m_Name: Marble
   m_TagString: Marble
@@ -77,7 +78,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 1110736b0e3b18e4682e75e4ecbc2d95, type: 3}
+  m_Sprite: {fileID: 8907583665559271811, guid: 278b9f81d939eb84aafe4d4f4e0bbf5d,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -122,9 +124,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.017265975, y: 0.013494015}
   serializedVersion: 2
-  m_Radius: 0.46828818
+  m_Radius: 0.28622806
 --- !u!114 &8347004472980754765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 0}
   healEffect: {fileID: 0}
+  invincibilityEffect: {fileID: 0}
+  spawnPoint: {fileID: 0}
 --- !u!114 &847608114787040653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,7 +177,7 @@ MonoBehaviour:
   respawnFlag: 1
   respawnPeriod: 1.5
   isAsleep: 0
-  spawnPoint: {fileID: 0}
+  spawnPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &4579781963234093208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,3 +194,22 @@ MonoBehaviour:
   currentDamageModifier: 0
   damageType: 0
   displayName: 
+--- !u!95 &8042973779161212819
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2626821578083694134}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 07e93bfdbc4a7e947bce42083910d0b6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
