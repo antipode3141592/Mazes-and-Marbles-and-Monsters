@@ -27,6 +27,7 @@ namespace MarblesAndMonsters
 
         private List<CharacterSheetController> characters;
         private List<InventoryItem> inventoryItems;
+        private List<SpawnPoint> spawnPoints;
 
         private TimeSpan sessionTimeElapsed;
         private DateTime startTime;
@@ -64,6 +65,28 @@ namespace MarblesAndMonsters
                 _instance = this;
                 DontDestroyOnLoad(gameObject);
                 InitializeReferences();
+            }
+        }
+
+        internal void CheckOutofBounds()
+        {
+            foreach (CharacterSheetController character in characters)
+            {
+                if (!IsWithinRect(character.gameObject.transform.position))
+                {
+                    character.CharacterDeath();
+                }
+            }
+        }
+
+        private bool IsWithinRect(Vector3 position)
+        {
+            if ((Math.Abs(position.x) > 600f) || (Math.Abs(position.y) > 600f))
+            {
+                return false;
+            } else
+            {
+                return true;
             }
         }
 
@@ -112,8 +135,9 @@ namespace MarblesAndMonsters
 
         protected void InitializeReferences()
         {
-            characters = new List<CharacterSheetController>(GameObject.FindObjectsOfType<CharacterSheetController>());
+            //characters = new List<CharacterSheetController>(GameObject.FindObjectsOfType<CharacterSheetController>());
             inventoryItems = new List<InventoryItem>(GameObject.FindObjectsOfType<InventoryItem>());
+            spawnPoints = new List<SpawnPoint>(GameObject.FindObjectsOfType<SpawnPoint>());
         }
 
         #region LevelManagement
@@ -128,8 +152,11 @@ namespace MarblesAndMonsters
             }
             else
             {
-                DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;  //increment, THEN store, silly
-                DataManager.Instance.Save();
+                if (DataManager.Instance != null)
+                {
+                    DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;  //increment, THEN store, silly
+                    DataManager.Instance.Save();
+                }
                 gameStateMachine.ChangeState(defeat);
             }
         }
@@ -182,16 +209,9 @@ namespace MarblesAndMonsters
 
         public void SpawnAll()
         {
-            //check for existence and run initialization if not
-            if (characters[0] == null) {
-                InitializeReferences();
-            }
-
-
-            foreach (CharacterSheetController character in characters)
+            foreach(SpawnPoint spawnPoint in spawnPoints)
             {
-                //character.CharacterReset();
-                character.CharacterSpawn();
+                spawnPoint.SpawnAll();
             }
             foreach (InventoryItem item in inventoryItems)
             {

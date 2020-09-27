@@ -73,6 +73,12 @@ namespace MarblesAndMonsters.Characters
             base.Start();
         }
 
+        protected override void Update()
+        {
+            base.Update();
+            SetLookDirection();
+        }
+
         //cleanup for static instance
         protected virtual void OnDestroy()
         {
@@ -134,6 +140,7 @@ namespace MarblesAndMonsters.Characters
         private void SetSpawnLocation()
         {
             spawnPoint = GameObject.FindObjectOfType<SpawnPoint_Player>();
+            //mySheet.SetSpawnLocation(spawnPoint.transform);
         }
 
         public override void CharacterDeath()

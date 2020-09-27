@@ -122,3 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08ca85d15581cc84595edf2b57eff9ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterPrefab: {fileID: 8540972382757629427, guid: 43e04367663ca2a4aa21e5dd7bd803db,
+    type: 3}
+  charactersToSpawn: 1
+  spawnWaitPeriod: 1.5

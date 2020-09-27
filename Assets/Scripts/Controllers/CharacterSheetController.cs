@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,11 +29,11 @@ namespace MarblesAndMonsters.Characters
         protected SpriteRenderer mySpriteRenderer;
 
         //input storage
-        protected Vector2 input_acceleration;
+        //protected Vector2 input_acceleration;
         protected float input_horizontal;
         protected float input_vertical;
 
-        public Vector2 Input_Acceleration => input_acceleration;
+        public override Vector2 Input_Acceleration => input_acceleration;
 
         //animation control
         protected Animator animator;
@@ -67,22 +68,11 @@ namespace MarblesAndMonsters.Characters
         //saddest state machine
         protected virtual void Update()
         {
-            //grab inputs
-            input_horizontal = Input.GetAxis("Horizontal");
-            input_vertical = Input.GetAxis("Vertical");
+            //default Update action
+
+            //grab acceleration input
             input_acceleration = (Vector2)Input.acceleration;
 
-            if (!Mathf.Approximately(input_acceleration.x, 0.0f) || !Mathf.Approximately(input_acceleration.y, 0.0f))
-            {
-                lookDirection = input_acceleration;
-                lookDirection.Normalize();
-            }
-
-            animator.SetFloat("Look X", lookDirection.x);
-            animator.SetFloat("Look Y", lookDirection.y);
-            animator.SetFloat("Speed", input_acceleration.magnitude);
-
-            //default Update action
             //state checks:
             //  invincible
             if (mySheet.IsInvincible)
@@ -103,6 +93,19 @@ namespace MarblesAndMonsters.Characters
             {
                 CharacterDeath();
             }
+        }
+
+        protected void SetLookDirection()
+        {
+            if (!Mathf.Approximately(input_acceleration.x, 0.0f) || !Mathf.Approximately(input_acceleration.y, 0.0f))
+            {
+                lookDirection = input_acceleration;
+                lookDirection.Normalize();
+            }
+
+            animator.SetFloat("Look X", lookDirection.x);
+            animator.SetFloat("Look Y", lookDirection.y);
+            animator.SetFloat("Speed", input_acceleration.magnitude);
         }
 
         protected virtual void FixedUpdate()
@@ -227,6 +230,11 @@ namespace MarblesAndMonsters.Characters
         #endregion
 
         #region Life and Death
+        internal override void SetSpawnPoint(SpawnPoint _spawnPoint)
+        {
+            spawnPoint = _spawnPoint;
+        }
+
         public override void CharacterSpawn()
         {
             gameObject.transform.position = mySheet.SpawnPoint;
@@ -235,7 +243,7 @@ namespace MarblesAndMonsters.Characters
             {
                 collider.enabled = true;
             }
-            myRigidbody.WakeUp();
+            //myRigidbody.WakeUp();
             mySheet.CurrentHealth = mySheet.MaxHealth;
         }
 
@@ -247,7 +255,7 @@ namespace MarblesAndMonsters.Characters
             {
                 collider.enabled = true;
             }
-            myRigidbody.WakeUp();
+            //myRigidbody.WakeUp();
             mySheet.CurrentHealth = mySheet.MaxHealth;
         }
 
@@ -280,22 +288,33 @@ namespace MarblesAndMonsters.Characters
 
             if (mySheet.RespawnFlag)
             {
-                StartCoroutine(RespawnCharacterProcess());
+                if (spawnPoint != null)
+                {
+                    spawnPoint.QueueSpawn(this);
+                } else
+                {
+                    Debug.Log(string.Format("No spawnPoint defined for {0}!", gameObject.name));
+                }
+                //StartCoroutine(RespawnCharacterProcess());
             }
         }
 
-        private IEnumerator RespawnCharacterProcess()
-        {
-            yield return new WaitForSeconds(mySheet.RespawnPeriod);
-            spawnPoint.QueueSpawn(this);
-        }
+        //private IEnumerator RespawnCharacterProcess()
+        //{
+        //    yield return new WaitForSeconds(mySheet.RespawnPeriod);
+        //    spawnPoint.QueueSpawn(this);
+        //}
         #endregion
     }
 
     public abstract class CharacterSheetController: MonoBehaviour
     {
-        public Vector2 Input_Acceleration;
-
+        protected Vector2 input_acceleration;
+        public abstract Vector2 Input_Acceleration
+        {
+            get;
+        }
+        
         //life and death functions
         public abstract void CharacterSpawn();
         public abstract void CharacterSpawn(Vector3 spawnPosition);
@@ -310,5 +329,8 @@ namespace MarblesAndMonsters.Characters
         internal abstract void ApplyFire();
         internal abstract void ApplyPoison();
         internal abstract void ApplyIce();
+
+        internal abstract void SetSpawnPoint(SpawnPoint spawnPoint);
+
     }
 }
