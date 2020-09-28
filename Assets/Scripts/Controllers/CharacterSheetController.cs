@@ -276,7 +276,21 @@ namespace MarblesAndMonsters.Characters
 
         public override void CharacterDeath(DeathType deathType)
         {
-            throw new System.NotImplementedException();
+            switch (deathType)
+            {
+                case DeathType.Falling:
+                    break;
+                case DeathType.Damage:
+                    break;
+                case DeathType.Fire:
+                    break;
+                case DeathType.Poison:
+                    break;
+                default:
+                    Debug.LogError("Unhandled deathtype enum!");
+                    break;
+
+            }
         }
 
         private IEnumerator DeathAnimation()

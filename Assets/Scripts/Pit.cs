@@ -13,7 +13,7 @@ namespace MarblesAndMonsters.Objects
             {
                 //GameController.Instance.DestroyCharacter(other.gameObject);
                 CharacterSheetController character = other.GetComponent<CharacterSheetController>();
-                character.CharacterDeath();
+                character.CharacterDeath(DeathType.Falling);
             }
         }
     }
