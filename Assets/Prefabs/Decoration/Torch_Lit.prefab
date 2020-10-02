@@ -17,6 +17,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3394348883589979673, guid: 19288d56851c069439f8c52da51438a2,
+        type: 3}
+      propertyPath: m_AlphaBlendOnOverlap
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3394348883589979674, guid: 19288d56851c069439f8c52da51438a2,
         type: 3}
       propertyPath: initialState

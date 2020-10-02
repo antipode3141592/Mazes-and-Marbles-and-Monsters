@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 4164545525661133905}
   - component: {fileID: 3952670318561904140}
   - component: {fileID: 4718217192294197086}
+  - component: {fileID: 7874845947719492022}
+  - component: {fileID: 403738622881017094}
   m_Layer: 11
   m_Name: Roller
   m_TagString: Marble
@@ -237,3 +239,41 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7527507, y: 0.0758152}
   m_EdgeRadius: 0
+--- !u!114 &7874845947719492022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4832113540386924202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c9c6b6e68a423447a0be67e008d7d70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
+  startingHealth: 1
+  maxHealthLimit: 10
+  strength: 1
+  armor: 0
+  damageImmunities: 00000000
+  respawnFlag: 0
+  respawnPeriod: 0
+  isAsleep: 0
+  spawnPoint: {x: 0, y: 0, z: 0}
+--- !u!114 &403738622881017094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4832113540386924202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6338211fdf5c7e4e8786a49563430bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageModifier: 0
+  currentDamageModifier: 0
+  damageType: 1
+  displayName: 

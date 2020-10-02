@@ -72,16 +72,19 @@ namespace MarblesAndMonsters
         {
             foreach (CharacterSheetController character in characters)
             {
-                if (!IsWithinRect(character.gameObject.transform.position))
+                if (character != null)
                 {
-                    character.CharacterDeath();
+                    if (!IsWithinRect(character.gameObject.transform.position))
+                    {
+                        character.CharacterDeath();
+                    }
                 }
             }
         }
 
         private bool IsWithinRect(Vector3 position)
         {
-            if ((Math.Abs(position.x) > 600f) || (Math.Abs(position.y) > 600f))
+            if ((Math.Abs(position.x) > 1200f) || (Math.Abs(position.y) > 1200f))
             {
                 return false;
             } else
@@ -211,7 +214,7 @@ namespace MarblesAndMonsters
         {
             foreach(SpawnPoint spawnPoint in spawnPoints)
             {
-                spawnPoint.SpawnAll();
+                spawnPoint.QueueAll();
             }
             foreach (InventoryItem item in inventoryItems)
             {

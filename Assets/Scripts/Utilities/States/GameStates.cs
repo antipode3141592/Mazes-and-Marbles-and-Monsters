@@ -57,7 +57,7 @@ namespace FiniteStateMachine.States.GameStates
         {
             base.LogicUpdate();
             //check for out of bounds characters and kill them
-            GameController.Instance.CheckOutofBounds();
+            //GameController.Instance.CheckOutofBounds();
         }
 
         public override void Exit()

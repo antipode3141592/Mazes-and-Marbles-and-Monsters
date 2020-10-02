@@ -8,16 +8,19 @@ namespace MarblesAndMonsters.Characters
 {
     public abstract class SpawnPoint<T> : SpawnPoint where T : SpawnPoint<T>
     {
+        //configuration
         [SerializeField]
         protected int charactersToSpawn = 1;    //# of characters this spawnpoint will spawn
+        [SerializeField]
+        private float spawnWaitPeriod = 1.5f;
 
+        //sets offscreen 
         private static readonly float offScreenDefault_x = -1000f;
         private static readonly float offScreenDefault_y = 1000f;
 
         private Queue<CharacterSheetController> spawnQueue; //ephemeral 
         private List<CharacterSheetController> characters;  //the collection of all instantiated character objects
-        [SerializeField]
-        private float spawnWaitPeriod = 1.5f;
+        
         private float spawnTimer;
         private bool isAvailable = true;   //true when the SpawnPoint's collider is clear and ready to start a spawn
         protected ContactFilter2D contactFilter;
@@ -26,6 +29,7 @@ namespace MarblesAndMonsters.Characters
         protected Collider2D spawningZoneCollider;  //trigger area where the character will spawn
             //will only allow a spawn while the spawning zone is clear
 
+        //instantiate the characters offscreen
         private void Awake()
         {
             contactFilter.NoFilter();
@@ -41,7 +45,7 @@ namespace MarblesAndMonsters.Characters
                 if (character != null) {
                     character.SetSpawnPoint(this);
                     characters.Add(character);
-                    spawnQueue.Enqueue(character);
+                    //spawnQueue.Enqueue(character);
                     
                 }
             }
@@ -70,7 +74,9 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
-        public override void SpawnAll()
+        //add all characters in SpawnPoint's list to the queue
+        //usually called by the GameController
+        public override void QueueAll()
         {
             foreach(var character in characters)
             {
@@ -99,7 +105,7 @@ namespace MarblesAndMonsters.Characters
         protected CharacterSheetController characterPrefab;
         protected int CharactersToSpawn;    //# of characters this spawnpoint will spawn
         public abstract void QueueSpawn(CharacterSheetController character);
-        public abstract void SpawnAll();
+        public abstract void QueueAll();
         public abstract void Spawn();
     }
 }

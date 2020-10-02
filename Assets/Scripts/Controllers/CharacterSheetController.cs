@@ -279,6 +279,9 @@ namespace MarblesAndMonsters.Characters
             switch (deathType)
             {
                 case DeathType.Falling:
+                    Debug.Log(string.Format("{0} has died by {1}", gameObject.name, deathType.ToString()));
+                    animator.SetTrigger("Falling");
+                    
                     break;
                 case DeathType.Damage:
                     break;
@@ -291,6 +294,7 @@ namespace MarblesAndMonsters.Characters
                     break;
 
             }
+            StartCoroutine(DeathAnimation(deathType));
         }
 
         private IEnumerator DeathAnimation()
@@ -306,6 +310,24 @@ namespace MarblesAndMonsters.Characters
                 {
                     spawnPoint.QueueSpawn(this);
                 } else
+                {
+                    Debug.Log(string.Format("No spawnPoint defined for {0}!", gameObject.name));
+                }
+                //StartCoroutine(RespawnCharacterProcess());
+            }
+        }
+
+        private IEnumerator DeathAnimation(DeathType deathType)
+        {
+            yield return new WaitForSeconds(.0667f);  //death animations are 8 frames, current fps is 12
+            gameObject.transform.position = offScreenPosition;  //move offscreen
+            if (mySheet.RespawnFlag)
+            {
+                if (spawnPoint != null)
+                {
+                    spawnPoint.QueueSpawn(this);
+                }
+                else
                 {
                     Debug.Log(string.Format("No spawnPoint defined for {0}!", gameObject.name));
                 }

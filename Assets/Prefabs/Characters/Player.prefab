@@ -466,6 +466,46 @@ PrefabInstance:
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6694248123482046883, guid: bd40524d5b08ef749b9ea1a7f5687f9c,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.maxCurve.m_Curve.Array.data[0].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6694248123482046883, guid: bd40524d5b08ef749b9ea1a7f5687f9c,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.maxCurve.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6694248123482046883, guid: bd40524d5b08ef749b9ea1a7f5687f9c,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.maxCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6694248123482046883, guid: bd40524d5b08ef749b9ea1a7f5687f9c,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.maxCurve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6694248123482046883, guid: bd40524d5b08ef749b9ea1a7f5687f9c,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minCurve.m_Curve.Array.data[0].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6694248123482046883, guid: bd40524d5b08ef749b9ea1a7f5687f9c,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minCurve.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6694248123482046883, guid: bd40524d5b08ef749b9ea1a7f5687f9c,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 6694248123482046883, guid: bd40524d5b08ef749b9ea1a7f5687f9c,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minCurve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd40524d5b08ef749b9ea1a7f5687f9c, type: 3}
 --- !u!4 &2371440412233807255 stripped
@@ -545,6 +585,21 @@ PrefabInstance:
     - target: {fileID: 5944324790177519009, guid: b8b887f609a34eb488e56399e84bea08,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
+        type: 3}
+      propertyPath: m_AlphaBlendOnOverlap
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
+        type: 3}
+      propertyPath: m_FalloffIntensity
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

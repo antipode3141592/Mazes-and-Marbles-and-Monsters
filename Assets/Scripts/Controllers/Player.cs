@@ -1,9 +1,9 @@
-﻿using LevelManagement.Menus;
+﻿using LevelManagement.Data;
+using LevelManagement.Menus;
+using MarblesAndMonsters.Items;
 using System.Collections.Generic;
 using UnityEngine;
-using MarblesAndMonsters.Items;
-using LevelManagement.Data;
-using System;
+using Cinemachine;
 
 namespace MarblesAndMonsters.Characters
 {
@@ -12,12 +12,15 @@ namespace MarblesAndMonsters.Characters
     public class Player : CharacterSheetController<Player>
     {
         #region Properties
+        //special player-only effects
         public ParticleSystem treasureEffect;
         public ParticleSystem addMaxHealthEffect;
-        
 
-        private int deathCount;
-        private int treasureCount;
+        //
+        private CinemachineVirtualCamera followCamera;  //some/all of the levels will have a camera follow the player around
+
+        private int deathCount = 0;
+        private int treasureCount = 0;
         private List<InventoryItem> inventory;
 
         public List<InventoryItem> Inventory => inventory;//read only accessor
@@ -46,7 +49,7 @@ namespace MarblesAndMonsters.Characters
             else
             {
                 _instance = (Player)this;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
 
             inventory = new List<InventoryItem>();
@@ -55,10 +58,16 @@ namespace MarblesAndMonsters.Characters
 
         protected override void Start()
         {
-            if (spawnPoint == null)
+            followCamera = FindObjectOfType<CinemachineVirtualCamera>();
+            if (followCamera)
             {
-                SetSpawnLocation();
+                //set the 
+                followCamera.Follow = gameObject.transform;
             }
+            //if (spawnPoint == null)
+            //{
+            //    SetSpawnLocation();
+            //}
             if (DataManager.Instance != null)
             {
                 deathCount = DataManager.Instance.PlayerTotalDeathCount > 0 ? DataManager.Instance.PlayerTotalDeathCount : 0;
@@ -137,6 +146,8 @@ namespace MarblesAndMonsters.Characters
             treasureCount = DataManager.Instance.PlayerTreasureCount > 0 ? DataManager.Instance.PlayerTreasureCount : 0;
         }
 
+        
+
         private void SetSpawnLocation()
         {
             spawnPoint = GameObject.FindObjectOfType<SpawnPoint_Player>();
@@ -149,6 +160,14 @@ namespace MarblesAndMonsters.Characters
             Debug.Log(string.Format("CharacterDeath(), deathcount = ", deathCount.ToString()));
             base.CharacterDeath();
             //trigger death on controller
+            GameController.Instance.EndLevel(false);
+        }
+
+        public override void CharacterDeath(DeathType deathType)
+        {
+            deathCount++;
+            Debug.Log(string.Format("CharacterDeath(), deathcount = ", deathCount.ToString()));
+            base.CharacterDeath(deathType);
             GameController.Instance.EndLevel(false);
         }
 

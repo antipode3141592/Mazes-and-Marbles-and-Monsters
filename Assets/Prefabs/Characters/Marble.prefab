@@ -173,7 +173,7 @@ MonoBehaviour:
   maxHealthLimit: 10
   strength: 1
   armor: 0
-  damageImmunities: 000000000200000003000000
+  damageImmunities: 00000000
   respawnFlag: 1
   respawnPeriod: 1.5
   isAsleep: 0
