@@ -600,7 +600,7 @@ PrefabInstance:
     - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
         type: 3}
       propertyPath: m_FalloffIntensity
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8b887f609a34eb488e56399e84bea08, type: 3}

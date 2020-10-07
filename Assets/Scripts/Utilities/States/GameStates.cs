@@ -53,12 +53,12 @@ namespace FiniteStateMachine.States.GameStates
             GameMenu.Open();
         }
 
-        public override void LogicUpdate()
-        {
-            base.LogicUpdate();
-            //check for out of bounds characters and kill them
-            //GameController.Instance.CheckOutofBounds();
-        }
+        //public override void LogicUpdate()
+        //{
+        //    base.LogicUpdate();
+        //    //check for out of bounds characters and kill them
+        //    //GameController.Instance.CheckOutofBounds();
+        //}
 
         public override void Exit()
         {

@@ -20,11 +20,15 @@ namespace MarblesAndMonsters.Items
                     //check for damage
                     if (Player.Instance.MySheet.CurrentHealth < Player.Instance.MySheet.MaxHealth)
                     {
-                        Player.Instance.AdjustHealth(strength);
-                        Destroy(gameObject);    //destroy self (these are relatively rare, so no need for pooling)
+                        //Player.Instance.AdjustHealth(strength);
+                        Player.Instance.HealDamage(strength);
+                        //Destroy(gameObject);    //destroy self (these are relatively rare, so no need for pooling)
+                        gameObject.SetActive(false);
                     }
                     else
                     {
+                        Player.Instance.AddItemToInventory(this);
+
                         //nothing
                     }
                 }

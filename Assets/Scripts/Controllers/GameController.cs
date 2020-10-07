@@ -68,31 +68,6 @@ namespace MarblesAndMonsters
             }
         }
 
-        internal void CheckOutofBounds()
-        {
-            foreach (CharacterSheetController character in characters)
-            {
-                if (character != null)
-                {
-                    if (!IsWithinRect(character.gameObject.transform.position))
-                    {
-                        character.CharacterDeath();
-                    }
-                }
-            }
-        }
-
-        private bool IsWithinRect(Vector3 position)
-        {
-            if ((Math.Abs(position.x) > 1200f) || (Math.Abs(position.y) > 1200f))
-            {
-                return false;
-            } else
-            {
-                return true;
-            }
-        }
-
         private void Start()
         {
             gameStateMachine = new StateMachine();
@@ -123,6 +98,32 @@ namespace MarblesAndMonsters
             }
         }
         #endregion
+
+        //internal void CheckOutofBounds()
+        //{
+        //    foreach (CharacterSheetController character in characters)
+        //    {
+        //        if (character != null)
+        //        {
+        //            if (!IsWithinRect(character.gameObject.transform.position))
+        //            {
+        //                character.CharacterDeath();
+        //            }
+        //        }
+        //    }
+        //}
+
+        //private bool IsWithinRect(Vector3 position)
+        //{
+        //    if ((Math.Abs(position.x) > 1200f) || (Math.Abs(position.y) > 1200f))
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return true;
+        //    }
+        //}
 
         public void UnpauseGame()
         {
@@ -214,7 +215,7 @@ namespace MarblesAndMonsters
         {
             foreach(SpawnPoint spawnPoint in spawnPoints)
             {
-                spawnPoint.QueueAll();
+                StartCoroutine(spawnPoint.Spawn(0.1f));
             }
             foreach (InventoryItem item in inventoryItems)
             {

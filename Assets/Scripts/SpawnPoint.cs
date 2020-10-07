@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//  Basically an object pooler attached to a transform.  Spawns characters in queue at specified interval
+//  an object pooler attached to a transform
+//      Spawns characters in queue at specified interval
 namespace MarblesAndMonsters.Characters
 {
     public abstract class SpawnPoint<T> : SpawnPoint where T : SpawnPoint<T>
@@ -11,14 +11,8 @@ namespace MarblesAndMonsters.Characters
         //configuration
         [SerializeField]
         protected int charactersToSpawn = 1;    //# of characters this spawnpoint will spawn
-        [SerializeField]
-        private float spawnWaitPeriod = 1.5f;
 
-        //sets offscreen 
-        private static readonly float offScreenDefault_x = -1000f;
-        private static readonly float offScreenDefault_y = 1000f;
-
-        private Queue<CharacterSheetController> spawnQueue; //ephemeral 
+        //private Queue<CharacterSheetController> spawnQueue; //ephemeral 
         private List<CharacterSheetController> characters;  //the collection of all instantiated character objects
         
         private float spawnTimer;
@@ -27,74 +21,59 @@ namespace MarblesAndMonsters.Characters
         protected List<Collider2D> collidersInSpawnZone;
 
         protected Collider2D spawningZoneCollider;  //trigger area where the character will spawn
-            //will only allow a spawn while the spawning zone is clear
+                                                    //will only allow a spawn while the spawning zone is clear
 
-        //instantiate the characters offscreen
-        private void Awake()
+
+        #region Unity Scripts
+
+        protected virtual void Awake()
         {
             contactFilter.NoFilter();
             spawningZoneCollider = gameObject.GetComponent<Collider2D>();
             characters = new List<CharacterSheetController>();
-            spawnQueue = new Queue<CharacterSheetController>();
             collidersInSpawnZone = new List<Collider2D>();
+        }
+
+        protected virtual void Start()
+        {
+            //instantiate required characters, add them to Characters list, and disable them
             for (int i = 0; i < charactersToSpawn; i++)
             {
-                //instantiate far off screen
-                CharacterSheetController character = Instantiate(characterPrefab, 
-                    new Vector3(offScreenDefault_x, offScreenDefault_y, 0f), Quaternion.identity);
-                if (character != null) {
+                CharacterSheetController character = Instantiate(characterPrefab, transform.position, Quaternion.identity);
+                if (character != null)
+                {
                     character.SetSpawnPoint(this);
                     characters.Add(character);
-                    //spawnQueue.Enqueue(character);
-                    
+                    character.gameObject.SetActive(false);
                 }
             }
-            spawnTimer = 0f;
+        }
+        #endregion
+
+        public override void RemoteTriggerSpawn(float spawnDelay)
+        {
+            StartCoroutine(Spawn(spawnDelay));
         }
 
-        private void Update()
+        public override IEnumerator Spawn(float spawnDelay)
         {
-            
-            if (spawnTimer <= 0f)
+            yield return new WaitForSeconds(spawnDelay);
+            SpawnCharacter();
+        }
+
+        public override void SpawnCharacter()
+        {
+            //most of these spawnpoints will only have a handful of characters assigned, so a foreach should be fine
+            foreach (var _char in characters)
             {
-                if (spawnQueue.Count > 0)   //at least one character is staged
+                //find the first available inactive character, activate it, then exit the loop
+                if (!_char.isActiveAndEnabled)
                 {
-                    //check for a clear spawning zone.  this implies blocking spawns as a strategy
-                    if (spawningZoneCollider.OverlapCollider(contactFilter, collidersInSpawnZone) == 0)
-                    {
-                        Spawn();
-                        spawnTimer = spawnWaitPeriod;   //reset spawn timer
-                    } else
-                    {
-                        //Debug.Log(string.Format("{0}'s spawn zone is blocked!", gameObject.name));
-                    }
+                    _char.gameObject.SetActive(true);
+                    _char.transform.position = transform.position;
+                    //last stored rotation is sufficient
+                    break;
                 }
-            } else { 
-                spawnTimer -= Time.deltaTime; 
-            }
-        }
-
-        //add all characters in SpawnPoint's list to the queue
-        //usually called by the GameController
-        public override void QueueAll()
-        {
-            foreach(var character in characters)
-            {
-                QueueSpawn(character);
-            }
-        }
-
-
-        public override void QueueSpawn(CharacterSheetController character)
-        {
-            spawnQueue.Enqueue(character);
-        }
-
-        public override void Spawn()
-        {
-            if (spawnQueue.Count > 0)
-            {
-                spawnQueue.Dequeue().CharacterSpawn(transform.position);
             }
         }
     }
@@ -104,8 +83,9 @@ namespace MarblesAndMonsters.Characters
         [SerializeField]
         protected CharacterSheetController characterPrefab;
         protected int CharactersToSpawn;    //# of characters this spawnpoint will spawn
-        public abstract void QueueSpawn(CharacterSheetController character);
-        public abstract void QueueAll();
-        public abstract void Spawn();
+
+        public abstract void RemoteTriggerSpawn(float spawnDelay);
+        public abstract IEnumerator Spawn(float spawnDelay);
+        public abstract void SpawnCharacter();
     }
 }

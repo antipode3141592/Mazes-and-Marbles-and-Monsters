@@ -51,7 +51,7 @@ namespace MarblesAndMonsters.Characters
         #region Unity Scripts
         protected virtual void Awake()
         {
-            //grab CharacterSheet reference
+            //cache some components
             mySheet = GetComponent<CharacterSheet>();
             myColliders = new List<Collider2D>(GetComponents<Collider2D>());
             myRigidbody = GetComponent<Rigidbody2D>();
@@ -63,6 +63,11 @@ namespace MarblesAndMonsters.Characters
         protected virtual void Start()
         {
             mySheet.CurrentHealth = mySheet.MaxHealth;
+        }
+
+        protected virtual void OnEnable()
+        {
+
         }
 
         //saddest state machine
@@ -89,23 +94,11 @@ namespace MarblesAndMonsters.Characters
             //  poison - if poison... "  "
             //  frozen - ... "   "
             //  death for 0 or less hp
-            if (mySheet.CurrentHealth <= 0)
-            {
-                CharacterDeath();
-            }
-        }
-
-        protected void SetLookDirection()
-        {
-            if (!Mathf.Approximately(input_acceleration.x, 0.0f) || !Mathf.Approximately(input_acceleration.y, 0.0f))
-            {
-                lookDirection = input_acceleration;
-                lookDirection.Normalize();
-            }
-
-            animator.SetFloat("Look X", lookDirection.x);
-            animator.SetFloat("Look Y", lookDirection.y);
-            animator.SetFloat("Speed", input_acceleration.magnitude);
+            //if (mySheet.CurrentHealth <= 0)
+            //{
+            //    Debug.Log("death check from charactersheetcontroller update()");
+            //    CharacterDeath(DeathType.Damage);
+            //}
         }
 
         protected virtual void FixedUpdate()
@@ -123,6 +116,17 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
+        protected virtual void OnDisable()
+        {   
+            //if this character is the respawning type, start the spawn coroutine
+            if (mySheet.RespawnFlag)
+            {
+                if (spawnPoint != null)
+                {
+                    spawnPoint.RemoteTriggerSpawn(mySheet.RespawnPeriod);
+                }
+            }
+        }
         #endregion
 
         #region Damage and Effects
@@ -152,10 +156,19 @@ namespace MarblesAndMonsters.Characters
                 if (damageType == DamageType.Fire) { ApplyFire(); }
                 if (damageType == DamageType.Poison) { ApplyPoison(); }
                 if (damageType == DamageType.Ice) { ApplyIce(); }
-                //play hit effect
-                hitEffect.Play();
-                //become invincible!
-                ApplyInvincible();
+                
+                //check for death, if still alive, play particle effect and hit animation
+                if (mySheet.CurrentHealth <= 0)
+                {
+                    Debug.Log("Death trigger from TakeDamage()");
+                    CharacterDeath(DeathType.Damage);
+                }
+                else
+                {
+                    hitEffect.Play();   //particles
+                    animator.SetTrigger("DamageNormal");
+                    ApplyInvincible();
+                }
             }
             //
         }
@@ -276,14 +289,14 @@ namespace MarblesAndMonsters.Characters
 
         public override void CharacterDeath(DeathType deathType)
         {
+            Debug.Log(string.Format("{0} has died by {1}", gameObject.name, deathType.ToString()));
             switch (deathType)
             {
                 case DeathType.Falling:
-                    Debug.Log(string.Format("{0} has died by {1}", gameObject.name, deathType.ToString()));
                     animator.SetTrigger("Falling");
-                    
                     break;
                 case DeathType.Damage:
+                    animator.SetTrigger("DeathbyDamage");
                     break;
                 case DeathType.Fire:
                     break;
@@ -301,45 +314,35 @@ namespace MarblesAndMonsters.Characters
         //private void DeathAnimation()
         {
             Debug.Log(string.Format("{0} has died!", gameObject.name));
-            gameObject.transform.position = offScreenPosition;  //move offscreen
             yield return new WaitForSeconds(0.5f);
-
-            if (mySheet.RespawnFlag)
-            {
-                if (spawnPoint != null)
-                {
-                    spawnPoint.QueueSpawn(this);
-                } else
-                {
-                    Debug.Log(string.Format("No spawnPoint defined for {0}!", gameObject.name));
-                }
-                //StartCoroutine(RespawnCharacterProcess());
-            }
+            gameObject.SetActive(false);
         }
 
         private IEnumerator DeathAnimation(DeathType deathType)
         {
+            Debug.Log(string.Format("{0} has died of {1}!", gameObject.name, deathType.ToString()));
             yield return new WaitForSeconds(.0667f);  //death animations are 8 frames, current fps is 12
-            gameObject.transform.position = offScreenPosition;  //move offscreen
-            if (mySheet.RespawnFlag)
-            {
-                if (spawnPoint != null)
-                {
-                    spawnPoint.QueueSpawn(this);
-                }
-                else
-                {
-                    Debug.Log(string.Format("No spawnPoint defined for {0}!", gameObject.name));
-                }
-                //StartCoroutine(RespawnCharacterProcess());
-            }
+            gameObject.SetActive(false);
         }
+        #endregion
 
-        //private IEnumerator RespawnCharacterProcess()
-        //{
-        //    yield return new WaitForSeconds(mySheet.RespawnPeriod);
-        //    spawnPoint.QueueSpawn(this);
-        //}
+        #region Animation Stuff
+
+        //set the look direction based on the accerometer input
+        //  look direction is independent of movement calculations in FixedUpdate
+        //  helps to determine 
+        protected void SetLookDirection()
+        {
+            if (!Mathf.Approximately(input_acceleration.x, 0.0f) || !Mathf.Approximately(input_acceleration.y, 0.0f))
+            {
+                lookDirection = input_acceleration;
+                lookDirection.Normalize();
+            }
+
+            animator.SetFloat("Look X", lookDirection.x);
+            animator.SetFloat("Look Y", lookDirection.y);
+            animator.SetFloat("Speed", input_acceleration.magnitude);
+        }
         #endregion
     }
 

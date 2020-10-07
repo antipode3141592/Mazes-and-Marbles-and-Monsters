@@ -59,15 +59,11 @@ namespace MarblesAndMonsters.Characters
         protected override void Start()
         {
             followCamera = FindObjectOfType<CinemachineVirtualCamera>();
-            if (followCamera)
+            if (followCamera != null)
             {
                 //set the 
                 followCamera.Follow = gameObject.transform;
             }
-            //if (spawnPoint == null)
-            //{
-            //    SetSpawnLocation();
-            //}
             if (DataManager.Instance != null)
             {
                 deathCount = DataManager.Instance.PlayerTotalDeathCount > 0 ? DataManager.Instance.PlayerTotalDeathCount : 0;
@@ -86,6 +82,17 @@ namespace MarblesAndMonsters.Characters
         {
             base.Update();
             SetLookDirection();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+        }
+
+        protected override void OnDisable()
+        {
+            //base.OnDisable();
+            Debug.Log("Player OnDisable() script");
         }
 
         //cleanup for static instance
@@ -174,6 +181,7 @@ namespace MarblesAndMonsters.Characters
         public override void TakeDamage(int damageAmount, DamageType damageType)
         {
             base.TakeDamage(damageAmount, damageType);
+            animator.SetTrigger("DamageNormal");
             GameMenu.Instance.ResetHealth();
         }
     }

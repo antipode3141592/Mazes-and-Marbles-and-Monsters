@@ -86,7 +86,7 @@ namespace LevelManagement.Menus
             TransitionFader.PlayTransition(startTransitionPrefab);
             levelLoader.LoadLevel(DataManager.Instance.CurrentLevelSpecs.SceneName);
             yield return new WaitForSeconds(_playDelay);
-
+            GameMenu.Open();
         }
 
         public void OnPlayPressed()
@@ -101,7 +101,7 @@ namespace LevelManagement.Menus
             //levelLoader.LoadLevel(0);  //load first level in the level list
             levelLoader.LoadNextLevel();
             yield return new WaitForSeconds(_playDelay);
-
+            GameMenu.Open();
         }
 
         public void OnSettingsPressed()

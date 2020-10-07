@@ -9,14 +9,14 @@ namespace LevelManagement.Menus.Components
     {
         public Text deathCountText;
 
-        void Start()
-        {
-            UpdateDeathCountUI();
-        }
+        //void Start()
+        //{
+        //    UpdateDeathCountUI();
+        //}
 
         public void UpdateDeathCountUI()
         {
-            Debug.Log(string.Format("UpdateDeathCountUI() deathcount = {0}", Player.Instance.DeathCount.ToString()));
+            Debug.Log(string.Format("DeathCounterController: UpdateDeathCountUI() deathcount = {0}", Player.Instance.DeathCount));
             deathCountText.text = Player.Instance.DeathCount.ToString();
         }
     }
