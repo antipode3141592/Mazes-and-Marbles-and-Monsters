@@ -67,7 +67,7 @@ namespace MarblesAndMonsters.Characters
 
         protected virtual void OnEnable()
         {
-
+            mySheet.CurrentHealth = mySheet.MaxHealth;
         }
 
         //saddest state machine

@@ -87,6 +87,7 @@ namespace MarblesAndMonsters.Characters
         protected override void OnEnable()
         {
             base.OnEnable();
+            GameMenu.Instance.RefreshUI();
         }
 
         protected override void OnDisable()
