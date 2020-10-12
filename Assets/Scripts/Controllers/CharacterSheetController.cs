@@ -201,45 +201,45 @@ namespace MarblesAndMonsters.Characters
 
         }
 
-        //Adjust Health
-        //  adds value to current health
-        public virtual void AdjustHealth(int value)
-        {
-            //add health or subtract health?
-            if (value >= 0)
-            {
-                //check for damage
-                if (mySheet.CurrentHealth < mySheet.MaxHealth)
-                {
-                    //add health
-                    mySheet.CurrentHealth += value;
-                    //add health animation
+        ////Adjust Health
+        ////  adds value to current health
+        //public virtual void AdjustHealth(int value)
+        //{
+        //    //add health or subtract health?
+        //    if (value >= 0)
+        //    {
+        //        //check for damage
+        //        if (mySheet.CurrentHealth < mySheet.MaxHealth)
+        //        {
+        //            //add health
+        //            mySheet.CurrentHealth += value;
+        //            //add health animation
 
-                    //add health particle effect
-                    healEffect.Play();
-                    //update UI
-                    //GameMenu.Instance.UpdateHealth()
-                } else
-                {
-                    //no effect
+        //            //add health particle effect
+        //            healEffect.Play();
+        //            //update UI
+        //            //GameMenu.Instance.UpdateHealth()
+        //        } else
+        //        {
+        //            //no effect
                     
-                }
+        //        }
 
-            } else
-            {
-                //subtract health;
-                mySheet.CurrentHealth -= value;
-                //damage animation;
+        //    } else
+        //    {
+        //        //subtract health;
+        //        mySheet.CurrentHealth -= value;
+        //        //damage animation;
 
-                //death check;
-                if (MySheet.CurrentHealth <= 0) 
-                {
-                    CharacterDeath();
-                }
+        //        //death check;
+        //        if (MySheet.CurrentHealth <= 0) 
+        //        {
+        //            CharacterDeath();
+        //        }
                 
 
-            }
-        }
+        //    }
+        //}
         #endregion
 
         #region Life and Death
@@ -321,7 +321,7 @@ namespace MarblesAndMonsters.Characters
         private IEnumerator DeathAnimation(DeathType deathType)
         {
             Debug.Log(string.Format("{0} has died of {1}!", gameObject.name, deathType.ToString()));
-            yield return new WaitForSeconds(.0667f);  //death animations are 8 frames, current fps is 12
+            yield return new WaitForSeconds(0.7f);  //death animations are 8 frames, current fps is 12
             gameObject.SetActive(false);
         }
         #endregion

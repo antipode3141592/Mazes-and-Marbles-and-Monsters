@@ -154,8 +154,6 @@ namespace MarblesAndMonsters.Characters
             treasureCount = DataManager.Instance.PlayerTreasureCount > 0 ? DataManager.Instance.PlayerTreasureCount : 0;
         }
 
-        
-
         private void SetSpawnLocation()
         {
             spawnPoint = GameObject.FindObjectOfType<SpawnPoint_Player>();
@@ -166,6 +164,7 @@ namespace MarblesAndMonsters.Characters
         {
             deathCount++;
             Debug.Log(string.Format("CharacterDeath(), deathcount = ", deathCount.ToString()));
+            //Time.timeScale = 0.5f;  //slowdown time
             base.CharacterDeath();
             //trigger death on controller
             GameController.Instance.EndLevel(false);
