@@ -64,7 +64,7 @@ namespace MarblesAndMonsters
             {
                 _instance = this;
                 DontDestroyOnLoad(gameObject);
-                InitializeReferences();
+                //InitializeReferences();
             }
         }
 
@@ -84,10 +84,15 @@ namespace MarblesAndMonsters
         }
 
         //gamecontroller doesn't move any rigidbodies, so only needs Update()
-        private void Update()
+        public void Update()
         {
             gameStateMachine.CurrentState.HandleInput();
             gameStateMachine.CurrentState.LogicUpdate();
+        }
+
+        public void FixedUpdate()
+        {
+            gameStateMachine.CurrentState.PhysicsUpdate();   
         }
 
         private void OnDestroy()
@@ -137,11 +142,23 @@ namespace MarblesAndMonsters
             //PauseMenu.Open();
         }
 
-        protected void InitializeReferences()
+        public int InitializeReferences()
         {
             //characters = new List<CharacterSheetController>(GameObject.FindObjectsOfType<CharacterSheetController>());
             inventoryItems = new List<InventoryItem>(GameObject.FindObjectsOfType<InventoryItem>());
             spawnPoints = new List<SpawnPoint>(GameObject.FindObjectsOfType<SpawnPoint>());
+
+            string spawnlist = "";
+            foreach (var _spawnpoint in spawnPoints) { spawnlist += String.Format("{0}, ", _spawnpoint.gameObject.name); }
+            Debug.Log(String.Format("there are {0} spawnpoints : {1}", spawnPoints.Count, spawnlist));
+            if (spawnPoints.Count == 0) 
+            { 
+                return -1; 
+            }
+            else
+            {
+                return spawnPoints.Count;
+            }
         }
 
         #region LevelManagement
@@ -211,15 +228,75 @@ namespace MarblesAndMonsters
             startTime = DateTime.Now;
         }
 
-        public void SpawnAll()
+        internal void SpawnAll()
         {
             foreach(SpawnPoint spawnPoint in spawnPoints)
             {
-                StartCoroutine(spawnPoint.Spawn(0.1f));
+                //StartCoroutine(spawnPoint.Spawn(0.0f));
+                spawnPoint.SpawnCharacter();
             }
             foreach (InventoryItem item in inventoryItems)
             {
                 item.Reset();
+            }
+
+        }
+
+        internal int StoreCharacters()
+        {
+            characters = new List<CharacterSheetController>(FindObjectsOfType<CharacterSheetController>());
+
+            string charlist = "";
+            foreach(var character in characters) { charlist += String.Format("{0}, ",character.gameObject.name); }
+            Debug.Log(String.Format("there are {0} characters : {1}", characters.Count,charlist));
+            if (characters.Count > 0)
+            {
+                return characters.Count;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        //return true if a character was added
+        internal bool StoreCharacter(CharacterSheetController character)
+        {
+            if (characters == null) { StoreCharacters(); }
+            //{
+                if (characters.Contains(character)) { return false; }
+                else
+                {
+                    characters.Add(character);
+                    return true;
+                }
+            //} else
+            //{
+                //characters = new List<CharacterSheetController>().Add(character);
+            //}
+            //return false;
+        }
+
+        public void MoveAll()
+        {
+            if (characters != null)
+            {
+                foreach (CharacterSheetController character in characters)
+                {
+                    if (character.gameObject.activeInHierarchy && !character.MySheet.IsAsleep)
+                    {
+                        if (character.MySheet.Movements.Count > 0)
+                        {
+                            foreach (Movement movement in character.MySheet.Movements)
+                            {
+                                movement.Move();
+                            }
+                        }
+                    }
+                }
+            } else {
+                Debug.LogError("Characters list null, calling StoreCharacters()");
+                StoreCharacters(); 
             }
         }
     }

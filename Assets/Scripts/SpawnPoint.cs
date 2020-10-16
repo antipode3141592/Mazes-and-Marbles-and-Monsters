@@ -44,7 +44,10 @@ namespace MarblesAndMonsters.Characters
                 {
                     character.SetSpawnPoint(this);
                     characters.Add(character);
-                    character.gameObject.SetActive(false);
+                    if (i > 0)
+                    {
+                        character.gameObject.SetActive(false);
+                    }
                 }
             }
         }

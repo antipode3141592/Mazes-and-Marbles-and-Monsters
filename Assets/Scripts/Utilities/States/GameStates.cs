@@ -12,18 +12,33 @@ namespace FiniteStateMachine.States.GameStates
     //Start occurs when a new level/scene is loaded, so take this opportunity to check for Player, assign spawn points, etc
     public class START : State
     {
+        private int spawnWaitCounter = 0;
         //use the base class constructor
         public START(StateMachine stateMachine) : base(stateMachine){}
         public override void Enter()
         {
             base.Enter();
             Time.timeScale = 0.0f;
+            spawnWaitCounter = 0;
         }
 
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            stateMachine.ChangeState(GameController.Instance.populateLevel);
+            //check if the tilemaps are done producing characters
+
+            if (GameController.Instance.InitializeReferences() > 0)
+            {
+                stateMachine.ChangeState(GameController.Instance.populateLevel);
+                Debug.Log(string.Format("spawnWaitCounter = {0}", spawnWaitCounter));
+            } else
+            {
+                spawnWaitCounter++;
+                if (spawnWaitCounter > 30)
+                {
+                    Debug.LogError("No spawnpoints found!");
+                }
+            }
         }
     }
 
@@ -39,7 +54,15 @@ namespace FiniteStateMachine.States.GameStates
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            stateMachine.ChangeState(GameController.Instance.playing);
+            //if (GameController.Instance.StoreCharacters() == GameController.Instance.InitializeReferences()) { 
+                stateMachine.ChangeState(GameController.Instance.playing);
+            //}
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            
         }
     }
 
@@ -49,6 +72,7 @@ namespace FiniteStateMachine.States.GameStates
         public override void Enter()
         {
             base.Enter();
+            //GameController.Instance.StoreCharacters();
             Time.timeScale = 1.0f;
             GameMenu.Open();
         }
@@ -59,6 +83,11 @@ namespace FiniteStateMachine.States.GameStates
         //    //check for out of bounds characters and kill them
         //    //GameController.Instance.CheckOutofBounds();
         //}
+
+        public override void PhysicsUpdate()
+        {
+            GameController.Instance.MoveAll();  //characters should only move during play
+        }
 
         public override void Exit()
         {

@@ -20,7 +20,7 @@ namespace MarblesAndMonsters.Objects
 
         //Animator animator;
         
-        private void Awake()
+        protected override void Awake()
         {
             base.Awake();
             contactFilter.NoFilter();

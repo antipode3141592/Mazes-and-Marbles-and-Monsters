@@ -15,7 +15,7 @@ namespace MarblesAndMonsters.Characters
                 //gameObject.name, other.gameObject.name, mySheet.Strength + mySheet.TouchAttack.DamageModifier, mySheet.TouchAttack.DamageType));
                 otherController.TakeDamage(mySheet.Strength + mySheet.TouchAttack.DamageModifier, mySheet.TouchAttack.DamageType);
             }
-            
+
         }
     }
 }

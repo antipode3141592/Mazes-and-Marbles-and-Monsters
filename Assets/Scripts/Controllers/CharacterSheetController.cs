@@ -45,7 +45,7 @@ namespace MarblesAndMonsters.Characters
 
         protected bool Respawn = false;
 
-        public CharacterSheet MySheet => mySheet; //read-only accessor for accessing stats directly (for hp, attack/def values, etc)
+        public override CharacterSheet MySheet => mySheet; //read-only accessor for accessing stats directly (for hp, attack/def values, etc)
 
 
         #region Unity Scripts
@@ -63,6 +63,10 @@ namespace MarblesAndMonsters.Characters
         protected virtual void Start()
         {
             mySheet.CurrentHealth = mySheet.MaxHealth;
+            if (GameController.Instance.StoreCharacter(this))
+            {
+                Debug.Log(String.Format("{0} has been added to Characters on GameController", this.gameObject.name));
+            }
         }
 
         protected virtual void OnEnable()
@@ -101,20 +105,20 @@ namespace MarblesAndMonsters.Characters
             //}
         }
 
-        protected virtual void FixedUpdate()
-        {
+        //protected virtual void FixedUpdate()
+        //{
             //movements, if not asleep
-            if (!mySheet.IsAsleep)
-            {
-                if (mySheet.Movements.Count > 0)
-                {
-                    foreach (Movement movement in mySheet.Movements)
-                    {
-                        movement.Move();
-                    }
-                }
-            }
-        }
+//            if (!mySheet.IsAsleep)
+//            {
+//                if (mySheet.Movements.Count > 0)
+//                {
+//                    foreach (Movement movement in mySheet.Movements)
+//                    {
+//                        movement.Move();
+//                    }
+//}
+//            }
+        //}
 
         protected virtual void OnDisable()
         {   
@@ -133,7 +137,7 @@ namespace MarblesAndMonsters.Characters
         public override void TakeDamage(int damageAmount, DamageType damageType)
         {
             //check for invincibility
-            if (mySheet.IsInvincible)
+            if (mySheet.IsInvincible || mySheet.DamageImmunities.Contains(DamageType.All))
             {
                 Debug.Log(string.Format("{0} is invincible!", gameObject.name));
             }
@@ -349,6 +353,9 @@ namespace MarblesAndMonsters.Characters
     public abstract class CharacterSheetController: MonoBehaviour
     {
         protected Vector2 input_acceleration;
+
+        public abstract CharacterSheet MySheet { get; }
+
         public abstract Vector2 Input_Acceleration
         {
             get;

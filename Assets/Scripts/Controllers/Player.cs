@@ -90,11 +90,11 @@ namespace MarblesAndMonsters.Characters
             GameMenu.Instance.RefreshUI();
         }
 
-        protected override void OnDisable()
-        {
-            //base.OnDisable();
-            Debug.Log("Player OnDisable() script");
-        }
+        //protected override void OnDisable()
+        //{
+        //    //base.OnDisable();
+        //    Debug.Log("Player OnDisable() script");
+        //}
 
         //cleanup for static instance
         protected virtual void OnDestroy()
@@ -183,6 +183,11 @@ namespace MarblesAndMonsters.Characters
             base.TakeDamage(damageAmount, damageType);
             animator.SetTrigger("DamageNormal");
             GameMenu.Instance.ResetHealth();
+        }
+
+        public void TakeDamage(int amount, DamageType damageType, Vector2 attackVector)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
