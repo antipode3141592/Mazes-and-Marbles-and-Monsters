@@ -13,10 +13,6 @@ namespace MarblesAndMonsters.Characters
 
     public abstract class CharacterSheetController<T> : CharacterSheetController where T : CharacterSheetController<T>
     {
-        private Vector3 offScreenPosition;
-        private static readonly float offScreenDefault_x = -1000f;
-        private static readonly float offScreenDefault_y = 1000f;
-
         //particle effects
         public ParticleSystem hitEffect;    //plays when stuck/attacked/damaged
         public ParticleSystem healEffect;   //plays when healing (players use a potion, monster regenerates, etc.)
@@ -56,7 +52,6 @@ namespace MarblesAndMonsters.Characters
             myColliders = new List<Collider2D>(GetComponents<Collider2D>());
             myRigidbody = GetComponent<Rigidbody2D>();
             mySpriteRenderer = GetComponent<SpriteRenderer>();
-            offScreenPosition = new Vector3(offScreenDefault_x, offScreenDefault_y, 0f);
             animator = GetComponent<Animator>();
         }
 
@@ -314,6 +309,13 @@ namespace MarblesAndMonsters.Characters
             StartCoroutine(DeathAnimation(deathType));
         }
 
+        public override void CharacterDeath(DeathType deathType, Vector2 position, Quaternion rotation)
+        {
+            //set position and rotation to the inputs
+
+            CharacterDeath(deathType);
+        }
+
         private IEnumerator DeathAnimation()
         //private void DeathAnimation()
         {
@@ -366,7 +368,8 @@ namespace MarblesAndMonsters.Characters
         public abstract void CharacterSpawn(Vector3 spawnPosition);
         public abstract void CharacterDeath();  //generic death script
         public abstract void CharacterDeath(DeathType deathType);   //specific types of character death
-        
+        public abstract void CharacterDeath(DeathType deathType, Vector2 position, Quaternion rotation);
+
         //health adjustment
         public abstract void TakeDamage(int damageAmount, DamageType damageType);
         public abstract void HealDamage(int healAmount);

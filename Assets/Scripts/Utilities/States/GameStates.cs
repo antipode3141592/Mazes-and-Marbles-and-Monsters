@@ -99,11 +99,11 @@ namespace FiniteStateMachine.States.GameStates
     public class Paused : State
     {
         public Paused(StateMachine stateMachine) : base(stateMachine) { }
-        public override void Enter()
-        {
-            base.Enter();
-            PauseMenu.Open();
-        }
+        //public override void Enter()
+        //{
+        //    base.Enter();
+        //    PauseMenu.Open();
+        //}
     }
 
     public class Victory : State

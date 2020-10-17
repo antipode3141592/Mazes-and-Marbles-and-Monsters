@@ -164,7 +164,7 @@ namespace MarblesAndMonsters.Characters
         {
             deathCount++;
             Debug.Log(string.Format("CharacterDeath(), deathcount = ", deathCount.ToString()));
-            //Time.timeScale = 0.5f;  //slowdown time
+            Time.timeScale = 0.0f;  //stop time, for the drama, and to stop everything moving
             base.CharacterDeath();
             //trigger death on controller
             GameController.Instance.EndLevel(false);
@@ -174,6 +174,7 @@ namespace MarblesAndMonsters.Characters
         {
             deathCount++;
             Debug.Log(string.Format("CharacterDeath(), deathcount = ", deathCount.ToString()));
+            Time.timeScale = 0.0f;  //stop time, for the drama, and to stop everything moving
             base.CharacterDeath(deathType);
             GameController.Instance.EndLevel(false);
         }

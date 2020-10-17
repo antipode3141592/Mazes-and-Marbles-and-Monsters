@@ -133,13 +133,13 @@ namespace MarblesAndMonsters
         public void UnpauseGame()
         {
             gameStateMachine.ChangeState(playing);
-            //GameMenu.Open();
+            GameMenu.Open();
         }
 
         public void PauseGame()
         {
             gameStateMachine.ChangeState(paused);
-            //PauseMenu.Open();
+            PauseMenu.Open();
         }
 
         public int InitializeReferences()

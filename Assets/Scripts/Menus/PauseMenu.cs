@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using MarblesAndMonsters;
 using MarblesAndMonsters.Characters;
+using LevelManagement.Data;
 
 namespace LevelManagement.Menus
 {
@@ -23,9 +24,16 @@ namespace LevelManagement.Menus
             MainMenu.Open();
         }
 
-        //public override void OnBackPressed()
-        //{
-        //    Application.Quit();
-        //}
+        public void ResetData()
+        {
+            //TODO should confirm first
+            DataManager.Instance.Clear();
+            //update UI
+            //UpdateCurrentGameStats();
+        }
+        public override void OnBackPressed()
+        {
+            Application.Quit();
+        }
     }
 }
