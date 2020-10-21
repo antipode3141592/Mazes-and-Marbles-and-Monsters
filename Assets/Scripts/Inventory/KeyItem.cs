@@ -15,14 +15,7 @@ namespace MarblesAndMonsters.Items
         [SerializeField]
         private KeyType keyType;
 
-        //private Player playerController;
-
         public KeyType KeyType => keyType;
-
-        //void Awake()
-        //{
-        //    playerController = GameObject.FindObjectOfType<Player>(); //grab player controller
-        //}
 
         private void OnTriggerEnter2D(Collider2D other)
         {

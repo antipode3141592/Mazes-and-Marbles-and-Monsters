@@ -22,6 +22,8 @@ namespace MarblesAndMonsters.Characters
         private int deathCount = 0;
         private int treasureCount = 0;
         private List<InventoryItem> inventory;
+        [SerializeField]
+        private static readonly int inventoryMaxSize = 5;
 
         public List<InventoryItem> Inventory => inventory;//read only accessor
                                                           //HealthBarController healthBarController;
@@ -132,15 +134,25 @@ namespace MarblesAndMonsters.Characters
 
         public void AddItemToInventory(InventoryItem itemToAdd)
         {
+            if (inventory == null) { inventory = new List<InventoryItem>(); }
             inventory.Add(itemToAdd);
-            GameMenu.Instance.AddItemToInventory(itemToAdd);
-            Debug.Log("Added a " + itemToAdd.name + "to inventory!");
+            GameMenu.Instance.UpdateInventoryUI();
+            Debug.Log("Player added a " + itemToAdd.name + "to inventory!");
         }
 
         public void RemoveItemFromInventory(InventoryItem itemToRemove)
         {
+            
             inventory.Remove(itemToRemove);
-            GameMenu.Instance.RemoveItemFromInventory(itemToRemove);
+            GameMenu.Instance.UpdateInventoryUI();
+        }
+
+        //return all inventory items to the board
+        public void ResetInventoryItems()
+        {
+            inventory.Clear();
+            Debug.Log("Player:  Removed all items from inventory!");
+            GameMenu.Instance.UpdateInventoryUI();
         }
 
         public override void CharacterSpawn()
@@ -167,6 +179,7 @@ namespace MarblesAndMonsters.Characters
             Time.timeScale = 0.0f;  //stop time, for the drama, and to stop everything moving
             base.CharacterDeath();
             //trigger death on controller
+            ResetInventoryItems();
             GameController.Instance.EndLevel(false);
         }
 
@@ -176,6 +189,7 @@ namespace MarblesAndMonsters.Characters
             Debug.Log(string.Format("CharacterDeath(), deathcount = ", deathCount.ToString()));
             Time.timeScale = 0.0f;  //stop time, for the drama, and to stop everything moving
             base.CharacterDeath(deathType);
+            ResetInventoryItems();
             GameController.Instance.EndLevel(false);
         }
 

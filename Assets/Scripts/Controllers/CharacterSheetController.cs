@@ -288,7 +288,7 @@ namespace MarblesAndMonsters.Characters
 
         public override void CharacterDeath(DeathType deathType)
         {
-            Debug.Log(string.Format("{0} has died by {1}", gameObject.name, deathType.ToString()));
+            Debug.Log(string.Format("CharacterDeath {0} has died by {1}", gameObject.name, deathType.ToString()));
             switch (deathType)
             {
                 case DeathType.Falling:
@@ -309,6 +309,8 @@ namespace MarblesAndMonsters.Characters
             StartCoroutine(DeathAnimation(deathType));
         }
 
+        //plays the death animation at a specific location
+        //  common usage:  freeze position of character directly over pit before death animation
         public override void CharacterDeath(DeathType deathType, Vector2 position, Quaternion rotation)
         {
             //set position and rotation to the inputs
@@ -326,7 +328,7 @@ namespace MarblesAndMonsters.Characters
 
         private IEnumerator DeathAnimation(DeathType deathType)
         {
-            Debug.Log(string.Format("{0} has died of {1}!", gameObject.name, deathType.ToString()));
+            Debug.Log(string.Format("DeathAnimation {0} has died of {1}!", gameObject.name, deathType.ToString()));
             yield return new WaitForSeconds(0.7f);  //death animations are 8 frames, current fps is 12
             gameObject.SetActive(false);
         }

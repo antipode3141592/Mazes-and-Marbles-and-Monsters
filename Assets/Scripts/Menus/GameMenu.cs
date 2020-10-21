@@ -63,16 +63,6 @@ namespace LevelManagement.Menus
             treasureUI.UpdateTreasureCountUI();
         }
 
-        public void AddItemToInventory(InventoryItem item)
-        {
-            inventoryUI.AddInventoryItem(item);
-        }
-
-        public void RemoveItemFromInventory(InventoryItem item)
-        {
-            inventoryUI.RemoveInventoryItem(item);
-        }
-
         public void UpdateInventoryUI()
         {
             //update inventory in UI

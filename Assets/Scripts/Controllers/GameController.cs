@@ -142,15 +142,21 @@ namespace MarblesAndMonsters
             PauseMenu.Open();
         }
 
+
+        
         public int InitializeReferences()
         {
-            //characters = new List<CharacterSheetController>(GameObject.FindObjectsOfType<CharacterSheetController>());
+            //TODO this doesn't find 
             inventoryItems = new List<InventoryItem>(GameObject.FindObjectsOfType<InventoryItem>());
+            
             spawnPoints = new List<SpawnPoint>(GameObject.FindObjectsOfType<SpawnPoint>());
 
             string spawnlist = "";
-            foreach (var _spawnpoint in spawnPoints) { spawnlist += String.Format("{0}, ", _spawnpoint.gameObject.name); }
-            Debug.Log(String.Format("there are {0} spawnpoints : {1}", spawnPoints.Count, spawnlist));
+            string inventoryList = "";
+            foreach (SpawnPoint _spawnpoint in spawnPoints) { spawnlist += String.Format("{0}, ", _spawnpoint.gameObject.name); }
+            foreach (InventoryItem _inventory in inventoryItems) { inventoryList += String.Format("{0}, ", _inventory.gameObject.name); }
+            Debug.Log(String.Format("InitializeReferences(), there are {0} spawnpoints : {1}", spawnPoints.Count, spawnlist));
+            Debug.Log(String.Format("InitializeReferences(), there are {0} inventoryItems : {1}", inventoryItems.Count, inventoryList));
             if (spawnPoints.Count == 0) 
             { 
                 return -1; 
