@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
+using MarblesAndMonsters.Characters;
 
 namespace MarblesAndMonsters.Actions
 {
+    //a simple movement that pushes the character toward the player
+    //  no obstacle avoidance or smarts of any kind
     public class FollowPlayer : Movement
     {
         [SerializeField]
@@ -9,14 +12,9 @@ namespace MarblesAndMonsters.Actions
 
         public override void Move()
         {
-            //base.Move(force, forceMultiplier);  //apply normal board action (accelerate based on tilt)
-            //if (PlayerExit.in.isAwake)
-            //{
-            //    base.Move(force, forceMultiplier);  //apply normal board action (accelerate based on tilt)
-            //    Vector2 directionToPlayer = playerController.transform.position - gameObject.transform.position;
-            //    directionToPlayer = directionToPlayer / directionToPlayer.magnitude; //normalize
-            //    _rigidbody.AddForce(directionToPlayer * speedModifier * forceMultiplier * _rigidbody.mass);
-            //}
+            Vector2 directionToPlayer = Player.Instance.transform.position - gameObject.transform.position;
+            directionToPlayer = directionToPlayer / directionToPlayer.magnitude; //normalize
+            _rigidbody.AddForce(directionToPlayer * speedModifier * 9.81f * _rigidbody.mass);
         }
     }
 }

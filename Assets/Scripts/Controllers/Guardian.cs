@@ -1,7 +1,7 @@
 ﻿namespace MarblesAndMonsters.Characters
 {
 
-    public class Guardian : CharacterSheetController<Guardian>
+    public class Guardian : CharacterSheetController
     {
        
     }

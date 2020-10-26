@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MarblesAndMonsters.Objects
 {
-    public class BladeTrap : CharacterSheetController<BladeTrap>
+    public class BladeTrap : CharacterSheetController
     {
         [SerializeField]
         private float explosiveForce = 100f;

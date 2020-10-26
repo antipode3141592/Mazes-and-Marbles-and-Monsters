@@ -6,9 +6,12 @@ using UnityEngine;
 //      Spawns characters in queue at specified interval
 namespace MarblesAndMonsters.Characters
 {
-    public abstract class SpawnPoint<T> : SpawnPoint where T : SpawnPoint<T>
+    public abstract class SpawnPoint: MonoBehaviour
     {
         //configuration
+        [SerializeField]
+        protected CharacterSheetController characterPrefab;
+        protected int CharactersToSpawn;    //# of characters this spawnpoint will spawn
         [SerializeField]
         protected int charactersToSpawn = 1;    //# of characters this spawnpoint will spawn
 
@@ -53,18 +56,18 @@ namespace MarblesAndMonsters.Characters
         }
         #endregion
 
-        public override void RemoteTriggerSpawn(float spawnDelay)
+        public virtual void RemoteTriggerSpawn(float spawnDelay)
         {
             StartCoroutine(Spawn(spawnDelay));
         }
 
-        public override IEnumerator Spawn(float spawnDelay)
+        public virtual IEnumerator Spawn(float spawnDelay)
         {
             yield return new WaitForSeconds(spawnDelay);
             SpawnCharacter();
         }
 
-        public override void SpawnCharacter()
+        public virtual void SpawnCharacter()
         {
             //most of these spawnpoints will only have a handful of characters assigned, so a foreach should be fine
             foreach (var _char in characters)
@@ -81,14 +84,12 @@ namespace MarblesAndMonsters.Characters
         }
     }
 
-    public abstract class SpawnPoint : MonoBehaviour
-    {
-        [SerializeField]
-        protected CharacterSheetController characterPrefab;
-        protected int CharactersToSpawn;    //# of characters this spawnpoint will spawn
+    //public abstract class SpawnPoint : MonoBehaviour
+    //{
+        
 
-        public abstract void RemoteTriggerSpawn(float spawnDelay);
-        public abstract IEnumerator Spawn(float spawnDelay);
-        public abstract void SpawnCharacter();
-    }
+    //    public abstract void RemoteTriggerSpawn(float spawnDelay);
+    //    public abstract IEnumerator Spawn(float spawnDelay);
+    //    public abstract void SpawnCharacter();
+    //}
 }

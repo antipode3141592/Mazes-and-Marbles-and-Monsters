@@ -5,7 +5,7 @@ using MarblesAndMonsters.Characters;
 
 namespace MarblesAndMonsters.Characters
 {
-    public class SpawnPoint_Marble : SpawnPoint<SpawnPoint_Marble>
+    public class SpawnPoint_Marble : SpawnPoint
     {
         
     }

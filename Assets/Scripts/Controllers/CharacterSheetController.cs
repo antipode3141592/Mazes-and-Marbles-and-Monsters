@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace MarblesAndMonsters.Characters
 {
-    //Controller for characters (MVC pattern)
+    //Controller for characters
     //  Executes actions based on the attached character sheet (Unity component)
     //  Core Loop:
     //      1) State Check (fire, poison, sleep, etc)
     //      2) Movement
 
-    public abstract class CharacterSheetController<T> : CharacterSheetController where T : CharacterSheetController<T>
+    public abstract class CharacterSheetController: MonoBehaviour, IDamagable
     {
         //particle effects
         public ParticleSystem hitEffect;    //plays when stuck/attacked/damaged
@@ -29,8 +29,6 @@ namespace MarblesAndMonsters.Characters
         protected float input_horizontal;
         protected float input_vertical;
 
-        public override Vector2 Input_Acceleration => input_acceleration;
-
         //animation control
         protected Animator animator;
         protected float _speed;
@@ -41,7 +39,7 @@ namespace MarblesAndMonsters.Characters
 
         protected bool Respawn = false;
 
-        public override CharacterSheet MySheet => mySheet; //read-only accessor for accessing stats directly (for hp, attack/def values, etc)
+        public CharacterSheet MySheet => mySheet; //read-only accessor for accessing stats directly (for hp, attack/def values, etc)
 
 
         #region Unity Scripts
@@ -129,7 +127,7 @@ namespace MarblesAndMonsters.Characters
         #endregion
 
         #region Damage and Effects
-        public override void TakeDamage(int damageAmount, DamageType damageType)
+        public virtual void TakeDamage(int damageAmount, DamageType damageType)
         {
             //check for invincibility
             if (mySheet.IsInvincible || mySheet.DamageImmunities.Contains(DamageType.All))
@@ -172,7 +170,7 @@ namespace MarblesAndMonsters.Characters
             //
         }
 
-        public void ApplyInvincible()
+        public virtual void ApplyInvincible()
         {
             mySheet.IsInvincible = true;
             //apply invincibility effect
@@ -180,22 +178,22 @@ namespace MarblesAndMonsters.Characters
             mySheet.InvincibleTimeCounter = GameController.Instance.DefaultEffectTime;
         }
 
-        internal override void ApplyFire()
+        internal virtual void ApplyFire()
         {
             //add 
         }
 
-        internal override void ApplyPoison()
+        internal virtual void ApplyPoison()
         {
             throw new System.NotImplementedException();
         }
 
-        internal override void ApplyIce()
+        internal virtual void ApplyIce()
         {
             throw new System.NotImplementedException();
         }
 
-        public override void HealDamage(int healAmount)
+        public virtual void HealDamage(int healAmount)
         {
 
         }
@@ -242,12 +240,12 @@ namespace MarblesAndMonsters.Characters
         #endregion
 
         #region Life and Death
-        internal override void SetSpawnPoint(SpawnPoint _spawnPoint)
+        internal virtual void SetSpawnPoint(SpawnPoint _spawnPoint)
         {
             spawnPoint = _spawnPoint;
         }
 
-        public override void CharacterSpawn()
+        public virtual void CharacterSpawn()
         {
             gameObject.transform.position = mySheet.SpawnPoint;
             mySheet.Wakeup();
@@ -259,7 +257,7 @@ namespace MarblesAndMonsters.Characters
             mySheet.CurrentHealth = mySheet.MaxHealth;
         }
 
-        public override void CharacterSpawn(Vector3 spawnPosition)
+        public virtual void CharacterSpawn(Vector3 spawnPosition)
         {
             gameObject.transform.position = spawnPosition;
             mySheet.Wakeup();
@@ -271,7 +269,7 @@ namespace MarblesAndMonsters.Characters
             mySheet.CurrentHealth = mySheet.MaxHealth;
         }
 
-        public override void CharacterDeath()
+        public virtual void CharacterDeath()
         {
             //stop movement immediately
             myRigidbody.velocity = Vector2.zero;
@@ -286,7 +284,7 @@ namespace MarblesAndMonsters.Characters
             //DeathAnimation();
         }
 
-        public override void CharacterDeath(DeathType deathType)
+        public virtual void CharacterDeath(DeathType deathType)
         {
             Debug.Log(string.Format("CharacterDeath {0} has died by {1}", gameObject.name, deathType.ToString()));
             switch (deathType)
@@ -311,14 +309,14 @@ namespace MarblesAndMonsters.Characters
 
         //plays the death animation at a specific location
         //  common usage:  freeze position of character directly over pit before death animation
-        public override void CharacterDeath(DeathType deathType, Vector2 position, Quaternion rotation)
+        public virtual void CharacterDeath(DeathType deathType, Vector2 position, Quaternion rotation)
         {
             //set position and rotation to the inputs
 
             CharacterDeath(deathType);
         }
 
-        private IEnumerator DeathAnimation()
+        protected virtual IEnumerator DeathAnimation()
         //private void DeathAnimation()
         {
             Debug.Log(string.Format("{0} has died!", gameObject.name));
@@ -326,7 +324,7 @@ namespace MarblesAndMonsters.Characters
             gameObject.SetActive(false);
         }
 
-        private IEnumerator DeathAnimation(DeathType deathType)
+        protected virtual IEnumerator DeathAnimation(DeathType deathType)
         {
             Debug.Log(string.Format("DeathAnimation {0} has died of {1}!", gameObject.name, deathType.ToString()));
             yield return new WaitForSeconds(0.7f);  //death animations are 8 frames, current fps is 12
@@ -339,8 +337,9 @@ namespace MarblesAndMonsters.Characters
         //set the look direction based on the accerometer input
         //  look direction is independent of movement calculations in FixedUpdate
         //  helps to determine 
-        protected void SetLookDirection()
+        protected virtual void SetLookDirection()
         {
+            Vector2 input_acceleration = GameController.Instance.Input_Acceleration;
             if (!Mathf.Approximately(input_acceleration.x, 0.0f) || !Mathf.Approximately(input_acceleration.y, 0.0f))
             {
                 lookDirection = input_acceleration;
@@ -352,36 +351,5 @@ namespace MarblesAndMonsters.Characters
             animator.SetFloat("Speed", input_acceleration.magnitude);
         }
         #endregion
-    }
-
-    public abstract class CharacterSheetController: MonoBehaviour
-    {
-        protected Vector2 input_acceleration;
-
-        public abstract CharacterSheet MySheet { get; }
-
-        public abstract Vector2 Input_Acceleration
-        {
-            get;
-        }
-        
-        //life and death functions
-        public abstract void CharacterSpawn();
-        public abstract void CharacterSpawn(Vector3 spawnPosition);
-        public abstract void CharacterDeath();  //generic death script
-        public abstract void CharacterDeath(DeathType deathType);   //specific types of character death
-        public abstract void CharacterDeath(DeathType deathType, Vector2 position, Quaternion rotation);
-
-        //health adjustment
-        public abstract void TakeDamage(int damageAmount, DamageType damageType);
-        public abstract void HealDamage(int healAmount);
-
-        //status effects
-        internal abstract void ApplyFire();
-        internal abstract void ApplyPoison();
-        internal abstract void ApplyIce();
-
-        internal abstract void SetSpawnPoint(SpawnPoint spawnPoint);
-
     }
 }

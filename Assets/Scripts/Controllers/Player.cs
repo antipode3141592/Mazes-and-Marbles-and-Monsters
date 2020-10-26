@@ -9,7 +9,7 @@ namespace MarblesAndMonsters.Characters
 {
     // Player is a special type of Character Sheet Controller
     //  singleton pattern
-    public class Player : CharacterSheetController<Player>
+    public class Player : CharacterSheetController
     {
         #region Properties
         //special player-only effects
