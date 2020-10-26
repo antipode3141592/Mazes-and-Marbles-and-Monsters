@@ -2,7 +2,7 @@
 
 namespace MarblesAndMonsters.Actions
 {
-    public class FollowPlayer : Movement<FollowPlayer>
+    public class FollowPlayer : Movement
     {
         [SerializeField]
         private float speedModifier = 0.5f;

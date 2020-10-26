@@ -75,7 +75,7 @@ namespace MarblesAndMonsters.Characters
             //default Update action
 
             //grab acceleration input
-            input_acceleration = (Vector2)Input.acceleration;
+            //input_acceleration = (Vector2)Input.acceleration;
 
             //state checks:
             //  invincible

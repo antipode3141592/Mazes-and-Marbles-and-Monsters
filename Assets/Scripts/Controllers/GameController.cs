@@ -25,6 +25,8 @@ namespace MarblesAndMonsters
         [SerializeField]
         private float defaultEffectTime = 3.0f;    //fire, poison, freeze lasts for N seconds
 
+        public Vector2 Input_Acceleration { get; set; }
+
         private List<CharacterSheetController> characters;
         private List<InventoryItem> inventoryItems;
         private List<SpawnPoint> spawnPoints;
@@ -103,32 +105,6 @@ namespace MarblesAndMonsters
             }
         }
         #endregion
-
-        //internal void CheckOutofBounds()
-        //{
-        //    foreach (CharacterSheetController character in characters)
-        //    {
-        //        if (character != null)
-        //        {
-        //            if (!IsWithinRect(character.gameObject.transform.position))
-        //            {
-        //                character.CharacterDeath();
-        //            }
-        //        }
-        //    }
-        //}
-
-        //private bool IsWithinRect(Vector3 position)
-        //{
-        //    if ((Math.Abs(position.x) > 1200f) || (Math.Abs(position.y) > 1200f))
-        //    {
-        //        return false;
-        //    }
-        //    else
-        //    {
-        //        return true;
-        //    }
-        //}
 
         public void UnpauseGame()
         {
@@ -283,6 +259,10 @@ namespace MarblesAndMonsters
             //return false;
         }
 
+
+        //move all characters
+        //  currently just moves characters.  if any objects/traps/whatever get movements, move is now an interface so this functions
+        //  refactor will be easier to collect all available Moves and execute them
         public void MoveAll()
         {
             if (characters != null)

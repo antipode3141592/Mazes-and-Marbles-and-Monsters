@@ -1,12 +1,17 @@
-﻿namespace MarblesAndMonsters.Actions
+﻿using UnityEngine;
+
+namespace MarblesAndMonsters.Actions
 {
 
     //  default board movement action, applies force during Update proportional to device tilt vector
     //      bool    _moving     whether or not the board moves the object (can still be pushed)
     //      float   _forceMultiplier    the default acceleration (m/s^2)
-    public class BoardMove: Movement<BoardMove>
+    public class BoardMove: Movement
     {
+        [SerializeField]
         protected bool _moving = true;  //default to moving state
+        [SerializeField]
+        protected float _forceMultiplier = 9.81f; //default to 1g
 
         public bool Moving { get { return _moving; } set { _moving = value; } }
 
@@ -15,7 +20,7 @@
         {
             if (gameObject.activeInHierarchy && _moving)
             {
-                base.Move();
+                _rigidbody.AddForce(GameController.Instance.Input_Acceleration * _rigidbody.mass * _forceMultiplier);
             }
             
         }

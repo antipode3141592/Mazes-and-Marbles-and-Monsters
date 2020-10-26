@@ -4,7 +4,7 @@ using MarblesAndMonsters.Actions;
 
 namespace MarblesAndMonsters.Characters
 {
-    //  Data Model for the Character Sheet  (MVC pattern)
+    //  Data Model for the Character Stats and Behaviors
     //  Characters have stats that define their behavior
     //      Health (integer amount of damage they can take before dying)
     //      Armor (integer amount of damage reduction every time they are struck)

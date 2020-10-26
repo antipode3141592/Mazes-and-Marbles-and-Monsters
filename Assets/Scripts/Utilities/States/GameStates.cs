@@ -76,7 +76,12 @@ namespace FiniteStateMachine.States.GameStates
             Time.timeScale = 1.0f;
             GameMenu.Open();
         }
-
+        public override void HandleInput()
+        {
+            base.HandleInput();
+            //grab acceleration input
+            GameController.Instance.Input_Acceleration = (Vector2)Input.acceleration;
+        }
         //public override void LogicUpdate()
         //{
         //    base.LogicUpdate();
