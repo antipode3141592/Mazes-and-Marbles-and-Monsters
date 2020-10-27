@@ -14,6 +14,7 @@ namespace LevelManagement.Menus.Components
 
         public void UpdateUI()
         {
+            //check for access to player's inventory
             if (Player.Instance.Inventory != null)
             {
                 //display the sprites of all items in inventory
@@ -22,19 +23,22 @@ namespace LevelManagement.Menus.Components
                     if (i < Player.Instance.Inventory.Count)
                     {
                         //update sprite
-                        contents[i].overrideSprite = Player.Instance.Inventory[i].GetUISprite();
+                        contents[i].sprite = Player.Instance.Inventory[i].InventoryIcon;
+                        contents[i].color = Color.white;
                     }
                     else
                     {
                         //remove sprites from all other inventory images
-                        contents[i].overrideSprite = null;
+                        contents[i].sprite = null;
+                        contents[i].color = Color.clear;
                     }
                 }
             }else
             {
                 foreach (var item in contents)
                 {
-                    item.overrideSprite = null;
+                    item.sprite = null;
+                    item.color = Color.clear;
                 }
             }
         }

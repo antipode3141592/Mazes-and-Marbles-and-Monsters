@@ -219,7 +219,8 @@ namespace MarblesAndMonsters
             }
             foreach (InventoryItem item in inventoryItems)
             {
-                item.Reset();
+                //item.Reset();
+                if (!item.isActiveAndEnabled) { item.gameObject.SetActive(true); }
             }
 
         }

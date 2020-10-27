@@ -2,37 +2,34 @@
 
 namespace MarblesAndMonsters.Items
 {
-    public abstract class InventoryItem<T> : InventoryItem where T : InventoryItem<T>
+    public abstract class InventoryItem: MonoBehaviour
     {
+        protected SpriteRenderer spriteRenderer;
+        protected Animator animator;
+
+        //[SerializeField]
+        //protected Sprite InventoryIcon;
+        public ItemStats ItemStats;
+
         protected void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
         }
 
-        public override void Reset()
+        public virtual void Reset()
         {
             gameObject.SetActive(true);
         }
 
-        public override Sprite GetSprite()
+        public virtual Sprite GetSprite()
         {
             throw new System.NotImplementedException();
         }
 
-        public override Sprite GetUISprite()
+        public virtual Sprite GetUISprite()
         {
-            return spriteRenderer.sprite;
+            return ItemStats.InventoryIcon;
         }
-    }
-
-    public abstract class InventoryItem: MonoBehaviour
-    {
-        protected SpriteRenderer spriteRenderer;
-        protected Animator animator;
-
-        public abstract Sprite GetSprite();     //return default sprite (typically one of the idle animations)
-        public abstract Sprite GetUISprite();
-        public abstract void Reset();
     }
 }

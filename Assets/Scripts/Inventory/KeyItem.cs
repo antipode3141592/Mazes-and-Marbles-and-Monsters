@@ -9,7 +9,7 @@ namespace MarblesAndMonsters.Items
 
     public enum KeyType { Red, Blue, Green, Purple, Skeleton }
 
-    public class KeyItem : InventoryItem<KeyItem>
+    public class KeyItem : InventoryItem
     {
 
         [SerializeField]
@@ -22,7 +22,7 @@ namespace MarblesAndMonsters.Items
             if (other != null && other.gameObject.CompareTag("Player"))
             {
                 //add key to player's inventory
-                Player.Instance.AddItemToInventory(this);
+                Player.Instance.AddItemToInventory(this.ItemStats);
                 //disable the object
                 this.gameObject.SetActive(false);
             }

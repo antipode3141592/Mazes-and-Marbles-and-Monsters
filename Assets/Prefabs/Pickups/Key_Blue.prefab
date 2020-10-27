@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8016674189092738549}
   - component: {fileID: 8016674189092738548}
   m_Layer: 12
-  m_Name: Key
+  m_Name: Key_Blue
   m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94d0ad31025f16a44b2b3e6666bb57c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemStats: {fileID: 11400000, guid: 0c0629c862f2d564aa452abd2e1b50fd, type: 2}
   keyType: 1
 --- !u!61 &8016674189092738549
 BoxCollider2D:

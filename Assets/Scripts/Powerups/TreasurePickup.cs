@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MarblesAndMonsters.Items
 {
-    public class TreasurePickup : InventoryItem<TreasurePickup>
+    public class TreasurePickup : InventoryItem
     {
         [SerializeField]
         private int value = 1;

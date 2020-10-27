@@ -5,7 +5,7 @@ using MarblesAndMonsters.Characters;
 
 namespace MarblesAndMonsters.Items
 {
-    public class AddHealthPotion : InventoryItem<AddHealthPotion>
+    public class AddHealthPotion : InventoryItem
     {
         [SerializeField]
         private int strength;

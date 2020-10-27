@@ -3,12 +3,10 @@ using UnityEngine;
 
 namespace MarblesAndMonsters.Items
 {
-    public class HealthPotion : InventoryItem<HealthPotion>
+    public class HealthPotion : InventoryItem
     {
         [SerializeField]
         private int strength;
-
-        
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -27,9 +25,7 @@ namespace MarblesAndMonsters.Items
                     }
                     else
                     {
-                        Player.Instance.AddItemToInventory(this);
-
-                        //nothing
+                        Player.Instance.AddItemToInventory(this.ItemStats);
                     }
                 }
             }

@@ -30,8 +30,7 @@ namespace MarblesAndMonsters
             if (other != null && other.gameObject.CompareTag("Player"))
             {
                 //grab keys from inventory and test for match (or skeleton)
-                var inventory = Player.Instance.Inventory;
-                foreach (KeyItem item in inventory)
+                foreach (KeyStats item in Player.Instance.Inventory)
                 {
                     if (item.KeyType == requiredKeyType || item.KeyType == KeyType.Skeleton)
                     {
@@ -53,7 +52,7 @@ namespace MarblesAndMonsters
             }
         }
 
-        private IEnumerator Unlock(KeyItem item)
+        private IEnumerator Unlock(KeyStats item)
         {
             yield return new WaitForSeconds(0.2f);
 

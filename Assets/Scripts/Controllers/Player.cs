@@ -21,11 +21,11 @@ namespace MarblesAndMonsters.Characters
 
         private int deathCount = 0;
         private int treasureCount = 0;
-        private List<InventoryItem> inventory;
+        private List<ItemStats> inventory;
         [SerializeField]
         private static readonly int inventoryMaxSize = 5;
 
-        public List<InventoryItem> Inventory => inventory;//read only accessor
+        public List<ItemStats> Inventory => inventory;//read only accessor
                                                           //HealthBarController healthBarController;
 
         //singleton stuff
@@ -54,7 +54,7 @@ namespace MarblesAndMonsters.Characters
                 //DontDestroyOnLoad(gameObject);
             }
 
-            inventory = new List<InventoryItem>();
+            inventory = new List<ItemStats>();
             base.Awake();
         }
 
@@ -132,27 +132,28 @@ namespace MarblesAndMonsters.Characters
             GameMenu.Instance.UpdateTreasureCounter();
         }
 
-        public void AddItemToInventory(InventoryItem itemToAdd)
+        public void AddItemToInventory(ItemStats itemToAdd)
         {
-            if (inventory == null) { inventory = new List<InventoryItem>(); }
+            if (inventory == null) { inventory = new List<ItemStats>(); }
             inventory.Add(itemToAdd);
             GameMenu.Instance.UpdateInventoryUI();
             Debug.Log("Player added a " + itemToAdd.name + "to inventory!");
         }
 
-        public void RemoveItemFromInventory(InventoryItem itemToRemove)
+        public void RemoveItemFromInventory(ItemStats itemToRemove)
         {
             
             inventory.Remove(itemToRemove);
             GameMenu.Instance.UpdateInventoryUI();
         }
 
-        //return all inventory items to the board
+        //remove all items from inventory
         public void ResetInventoryItems()
         {
             inventory.Clear();
             Debug.Log("Player:  Removed all items from inventory!");
-            GameMenu.Instance.UpdateInventoryUI();
+            GameMenu.Instance.UpdateInventoryUI();  //update UI
+            //refresh player current stats?
         }
 
         public override void CharacterSpawn()

@@ -18,6 +18,18 @@ PrefabInstance:
       propertyPath: keyType
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8016674189092738550, guid: 9c6edf10cac71ab429bb92e91cdaa9e8,
+        type: 3}
+      propertyPath: InventoryIcon
+      value: 
+      objectReference: {fileID: -8236273935571282256, guid: bdcec1004ebc74645b5054ce427f69e9,
+        type: 3}
+    - target: {fileID: 8016674189092738550, guid: 9c6edf10cac71ab429bb92e91cdaa9e8,
+        type: 3}
+      propertyPath: ItemStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 6bf27ba7340f2bf41b1c809a495ca388,
+        type: 2}
     - target: {fileID: 8016674189092738551, guid: 9c6edf10cac71ab429bb92e91cdaa9e8,
         type: 3}
       propertyPath: m_LocalPosition.x
