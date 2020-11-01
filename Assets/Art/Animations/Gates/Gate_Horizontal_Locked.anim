@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Gate_Locked 1
+  m_Name: Gate_Horizontal_Locked
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -1391193988281709189, guid: 202e83e4870e2a14fbb1e24e93c6ac4b,
+      value: {fileID: -5311927545298726082, guid: 35cd1351df16d5945be35c422bae265b,
         type: 3}
     attribute: m_Sprite
     path: 
@@ -41,7 +41,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -1391193988281709189, guid: 202e83e4870e2a14fbb1e24e93c6ac4b, type: 3}
+    - {fileID: -5311927545298726082, guid: 35cd1351df16d5945be35c422bae265b, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
