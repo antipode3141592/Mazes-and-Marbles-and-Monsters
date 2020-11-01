@@ -80,11 +80,11 @@ namespace MarblesAndMonsters.Characters
             base.Start();
         }
 
-        protected override void Update()
-        {
-            base.Update();
-            SetLookDirection();
-        }
+        //protected override void Update()
+        //{
+        //    base.Update();
+        //    SetLookDirection();
+        //}
 
         protected override void OnEnable()
         {

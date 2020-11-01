@@ -73,7 +73,7 @@ namespace MarblesAndMonsters.Characters
             //default Update action
 
             //grab acceleration input
-            //input_acceleration = (Vector2)Input.acceleration;
+            SetLookDirection();
 
             //state checks:
             //  invincible
@@ -98,20 +98,10 @@ namespace MarblesAndMonsters.Characters
             //}
         }
 
-        //protected virtual void FixedUpdate()
-        //{
-            //movements, if not asleep
-//            if (!mySheet.IsAsleep)
-//            {
-//                if (mySheet.Movements.Count > 0)
-//                {
-//                    foreach (Movement movement in mySheet.Movements)
-//                    {
-//                        movement.Move();
-//                    }
-//}
-//            }
-        //}
+        protected virtual void FixedUpdate()
+        {
+            animator.SetFloat("Speed", myRigidbody.velocity.magnitude);
+        }
 
         protected virtual void OnDisable()
         {   
@@ -132,7 +122,7 @@ namespace MarblesAndMonsters.Characters
             //check for invincibility
             if (mySheet.IsInvincible || mySheet.DamageImmunities.Contains(DamageType.All))
             {
-                Debug.Log(string.Format("{0} is invincible!", gameObject.name));
+                //Debug.Log(string.Format("{0} is invincible!", gameObject.name));
             }
             //check immunity to damage type
             else if (mySheet.DamageImmunities.Contains(damageType))
@@ -142,7 +132,7 @@ namespace MarblesAndMonsters.Characters
             //check damage > armor
             else if (damageAmount <= mySheet.Armor)
             {
-                Debug.Log(string.Format("{0}'s armor absorbs all damage!", gameObject.name));
+                //Debug.Log(string.Format("{0}'s armor absorbs all damage!", gameObject.name));
             }
             else
             {
@@ -286,7 +276,7 @@ namespace MarblesAndMonsters.Characters
 
         public virtual void CharacterDeath(DeathType deathType)
         {
-            Debug.Log(string.Format("CharacterDeath {0} has died by {1}", gameObject.name, deathType.ToString()));
+            //Debug.Log(string.Format("CharacterDeath(DeathType deathType):  {0} has died by {1}", gameObject.name, deathType.ToString()));
             switch (deathType)
             {
                 case DeathType.Falling:
@@ -319,14 +309,14 @@ namespace MarblesAndMonsters.Characters
         protected virtual IEnumerator DeathAnimation()
         //private void DeathAnimation()
         {
-            Debug.Log(string.Format("{0} has died!", gameObject.name));
+            //Debug.Log(string.Format("{0} has died!", gameObject.name));
             yield return new WaitForSeconds(0.5f);
             gameObject.SetActive(false);
         }
 
         protected virtual IEnumerator DeathAnimation(DeathType deathType)
         {
-            Debug.Log(string.Format("DeathAnimation {0} has died of {1}!", gameObject.name, deathType.ToString()));
+            //Debug.Log(string.Format("DeathAnimation {0} has died of {1}!", gameObject.name, deathType.ToString()));
             yield return new WaitForSeconds(0.7f);  //death animations are 8 frames, current fps is 12
             gameObject.SetActive(false);
         }
@@ -348,7 +338,8 @@ namespace MarblesAndMonsters.Characters
 
             animator.SetFloat("Look X", lookDirection.x);
             animator.SetFloat("Look Y", lookDirection.y);
-            animator.SetFloat("Speed", input_acceleration.magnitude);
+            //animator.SetFloat("Speed", input_acceleration.magnitude);
+            
         }
         #endregion
     }

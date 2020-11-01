@@ -68,7 +68,7 @@ namespace MarblesAndMonsters.Objects
 
         private IEnumerator TrapReset()
         {
-            Debug.Log("Resetting trap!");
+            //Debug.Log("Resetting trap!");
             yield return new WaitForSeconds(readyTimerDelay);
             isReady = true;
         }

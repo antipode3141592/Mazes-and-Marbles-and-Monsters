@@ -28,18 +28,24 @@ namespace LevelManagement.Menus.Components
                     }
                     else
                     {
-                        //remove sprites from all other inventory images
+                        //remove sprites from all other inventory images, set image transparent
                         contents[i].sprite = null;
                         contents[i].color = Color.clear;
                     }
                 }
             }else
             {
-                foreach (var item in contents)
-                {
-                    item.sprite = null;
-                    item.color = Color.clear;
-                }
+                InventoryImageClear();
+            }
+        }
+
+        //remove icons from all images and set transparent
+        private void InventoryImageClear()
+        {
+            foreach (var item in contents)
+            {
+                item.sprite = null;
+                item.color = Color.clear;
             }
         }
     }

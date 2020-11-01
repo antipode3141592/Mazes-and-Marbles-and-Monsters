@@ -55,10 +55,10 @@ TextureImporter:
     second: Gate_Blue
   - first:
       213: 5216523830551611268
-    second: SouthGate
+    second: EastWestGate_Blue
   - first:
       213: -4898219374092624811
-    second: NorthGate
+    second: NorthSouthGate_Blue
   - first:
       213: 2223568702498792095
     second: WestGate
@@ -67,10 +67,10 @@ TextureImporter:
     second: EastGate
   - first:
       213: 5629631854944892751
-    second: SouthGateRed
+    second: EastWestGate_Red
   - first:
       213: -7960907036884821509
-    second: NorthGateRed
+    second: NorthSouthGate_Red
   - first:
       213: 2685968142945181867
     second: WestGateRed
@@ -83,8 +83,35 @@ TextureImporter:
   - first:
       213: 8288535355925325702
     second: Torch_Unlit
+  - first:
+      213: 3147330856360205607
+    second: DungeonWalls_20
+  - first:
+      213: 2686654188979035518
+    second: DungeonWalls_21
+  - first:
+      213: 7080230881079069281
+    second: DungeonWalls_22
+  - first:
+      213: 6043926733238534267
+    second: DungeonWalls_23
+  - first:
+      213: -1873489167870848989
+    second: DungeonWalls_24
+  - first:
+      213: 3495049351178801567
+    second: DungeonWalls_25
+  - first:
+      213: -9143363532627389361
+    second: DungeonWalls_26
+  - first:
+      213: -1099552491707176392
+    second: DungeonWalls_27
+  - first:
+      213: 1657407885918320856
+    second: DungeonWalls_28
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 11
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -104,6 +131,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -135,9 +163,13 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -635,43 +667,22 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Gate_Blue
+      name: EastWestGate_Blue
       rect:
         serializedVersion: 2
-        x: 64
-        y: 96
+        x: 32
+        y: 160
         width: 32
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b2d6e1b551a617380800000000000000
-      internalID: -8975275942417109717
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SouthGate
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 160
-        width: 96
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
       physicsShape:
-      - - {x: 32, y: -8}
-        - {x: 32, y: 8}
-        - {x: -32, y: 8}
-        - {x: -32, y: -8}
+      - - {x: 8, y: -16}
+        - {x: 8, y: 16}
+        - {x: -7, y: 16}
+        - {x: -7, y: -16}
       tessellationDetail: 0
       bones: []
       spriteID: 487836a19c0d46840800000000000000
@@ -681,22 +692,22 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NorthGate
+      name: NorthSouthGate_Blue
       rect:
         serializedVersion: 2
-        x: 0
+        x: 32
         y: 128
-        width: 96
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape:
-      - - {x: 32, y: -8}
-        - {x: 32, y: 8}
-        - {x: -32, y: 8}
-        - {x: -32, y: -8}
+      - - {x: 16, y: -8}
+        - {x: 16, y: 8}
+        - {x: -16, y: 8}
+        - {x: -16, y: -8}
       tessellationDetail: 0
       bones: []
       spriteID: 55cd54f5e67060cb0800000000000000
@@ -706,68 +717,22 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WestGate
+      name: EastWestGate_Red
       rect:
         serializedVersion: 2
-        x: 192
-        y: 0
-        width: 32
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: -16}
-        - {x: 8, y: -16}
-        - {x: 8, y: 17}
-        - {x: -8, y: 17}
-      tessellationDetail: 0
-      bones: []
-      spriteID: f92ed1634f3bbde10800000000000000
-      internalID: 2223568702498792095
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: EastGate
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 0
-        width: 32
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: -16}
-        - {x: 8, y: -16}
-        - {x: 8, y: 16}
-        - {x: -8, y: 16}
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7b4b361d67f902720800000000000000
-      internalID: 2819428699401860279
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SouthGateRed
-      rect:
-        serializedVersion: 2
-        x: 96
+        x: 128
         y: 160
-        width: 96
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -8, y: 16}
+        - {x: -8, y: -16}
+        - {x: 8, y: -16}
+        - {x: 8, y: 16}
       tessellationDetail: 0
       bones: []
       spriteID: f47b6325858702e40800000000000000
@@ -777,64 +742,26 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: NorthGateRed
+      name: NorthSouthGate_Red
       rect:
         serializedVersion: 2
-        x: 96
+        x: 128
         y: 128
-        width: 96
+        width: 32
         height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -16, y: 8}
+        - {x: -16, y: -8}
+        - {x: 16, y: -8}
+        - {x: 16, y: 8}
       tessellationDetail: 0
       bones: []
       spriteID: bf992988a3d258190800000000000000
       internalID: -7960907036884821509
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WestGateRed
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 32
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ba0634e8bc9764520800000000000000
-      internalID: 2685968142945181867
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: EastGateRed
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 0
-        width: 32
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3df2753c465443560800000000000000
-      internalID: 7292529995695992787
       vertices: []
       indices: 
       edges: []
@@ -869,7 +796,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -877,6 +804,195 @@ TextureImporter:
       bones: []
       spriteID: 687e13eddfac60370800000000000000
       internalID: 8288535355925325702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonWalls_20
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72dd9f31db09dab20800000000000000
+      internalID: 3147330856360205607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonWalls_21
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7d196810c9e84520800000000000000
+      internalID: 2686654188979035518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonWalls_22
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16a08724978024260800000000000000
+      internalID: 7080230881079069281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonWalls_23
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b708b2f775750e350800000000000000
+      internalID: 6043926733238534267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonWalls_24
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 320148a27870006e0800000000000000
+      internalID: -1873489167870848989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonWalls_25
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f91d8790ed8e08030800000000000000
+      internalID: 3495049351178801567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonWalls_26
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f44db798f4f3c1180800000000000000
+      internalID: -9143363532627389361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonWalls_27
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83ae5ef95da9db0f0800000000000000
+      internalID: -1099552491707176392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonWalls_28
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d8b710e0bb400710800000000000000
+      internalID: 1657407885918320856
       vertices: []
       indices: 
       edges: []
