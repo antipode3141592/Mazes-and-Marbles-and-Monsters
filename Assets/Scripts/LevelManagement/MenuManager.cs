@@ -25,6 +25,9 @@ namespace LevelManagement.Menus
         private PauseMenu pauseMenuPrefab;
         [SerializeField]
         private WinMenu winMenuPrefab;
+        [SerializeField]
+        private DefeatMenu defeatMenuPrefab;
+
 
         [SerializeField]
         private Transform _menuParent;

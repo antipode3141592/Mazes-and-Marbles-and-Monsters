@@ -411,6 +411,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8ead83cb90c274b802cf62e5e137eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathCountUI: {fileID: 0}
+  healthBarController: {fileID: 0}
+  treasureUI: {fileID: 0}
+  inventoryUI: {fileID: 0}
 --- !u!1 &2694496633200879499
 GameObject:
   m_ObjectHideFlags: 0

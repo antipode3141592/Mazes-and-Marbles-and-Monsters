@@ -55,4 +55,6 @@ MonoBehaviour:
     type: 3}
   winMenuPrefab: {fileID: 4543755887815193723, guid: ab984734cb61f2d4ebbb91b8c37c09ac,
     type: 3}
+  defeatMenuPrefab: {fileID: 1519059312027133067, guid: 1ed1653fa2b255b4b9a7736f7fd2cbae,
+    type: 3}
   _menuParent: {fileID: 0}

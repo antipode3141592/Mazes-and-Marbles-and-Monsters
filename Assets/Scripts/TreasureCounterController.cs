@@ -11,10 +11,10 @@ namespace LevelManagement.Menus.Components
 
         void Start()
         {
-            UpdateTreasureCountUI();
+            UpdateTreasureCount();
         }
 
-        public void UpdateTreasureCountUI()
+        public void UpdateTreasureCount()
         {
             if (treasureCountText != null)
             {

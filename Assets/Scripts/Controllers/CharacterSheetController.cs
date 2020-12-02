@@ -34,6 +34,8 @@ namespace MarblesAndMonsters.Characters
         protected float _speed;
         protected Vector2 lookDirection = new Vector2(1,0); //default look right
 
+        protected bool isDying = false;   //similar to invincibility flag for ensuring multiple death calls won't be evaluated
+
         [SerializeField]
         protected SpawnPoint spawnPoint;
 
@@ -65,6 +67,7 @@ namespace MarblesAndMonsters.Characters
         protected virtual void OnEnable()
         {
             mySheet.CurrentHealth = mySheet.MaxHealth;
+            isDying = false;
         }
 
         //saddest state machine
@@ -276,25 +279,31 @@ namespace MarblesAndMonsters.Characters
 
         public virtual void CharacterDeath(DeathType deathType)
         {
-            //Debug.Log(string.Format("CharacterDeath(DeathType deathType):  {0} has died by {1}", gameObject.name, deathType.ToString()));
-            switch (deathType)
+            if (isDying) { return; }
+            else
             {
-                case DeathType.Falling:
-                    animator.SetTrigger("Falling");
-                    break;
-                case DeathType.Damage:
-                    animator.SetTrigger("DeathbyDamage");
-                    break;
-                case DeathType.Fire:
-                    break;
-                case DeathType.Poison:
-                    break;
-                default:
-                    Debug.LogError("Unhandled deathtype enum!");
-                    break;
+                isDying = true;
 
+                //Debug.Log(string.Format("CharacterDeath(DeathType deathType):  {0} has died by {1}", gameObject.name, deathType.ToString()));
+                switch (deathType)
+                {
+                    case DeathType.Falling:
+                        animator.SetTrigger("Falling");
+                        break;
+                    case DeathType.Damage:
+                        animator.SetTrigger("DeathbyDamage");
+                        break;
+                    case DeathType.Fire:
+                        break;
+                    case DeathType.Poison:
+                        break;
+                    default:
+                        Debug.LogError("Unhandled deathtype enum!");
+                        break;
+
+                }
+                StartCoroutine(DeathAnimation(deathType));
             }
-            StartCoroutine(DeathAnimation(deathType));
         }
 
         //plays the death animation at a specific location

@@ -5,6 +5,9 @@ namespace LevelManagement.Menus.Components
 {
     //View Controller for HealthBar
     //  current system uses animated hearts to represent health, one heart = 1hp
+    // public functions:
+    //  UpdateHealth() - 
+    //  
     public class HealthBarController : MonoBehaviour
     {
         public GameObject[] heartArray; //currently set in Unity to twenty hearts
@@ -20,7 +23,7 @@ namespace LevelManagement.Menus.Components
             }
         }
 
-        public void ResetHealth()
+        public void UpdateHealth()
         {
             if ((Player.Instance != null) && (Player.Instance.MySheet != null))
             {
@@ -45,46 +48,6 @@ namespace LevelManagement.Menus.Components
                     heartArray[i].SetActive(false);
                 }
             }
-        }
-
-        public void UpdateHealthUI()
-        {
-            AdjustHealth(0);
-        }
-
-        //increase player health by amount (probably just 1 heart at a time, but maybe not)
-        public void IncreaseMaxHealth(int amount)
-        {
-            //FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value += amount;
-            //playerMaxHealth = FsmVariables.GlobalVariables.FindFsmInt("PlayerMaxHealth_global").Value;
-            AdjustHealth(amount);
-        }
-
-        //animate hearts based on whether health is increasing or decreasing
-        public void AdjustHealth(int health)
-        {
-            int targetHealth = Mathf.Clamp(Player.Instance.MySheet.CurrentHealth + health, 0, Player.Instance.MySheet.MaxHealth);
-
-            if (targetHealth < Player.Instance.MySheet.CurrentHealth)
-            {
-                for (int i = targetHealth; i < Player.Instance.MySheet.CurrentHealth; i++)
-                {
-                    heartAnimators[i].SetTrigger("LoseHealth");
-                }
-            }
-            else if (targetHealth > Player.Instance.MySheet.CurrentHealth)
-            {
-                for (int i = Player.Instance.MySheet.CurrentHealth; i < targetHealth; i++)
-                {
-                    if (!heartArray[i].activeInHierarchy) { heartArray[i].SetActive(true); }
-                    else
-                    {
-                        //Debug.Log("send GainHealth trigger");
-                        heartAnimators[i].SetTrigger("GainHealth");
-                    }
-                }
-            }
-            Player.Instance.MySheet.CurrentHealth = targetHealth;
         }
     }
 }

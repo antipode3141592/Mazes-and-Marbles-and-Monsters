@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 1685750014967127568}
   - component: {fileID: 1685750014967127569}
   - component: {fileID: 8064502080431428008}
-  - component: {fileID: 7186592063778486358}
   - component: {fileID: 861178473460568619}
-  - component: {fileID: 9068583915104088905}
-  - component: {fileID: 6580635612401571139}
+  - component: {fileID: 4171957815178582534}
+  - component: {fileID: 6712585708218962869}
+  - component: {fileID: 7774725849334288606}
   m_Layer: 11
   m_Name: Mummy
   m_TagString: Monster
@@ -34,7 +34,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 3587979251372763072}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -144,7 +145,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.625, y: 0.875}
+    oldSize: {x: 0.3125, y: 0.4375}
     newSize: {x: 0.9375, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -153,19 +154,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6, y: 6}
   m_EdgeRadius: 0.71
---- !u!114 &7186592063778486358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1685750014967127573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09f849e4d674d544f824cd5af20e5a88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isAwake: 1
 --- !u!114 &861178473460568619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,9 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d83f84d8134264da879a599c058c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _forceMultiplier: 9.81
   speedModifier: 0.5
---- !u!114 &9068583915104088905
+--- !u!114 &4171957815178582534
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,12 +176,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1685750014967127573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -967985445, guid: e743331561ef77147ae48cda9bcb8209, type: 3}
+  m_Script: {fileID: 11500000, guid: 0771b376bef940d478801b5d533f1757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetFSMs:
-  - {fileID: 0}
---- !u!114 &6580635612401571139
+  hitEffect: {fileID: 7161807920710498695}
+  healEffect: {fileID: 0}
+  invincibilityEffect: {fileID: 0}
+  spawnPoint: {fileID: 0}
+--- !u!114 &6712585708218962869
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -203,8 +192,116 @@ MonoBehaviour:
   m_GameObject: {fileID: 1685750014967127573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -664232604, guid: e743331561ef77147ae48cda9bcb8209, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c9c6b6e68a423447a0be67e008d7d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetFSMs:
-  - {fileID: 0}
+  maxHealth: 5
+  startingHealth: 5
+  maxHealthLimit: 10
+  strength: 1
+  armor: 1
+  damageImmunities: 
+  respawnFlag: 0
+  respawnPeriod: 0
+  isAsleep: 0
+  spawnPoint: {x: 0, y: 0, z: 0}
+--- !u!95 &7774725849334288606
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685750014967127573}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1001 &1399402214501059231
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1685750014967127570}
+    m_Modifications:
+    - target: {fileID: 2495201970503069023, guid: 9e30976073747b64ea383d2e739db0cc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495201970503069023, guid: 9e30976073747b64ea383d2e739db0cc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495201970503069023, guid: 9e30976073747b64ea383d2e739db0cc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495201970503069023, guid: 9e30976073747b64ea383d2e739db0cc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495201970503069023, guid: 9e30976073747b64ea383d2e739db0cc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495201970503069023, guid: 9e30976073747b64ea383d2e739db0cc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495201970503069023, guid: 9e30976073747b64ea383d2e739db0cc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495201970503069023, guid: 9e30976073747b64ea383d2e739db0cc,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495201970503069023, guid: 9e30976073747b64ea383d2e739db0cc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495201970503069023, guid: 9e30976073747b64ea383d2e739db0cc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495201970503069023, guid: 9e30976073747b64ea383d2e739db0cc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523418283399527071, guid: 9e30976073747b64ea383d2e739db0cc,
+        type: 3}
+      propertyPath: m_Name
+      value: MummyHitEffect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9e30976073747b64ea383d2e739db0cc, type: 3}
+--- !u!4 &3587979251372763072 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2495201970503069023, guid: 9e30976073747b64ea383d2e739db0cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1399402214501059231}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7161807920710498695 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8072832889181188888, guid: 9e30976073747b64ea383d2e739db0cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1399402214501059231}
+  m_PrefabAsset: {fileID: 0}

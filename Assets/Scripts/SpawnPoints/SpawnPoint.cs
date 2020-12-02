@@ -17,11 +17,14 @@ namespace MarblesAndMonsters.Characters
 
         //private Queue<CharacterSheetController> spawnQueue; //ephemeral 
         private List<CharacterSheetController> characters;  //the collection of all instantiated character objects
-        
+
         private float spawnTimer;
-        private bool isAvailable = true;   //true when the SpawnPoint's collider is clear and ready to start a spawn
+        [SerializeField]
+        public bool isAvailable = true;   //true when the SpawnPoint's collider is clear and ready to start a spawn
         protected ContactFilter2D contactFilter;
         protected List<Collider2D> collidersInSpawnZone;
+
+        protected Animator animator;
 
         protected Collider2D spawningZoneCollider;  //trigger area where the character will spawn
                                                     //will only allow a spawn while the spawning zone is clear
@@ -35,6 +38,7 @@ namespace MarblesAndMonsters.Characters
             spawningZoneCollider = gameObject.GetComponent<Collider2D>();
             characters = new List<CharacterSheetController>();
             collidersInSpawnZone = new List<Collider2D>();
+            animator = GetComponent<Animator>();
         }
 
         protected virtual void Start()
@@ -47,7 +51,7 @@ namespace MarblesAndMonsters.Characters
                 {
                     character.SetSpawnPoint(this);
                     characters.Add(character);
-                    if (i > 0)
+                    if (i > 0 || !isAvailable)
                     {
                         character.gameObject.SetActive(false);
                     }
@@ -82,14 +86,16 @@ namespace MarblesAndMonsters.Characters
                 }
             }
         }
+
+        public virtual void Reset()
+        {
+            foreach (var _char in characters)
+            {
+                if (_char.isActiveAndEnabled)
+                {
+                    _char.gameObject.SetActive(false);
+                }
+            }
+        }
     }
-
-    //public abstract class SpawnPoint : MonoBehaviour
-    //{
-        
-
-    //    public abstract void RemoteTriggerSpawn(float spawnDelay);
-    //    public abstract IEnumerator Spawn(float spawnDelay);
-    //    public abstract void SpawnCharacter();
-    //}
 }

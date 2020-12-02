@@ -132,7 +132,7 @@ MonoBehaviour:
   invincibilityEffect: {fileID: 7064711046569503975}
   spawnPoint: {fileID: 0}
   treasureEffect: {fileID: 4097187610937647480}
-  addMaxHealthEffect: {fileID: 0}
+  addMaxHealthEffect: {fileID: 3735710819123007440}
 --- !u!95 &5024499731912051238
 Animator:
   serializedVersion: 3
@@ -202,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dfc084c56f6f5449947cfc56d091772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moving: 1
   _forceMultiplier: 9.81
 --- !u!1001 &1730117940445132589
 PrefabInstance:

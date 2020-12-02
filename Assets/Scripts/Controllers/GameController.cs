@@ -143,7 +143,36 @@ namespace MarblesAndMonsters
             }
         }
 
+        internal void ResetAll()
+        {
+            foreach(SpawnPoint spawnPoint in spawnPoints)
+            {
+                spawnPoint.Reset();
+            }
+
+            foreach (InventoryItem inventoryItem in inventoryItems)
+            {
+                inventoryItem.Reset();
+            }
+        }
+
         #region LevelManagement
+
+        public void LevelWin()
+        {
+            SaveGameData();
+            StartCoroutine(WinRoutine());
+        }
+
+        public void LevelLose()
+        {
+            if (DataManager.Instance != null)
+            {
+                DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;  //increment, THEN store, silly
+                DataManager.Instance.Save();
+            }
+            gameStateMachine.ChangeState(defeat);
+        }
 
         public void EndLevel(bool isVictorious = true)
         {
@@ -167,6 +196,11 @@ namespace MarblesAndMonsters
         public void LoadNextLevel()
         {
             gameStateMachine.ChangeState(start);
+        }
+
+        public void LoadRoom(string RoomName)
+        {
+
         }
 
         private IEnumerator WinRoutine()
@@ -215,7 +249,11 @@ namespace MarblesAndMonsters
             foreach(SpawnPoint spawnPoint in spawnPoints)
             {
                 //StartCoroutine(spawnPoint.Spawn(0.0f));
-                spawnPoint.SpawnCharacter();
+                //some spawnPoints begin in an unavailable state (and made available by some trigger)
+                if (spawnPoint.isAvailable)
+                {
+                    spawnPoint.SpawnCharacter();
+                }
             }
             foreach (InventoryItem item in inventoryItems)
             {
