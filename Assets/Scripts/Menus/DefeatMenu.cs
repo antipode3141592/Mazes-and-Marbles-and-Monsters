@@ -1,19 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using MarblesAndMonsters;
+using LevelManagement;
+using LevelManagement.Menus;
 using MarblesAndMonsters.Characters;
+using UnityEngine;
 
-namespace LevelManagement.Menus
+namespace MarblesAndMonsters.Menus
 {
     public class DefeatMenu : Menu<DefeatMenu>
     {
-        private LevelLoader levelLoader;
+        //private LevelLoader levelLoader;
 
         protected override void Awake()
         {
             base.Awake();
-            levelLoader = GameObject.FindObjectOfType<LevelLoader>();
+            //levelLoader = GameObject.FindObjectOfType<LevelLoader>();
         }
 
         //restarting the level means killing the PC and resetting all items/monsters/obstacles

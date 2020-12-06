@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace LevelManagement.Menus.Components
+namespace MarblesAndMonsters.Menus.Components
 {
     public class InventoryUI : MonoBehaviour
     { 

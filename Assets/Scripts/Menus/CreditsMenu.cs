@@ -1,4 +1,6 @@
-﻿namespace LevelManagement.Menus
+﻿using LevelManagement.Menus;
+
+namespace MarblesAndMonsters.Menus
 {
     public class CreditsMenu : Menu<CreditsMenu>
     {

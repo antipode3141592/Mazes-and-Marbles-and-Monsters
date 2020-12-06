@@ -1,9 +1,11 @@
-﻿using LevelManagement.Data;
-using System.Collections;
+﻿using LevelManagement.Menus;
 using UnityEngine;
+using LevelManagement.Data;
+using LevelManagement;
+using System.Collections;
 using UnityEngine.UI;
 
-namespace LevelManagement.Menus
+namespace MarblesAndMonsters.Menus
 {
     public class MainMenu : Menu<MainMenu>
     {

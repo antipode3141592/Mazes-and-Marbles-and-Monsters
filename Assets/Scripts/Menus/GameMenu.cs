@@ -1,9 +1,8 @@
-﻿using LevelManagement.Menus.Components;
-using MarblesAndMonsters;
-using MarblesAndMonsters.Items;
+﻿using MarblesAndMonsters.Menus.Components;
+using LevelManagement.Menus;
 using UnityEngine;
 
-namespace LevelManagement.Menus
+namespace MarblesAndMonsters.Menus
 {
     public class GameMenu : Menu<GameMenu>
     {

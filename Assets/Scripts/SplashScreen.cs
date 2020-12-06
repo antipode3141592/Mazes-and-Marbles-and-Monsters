@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
+using LevelManagement;
 
-namespace LevelManagement.Menus
+namespace MarblesAndMonsters.Menus
 {
     public class SplashScreen : MonoBehaviour
     {

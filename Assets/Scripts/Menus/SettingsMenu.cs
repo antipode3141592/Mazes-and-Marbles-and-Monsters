@@ -1,8 +1,9 @@
 ﻿using LevelManagement.Data; //include data classes
+using LevelManagement.Menus;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace LevelManagement.Menus
+namespace MarblesAndMonsters.Menus
 {
     public class SettingsMenu : Menu<SettingsMenu>
     {

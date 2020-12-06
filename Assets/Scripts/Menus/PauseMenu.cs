@@ -1,9 +1,10 @@
-﻿using UnityEngine;
-using MarblesAndMonsters;
-using MarblesAndMonsters.Characters;
+﻿using MarblesAndMonsters.Characters;
+using LevelManagement.Menus;
+using UnityEngine;
 using LevelManagement.Data;
+using LevelManagement;
 
-namespace LevelManagement.Menus
+namespace MarblesAndMonsters.Menus
 {
     public class PauseMenu : Menu<PauseMenu>
     {

@@ -4,6 +4,8 @@ using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 
+//code based on the course content at https://www.udemy.com/course/level-management-in-unity/ , which was super helpeful and highly recommended
+
 namespace LevelManagement.Data
 {
     public class JSONSaver

@@ -1,10 +1,9 @@
 ﻿using FiniteStateMachine;
 using FiniteStateMachine.States.GameStates;
 using LevelManagement.Data;
-using LevelManagement.Levels;
-using LevelManagement.Menus;
 using MarblesAndMonsters.Characters;
 using MarblesAndMonsters.Items;
+using MarblesAndMonsters.Menus;
 using System;
 using System.Collections;
 using System.Collections.Generic;

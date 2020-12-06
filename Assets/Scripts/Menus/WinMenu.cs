@@ -1,8 +1,9 @@
-﻿using MarblesAndMonsters.Characters;
+﻿using LevelManagement;
+using LevelManagement.Menus;
+using MarblesAndMonsters.Characters;
 using UnityEngine;
-using MarblesAndMonsters;
 
-namespace LevelManagement.Menus
+namespace MarblesAndMonsters.Menus
 {
     public class WinMenu : Menu<WinMenu>
     {

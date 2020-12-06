@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using LevelManagement.Menus;
 
+//code based on the course content at https://www.udemy.com/course/level-management-in-unity/ , which was super helpeful and highly recommended
 //  Class Name:  MenuManager
 //  Interacts with:  Menu
 //  Purpose:  A UI controller with 
 //  
 
-namespace LevelManagement.Menus
+namespace MarblesAndMonsters.Menus
 {
     public class MenuManager : MonoBehaviour
     {
