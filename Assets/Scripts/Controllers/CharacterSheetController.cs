@@ -34,7 +34,10 @@ namespace MarblesAndMonsters.Characters
         protected float _speed;
         protected Vector2 lookDirection = new Vector2(1,0); //default look right
 
-        protected bool isDying = false;   //similar to invincibility flag for ensuring multiple death calls won't be evaluated
+        //sound control
+        protected AudioSource audioSource;
+
+        public bool isDying = false;   //similar to invincibility flag for ensuring multiple death calls won't be evaluated
 
         [SerializeField]
         protected SpawnPoint spawnPoint;
@@ -53,6 +56,7 @@ namespace MarblesAndMonsters.Characters
             myRigidbody = GetComponent<Rigidbody2D>();
             mySpriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
+            audioSource = GetComponent<AudioSource>();
         }
 
         protected virtual void Start()
@@ -62,12 +66,14 @@ namespace MarblesAndMonsters.Characters
             {
                 Debug.Log(String.Format("{0} has been added to Characters on GameController", this.gameObject.name));
             }
+            //animator.SetBool("Falling", false);
         }
 
         protected virtual void OnEnable()
         {
             mySheet.CurrentHealth = mySheet.MaxHealth;
             isDying = false;
+            
         }
 
         //saddest state machine
@@ -190,46 +196,6 @@ namespace MarblesAndMonsters.Characters
         {
 
         }
-
-        ////Adjust Health
-        ////  adds value to current health
-        //public virtual void AdjustHealth(int value)
-        //{
-        //    //add health or subtract health?
-        //    if (value >= 0)
-        //    {
-        //        //check for damage
-        //        if (mySheet.CurrentHealth < mySheet.MaxHealth)
-        //        {
-        //            //add health
-        //            mySheet.CurrentHealth += value;
-        //            //add health animation
-
-        //            //add health particle effect
-        //            healEffect.Play();
-        //            //update UI
-        //            //GameMenu.Instance.UpdateHealth()
-        //        } else
-        //        {
-        //            //no effect
-                    
-        //        }
-
-        //    } else
-        //    {
-        //        //subtract health;
-        //        mySheet.CurrentHealth -= value;
-        //        //damage animation;
-
-        //        //death check;
-        //        if (MySheet.CurrentHealth <= 0) 
-        //        {
-        //            CharacterDeath();
-        //        }
-                
-
-        //    }
-        //}
         #endregion
 
         #region Life and Death
@@ -262,32 +228,25 @@ namespace MarblesAndMonsters.Characters
             mySheet.CurrentHealth = mySheet.MaxHealth;
         }
 
-        public virtual void CharacterDeath()
-        {
-            //stop movement immediately
-            myRigidbody.velocity = Vector2.zero;
-            mySheet.PutToSleep();   //go to sleep so Move() is not called on character
-            //turn off colliders so other objects can pass through
-            foreach (Collider2D collider in myColliders)
-            {
-                collider.enabled = false;
-            }
-            //death animation
-            StartCoroutine(DeathAnimation());
-            //DeathAnimation();
-        }
-
         public virtual void CharacterDeath(DeathType deathType)
         {
-            if (isDying) { return; }
+            Debug.Log(string.Format("{0}'s CharacterDeath() function called", gameObject.name));
+            if (isDying) 
+            {
+                Debug.Log(string.Format("{0}'s CharacterDeath() function called while dying, skipping...", gameObject.name));
+                return; 
+            }
             else
             {
                 isDying = true;
+                myRigidbody.velocity = Vector2.zero;
+                //myRigidbody.Sleep();
 
                 //Debug.Log(string.Format("CharacterDeath(DeathType deathType):  {0} has died by {1}", gameObject.name, deathType.ToString()));
                 switch (deathType)
                 {
                     case DeathType.Falling:
+                        //animator.SetBool("Falling", true);
                         animator.SetTrigger("Falling");
                         break;
                     case DeathType.Damage:
@@ -315,18 +274,10 @@ namespace MarblesAndMonsters.Characters
             CharacterDeath(deathType);
         }
 
-        protected virtual IEnumerator DeathAnimation()
-        //private void DeathAnimation()
-        {
-            //Debug.Log(string.Format("{0} has died!", gameObject.name));
-            yield return new WaitForSeconds(0.5f);
-            gameObject.SetActive(false);
-        }
-
         protected virtual IEnumerator DeathAnimation(DeathType deathType)
         {
-            //Debug.Log(string.Format("DeathAnimation {0} has died of {1}!", gameObject.name, deathType.ToString()));
-            yield return new WaitForSeconds(0.7f);  //death animations are 8 frames, current fps is 12
+            Debug.Log(string.Format("DeathAnimation {0} has died of {1}!", gameObject.name, deathType.ToString()));
+            yield return new WaitForSeconds(0.667f);  //death animations are 8 frames, current fps is 12
             gameObject.SetActive(false);
         }
         #endregion

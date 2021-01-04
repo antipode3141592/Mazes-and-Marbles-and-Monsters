@@ -80,23 +80,11 @@ namespace MarblesAndMonsters.Characters
             base.Start();
         }
 
-        //protected override void Update()
-        //{
-        //    base.Update();
-        //    SetLookDirection();
-        //}
-
         protected override void OnEnable()
         {
             base.OnEnable();
             GameMenu.Instance.RefreshUI();
         }
-
-        //protected override void OnDisable()
-        //{
-        //    //base.OnDisable();
-        //    Debug.Log("Player OnDisable() script");
-        //}
 
         //cleanup for static instance
         protected virtual void OnDestroy()
@@ -156,7 +144,7 @@ namespace MarblesAndMonsters.Characters
         {
             inventory.Clear();
             Debug.Log("Player:  Removed all items from inventory!");
-            GameMenu.Instance.inventoryUI.UpdateUI();
+            //GameMenu.Instance.inventoryUI.UpdateUI();
             //refresh player current stats?
         }
 
@@ -177,31 +165,23 @@ namespace MarblesAndMonsters.Characters
             //mySheet.SetSpawnLocation(spawnPoint.transform);
         }
 
-        public override void CharacterDeath()
-        {
-            deathCount++;
-            Debug.Log(string.Format("CharacterDeath(), deathcount = ", deathCount.ToString()));
-            Time.timeScale = 0.0f;  //stop time, for the drama, and to stop everything moving
-            base.CharacterDeath();
-            //trigger death on controller
-            ResetInventoryItems();
-            GameController.Instance.EndLevel(false);
-        }
-
         //there's probably a better way to abstract the CharacterDeath to not copy/paste the base function
         public override void CharacterDeath(DeathType deathType)
         {
             if (isDying) { return; }
             else
             {
-                Time.timeScale = 0.0f;  //stop time, for the drama, and to stop everything moving
+                //Time.timeScale = 0.0f;  //stop time, for the drama, and to stop everything moving
                 isDying = true;
+                myRigidbody.velocity = Vector2.zero;
+                myRigidbody.Sleep();
                 deathCount++;
                 
                 //Debug.Log(string.Format("CharacterDeath(DeathType deathType):  {0} has died by {1}", gameObject.name, deathType.ToString()));
                 switch (deathType)
                 {
                     case DeathType.Falling:
+                        //animator.SetBool("Falling", true);
                         animator.SetTrigger("Falling");
                         break;
                     case DeathType.Damage:
@@ -217,17 +197,15 @@ namespace MarblesAndMonsters.Characters
 
                 }
                 StartCoroutine(DeathAnimation(deathType));
-                ResetInventoryItems();
-                GameController.Instance.EndLevel(false);
             }
         }
 
         protected override IEnumerator DeathAnimation(DeathType deathType)
         {
-            yield return new WaitForSeconds(0.7f);  //death animations are 8 frames, current fps is 12
-            gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.667f);  //death animations are 8 frames, current fps is 12
             ResetInventoryItems();
             GameController.Instance.EndLevel(false);
+            gameObject.SetActive(false);
         }
 
         public override void TakeDamage(int damageAmount, DamageType damageType)
@@ -240,6 +218,13 @@ namespace MarblesAndMonsters.Characters
         public void TakeDamage(int amount, DamageType damageType, Vector2 attackVector)
         {
             throw new System.NotImplementedException();
+        }
+
+        //collision stuff
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            audioSource.Play();
         }
     }
 }

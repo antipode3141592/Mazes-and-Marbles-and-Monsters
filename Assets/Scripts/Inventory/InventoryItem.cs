@@ -6,6 +6,7 @@ namespace MarblesAndMonsters.Items
     {
         protected SpriteRenderer spriteRenderer;
         protected Animator animator;
+        protected AudioSource audioSource;
 
         //[SerializeField]
         //protected Sprite InventoryIcon;
@@ -15,6 +16,7 @@ namespace MarblesAndMonsters.Items
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
+            audioSource = GetComponent<AudioSource>();
         }
 
         public virtual void Reset()

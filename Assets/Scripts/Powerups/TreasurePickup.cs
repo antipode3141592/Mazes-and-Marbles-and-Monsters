@@ -13,7 +13,13 @@ namespace MarblesAndMonsters.Items
             //Player.Instance.RemoveTreasure(value);
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        //private void OnCollisionEnter2D(Collision2D other)
+        //{
+        //    Player.Instance.AddTreasure(value);
+        //    gameObject.SetActive(false);
+        //}
+
+        private void OnTriggerEnter2D(Collider2D other)
         {
             Player.Instance.AddTreasure(value);
             gameObject.SetActive(false);

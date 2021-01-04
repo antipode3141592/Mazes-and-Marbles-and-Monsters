@@ -70,9 +70,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: -1300080759
+  m_SortingLayer: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: e2a7c00bb6fe626469f89c9e13499395, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -115,4 +115,4 @@ MonoBehaviour:
   characterPrefab: {fileID: 8347004472980754765, guid: 5adef9eee92f8c34c8f45bb4a9333310,
     type: 3}
   charactersToSpawn: 1
-  spawnWaitPeriod: 1.5
+  isAvailable: 1

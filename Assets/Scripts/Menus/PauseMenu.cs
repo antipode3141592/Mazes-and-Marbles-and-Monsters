@@ -15,7 +15,7 @@ namespace MarblesAndMonsters.Menus
         }
 
         public void OnRestartPressed() {
-            Player.Instance.CharacterDeath();
+            Player.Instance.CharacterDeath(DeathType.Damage);
             base.OnBackPressed();   //return to GameMenu
         }
 

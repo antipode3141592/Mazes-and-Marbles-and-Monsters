@@ -11,6 +11,7 @@ namespace MarblesAndMonsters.Items
     {
         [SerializeField]
         private AddHealthItemStats healthItemStats;
+        
 
 
         //potion is consumed immediately (it would feel weird to have to activate it 
@@ -18,10 +19,19 @@ namespace MarblesAndMonsters.Items
         {
             if (collision.gameObject.CompareTag("Player"))
             {
+                audioSource.Play();
                 Player.Instance.AddMaxHealth(healthItemStats.HealingStrength);
                 //Destroy(gameObject);    //destroy self (these are relatively rare, so no need for pooling)
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
+                
+                StartCoroutine(HideItem());
             }
+        }
+
+        public IEnumerator HideItem()
+        {
+            yield return new WaitForSeconds(0.2f);
+            gameObject.SetActive(false);
         }
 
         public override void Reset()

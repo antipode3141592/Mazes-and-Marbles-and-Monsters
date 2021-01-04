@@ -307,7 +307,7 @@ namespace MarblesAndMonsters
             {
                 foreach (CharacterSheetController character in characters)
                 {
-                    if (character.gameObject.activeInHierarchy && !character.MySheet.IsAsleep)
+                    if (character.gameObject.activeInHierarchy && !character.MySheet.IsAsleep && !character.isDying )
                     {
                         if (character.MySheet.Movements.Count > 0)
                         {

@@ -1,0 +1,1632 @@
+fileFormatVersion: 2
+guid: 17c2ac290c4ed2a49bd22258c7c4001f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6107635473285601548
+    second: Expanded Pit_0
+  - first:
+      213: 5065542260693547428
+    second: Expanded Pit_1
+  - first:
+      213: -1171324756432738539
+    second: Expanded Pit_2
+  - first:
+      213: -3422359696348702574
+    second: Expanded Pit_3
+  - first:
+      213: -402839178168340757
+    second: Expanded Pit_4
+  - first:
+      213: -6143957980052305402
+    second: Expanded Pit_5
+  - first:
+      213: 3164639433452409274
+    second: Expanded Pit_6
+  - first:
+      213: -2890930533534308976
+    second: Expanded Pit_7
+  - first:
+      213: 2391866171843667203
+    second: Expanded Pit_8
+  - first:
+      213: 2456088244367361179
+    second: Expanded Pit_9
+  - first:
+      213: 5626263325228922058
+    second: Expanded Pit_10
+  - first:
+      213: -2515775132508872645
+    second: Expanded Pit_11
+  - first:
+      213: 7876771836488542451
+    second: Expanded Pit_12
+  - first:
+      213: -1988459159233142291
+    second: Expanded Pit_13
+  - first:
+      213: -6465191456745068169
+    second: Expanded Pit_14
+  - first:
+      213: 5475578255081983756
+    second: Expanded Pit_15
+  - first:
+      213: 1977269666563095378
+    second: Expanded Pit_16
+  - first:
+      213: 4858964982551379785
+    second: Expanded Pit_17
+  - first:
+      213: -4731568827614729480
+    second: Expanded Pit_18
+  - first:
+      213: 2804030418455404687
+    second: Expanded Pit_19
+  - first:
+      213: 7147440090242554211
+    second: Expanded Pit_20
+  - first:
+      213: -4861389949711716123
+    second: Expanded Pit_21
+  - first:
+      213: 7450839396006923900
+    second: Expanded Pit_22
+  - first:
+      213: 6128641855928352852
+    second: Expanded Pit_23
+  - first:
+      213: 8948280348406757629
+    second: Expanded Pit_24
+  - first:
+      213: -3419162358929644411
+    second: Expanded Pit_25
+  - first:
+      213: -6076776628078801686
+    second: Expanded Pit_26
+  - first:
+      213: -7510281435764340672
+    second: Expanded Pit_27
+  - first:
+      213: 8589675401431423547
+    second: Expanded Pit_28
+  - first:
+      213: 4917848897175220238
+    second: Expanded Pit_29
+  - first:
+      213: -1679645275552754278
+    second: Expanded Pit_30
+  - first:
+      213: -1189658729983005809
+    second: Expanded Pit_31
+  - first:
+      213: -131181345293513344
+    second: Expanded Pit_32
+  - first:
+      213: 6455837847504123694
+    second: Expanded Pit_33
+  - first:
+      213: -5702402425151259855
+    second: Expanded Pit_34
+  - first:
+      213: -8575572958710521412
+    second: Expanded Pit_35
+  - first:
+      213: 5817586823299168202
+    second: Expanded Pit_36
+  - first:
+      213: -1549571496461287809
+    second: Expanded Pit_37
+  - first:
+      213: 4687803118358405225
+    second: Expanded Pit_38
+  - first:
+      213: 8235815826631788734
+    second: Expanded Pit_39
+  - first:
+      213: 4480581920048209413
+    second: Expanded Pit_40
+  - first:
+      213: 5228932609177689020
+    second: Expanded Pit_41
+  - first:
+      213: -7202935269744165885
+    second: Expanded Pit_42
+  - first:
+      213: 4452662147311119066
+    second: Expanded Pit_43
+  - first:
+      213: -3190425916567999655
+    second: Expanded Pit_44
+  - first:
+      213: -5101899863538171258
+    second: Expanded Pit_45
+  - first:
+      213: 861162766138564623
+    second: Expanded Pit_46
+  - first:
+      213: 3607691251044705711
+    second: Expanded Pit_47
+  - first:
+      213: 2067661442463412937
+    second: Expanded Pit_48
+  - first:
+      213: -547803466686988642
+    second: Expanded Pit_49
+  - first:
+      213: 8230538227521198897
+    second: Expanded Pit_50
+  - first:
+      213: -7491987300939357741
+    second: Expanded Pit_51
+  - first:
+      213: -2032944821314260578
+    second: Expanded Pit_52
+  - first:
+      213: 4086426152271049313
+    second: Expanded Pit_53
+  - first:
+      213: 1078776806807564207
+    second: Expanded Pit_54
+  - first:
+      213: 2557613228587633810
+    second: Expanded Pit_55
+  - first:
+      213: -2563676599316842804
+    second: Expanded Pit_56
+  - first:
+      213: 9002803816220908285
+    second: Expanded Pit_57
+  - first:
+      213: 8070738876593002935
+    second: Expanded Pit_58
+  - first:
+      213: 3256441720037081954
+    second: Expanded Pit_59
+  - first:
+      213: 8317547549384478997
+    second: Expanded Pit_60
+  - first:
+      213: 7106118823029879106
+    second: Expanded Pit_61
+  - first:
+      213: -3391812042753053655
+    second: Expanded Pit_62
+  - first:
+      213: -8965972357137982624
+    second: Expanded Pit_63
+  - first:
+      213: 3655806119958867167
+    second: Expanded Pit_64
+  - first:
+      213: -8594338129730705635
+    second: Expanded Pit_65
+  - first:
+      213: -1738630540646646693
+    second: Expanded Pit_66
+  - first:
+      213: -2489089147053557560
+    second: Expanded Pit_67
+  - first:
+      213: 8685869143031318614
+    second: Expanded Pit_68
+  - first:
+      213: -4482236040674549495
+    second: Expanded Pit_69
+  - first:
+      213: -1755416796488900198
+    second: Expanded Pit_70
+  - first:
+      213: 882532942747266411
+    second: Expanded Pit_71
+  - first:
+      213: -5069810469522275114
+    second: Expanded Pit_72
+  - first:
+      213: -4428142422161149948
+    second: Expanded Pit_73
+  - first:
+      213: 1125079443948469504
+    second: Expanded Pit_74
+  - first:
+      213: 853747866042730436
+    second: Expanded Pit_75
+  - first:
+      213: 4316602822816799302
+    second: Expanded Pit_76
+  - first:
+      213: 2521477485261603172
+    second: Expanded Pit_77
+  - first:
+      213: -308094978781114987
+    second: Expanded Pit_78
+  - first:
+      213: 7714376716283325414
+    second: Expanded Pit_79
+  - first:
+      213: 5039106866938823638
+    second: Expanded Pit_80
+  - first:
+      213: -227226377164519542
+    second: Expanded Pit_81
+  - first:
+      213: 2741324458642441549
+    second: Expanded Pit_82
+  - first:
+      213: -6761615096338804384
+    second: Expanded Pit_83
+  - first:
+      213: 8852740283390520302
+    second: Expanded Pit_84
+  - first:
+      213: 7868842958044246076
+    second: Expanded Pit_85
+  - first:
+      213: -5470418936472534498
+    second: Expanded Pit_86
+  - first:
+      213: 6752732147235598512
+    second: Expanded Pit_87
+  - first:
+      213: 491451513777950108
+    second: Expanded Pit_88
+  - first:
+      213: -1156750903592029720
+    second: Expanded Pit_89
+  - first:
+      213: 1308808151421651191
+    second: Expanded Pit_90
+  - first:
+      213: -7606578100122448243
+    second: Expanded Pit_91
+  - first:
+      213: -8453309515446575430
+    second: Expanded Pit_92
+  - first:
+      213: 2845179321506378313
+    second: Expanded Pit_93
+  - first:
+      213: -2751774669806411034
+    second: Expanded Pit_94
+  - first:
+      213: -2605386929921959163
+    second: Expanded Pit_95
+  - first:
+      213: -5519762828798505499
+    second: Expanded Pit_96
+  - first:
+      213: 537937318844732143
+    second: Expanded Pit_97
+  - first:
+      213: -3700586485889364678
+    second: Expanded Pit_98
+  - first:
+      213: 3288275039790198650
+    second: Expanded Pit_99
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Expanded Pit_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 1, y: 6}
+        - {x: -7, y: -1}
+        - {x: -7, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 6}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f6ac3d85e15d3ba0800000000000000
+      internalID: -6107635473285601548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 6}
+        - {x: -16, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 6}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a93e5309db6c4640800000000000000
+      internalID: 5065542260693547428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 6}
+        - {x: -16, y: -16}
+        - {x: 7, y: -16}
+        - {x: 7, y: -0.19850922}
+        - {x: 1, y: 6}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 517a438075e9ebfe0800000000000000
+      internalID: -1171324756432738539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -7, y: 2}
+        - {x: -7, y: -16}
+        - {x: 7, y: -16}
+        - {x: 7, y: 2}
+        - {x: 2, y: 8}
+        - {x: -2, y: 8}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29895851df55180d0800000000000000
+      internalID: -3422359696348702574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 16}
+        - {x: -16, y: -16}
+        - {x: 8, y: -16}
+        - {x: 8, y: -8}
+        - {x: 16, y: -8}
+        - {x: 16, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: bee6aabd6e3d86af0800000000000000
+      internalID: -402839178168340757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 16}
+        - {x: -16, y: -8}
+        - {x: -8, y: -8}
+        - {x: -8, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60a4e0ce4c64cbaa0800000000000000
+      internalID: -6143957980052305402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -2, y: 6}
+        - {x: -7, y: 2}
+        - {x: -7, y: -16}
+        - {x: 9, y: -16}
+        - {x: 9, y: -9}
+        - {x: 16, y: -9}
+        - {x: 16, y: 6}
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab1df193cce0beb20800000000000000
+      internalID: 3164639433452409274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 2, y: 6}
+        - {x: -16, y: 6}
+        - {x: -16, y: -9}
+        - {x: -9, y: -9}
+        - {x: -9, y: -16}
+        - {x: 6, y: -16}
+        - {x: 6, y: 2}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0956b5e1ff951e7d0800000000000000
+      internalID: -2890930533534308976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_8
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 8}
+        - {x: -16, y: -7}
+        - {x: -8, y: -7}
+        - {x: -8, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 8}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 305e3035c9d913120800000000000000
+      internalID: 2391866171843667203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_9
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -9, y: 16}
+        - {x: -9, y: 8}
+        - {x: -16, y: 8}
+        - {x: -16, y: -7}
+        - {x: 16, y: -7}
+        - {x: 16, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: b94878ece37c51220800000000000000
+      internalID: 2456088244367361179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -7, y: 16}
+        - {x: -7, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac4f3116fa0841e40800000000000000
+      internalID: 5626263325228922058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_11
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 16}
+        - {x: -16, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: b302c0c98db261dd0800000000000000
+      internalID: -2515775132508872645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_12
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 16}
+        - {x: -16, y: -16}
+        - {x: 7, y: -16}
+        - {x: 7, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f863ba904aef4d60800000000000000
+      internalID: 7876771836488542451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_13
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -7, y: 16}
+        - {x: -7, y: -4}
+        - {x: -3, y: -8}
+        - {x: 3, y: -8}
+        - {x: 7, y: -4}
+        - {x: 7, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: de169831ee29764e0800000000000000
+      internalID: -1988459159233142291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_14
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 16}
+        - {x: -16, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 8}
+        - {x: 8, y: 8}
+        - {x: 8, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 779e1d7cf960746a0800000000000000
+      internalID: -6465191456745068169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_15
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -8, y: 16}
+        - {x: -8, y: 8}
+        - {x: -16, y: 8}
+        - {x: -16, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0fc30289692dfb40800000000000000
+      internalID: 5475578255081983756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_16
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -7, y: 16}
+        - {x: -7, y: -3}
+        - {x: -2, y: -7}
+        - {x: 16, y: -7}
+        - {x: 16, y: 9}
+        - {x: 9, y: 9}
+        - {x: 9, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25bf5a4294ca07b10800000000000000
+      internalID: 1977269666563095378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_17
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -9, y: 16}
+        - {x: -9, y: 9}
+        - {x: -16, y: 9}
+        - {x: -16, y: -7}
+        - {x: 1, y: -7}
+        - {x: 6, y: -3}
+        - {x: 6, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94f790168e28e6340800000000000000
+      internalID: 4858964982551379785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_18
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -8, y: 16}
+        - {x: -8, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 8}
+        - {x: 9, y: 8}
+        - {x: 9, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fa66bf5837165eb0800000000000000
+      internalID: -4731568827614729480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_19
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 256
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: -16}
+        - {x: 7, y: -16}
+        - {x: 7, y: 16}
+        - {x: -8, y: 16}
+        - {x: -8, y: 8}
+        - {x: -16, y: 8}
+      tessellationDetail: 0
+      bones: []
+      spriteID: f80ac672fcae9e620800000000000000
+      internalID: 2804030418455404687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -7, y: 16}
+        - {x: -7, y: -2}
+        - {x: -3, y: -7}
+        - {x: 16, y: -7}
+        - {x: 16, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3691b40b4eec03360800000000000000
+      internalID: 7147440090242554211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_21
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 16}
+        - {x: -16, y: -7}
+        - {x: 16, y: -7}
+        - {x: 16, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e077c4f89fd88cb0800000000000000
+      internalID: -4861389949711716123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_22
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 16}
+        - {x: -16, y: -7}
+        - {x: 3, y: -7}
+        - {x: 7, y: -3}
+        - {x: 7, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7e8a7554f2b66760800000000000000
+      internalID: 7450839396006923900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_23
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -3, y: 7}
+        - {x: -8, y: 3}
+        - {x: -8, y: -3}
+        - {x: -3, y: -8}
+        - {x: 16, y: -8}
+        - {x: 16, y: 7}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 450433a0c4f4d0550800000000000000
+      internalID: 6128641855928352852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_24
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 3, y: 7}
+        - {x: -16, y: 7}
+        - {x: -16, y: -8}
+        - {x: 3, y: -8}
+        - {x: 9, y: -3}
+        - {x: 9, y: 2}
+      tessellationDetail: 0
+      bones: []
+      spriteID: df8b46d119dae2c70800000000000000
+      internalID: 8948280348406757629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_25
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: -8}
+        - {x: 16, y: -8}
+        - {x: 16, y: 9}
+        - {x: -16, y: 9}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 584ac9633f1bc80d0800000000000000
+      internalID: -3419162358929644411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_26
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 7, y: -16}
+        - {x: 7, y: 16}
+        - {x: -7, y: 16}
+        - {x: -7, y: -16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: aec87f75ad3faaba0800000000000000
+      internalID: -6076776628078801686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_27
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: -8}
+        - {x: -9, y: -8}
+        - {x: -9, y: -16}
+        - {x: 8, y: -16}
+        - {x: 8, y: -8}
+        - {x: 16, y: -8}
+        - {x: 16, y: 8}
+        - {x: 8, y: 8}
+        - {x: 8, y: 16}
+        - {x: -16, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0484e0a43de16c790800000000000000
+      internalID: -7510281435764340672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_28
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: -16}
+        - {x: 8, y: -16}
+        - {x: 8, y: -8}
+        - {x: 16, y: -8}
+        - {x: 16, y: 6}
+        - {x: -16, y: 6}
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3a1b3e7448a43770800000000000000
+      internalID: 8589675401431423547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_29
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 16}
+        - {x: -16, y: -8}
+        - {x: 16, y: -8}
+        - {x: 16, y: 7}
+        - {x: 7, y: 7}
+        - {x: 7, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: e00fc2f1485bf3440800000000000000
+      internalID: 4917848897175220238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: 16}
+        - {x: -16, y: -16}
+        - {x: 8, y: -16}
+        - {x: 8, y: -7}
+        - {x: 16, y: -7}
+        - {x: 16, y: 8}
+        - {x: 8, y: 8}
+        - {x: 8, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: a95d3026583b0b8e0800000000000000
+      internalID: -1679645275552754278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_31
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: -7}
+        - {x: -8, y: -7}
+        - {x: -8, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 16}
+        - {x: -8, y: 16}
+        - {x: -8, y: 8}
+        - {x: -16, y: 8}
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8bab6b20bb7d7fe0800000000000000
+      internalID: -1189658729983005809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_32
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -8, y: 16}
+        - {x: -8, y: 8}
+        - {x: -16, y: 8}
+        - {x: -16, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 8}
+        - {x: 8, y: 8}
+        - {x: 8, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08d4f90f243fd2ef0800000000000000
+      internalID: -131181345293513344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_33
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: -8}
+        - {x: -9, y: -8}
+        - {x: -9, y: -16}
+        - {x: 8, y: -16}
+        - {x: 8, y: -8}
+        - {x: 16, y: -8}
+        - {x: 16, y: 16}
+        - {x: -16, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: e27710c515eb79950800000000000000
+      internalID: 6455837847504123694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_34
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: -8}
+        - {x: -9, y: -8}
+        - {x: -9, y: -16}
+        - {x: 8, y: -16}
+        - {x: 8, y: -8}
+        - {x: 16, y: -8}
+        - {x: 16, y: 8}
+        - {x: 8, y: 8}
+        - {x: 8, y: 16}
+        - {x: -9, y: 16}
+        - {x: -9, y: 8}
+        - {x: -16, y: 8}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13b788af43ffcd0b0800000000000000
+      internalID: -5702402425151259855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_38
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -7, y: 16}
+        - {x: -7, y: -16}
+        - {x: 7, y: -16}
+        - {x: 7, y: -7}
+        - {x: 16, y: -7}
+        - {x: 16, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 960a8be591c6e0140800000000000000
+      internalID: 4687803118358405225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_39
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -8, y: -7}
+        - {x: -8, y: -16}
+        - {x: 7, y: -16}
+        - {x: 7, y: 16}
+        - {x: -16, y: 16}
+        - {x: -16, y: -7}
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb88dedebde7b4270800000000000000
+      internalID: 8235815826631788734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_48
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: -8}
+        - {x: -8, y: -8}
+        - {x: -8, y: -16}
+        - {x: 8, y: -16}
+        - {x: 8, y: -8}
+        - {x: 16, y: -8}
+        - {x: 16, y: 7}
+        - {x: -16, y: 7}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c2bdc1802fc1bc10800000000000000
+      internalID: 2067661442463412937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_49
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -8, y: 16}
+        - {x: -8, y: 7}
+        - {x: -16, y: 7}
+        - {x: -16, y: -8}
+        - {x: 16, y: -8}
+        - {x: 16, y: 7}
+        - {x: 7, y: 7}
+        - {x: 7, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9ef46146afc568f0800000000000000
+      internalID: -547803466686988642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_58
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -8, y: 16}
+        - {x: -8, y: -16}
+        - {x: 8, y: -16}
+        - {x: 8, y: -7}
+        - {x: 16, y: -7}
+        - {x: 16, y: 8}
+        - {x: 8, y: 8}
+        - {x: 8, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b9d2466f36010070800000000000000
+      internalID: 8070738876593002935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_59
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 128
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: -7}
+        - {x: -8, y: -7}
+        - {x: -8, y: -16}
+        - {x: 7, y: -16}
+        - {x: 7, y: 16}
+        - {x: -8, y: 16}
+        - {x: -8, y: 8}
+        - {x: -16, y: 8}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2638292bd74313d20800000000000000
+      internalID: 3256441720037081954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_35
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: -16}
+        - {x: 8, y: -16}
+        - {x: 8, y: -8}
+        - {x: 16, y: -8}
+        - {x: 16, y: 8}
+        - {x: 8, y: 8}
+        - {x: 8, y: 16}
+        - {x: -9, y: 16}
+        - {x: -9, y: 8}
+        - {x: -16, y: 8}
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb12d9254d17df880800000000000000
+      internalID: -8575572958710521412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_36
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: -8}
+        - {x: -9, y: -8}
+        - {x: -9, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 8}
+        - {x: 8, y: 8}
+        - {x: 8, y: 16}
+        - {x: -9, y: 16}
+        - {x: -9, y: 8}
+        - {x: -16, y: 8}
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac77db494683cb050800000000000000
+      internalID: 5817586823299168202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_37
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -16, y: -8}
+        - {x: -9, y: -8}
+        - {x: -9, y: -16}
+        - {x: 8, y: -16}
+        - {x: 8, y: -8}
+        - {x: 16, y: -8}
+        - {x: 16, y: 16}
+        - {x: -9, y: 16}
+        - {x: -9, y: 8}
+        - {x: -16, y: 8}
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7eba571fe0de7ae0800000000000000
+      internalID: -1549571496461287809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
