@@ -9,7 +9,7 @@ namespace MarblesAndMonsters.Characters
 {
     // Player is a special type of Character Sheet Controller
     //  singleton pattern
-    public class Player : CharacterSheetController
+    public class Player : CharacterControl
     {
         #region Properties
         //special player-only effects
@@ -83,7 +83,10 @@ namespace MarblesAndMonsters.Characters
         protected override void OnEnable()
         {
             base.OnEnable();
-            GameMenu.Instance.RefreshUI();
+            if (GameMenu.Instance != null)
+            {
+                GameMenu.Instance.RefreshUI();
+            }
         }
 
         //cleanup for static instance

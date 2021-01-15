@@ -11,7 +11,7 @@ namespace MarblesAndMonsters.Characters
     //      1) State Check (fire, poison, sleep, etc)
     //      2) Movement
 
-    public abstract class CharacterSheetController: MonoBehaviour, IDamagable
+    public abstract class CharacterControl: MonoBehaviour, IDamagable
     {
         //particle effects
         public ParticleSystem hitEffect;    //plays when stuck/attacked/damaged
@@ -230,10 +230,10 @@ namespace MarblesAndMonsters.Characters
 
         public virtual void CharacterDeath(DeathType deathType)
         {
-            Debug.Log(string.Format("{0}'s CharacterDeath() function called", gameObject.name));
+            //Debug.Log(string.Format("{0}'s CharacterDeath() function called", gameObject.name));
             if (isDying) 
             {
-                Debug.Log(string.Format("{0}'s CharacterDeath() function called while dying, skipping...", gameObject.name));
+                //Debug.Log(string.Format("{0}'s CharacterDeath() function called while dying, skipping...", gameObject.name));
                 return; 
             }
             else

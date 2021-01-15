@@ -17,7 +17,7 @@ namespace LevelManagement
 
         private void Awake()
         {
-            levelSelector = gameObject.GetComponent<LevelSelector>();
+            levelSelector = GetComponent<LevelSelector>();
         }
 
         //reload current level, no need to specificy scene name or index
@@ -61,7 +61,7 @@ namespace LevelManagement
             LoadLevel(levelSelector.GetLevelSpecsAtIndex(levelIndex).SceneName);
         }
 
-        public void LoadLevel(string levelName)
+        public static void LoadLevel(string levelName)
         {
             Debug.Log("attempting to load " + levelName);
             if (Application.CanStreamedLevelBeLoaded(levelName))
@@ -71,7 +71,7 @@ namespace LevelManagement
             }
             else
             {
-                Debug.LogWarning("levelName not found in LoadLevel() script!");
+                Debug.LogWarning(string.Format("levelName {0} not found in LoadLevel() script!", levelName));
             }
         }
 

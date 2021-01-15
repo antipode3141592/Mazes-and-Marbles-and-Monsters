@@ -74,7 +74,8 @@ namespace FiniteStateMachine.States.GameStates
             base.Enter();
             //GameController.Instance.StoreCharacters();
             Time.timeScale = 1.0f;
-            GameMenu.Open();
+            //GameMenu.Open();
+            MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
         }
         public override void HandleInput()
         {
@@ -113,7 +114,8 @@ namespace FiniteStateMachine.States.GameStates
         public override void Enter()
         {
             base.Enter();
-            WinMenu.Open();
+            //WinMenu.Open();
+            MenuManager.Instance.OpenMenu(MenuTypes.WinMenu);
         }
 
         public override void Exit()

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using MarblesAndMonsters.Menus;
 
-//code based on the course content at https://www.udemy.com/course/level-management-in-unity/ , which was super helpeful and highly recommended
+//code based on the course content at https://www.udemy.com/course/level-management-in-unity/ , which was super helpeul and highly recommended
 //  Class Name:  Menu
 //  Interacts with:  MenuManager
 //  Purpose:  Menu type for all Menu objects
@@ -31,7 +31,7 @@ namespace LevelManagement.Menus
             else
             {
                 _instance = (T)this;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
         }
 
@@ -43,13 +43,24 @@ namespace LevelManagement.Menus
             }
         }
 
-        public static void Open()
-        {
-            if (MenuManager.Instance != null && Instance != null)
-            {
-                MenuManager.Instance.OpenMenu(Instance);
-            }
-        }
+        //public static void Open()
+        //{
+        //    if (MenuManager.Instance != null)
+        //    {
+        //        if (Instance != null)
+        //        {
+        //            MenuManager.Instance.OpenMenu(Instance);
+        //        }
+        //        else
+        //        {
+        //            Debug.Log(string.Format("Menu open error, no menu instance available"));
+        //        }
+        //    } 
+        //    else
+        //    {
+        //        Debug.Log("Could not find MenuManager Instance");
+        //    }
+        //}
     }
 
     [RequireComponent(typeof(Canvas))]

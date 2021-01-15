@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MarblesAndMonsters.Characters
 {
-    public class Marble : CharacterSheetController
+    public class Marble : CharacterControl
     {
         //mables apply a touch attack to everything they collide with
         private void OnCollisionEnter2D(Collision2D other)
@@ -19,7 +19,7 @@ namespace MarblesAndMonsters.Characters
 
         protected override IEnumerator DeathAnimation(DeathType deathType)
         {
-            Debug.Log(string.Format("DeathAnimation {0} has died of {1}!", gameObject.name, deathType.ToString()));
+            //Debug.Log(string.Format("DeathAnimation {0} has died of {1}!", gameObject.name, deathType.ToString()));
             yield return new WaitForSeconds(0.5f);  //death animations are 8 frames, current fps is 12
             gameObject.SetActive(false);
         }

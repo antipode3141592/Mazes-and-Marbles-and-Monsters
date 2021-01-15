@@ -22,7 +22,8 @@ namespace MarblesAndMonsters.Menus
         public void OnMainMenuPressed()
         {
             LevelLoader.LoadMainMenuLevel();
-            MainMenu.Open();
+            //MainMenu.Open();
+            MenuManager.Instance.OpenMenu(MenuTypes.MainMenu);
         }
 
         public void ResetData()

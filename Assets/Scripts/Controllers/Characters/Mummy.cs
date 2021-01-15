@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MarblesAndMonsters.Characters
 {
-    public class Mummy : CharacterSheetController
+    public class Mummy : CharacterControl
     {
 
     }

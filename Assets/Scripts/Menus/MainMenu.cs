@@ -7,6 +7,14 @@ using UnityEngine.UI;
 
 namespace MarblesAndMonsters.Menus
 {
+
+    //Main Menu Controller
+    //  Allow player to:
+    //      -start a new game
+    //      -continue an old game
+    //      -continue the current game
+    //      -change game settings
+    //      -view credits
     public class MainMenu : Menu<MainMenu>
     {
         [SerializeField]
@@ -85,10 +93,10 @@ namespace MarblesAndMonsters.Menus
 
         private IEnumerator OnResumePressedRoutine()
         {
-            TransitionFader.PlayTransition(startTransitionPrefab);
-            levelLoader.LoadLevel(DataManager.Instance.CurrentLevelSpecs.SceneName);
+            //TransitionFader.PlayTransition(startTransitionPrefab);
+            LevelLoader.LoadLevel(DataManager.Instance.CurrentLevelSpecs.SceneName);
             yield return new WaitForSeconds(_playDelay);
-            GameMenu.Open();
+            //GameMenu.Open();
         }
 
         public void OnPlayPressed()
@@ -98,22 +106,24 @@ namespace MarblesAndMonsters.Menus
 
         private IEnumerator OnPlayPressedRoutine()
         {
-            TransitionFader.PlayTransition(startTransitionPrefab);
+            //TransitionFader.PlayTransition(startTransitionPrefab);
             //load first level
             //levelLoader.LoadLevel(0);  //load first level in the level list
             levelLoader.LoadNextLevel();
             yield return new WaitForSeconds(_playDelay);
-            GameMenu.Open();
+            //base.OnBackPressed();
         }
 
         public void OnSettingsPressed()
         {
-            SettingsMenu.Open();
+            //SettingsMenu.Open();
+            MenuManager.Instance.OpenMenu(MenuTypes.SettingsMenu);
         }
 
         public void OnCreditsPressed()
         {
-            CreditsMenu.Open();
+            //CreditsMenu.Open();
+            MenuManager.Instance.OpenMenu(MenuTypes.CreditsMenu);
         }
 
         public override void OnBackPressed()

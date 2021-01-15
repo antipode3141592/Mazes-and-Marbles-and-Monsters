@@ -427,7 +427,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 475234175953636809}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: MarblesAndMonsters.Menus.SettingsMenu, Assembly-CSharp
         m_MethodName: OnMasterVolumeChanged
         m_Mode: 0
         m_Arguments:
@@ -1252,7 +1252,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 475234175953636809}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: MarblesAndMonsters.Menus.SettingsMenu, Assembly-CSharp
         m_MethodName: OnMusicVolumeChanged
         m_Mode: 0
         m_Arguments:
@@ -1390,7 +1390,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 475234175953636809}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: MarblesAndMonsters.Menus.SettingsMenu, Assembly-CSharp
         m_MethodName: OnSFXVolumeChanged
         m_Mode: 0
         m_Arguments:
@@ -2135,8 +2135,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -316, y: -51.03}
-  m_SizeDelta: {x: 1188.8, y: 200}
+  m_AnchoredPosition: {x: -212.70569, y: -51.03}
+  m_SizeDelta: {x: 982.2114, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8560182305325967147
 CanvasRenderer:
@@ -2285,8 +2285,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 32.250008, y: 0.024999}
-  m_SizeDelta: {x: 1124.3, y: 299.45}
+  m_AnchoredPosition: {x: 120.78797, y: 0.024999}
+  m_SizeDelta: {x: 947.2241, y: 299.45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8560182305454651324
 CanvasRenderer:
@@ -2317,12 +2317,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: a30f933bed2f6504bae572c0ef6aaeb7, type: 3}
-    m_FontSize: 100
+    m_Font: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
+    m_FontSize: 131
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 1
-    m_MaxSize: 100
+    m_MinSize: 0
+    m_MaxSize: 211
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1

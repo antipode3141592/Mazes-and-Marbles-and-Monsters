@@ -41,6 +41,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Dungeon/Level_10.unity
     guid: 365d029c27baa4e4488d021d73fdfba3
+  - enabled: 1
+    path: Assets/Scenes/Stone/Room_01.unity
+    guid: c0aee8ff904b4884ca2eebd2f4355c87
+  - enabled: 1
+    path: Assets/Scenes/Stone/Room_02.unity
+    guid: 4a3a43391c530ce4ab4fb9cf7e2d298d
+  - enabled: 1
+    path: Assets/Scenes/Stone/Room_03.unity
+    guid: 8a8ba098913b90142a230d92c93a3a14
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 6833314bdb7262f468fe2d7278527dbf,
       type: 2}

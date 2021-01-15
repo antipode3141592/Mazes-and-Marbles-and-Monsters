@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5634718710968762311}
   - component: {fileID: 6663458367592304587}
   - component: {fileID: 8424706152298670110}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: SpawnPoint Mummy
   m_TagString: Spawn_Marble
   m_Icon: {fileID: 0}
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2132497015
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: -6409518873591035822, guid: 0d85d702c8fa24348a3541ff3f684e0e,
     type: 3}

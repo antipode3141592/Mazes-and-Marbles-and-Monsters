@@ -22,7 +22,7 @@ namespace MarblesAndMonsters.Objects
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            CharacterSheetController character = other.GetComponent<CharacterSheetController>();
+            Characters.CharacterControl character = other.GetComponent<Characters.CharacterControl>();
             character.CharacterDeath(DeathType.Falling);
         }
     }

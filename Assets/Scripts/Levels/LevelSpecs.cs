@@ -19,6 +19,7 @@ namespace LevelManagement.Levels
         [SerializeField] protected string _sceneName; //exact scene name in Unity
         [SerializeField] protected string _id; //sorter unique id for level
         [SerializeField] protected Sprite _image;    //thumbnail of level
+        [SerializeField] protected bool _illuminated = true;   //default true for global lighting, false for dark global and player torchlight
         #endregion
 
         #region PROPERTIES
@@ -29,6 +30,7 @@ namespace LevelManagement.Levels
         public string SceneName => _sceneName;
         public string Id => _id;
         public Sprite Image => _image;
+        public bool Illuminated => _illuminated;
         #endregion
 
         public LevelSpecs()

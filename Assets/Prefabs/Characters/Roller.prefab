@@ -55,6 +55,7 @@ MonoBehaviour:
   hitEffect: {fileID: 0}
   healEffect: {fileID: 0}
   invincibilityEffect: {fileID: 0}
+  isDying: 0
   spawnPoint: {fileID: 0}
 --- !u!212 &6109434669344386958
 SpriteRenderer:
@@ -93,8 +94,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2132497015
+  m_SortingLayer: 3
   m_SortingOrder: 9
   m_Sprite: {fileID: -8046340069347799805, guid: 27aa651178ce0184caead71b35334604,
     type: 3}
@@ -167,6 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dfc084c56f6f5449947cfc56d091772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moving: 1
   _forceMultiplier: 9.81
 --- !u!95 &4164545525661133905
 Animator:

@@ -10,13 +10,13 @@ namespace MarblesAndMonsters.Characters
     {
         //configuration
         [SerializeField]
-        protected CharacterSheetController characterPrefab;
+        protected CharacterControl characterPrefab;
         protected int CharactersToSpawn;    //# of characters this spawnpoint will spawn
         [SerializeField]
         protected int charactersToSpawn = 1;    //# of characters this spawnpoint will spawn
 
         //private Queue<CharacterSheetController> spawnQueue; //ephemeral 
-        private List<CharacterSheetController> characters;  //the collection of all instantiated character objects
+        private List<CharacterControl> characters;  //the collection of all instantiated character objects
 
         private float spawnTimer;
         [SerializeField]
@@ -36,7 +36,7 @@ namespace MarblesAndMonsters.Characters
         {
             contactFilter.NoFilter();
             spawningZoneCollider = gameObject.GetComponent<Collider2D>();
-            characters = new List<CharacterSheetController>();
+            characters = new List<CharacterControl>();
             collidersInSpawnZone = new List<Collider2D>();
             animator = GetComponent<Animator>();
         }
@@ -46,7 +46,7 @@ namespace MarblesAndMonsters.Characters
             //instantiate required characters, add them to Characters list, and disable them
             for (int i = 0; i < charactersToSpawn; i++)
             {
-                CharacterSheetController character = Instantiate(characterPrefab, transform.position, Quaternion.identity);
+                CharacterControl character = Instantiate(characterPrefab, transform.position, Quaternion.identity);
                 if (character != null)
                 {
                     character.SetSpawnPoint(this);

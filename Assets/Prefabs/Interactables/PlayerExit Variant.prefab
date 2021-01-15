@@ -13,10 +13,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.5, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -41,7 +41,27 @@ PrefabInstance:
     - target: {fileID: 5790476055170181544, guid: b559bcd24cb7a6241961728caf6376d1,
         type: 3}
       propertyPath: m_Offset.x
-      value: -0.5
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790476055170181544, guid: b559bcd24cb7a6241961728caf6376d1,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790476055170181544, guid: b559bcd24cb7a6241961728caf6376d1,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790476055170181544, guid: b559bcd24cb7a6241961728caf6376d1,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790476055170181545, guid: b559bcd24cb7a6241961728caf6376d1,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5790476055170181545, guid: b559bcd24cb7a6241961728caf6376d1,
         type: 3}
@@ -60,6 +80,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5790476055170181545, guid: b559bcd24cb7a6241961728caf6376d1,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790476055170181545, guid: b559bcd24cb7a6241961728caf6376d1,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -71,16 +96,6 @@ PrefabInstance:
     - target: {fileID: 5790476055170181545, guid: b559bcd24cb7a6241961728caf6376d1,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5790476055170181545, guid: b559bcd24cb7a6241961728caf6376d1,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5790476055170181545, guid: b559bcd24cb7a6241961728caf6376d1,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5790476055170181545, guid: b559bcd24cb7a6241961728caf6376d1,

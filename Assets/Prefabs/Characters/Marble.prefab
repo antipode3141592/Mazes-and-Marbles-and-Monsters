@@ -143,6 +143,7 @@ MonoBehaviour:
   hitEffect: {fileID: 0}
   healEffect: {fileID: 0}
   invincibilityEffect: {fileID: 0}
+  isDying: 0
   spawnPoint: {fileID: 0}
 --- !u!114 &847608114787040653
 MonoBehaviour:
@@ -237,7 +238,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0

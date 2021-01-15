@@ -16,7 +16,7 @@ namespace MarblesAndMonsters.Menus.Components
 
         public void UpdateTreasureCount()
         {
-            if (treasureCountText != null)
+            if (treasureCountText != null && Player.Instance != null)
             {
                 treasureCount = Player.Instance.TreasureCount;
                 treasureCountText.text = treasureCount.ToString();

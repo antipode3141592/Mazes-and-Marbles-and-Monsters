@@ -2,7 +2,7 @@
 
 namespace MarblesAndMonsters.Characters
 {
-    public class Roller : CharacterSheetController
+    public class Roller : CharacterControl
     {
         //rollers only apply touch attack damage when their triggers are entered 
         //(so they may be safely touched on the side, which is much less squish-inducing)

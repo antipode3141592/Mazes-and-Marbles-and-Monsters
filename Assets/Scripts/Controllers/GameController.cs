@@ -1,6 +1,8 @@
 ﻿using FiniteStateMachine;
 using FiniteStateMachine.States.GameStates;
 using LevelManagement.Data;
+using LevelManagement;  //for the static level loading functions
+using LevelManagement.Levels; //for levelselector class, for grabbing level data like level name
 using MarblesAndMonsters.Characters;
 using MarblesAndMonsters.Items;
 using MarblesAndMonsters.Menus;
@@ -8,8 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.SceneManagement;
 
 namespace MarblesAndMonsters
 {
@@ -26,7 +27,7 @@ namespace MarblesAndMonsters
 
         public Vector2 Input_Acceleration { get; set; }
 
-        private List<CharacterSheetController> characters;
+        private List<Characters.CharacterControl> characters;
         private List<InventoryItem> inventoryItems;
         private List<SpawnPoint> spawnPoints;
 
@@ -42,6 +43,8 @@ namespace MarblesAndMonsters
         public Victory victory;
         public Defeat defeat;
         public END end;
+
+        private LevelSelector levelSelector;
 
         private static GameController _instance;
 
@@ -81,6 +84,8 @@ namespace MarblesAndMonsters
             defeat = new Defeat(gameStateMachine);
             end = new END(gameStateMachine);
 
+            levelSelector = GetComponent<LevelSelector>();
+
             gameStateMachine.Initialize(start);
         }
 
@@ -108,13 +113,15 @@ namespace MarblesAndMonsters
         public void UnpauseGame()
         {
             gameStateMachine.ChangeState(playing);
-            GameMenu.Open();
+            //GameMenu.Open();
+            MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
         }
 
         public void PauseGame()
         {
             gameStateMachine.ChangeState(paused);
-            PauseMenu.Open();
+            //PauseMenu.Open();
+            MenuManager.Instance.OpenMenu(MenuTypes.PauseMenu);
         }
 
 
@@ -159,8 +166,16 @@ namespace MarblesAndMonsters
 
         public void LevelWin()
         {
+            gameStateMachine.ChangeState(victory);
             SaveGameData();
             StartCoroutine(WinRoutine());
+        }
+
+        public void LevelWin(string goToLevel)
+        {
+            gameStateMachine.ChangeState(victory);
+            SaveGameData();
+            StartCoroutine(WinRoutine(goToLevel));
         }
 
         public void LevelLose()
@@ -208,7 +223,30 @@ namespace MarblesAndMonsters
             //TransitionFader.PlayTransition(transitionPrefab);
             //float fadeDelay = transitionPrefab != null ? transitionPrefab.Delay + transitionPrefab.FadeOnDuration : 0f;
             //yield return new WaitForSeconds(fadeDelay);
-            WinMenu.Open();
+            //WinMenu.Open();
+            int i = levelSelector.CurrentIndex;
+            //LevelLoader.LoadLevel(levelSelector.GetLevelSpecsAtIndex(i++).SceneName);
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(levelSelector.GetLevelSpecsAtIndex(i++).SceneName);
+            while (!asyncOperation.isDone)
+            {
+                yield return null; //yield this frame
+            }
+        }
+
+        private IEnumerator WinRoutine(string sceneName)
+        {
+            yield return new WaitForSeconds(0.5f);
+            //TransitionFader.PlayTransition(transitionPrefab);
+            //float fadeDelay = transitionPrefab != null ? transitionPrefab.Delay + transitionPrefab.FadeOnDuration : 0f;
+            //yield return new WaitForSeconds(fadeDelay);
+            //WinMenu.Open();
+            //int i = levelSelector.CurrentIndex;
+            //LevelLoader.LoadLevel(sceneName);
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+            while (!asyncOperation.isDone)
+            {
+                yield return null; //yield this frame
+            }
         }
 
         private IEnumerator DefeatRoutine()
@@ -264,7 +302,7 @@ namespace MarblesAndMonsters
 
         internal int StoreCharacters()
         {
-            characters = new List<CharacterSheetController>(FindObjectsOfType<CharacterSheetController>());
+            characters = new List<CharacterControl>(FindObjectsOfType<CharacterControl>());
 
             string charlist = "";
             foreach(var character in characters) { charlist += String.Format("{0}, ",character.gameObject.name); }
@@ -280,7 +318,7 @@ namespace MarblesAndMonsters
         }
 
         //return true if a character was added
-        internal bool StoreCharacter(CharacterSheetController character)
+        internal bool StoreCharacter(Characters.CharacterControl character)
         {
             if (characters == null) { StoreCharacters(); }
             //{
@@ -305,9 +343,9 @@ namespace MarblesAndMonsters
         {
             if (characters != null)
             {
-                foreach (CharacterSheetController character in characters)
+                foreach (Characters.CharacterControl character in characters)
                 {
-                    if (character.gameObject.activeInHierarchy && !character.MySheet.IsAsleep && !character.isDying )
+                    if (character != null && character.gameObject.activeInHierarchy && !character.MySheet.IsAsleep && !character.isDying )
                     {
                         if (character.MySheet.Movements.Count > 0)
                         {

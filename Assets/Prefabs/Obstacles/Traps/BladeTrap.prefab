@@ -111,8 +111,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2132497015
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 5498018079953868065, guid: 5adab8bb95671e94bbfedb17abe59b91,
     type: 3}
@@ -160,6 +160,7 @@ MonoBehaviour:
   hitEffect: {fileID: 0}
   healEffect: {fileID: 0}
   invincibilityEffect: {fileID: 0}
+  isDying: 0
   spawnPoint: {fileID: 0}
   explosiveForce: 100
   attackDelay: 0.2
