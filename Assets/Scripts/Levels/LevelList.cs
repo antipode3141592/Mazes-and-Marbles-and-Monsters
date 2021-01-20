@@ -9,17 +9,25 @@ namespace LevelManagement.Levels
     public class LevelList : ScriptableObject
     {
         #region INSPECTOR
+        public string CampaignName;
         [SerializeField] private List<LevelSpecs> _levels;
 
         #endregion
 
         #region PROPERTIES
         public int TotalLevels => _levels.Count;
+
+        
         #endregion
 
         public LevelSpecs GetLevelSpecs(int index)
         {
             return _levels[index];
+        }
+
+        public LevelSpecs FindLevel(string sceneName)
+        {
+            return _levels.Find(x => x.SceneName == sceneName);
         }
     }
 }

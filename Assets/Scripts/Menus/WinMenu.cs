@@ -19,7 +19,6 @@ namespace MarblesAndMonsters.Menus
         {
             base.OnBackPressed(); //return to GameMenu
             levelLoader.LoadNextLevel();
-            GameController.Instance.LoadNextLevel();
         }
 
         //restarting the level means killing the PC and resetting all items/monsters/obstacles

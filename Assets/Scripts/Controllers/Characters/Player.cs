@@ -145,6 +145,10 @@ namespace MarblesAndMonsters.Characters
         //remove all items from inventory
         public void ResetInventoryItems()
         {
+            foreach(var item in inventory)
+            {
+                //
+            }
             inventory.Clear();
             Debug.Log("Player:  Removed all items from inventory!");
             //GameMenu.Instance.inventoryUI.UpdateUI();
@@ -207,7 +211,8 @@ namespace MarblesAndMonsters.Characters
         {
             yield return new WaitForSeconds(0.667f);  //death animations are 8 frames, current fps is 12
             ResetInventoryItems();
-            GameController.Instance.EndLevel(false);
+            //GameController.Instance.EndLevel(false);
+            GameController.Instance.LevelLose();
             gameObject.SetActive(false);
         }
 

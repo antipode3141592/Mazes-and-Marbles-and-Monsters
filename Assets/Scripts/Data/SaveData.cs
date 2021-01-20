@@ -16,6 +16,10 @@ namespace LevelManagement.Data
         public float musicVolume;
         public LevelSpecs playerCurrentLevelSpecs;  //current level info
 
+        //level data
+        public string currentCampaign;
+        public string currentLevel;
+
         public int playerMaxHealth;
         public int playerDeathCount;
         public int playerTreasureCounter;

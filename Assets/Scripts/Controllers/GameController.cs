@@ -1,7 +1,7 @@
 ﻿using FiniteStateMachine;
 using FiniteStateMachine.States.GameStates;
+using LevelManagement;
 using LevelManagement.Data;
-using LevelManagement;  //for the static level loading functions
 using LevelManagement.Levels; //for levelselector class, for grabbing level data like level name
 using MarblesAndMonsters.Characters;
 using MarblesAndMonsters.Items;
@@ -19,6 +19,7 @@ namespace MarblesAndMonsters
     //persistent singleton class for controlling most of the game actions
     public class GameController : MonoBehaviour
     {
+        #region Properties
         [SerializeField]
         private TransitionFader transitionPrefab;
 
@@ -36,16 +37,18 @@ namespace MarblesAndMonsters
         private DateTime endTime;
 
         protected StateMachine gameStateMachine;
-        public START start;
-        public PopulateLevel populateLevel;
-        public Playing playing;
-        public Paused paused;
-        public Victory victory;
-        public Defeat defeat;
-        public END end;
+        public START state_start;
+        public PopulateLevel state_populateLevel;
+        public Playing state_playing;
+        public Paused state_paused;
+        public Victory state_victory;
+        public Defeat state_defeat;
+        public END state_end;
 
         private LevelSelector levelSelector;
+        private LevelLoader levelLoader;
 
+        //singleton stuff
         private static GameController _instance;
 
         public static GameController Instance
@@ -54,6 +57,7 @@ namespace MarblesAndMonsters
         }
 
         public float DefaultEffectTime => defaultEffectTime;
+        #endregion
 
         #region Unity Overrides
 
@@ -76,17 +80,18 @@ namespace MarblesAndMonsters
         {
             gameStateMachine = new StateMachine();
 
-            start = new START(gameStateMachine);
-            populateLevel = new PopulateLevel(gameStateMachine);
-            playing = new Playing(gameStateMachine);
-            paused = new Paused(gameStateMachine);
-            victory = new Victory(gameStateMachine);
-            defeat = new Defeat(gameStateMachine);
-            end = new END(gameStateMachine);
+            state_start = new START(gameStateMachine);
+            state_populateLevel = new PopulateLevel(gameStateMachine);
+            state_playing = new Playing(gameStateMachine);
+            state_paused = new Paused(gameStateMachine);
+            state_victory = new Victory(gameStateMachine);
+            state_defeat = new Defeat(gameStateMachine);
+            state_end = new END(gameStateMachine);
 
-            levelSelector = GetComponent<LevelSelector>();
+            levelSelector = FindObjectOfType<LevelSelector>();
+            levelLoader = FindObjectOfType<LevelLoader>();
 
-            gameStateMachine.Initialize(start);
+            gameStateMachine.Initialize(state_start);
         }
 
         //gamecontroller doesn't move any rigidbodies, so only needs Update()
@@ -112,19 +117,17 @@ namespace MarblesAndMonsters
 
         public void UnpauseGame()
         {
-            gameStateMachine.ChangeState(playing);
+            gameStateMachine.ChangeState(state_playing);
             //GameMenu.Open();
             MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
         }
 
         public void PauseGame()
         {
-            gameStateMachine.ChangeState(paused);
+            gameStateMachine.ChangeState(state_paused);
             //PauseMenu.Open();
             MenuManager.Instance.OpenMenu(MenuTypes.PauseMenu);
         }
-
-
         
         public int InitializeReferences()
         {
@@ -166,14 +169,14 @@ namespace MarblesAndMonsters
 
         public void LevelWin()
         {
-            gameStateMachine.ChangeState(victory);
+            gameStateMachine.ChangeState(state_victory);
             SaveGameData();
             StartCoroutine(WinRoutine());
         }
 
         public void LevelWin(string goToLevel)
         {
-            gameStateMachine.ChangeState(victory);
+            gameStateMachine.ChangeState(state_victory);
             SaveGameData();
             StartCoroutine(WinRoutine(goToLevel));
         }
@@ -185,56 +188,34 @@ namespace MarblesAndMonsters
                 DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;  //increment, THEN store, silly
                 DataManager.Instance.Save();
             }
-            gameStateMachine.ChangeState(defeat);
-        }
-
-        public void EndLevel(bool isVictorious = true)
-        {
-            //Time.timeScale = 0f;    //pause time
-            if (isVictorious)
-            {
-                SaveGameData();
-                StartCoroutine(WinRoutine());
-            }
-            else
-            {
-                if (DataManager.Instance != null)
-                {
-                    DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;  //increment, THEN store, silly
-                    DataManager.Instance.Save();
-                }
-                gameStateMachine.ChangeState(defeat);
-            }
-        }
-
-        public void LoadNextLevel()
-        {
-            gameStateMachine.ChangeState(start);
-        }
-
-        public void LoadRoom(string RoomName)
-        {
-
+            gameStateMachine.ChangeState(state_defeat);
         }
 
         private IEnumerator WinRoutine()
         {
+            TransitionFader.PlayTransition(transitionPrefab);
             yield return new WaitForSeconds(0.5f);
             //TransitionFader.PlayTransition(transitionPrefab);
             //float fadeDelay = transitionPrefab != null ? transitionPrefab.Delay + transitionPrefab.FadeOnDuration : 0f;
             //yield return new WaitForSeconds(fadeDelay);
             //WinMenu.Open();
-            int i = levelSelector.CurrentIndex;
-            //LevelLoader.LoadLevel(levelSelector.GetLevelSpecsAtIndex(i++).SceneName);
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(levelSelector.GetLevelSpecsAtIndex(i++).SceneName);
-            while (!asyncOperation.isDone)
-            {
-                yield return null; //yield this frame
-            }
+            //int i = levelSelector.CurrentIndex;
+            ////LevelLoader.LoadLevel(levelSelector.GetLevelSpecsAtIndex(i++).SceneName);
+            //string levelName = levelSelector.GetLevelSpecsAtIndex(i++).SceneName;
+            //if (Application.CanStreamedLevelBeLoaded(levelName))
+            //{
+            //    AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(levelName);
+            //    while (!asyncOperation.isDone)
+            //    {
+            //        yield return null; //yield this frame
+            //    }
+            //}
+            levelLoader.LoadNextLevel();
         }
 
         private IEnumerator WinRoutine(string sceneName)
         {
+            TransitionFader.PlayTransition(transitionPrefab);
             yield return new WaitForSeconds(0.5f);
             //TransitionFader.PlayTransition(transitionPrefab);
             //float fadeDelay = transitionPrefab != null ? transitionPrefab.Delay + transitionPrefab.FadeOnDuration : 0f;
@@ -242,11 +223,7 @@ namespace MarblesAndMonsters
             //WinMenu.Open();
             //int i = levelSelector.CurrentIndex;
             //LevelLoader.LoadLevel(sceneName);
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
-            while (!asyncOperation.isDone)
-            {
-                yield return null; //yield this frame
-            }
+            levelLoader.LoadLevel(sceneName);
         }
 
         private IEnumerator DefeatRoutine()
@@ -259,14 +236,21 @@ namespace MarblesAndMonsters
 
         public void SaveGameData()
         {
-            if (Player.Instance != null)
+            if (DataManager.Instance != null)
             {
-                //if the Fsm global variables are available, save some of them to disk
-                DataManager.Instance.PlayerMaxHealth = Player.Instance.MySheet.MaxHealth;
-                DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;
-                DataManager.Instance.PlayerTreasureCount = Player.Instance.TreasureCount;
-                DataManager.Instance.Save();
+                if (Player.Instance != null)
+                {
+                    //if the Fsm global variables are available, save some of them to disk
+                    DataManager.Instance.PlayerMaxHealth = Player.Instance.MySheet.MaxHealth;
+                    DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;
+                    DataManager.Instance.PlayerTreasureCount = Player.Instance.TreasureCount;
+                    DataManager.Instance.Save();
+                } else
+                {
+                    Debug.LogWarning("No Player Instance found when attempting to save!");
+                }
             }
+            else { Debug.LogWarning("No DataManager Instance found when attempting to save!"); }
         }
 
         public void UpdateSessionTime()

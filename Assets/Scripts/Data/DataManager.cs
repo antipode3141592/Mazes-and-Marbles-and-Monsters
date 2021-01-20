@@ -18,6 +18,8 @@ namespace LevelManagement.Data
         //public int HigestLevelUnlocked { get { return saveData.CurrentLevelIndex; } set { saveData.CurrentLevelIndex = value; } }
 
         public LevelSpecs CurrentLevelSpecs { get { return saveData.playerCurrentLevelSpecs; } set { saveData.playerCurrentLevelSpecs = value; } }
+        public string SavedCampaign { get { return saveData.currentCampaign; } set { saveData.currentCampaign = value; } }
+        public string SavedLevel { get { return saveData.currentLevel; } set { saveData.currentLevel = value; } }
 
         public int PlayerMaxHealth { get { return saveData.playerMaxHealth; } set { saveData.playerMaxHealth = value; } }
 

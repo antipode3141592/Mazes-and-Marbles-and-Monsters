@@ -29,7 +29,7 @@ namespace FiniteStateMachine.States.GameStates
 
             if (GameController.Instance.InitializeReferences() > 0)
             {
-                stateMachine.ChangeState(GameController.Instance.populateLevel);
+                stateMachine.ChangeState(GameController.Instance.state_populateLevel);
                 Debug.Log(string.Format("spawnWaitCounter = {0}", spawnWaitCounter));
             } else
             {
@@ -55,7 +55,7 @@ namespace FiniteStateMachine.States.GameStates
         {
             base.LogicUpdate();
             //if (GameController.Instance.StoreCharacters() == GameController.Instance.InitializeReferences()) { 
-                stateMachine.ChangeState(GameController.Instance.playing);
+                stateMachine.ChangeState(GameController.Instance.state_playing);
             //}
         }
 
@@ -76,6 +76,7 @@ namespace FiniteStateMachine.States.GameStates
             Time.timeScale = 1.0f;
             //GameMenu.Open();
             MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
+            GameMenu.Instance.RefreshUI();
         }
         public override void HandleInput()
         {
@@ -115,13 +116,18 @@ namespace FiniteStateMachine.States.GameStates
         {
             base.Enter();
             //WinMenu.Open();
-            MenuManager.Instance.OpenMenu(MenuTypes.WinMenu);
+            //MenuManager.Instance.OpenMenu(MenuTypes.WinMenu);
+        }
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+            stateMachine.ChangeState(GameController.Instance.state_start);
         }
 
         public override void Exit()
         {
             base.Exit();
-            stateMachine.ChangeState(GameController.Instance.start);
+            //stateMachine.ChangeState(GameController.Instance.start);
         }
     }
 
@@ -133,7 +139,7 @@ namespace FiniteStateMachine.States.GameStates
         {
             base.LogicUpdate();
             GameController.Instance.ResetAll();
-            stateMachine.ChangeState(GameController.Instance.start);
+            stateMachine.ChangeState(GameController.Instance.state_start);
         }
     }
 

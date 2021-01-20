@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using LevelManagement.Levels;
@@ -9,32 +8,19 @@ using LevelManagement.Data;
 
 namespace LevelManagement
 {
+
+    //
     public class LevelLoader : MonoBehaviour
     {
-        private static int mainMenuIndex = 1;   //splash screen is build index 0
+        private static readonly int mainMenuIndex = 1;   //splash screen is build index 0
         private LevelSelector levelSelector;
-
 
         private void Awake()
         {
             levelSelector = GetComponent<LevelSelector>();
         }
 
-        //reload current level, no need to specificy scene name or index
-        public static void ReloadLevel()
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
-        //public static void LoadNextLevel()
-        //{
-
-        //    int nextSceneIndex = (SceneManager.GetActiveScene().buildIndex + 1)
-        //        % SceneManager.sceneCountInBuildSettings;
-        //    nextSceneIndex = Mathf.Clamp(nextSceneIndex, mainMenuIndex, SceneManager.sceneCountInBuildSettings);
-        //    LoadLevel(nextSceneIndex);
-        //}
-
+        //load the next scene in the LevelList, as tracked by the LevelSelector
         public void LoadNextLevel()
         {
             if (SceneManager.GetActiveScene().buildIndex == mainMenuIndex) 
@@ -45,33 +31,41 @@ namespace LevelManagement
             }
             else
             {
-                int nextSceneIndex = (levelSelector.CurrentIndex + 1)
-                    % levelSelector.TotalLevelCount();
-                //nextSceneIndex = Mathf.Clamp(nextSceneIndex, mainMenuIndex, levelSelector.TotalLevelCount());
-                LevelSpecs nextLevelSpecs = levelSelector.GetLevelSpecsAtIndex(nextSceneIndex);
-                levelSelector.SetIndex(nextSceneIndex);
-                DataManager.Instance.CurrentLevelSpecs = nextLevelSpecs;    //unlock next index
-                DataManager.Instance.Save();
+                LevelSpecs nextLevelSpecs = levelSelector.Next();
+                if (DataManager.Instance != null)
+                {
+                    DataManager.Instance.SavedLevel = nextLevelSpecs.LevelName;    //unlock next index
+                    DataManager.Instance.SavedCampaign = levelSelector.CurrentCampaign;
+                    DataManager.Instance.CurrentLevelSpecs = nextLevelSpecs;
+                    DataManager.Instance.Save();
+                } else
+                {
+                    Debug.LogWarning("DataManager not available during LoadNextLevel()");
+                }
                 LoadLevel(nextLevelSpecs.SceneName);
             }
         }
 
-        public void LoadLevel(int levelIndex)
+        //load a specific scene
+        public void LoadLevel(string sceneName)
         {
-            LoadLevel(levelSelector.GetLevelSpecsAtIndex(levelIndex).SceneName);
-        }
-
-        public static void LoadLevel(string levelName)
-        {
-            Debug.Log("attempting to load " + levelName);
-            if (Application.CanStreamedLevelBeLoaded(levelName))
+            Debug.Log("attempting to load " + sceneName);
+            if (Application.CanStreamedLevelBeLoaded(sceneName))
             {
-                Debug.Log("level is valid, now loading");
-                SceneManager.LoadScene(levelName);
+                StartCoroutine(LoadLevelAsync(sceneName));
             }
             else
             {
-                Debug.LogWarning(string.Format("levelName {0} not found in LoadLevel() script!", levelName));
+                Debug.LogError("scene stream is invalid");
+            }
+        }
+
+        private IEnumerator LoadLevelAsync(string sceneName)
+        {
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+            while (!asyncOperation.isDone)
+            {
+                yield return null; //yield this frame
             }
         }
 

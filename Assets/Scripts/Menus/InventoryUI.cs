@@ -15,7 +15,7 @@ namespace MarblesAndMonsters.Menus.Components
         public void UpdateUI()
         {
             //check for access to player's inventory
-            if (Player.Instance.Inventory != null)
+            if (Player.Instance != null && Player.Instance.Inventory != null)
             {
                 //display the sprites of all items in inventory
                 for (int i = 0; i < contents.Count; i++)

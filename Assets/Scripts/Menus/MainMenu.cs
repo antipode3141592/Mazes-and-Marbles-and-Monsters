@@ -35,17 +35,16 @@ namespace MarblesAndMonsters.Menus
         private GameObject resumeButton;
 
         private LevelLoader levelLoader;
-
-        protected override void Awake()
+        
+        protected void OnEnable()
         {
-            base.Awake();
-            
+            LoadData();
         }
 
         public void Start()
         {
             levelLoader = GameObject.FindObjectOfType<LevelLoader>();
-            LoadData();
+            //LoadData();
             UpdateCurrentGameStats();
         }
 
@@ -55,8 +54,10 @@ namespace MarblesAndMonsters.Menus
             {
                 currentGameGroup.SetActive(true);
                 resumeButton.SetActive(true);
-                treasureCount.text = "Treasures Collected: " + DataManager.Instance.PlayerTreasureCount;
-                currentLevel.text = "Current Level: " + (DataManager.Instance.CurrentLevelSpecs.LevelName);
+                treasureCount.text = "Scrolls Collected: " + DataManager.Instance.PlayerTreasureCount;
+                currentLevel.text = string.Format("Current Level: {0} - {1}",
+                    DataManager.Instance.SavedCampaign, 
+                    DataManager.Instance.SavedLevel);
                 playerHealth.text = "Max Health: " + DataManager.Instance.PlayerMaxHealth;
                 deathCount.text = "Deaths: " + DataManager.Instance.PlayerTotalDeathCount;
 
@@ -70,7 +71,10 @@ namespace MarblesAndMonsters.Menus
 
         private void LoadData()
         {
-            DataManager.Instance.Load();
+            if (DataManager.Instance != null)
+            {
+                DataManager.Instance.Load();
+            }
         }
 
         public void SaveData()
@@ -81,7 +85,10 @@ namespace MarblesAndMonsters.Menus
         public void ResetData()
         {
             //TODO should confirm first
-            DataManager.Instance.Clear();
+            if (DataManager.Instance != null)
+            {
+                DataManager.Instance.Clear();
+            }
             //update UI
             UpdateCurrentGameStats();
         }
@@ -94,7 +101,7 @@ namespace MarblesAndMonsters.Menus
         private IEnumerator OnResumePressedRoutine()
         {
             //TransitionFader.PlayTransition(startTransitionPrefab);
-            LevelLoader.LoadLevel(DataManager.Instance.CurrentLevelSpecs.SceneName);
+            levelLoader.LoadLevel(DataManager.Instance.CurrentLevelSpecs.SceneName);
             yield return new WaitForSeconds(_playDelay);
             //GameMenu.Open();
         }
