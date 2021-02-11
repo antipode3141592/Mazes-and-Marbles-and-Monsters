@@ -2,7 +2,6 @@
 using FiniteStateMachine.States.GameStates;
 using LevelManagement;
 using LevelManagement.Data;
-using LevelManagement.Levels; //for levelselector class, for grabbing level data like level name
 using MarblesAndMonsters.Characters;
 using MarblesAndMonsters.Items;
 using MarblesAndMonsters.Menus;
@@ -10,13 +9,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace MarblesAndMonsters
 {
     public enum DeathType { Falling, Fire, Poison , Damage, Push }
 
     //persistent singleton class for controlling most of the game actions
+    //  Dependencies:
+    //      MenuManager singleton instance for menu functions
+    //      DataManager singleton instance for saving/loading persistent data
+    //      Player singleton instance
     public class GameController : MonoBehaviour
     {
         #region Properties
@@ -28,14 +30,17 @@ namespace MarblesAndMonsters
 
         public Vector2 Input_Acceleration { get; set; }
 
+        //references to various game objects
         private List<Characters.CharacterControl> characters;
         private List<InventoryItem> inventoryItems;
         private List<SpawnPoint> spawnPoints;
 
+        //for tracking playtime
         private TimeSpan sessionTimeElapsed;
         private DateTime startTime;
         private DateTime endTime;
 
+        //state machine stuff
         protected StateMachine gameStateMachine;
         public START state_start;
         public PopulateLevel state_populateLevel;
@@ -45,7 +50,6 @@ namespace MarblesAndMonsters
         public Defeat state_defeat;
         public END state_end;
 
-        private LevelSelector levelSelector;
         private LevelLoader levelLoader;
 
         //singleton stuff
@@ -71,7 +75,7 @@ namespace MarblesAndMonsters
             else
             {
                 _instance = this;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
                 //InitializeReferences();
             }
         }
@@ -88,13 +92,11 @@ namespace MarblesAndMonsters
             state_defeat = new Defeat(gameStateMachine);
             state_end = new END(gameStateMachine);
 
-            levelSelector = FindObjectOfType<LevelSelector>();
             levelLoader = FindObjectOfType<LevelLoader>();
 
             gameStateMachine.Initialize(state_start);
         }
 
-        //gamecontroller doesn't move any rigidbodies, so only needs Update()
         public void Update()
         {
             gameStateMachine.CurrentState.HandleInput();
@@ -118,14 +120,12 @@ namespace MarblesAndMonsters
         public void UnpauseGame()
         {
             gameStateMachine.ChangeState(state_playing);
-            //GameMenu.Open();
             MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
         }
 
         public void PauseGame()
         {
             gameStateMachine.ChangeState(state_paused);
-            //PauseMenu.Open();
             MenuManager.Instance.OpenMenu(MenuTypes.PauseMenu);
         }
         
@@ -174,11 +174,11 @@ namespace MarblesAndMonsters
             StartCoroutine(WinRoutine());
         }
 
-        public void LevelWin(string goToLevel)
+        public void LevelWin(string goToLevelId)
         {
             gameStateMachine.ChangeState(state_victory);
             SaveGameData();
-            StartCoroutine(WinRoutine(goToLevel));
+            StartCoroutine(WinRoutine(goToLevelId));
         }
 
         public void LevelLose()
@@ -194,36 +194,21 @@ namespace MarblesAndMonsters
         private IEnumerator WinRoutine()
         {
             TransitionFader.PlayTransition(transitionPrefab);
-            yield return new WaitForSeconds(0.5f);
+            //yield return new WaitForSeconds(0.5f);
             //TransitionFader.PlayTransition(transitionPrefab);
-            //float fadeDelay = transitionPrefab != null ? transitionPrefab.Delay + transitionPrefab.FadeOnDuration : 0f;
-            //yield return new WaitForSeconds(fadeDelay);
-            //WinMenu.Open();
-            //int i = levelSelector.CurrentIndex;
-            ////LevelLoader.LoadLevel(levelSelector.GetLevelSpecsAtIndex(i++).SceneName);
-            //string levelName = levelSelector.GetLevelSpecsAtIndex(i++).SceneName;
-            //if (Application.CanStreamedLevelBeLoaded(levelName))
-            //{
-            //    AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(levelName);
-            //    while (!asyncOperation.isDone)
-            //    {
-            //        yield return null; //yield this frame
-            //    }
-            //}
+            float fadeDelay = transitionPrefab != null ? transitionPrefab.Delay + transitionPrefab.FadeOnDuration : 0f;
+            yield return new WaitForSeconds(fadeDelay);
             levelLoader.LoadNextLevel();
         }
 
-        private IEnumerator WinRoutine(string sceneName)
+        private IEnumerator WinRoutine(string levelId)
         {
             TransitionFader.PlayTransition(transitionPrefab);
-            yield return new WaitForSeconds(0.5f);
+            //yield return new WaitForSeconds(0.5f);
             //TransitionFader.PlayTransition(transitionPrefab);
-            //float fadeDelay = transitionPrefab != null ? transitionPrefab.Delay + transitionPrefab.FadeOnDuration : 0f;
-            //yield return new WaitForSeconds(fadeDelay);
-            //WinMenu.Open();
-            //int i = levelSelector.CurrentIndex;
-            //LevelLoader.LoadLevel(sceneName);
-            levelLoader.LoadLevel(sceneName);
+            float fadeDelay = transitionPrefab != null ? transitionPrefab.Delay + transitionPrefab.FadeOnDuration : 0f;
+            yield return new WaitForSeconds(fadeDelay);
+            levelLoader.LoadLevel(levelId);
         }
 
         private IEnumerator DefeatRoutine()
@@ -253,6 +238,8 @@ namespace MarblesAndMonsters
             else { Debug.LogWarning("No DataManager Instance found when attempting to save!"); }
         }
 
+
+        #region Time Tracking
         public void UpdateSessionTime()
         {
             endTime = DateTime.Now;
@@ -264,6 +251,7 @@ namespace MarblesAndMonsters
         {
             startTime = DateTime.Now;
         }
+        #endregion
 
         internal void SpawnAll()
         {
@@ -283,6 +271,8 @@ namespace MarblesAndMonsters
             }
 
         }
+
+        #region Character Management
 
         internal int StoreCharacters()
         {
@@ -305,19 +295,14 @@ namespace MarblesAndMonsters
         internal bool StoreCharacter(Characters.CharacterControl character)
         {
             if (characters == null) { StoreCharacters(); }
-            //{
-                if (characters.Contains(character)) { return false; }
-                else
-                {
-                    characters.Add(character);
-                    return true;
-                }
-            //} else
-            //{
-                //characters = new List<CharacterSheetController>().Add(character);
-            //}
-            //return false;
+            if (characters.Contains(character)) { return false; }
+            else
+            {
+                characters.Add(character);
+                return true;
+            }
         }
+        #endregion
 
 
         //move all characters

@@ -2,45 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//
-public class Bag
+namespace MarblesAndMonsters.Utilities
 {
-    private List<int> contents;
-    private List<int> removed;
-    private int size;
-
-    public Bag()
+    //
+    public class Bag
     {
-        contents = new List<int>();
-        removed = new List<int>();
-    }
+        private List<int> contents;
+        private List<int> removed;
+        private int size;
 
-    public Bag(int Size)
-    {
-        contents = new List<int>();
-        removed = new List<int>();
-
-        for (int i = 0; i < Size; i++)
+        public Bag()
         {
-            contents.Add(i);
+            contents = new List<int>();
+            removed = new List<int>();
         }
-    }
 
-    public int DrawFromBag()
-    {
-        //grab a random item from bag, if bag is empty, refill bag
-        if (contents.Count <= 0)
+        public Bag(int Size)
         {
-            //refill bag
-            Debug.Log("refill bag!");
-            contents = removed;
-        }
-        int randomIndex = (int)Random.Range(0, contents.Count - 1);
+            contents = new List<int>();
+            removed = new List<int>();
 
-        int result = contents[randomIndex];
-        removed.Add(result);
-        contents.RemoveAt(randomIndex);
-        return result;
+            for (int i = 0; i < Size; i++)
+            {
+                contents.Add(i);
+            }
+        }
+
+        public int DrawFromBag()
+        {
+            //grab a random item from bag, if bag is empty, refill bag
+            if (contents.Count <= 0)
+            {
+                //refill bag
+                Debug.Log("refill bag!");
+                contents = removed;
+            }
+            int randomIndex = (int)Random.Range(0, contents.Count - 1);
+
+            int result = contents[randomIndex];
+            removed.Add(result);
+            contents.RemoveAt(randomIndex);
+            return result;
+        }
     }
 }

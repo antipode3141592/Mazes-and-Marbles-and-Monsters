@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf7f54f932bc2994dae2cdb26ef3c21e, type: 3}
+  m_Name: Levels_All
+  m_EditorClassIdentifier: 
+  levels:
+  - _id: Main_Map
+    _map: Main
+    _location: 
+    _sortOrder: 0
+    _displayName: World Map
+    _sceneName: Assets/Scenes/MainMap.unity
+    _description: 
+    _thumbnailLocation: 
+  - _id: Stone_01
+    _map: 
+    _location: Stone
+    _sortOrder: 0
+    _displayName: First Room
+    _sceneName: Assets/Scenes/Stone/Room_01.unity
+    _description: 
+    _thumbnailLocation: 
+  - _id: Stone_02
+    _map: 
+    _location: Stone
+    _sortOrder: 1
+    _displayName: Second Room
+    _sceneName: Assets/Scenes/Stone/Room_02.unity
+    _description: 
+    _thumbnailLocation: 
+  - _id: Stone_03
+    _map: 
+    _location: Stone
+    _sortOrder: 2
+    _displayName: Third Room
+    _sceneName: Assets/Scenes/Stone/Room_03.unity
+    _description: 
+    _thumbnailLocation: 
+  mapId: Main_Map
+  firstLevelId: Stone_01

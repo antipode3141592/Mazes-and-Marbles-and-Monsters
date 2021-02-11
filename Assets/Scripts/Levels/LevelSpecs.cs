@@ -7,35 +7,46 @@ using System;
 
 namespace LevelManagement.Levels
 {
-    [Serializable]
+
+    //  Class with header-type information for individual Unity scenes, to be managed by LevelSelector
+    //      Scenes have 
+    //      Each Level will have a primary string key of form:
+    //          [Map Name] _[Location Name] _[Level: 000 - 999]{_SubLevel: A}
+
+[Serializable]
     public class LevelSpecs
     {
 
         #region INSPECTOR
-        [SerializeField] protected string _name;
-        [SerializeField] protected string _description;
-        //[SerializeField] protected string _campaignName;
-        [SerializeField] protected string _levelName; //the display name
+        //for 
+        [SerializeField] protected string _id; //unique id for level
+        [SerializeField] protected string _map;         //belongs to this map collection
+        [SerializeField] protected string _location;    //belongs to this location
+        [SerializeField] protected int _sortOrder;      // when negative, level is "hidden" 
+        
+        [SerializeField] protected string _displayName; //the display name
         [SerializeField] protected string _sceneName; //exact scene name in Unity
-        [SerializeField] protected string _id; //sorter unique id for level
-        [SerializeField] protected Sprite _image;    //thumbnail of level
-        [SerializeField] protected bool _illuminated = true;   //default true for global lighting, false for dark global and player torchlight
+
+        [SerializeField] protected string _description;
+        [SerializeField] protected string _thumbnailLocation;    //file location for thumbnail of level
+        
         #endregion
 
         #region PROPERTIES
-        public string Name => _name; //shorthand for readonly get 
         public string Description => _description;
-        //public string CampaignName => _campaignName;
-        public string LevelName => _levelName;
+        public string DisplayName => _displayName;
         public string SceneName => _sceneName;
+        public string Map => _map;
+        public string Location => _location;
         public string Id => _id;
-        public Sprite Image => _image;
-        public bool Illuminated => _illuminated;
+        public string ThumbnailLocation => _thumbnailLocation;
+
+        public int SortOrder => _sortOrder;
         #endregion
 
         public LevelSpecs()
         {
-
+            
         }
     }
 }

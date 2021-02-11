@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class RoughTerrain : MonoBehaviour
+namespace MarblesAndMonsters.Tiles
 {
-    private void OnTriggerStay2D(Collider2D collision)
+    public class RoughTerrain : MonoBehaviour
     {
-        collision.attachedRigidbody.AddForce(-1.0f*collision.attachedRigidbody.velocity * collision.attachedRigidbody.mass);
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            collision.attachedRigidbody.AddForce(-1.0f * collision.attachedRigidbody.velocity * collision.attachedRigidbody.mass);
+        }
     }
 }

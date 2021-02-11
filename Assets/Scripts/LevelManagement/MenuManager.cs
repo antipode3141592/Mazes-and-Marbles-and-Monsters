@@ -14,7 +14,7 @@ using System.Collections.ObjectModel;
 
 namespace MarblesAndMonsters.Menus
 {
-    public enum MenuTypes {MainMenu, GameMenu, SettingsMenu, CreditsMenu, PauseMenu, WinMenu, DefeatMenu }
+    public enum MenuTypes {MainMenu, GameMenu, SettingsMenu, CreditsMenu, PauseMenu, WinMenu, DefeatMenu, MainMapMenu}
 
     public class MenuManager : MonoBehaviour
     {

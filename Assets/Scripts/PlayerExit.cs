@@ -5,7 +5,7 @@ namespace MarblesAndMonsters.Objects
     public class PlayerExit : MonoBehaviour
     {
         [SerializeField]
-        protected string GoToLevel = string.Empty;
+        protected string GoToLevelId = string.Empty;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -13,13 +13,12 @@ namespace MarblesAndMonsters.Objects
             {
                 if (other.gameObject.CompareTag("Player"))
                 {
-                    if (GoToLevel == string.Empty)
+                    if (GoToLevelId == string.Empty)
                     {
                         GameController.Instance.LevelWin();
-                        //GameController.Instance.EndLevel(true);
                     } else
                     {
-                        GameController.Instance.LevelWin(GoToLevel);
+                        GameController.Instance.LevelWin(GoToLevelId);
                     }
                 }
             }

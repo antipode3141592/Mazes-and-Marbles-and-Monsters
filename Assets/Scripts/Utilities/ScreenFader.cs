@@ -3,57 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScreenFader : MonoBehaviour
+namespace LevelManagement
 {
-    [SerializeField]
-    protected float _solidAlpha = 1f;
-
-    [SerializeField]
-    protected float _clearAlpha = 0f;
-
-    [SerializeField]
-    private float _fadeOnDuration = 2f;
-
-    [SerializeField]
-    private float _fadeOffDuration = 2f;
-
-    [SerializeField]
-    private MaskableGraphic[] graphicsToFade;
-
-    public float FadeOnDuration { get => _fadeOnDuration; }
-    public float FadeOffDuration { get => _fadeOffDuration; }
-
-    protected void SetAlpha(float alpha)
+    public class ScreenFader : MonoBehaviour
     {
-        foreach(MaskableGraphic graphic in graphicsToFade)
+        [SerializeField]
+        protected float _solidAlpha = 1f;
+
+        [SerializeField]
+        protected float _clearAlpha = 0f;
+
+        [SerializeField]
+        private float _fadeOnDuration = 2f;
+
+        [SerializeField]
+        private float _fadeOffDuration = 2f;
+
+        [SerializeField]
+        private MaskableGraphic[] graphicsToFade;
+
+        public float FadeOnDuration { get => _fadeOnDuration; }
+        public float FadeOffDuration { get => _fadeOffDuration; }
+
+        protected void SetAlpha(float alpha)
         {
-            if (graphic != null)
+            foreach (MaskableGraphic graphic in graphicsToFade)
             {
-                graphic.canvasRenderer.SetAlpha(alpha);
+                if (graphic != null)
+                {
+                    graphic.canvasRenderer.SetAlpha(alpha);
+                }
             }
         }
-    }
 
-    private void Fade(float targetAlpha, float duration)
-    {
-        foreach(MaskableGraphic graphic in graphicsToFade)
+        private void Fade(float targetAlpha, float duration)
         {
-            if (graphic != null)
+            foreach (MaskableGraphic graphic in graphicsToFade)
             {
-                graphic.CrossFadeAlpha(targetAlpha, duration, true);
+                if (graphic != null)
+                {
+                    graphic.CrossFadeAlpha(targetAlpha, duration, true);
+                }
             }
         }
-    }
 
-    public void FadeOff()
-    {
-        SetAlpha(_solidAlpha);
-        Fade(_clearAlpha, _fadeOffDuration);
-    }
+        public void FadeOff()
+        {
+            SetAlpha(_solidAlpha);
+            Fade(_clearAlpha, _fadeOffDuration);
+        }
 
-    public void FadeOn()
-    {
-        SetAlpha(_clearAlpha);
-        Fade(_solidAlpha, _fadeOnDuration);
+        public void FadeOn()
+        {
+            SetAlpha(_clearAlpha);
+            Fade(_solidAlpha, _fadeOnDuration);
+        }
     }
 }

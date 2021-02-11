@@ -41,8 +41,9 @@ namespace MarblesAndMonsters.Menus
             LoadData();
         }
 
-        public void Start()
+        protected override void Awake()
         {
+            base.Awake();
             levelLoader = GameObject.FindObjectOfType<LevelLoader>();
             //LoadData();
             UpdateCurrentGameStats();
@@ -56,8 +57,8 @@ namespace MarblesAndMonsters.Menus
                 resumeButton.SetActive(true);
                 treasureCount.text = "Scrolls Collected: " + DataManager.Instance.PlayerTreasureCount;
                 currentLevel.text = string.Format("Current Level: {0} - {1}",
-                    DataManager.Instance.SavedCampaign, 
-                    DataManager.Instance.SavedLevel);
+                    DataManager.Instance.SavedLocation, 
+                    DataManager.Instance.SavedLevelId);
                 playerHealth.text = "Max Health: " + DataManager.Instance.PlayerMaxHealth;
                 deathCount.text = "Deaths: " + DataManager.Instance.PlayerTotalDeathCount;
 
@@ -101,8 +102,11 @@ namespace MarblesAndMonsters.Menus
         private IEnumerator OnResumePressedRoutine()
         {
             //TransitionFader.PlayTransition(startTransitionPrefab);
-            levelLoader.LoadLevel(DataManager.Instance.CurrentLevelSpecs.SceneName);
-            yield return new WaitForSeconds(_playDelay);
+            if (DataManager.Instance != null)
+            {
+                levelLoader.LoadLevel(DataManager.Instance.SavedLevelId);
+                yield return new WaitForSeconds(_playDelay);
+            }
             //GameMenu.Open();
         }
 
