@@ -27,9 +27,9 @@ namespace FiniteStateMachine.States.GameStates
             base.LogicUpdate();
             //check if the tilemaps are done producing characters
 
-            if (GameController.Instance.InitializeReferences() > 0)
+            if (GameManager.Instance.InitializeReferences() > 0)
             {
-                stateMachine.ChangeState(GameController.Instance.state_populateLevel);
+                stateMachine.ChangeState(GameManager.Instance.state_populateLevel);
                 Debug.Log(string.Format("spawnWaitCounter = {0}", spawnWaitCounter));
             } else
             {
@@ -48,14 +48,14 @@ namespace FiniteStateMachine.States.GameStates
         public override void Enter()
         {
             base.Enter();
-            GameController.Instance.SpawnAll();
+            GameManager.Instance.SpawnAll();
         }
 
         public override void LogicUpdate()
         {
             base.LogicUpdate();
             //if (GameController.Instance.StoreCharacters() == GameController.Instance.InitializeReferences()) { 
-                stateMachine.ChangeState(GameController.Instance.state_playing);
+                stateMachine.ChangeState(GameManager.Instance.state_playing);
             //}
         }
 
@@ -82,7 +82,7 @@ namespace FiniteStateMachine.States.GameStates
         {
             base.HandleInput();
             //grab acceleration input
-            GameController.Instance.Input_Acceleration = (Vector2)Input.acceleration;
+            GameManager.Instance.Input_Acceleration = (Vector2)Input.acceleration;
         }
         //public override void LogicUpdate()
         //{
@@ -93,7 +93,7 @@ namespace FiniteStateMachine.States.GameStates
 
         public override void PhysicsUpdate()
         {
-            GameController.Instance.MoveAll();  //characters should only move during play
+            GameManager.Instance.MoveAll();  //characters should only move during play
         }
 
         public override void Exit()
@@ -121,7 +121,7 @@ namespace FiniteStateMachine.States.GameStates
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            stateMachine.ChangeState(GameController.Instance.state_start);
+            stateMachine.ChangeState(GameManager.Instance.state_start);
         }
 
         public override void Exit()
@@ -138,8 +138,8 @@ namespace FiniteStateMachine.States.GameStates
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            GameController.Instance.ResetAll();
-            stateMachine.ChangeState(GameController.Instance.state_start);
+            GameManager.Instance.ResetAll();
+            stateMachine.ChangeState(GameManager.Instance.state_start);
         }
     }
 

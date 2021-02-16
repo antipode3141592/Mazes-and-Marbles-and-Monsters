@@ -19,13 +19,16 @@ namespace LevelManagement.Data
 
         //public LevelSpecs CurrentLevelSpecs { get { return saveData.playerCurrentLevelSpecs; } set { saveData.playerCurrentLevelSpecs = value; } }
         public string SavedLocation { get { return saveData.currentLocation; } set { saveData.currentLocation = value; } }
-        public string SavedLevelId { get { return saveData.currentLevelId; } set { saveData.currentLevelId = value; } }
+        public string CheckPointLevelId { get { return saveData.checkPointLevelId; } set { saveData.checkPointLevelId = value; } }
 
+        public int PlayerCurrentHealth { get { return saveData.playerCurrentHealth; } set { saveData.playerCurrentHealth = value; } }
         public int PlayerMaxHealth { get { return saveData.playerMaxHealth; } set { saveData.playerMaxHealth = value; } }
 
-        public int PlayerTotalDeathCount { get { return saveData.playerDeathCount; }  set { saveData.playerDeathCount = value; } }
+        public int PlayerTotalDeathCount { get { return saveData.playerDeathCount; } set { saveData.playerDeathCount = value; } }
 
         public int PlayerTreasureCount { get { return saveData.playerTreasureCounter; } set { saveData.playerTreasureCounter = value; } }
+
+        public List<LevelSaveData> LevelSaves { get { return saveData.LevelSaves; } set { saveData.LevelSaves = value; }}
 
         private static DataManager _instance;
         public static DataManager Instance
@@ -47,6 +50,11 @@ namespace LevelManagement.Data
                 jsonSaver = new JSONSaver();
             }
         }
+
+        private void Start()
+        {
+            Load();
+        }
         private void OnDestroy()
         {
             if (_instance == this)
@@ -60,6 +68,22 @@ namespace LevelManagement.Data
             jsonSaver.Save(saveData);
         }
 
+        public void UpdateLevelSaves(LevelSaveData levelData)
+        {
+            //check for Location in LevelSaves
+            int index = LevelSaves.FindIndex(x => x.LevelId == levelData.LevelId);
+            //if so, update
+            if (index >= 0)
+            {
+                LevelSaves[index] = levelData;
+            }
+            else
+            {
+                LevelSaves.Add(levelData);
+            }
+            
+        }
+
         public void Load()
         {
             jsonSaver.Load(saveData);
@@ -67,6 +91,7 @@ namespace LevelManagement.Data
 
         public void Clear()
         {
+            saveData = new SaveData();
             jsonSaver.Delete(); //delete saved data
         }
     }

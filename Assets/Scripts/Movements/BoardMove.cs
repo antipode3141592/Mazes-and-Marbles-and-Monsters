@@ -20,7 +20,7 @@ namespace MarblesAndMonsters.Actions
         {
             if (gameObject.activeInHierarchy && _moving)
             {
-                _rigidbody.AddForce(GameController.Instance.Input_Acceleration * _rigidbody.mass * _forceMultiplier);
+                _rigidbody.AddForce(GameManager.Instance.Input_Acceleration * _rigidbody.mass * _forceMultiplier);
             }
             
         }

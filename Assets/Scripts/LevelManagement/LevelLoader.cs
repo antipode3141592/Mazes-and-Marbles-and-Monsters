@@ -18,34 +18,52 @@ namespace LevelManagement
 
         private Dictionary<string, LevelSpecs> levelSpecsById = new Dictionary<string, LevelSpecs>(); // key is string Id
 
-        protected void Awake()
+        private static LevelLoader _instance;
+        public static LevelLoader Instance
         {
-            //build dictionary with key equal to Id field in LevelSpecs
-            //levelSpecsById = new Dictionary<string, LevelSpecs>();
-            foreach (LevelSpecs level in levelList.Levels)
-            {
-                levelSpecsById.Add(level.Id, level);
-            }
-            Debug.Log(string.Format("Level Dictionary {0}", levelSpecsById.Count));
+            get { return _instance; }
         }
 
-        /// <summary>
-        /// Load the next scene in the LevelList, as tracked by the LevelSelector
-        /// </summary>
-        public void LoadNextLevel()
+        protected void Awake()
         {
-            if (SceneManager.GetActiveScene().buildIndex == mainMenuIndex) 
+            if (_instance != null)
             {
-                LoadLevel(GetFirstLevel().Id);    //first level is defined in LevelList scriptable object
+                Destroy(gameObject);
             }
             else
             {
-                if (DataManager.Instance != null)
+                //build dictionary with key equal to Id field in LevelSpecs
+                //levelSpecsById = new Dictionary<string, LevelSpecs>();
+                foreach (LevelSpecs level in levelList.Levels)
                 {
-                    LoadLevel(GetNextLevelSpecs(DataManager.Instance.SavedLevelId).Id);
+                    levelSpecsById.Add(level.Id, level);
                 }
+                Debug.Log(string.Format("Level Dictionary has {0} key-value pairs", levelSpecsById.Count));
             }
         }
+
+        ///// <summary>
+        ///// Load the next scene in the LevelList, as tracked by the LevelSelector
+        ///// </summary>
+        //public void LoadNextLevel()
+        //{
+        //    if (SceneManager.GetActiveScene().buildIndex == mainMenuIndex) 
+        //    {
+        //        LoadLevel(GetFirstLevel().Id);    //first level is defined in LevelList scriptable object
+        //    }
+        //    else
+        //    {
+        //        if (DataManager.Instance != null)
+        //        {
+        //            //check current level for null
+        //            if (DataManager.Instance.CheckPointLevelId == null)
+        //            {
+        //                DataManager.Instance.CheckPointLevelId = CurrentLevel().Id;
+        //            }
+        //            LoadLevel(GetNextLevelSpecs(DataManager.Instance.CheckPointLevelId).Id);
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// Load a specific scene by levelId
@@ -53,13 +71,18 @@ namespace LevelManagement
         public void LoadLevel(string levelId)
         
         {
+            if (levelId == string.Empty)
+            {
+                //load next level in level list
+                levelId = GetNextLevelSpecs(DataManager.Instance.CheckPointLevelId).Id;
+            }
             Debug.Log("attempting to load " + levelId);
             if (Application.CanStreamedLevelBeLoaded(GetLevelSpecsById(levelId).SceneName))
             {
                 if (DataManager.Instance != null)
                 {
                     //update saved level id
-                    DataManager.Instance.SavedLevelId = GetLevelSpecsById(levelId).Id;    
+                    DataManager.Instance.CheckPointLevelId = GetLevelSpecsById(levelId).Id;    
                     DataManager.Instance.SavedLocation = GetLevelSpecsById(levelId).Location;
                     DataManager.Instance.Save();
                 }
@@ -158,6 +181,11 @@ namespace LevelManagement
             {
                 return GetMap();
             }
+        }
+
+        public LevelSpecs CurrentLevel()
+        {
+            return levelList.Levels.Find(x => x.SceneName == SceneManager.GetActiveScene().path);
         }
     }
 }

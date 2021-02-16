@@ -13,13 +13,7 @@ namespace MarblesAndMonsters.Objects
             {
                 if (other.gameObject.CompareTag("Player"))
                 {
-                    if (GoToLevelId == string.Empty)
-                    {
-                        GameController.Instance.LevelWin();
-                    } else
-                    {
-                        GameController.Instance.LevelWin(GoToLevelId);
-                    }
+                    GameManager.Instance.LevelWin(GoToLevelId);
                 }
             }
         }

@@ -212,7 +212,7 @@ namespace MarblesAndMonsters.Characters
             yield return new WaitForSeconds(0.667f);  //death animations are 8 frames, current fps is 12
             ResetInventoryItems();
             //GameController.Instance.EndLevel(false);
-            GameController.Instance.LevelLose();
+            GameManager.Instance.LevelLose();
             gameObject.SetActive(false);
         }
 

@@ -34,7 +34,7 @@ namespace MarblesAndMonsters.Menus
         
         public void OnPausePressed()
         {
-            GameController.Instance.PauseGame();
+            GameManager.Instance.PauseGame();
         }
     }
 }

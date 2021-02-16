@@ -11,6 +11,7 @@ namespace LevelManagement.Data
     public class JSONSaver
     {
         private static readonly string _filename = "saveData1.sav"; //default file name
+        //TODO implement a routine for incrementing save file names and choosing between save files
         public static string GetSaveFilename()
         {
             return Application.persistentDataPath + "/" + _filename; //slash, because it's from inside unity

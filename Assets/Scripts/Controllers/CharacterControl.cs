@@ -62,7 +62,7 @@ namespace MarblesAndMonsters.Characters
         protected virtual void Start()
         {
             mySheet.CurrentHealth = mySheet.MaxHealth;
-            if (GameController.Instance.StoreCharacter(this))
+            if (GameManager.Instance.StoreCharacter(this))
             {
                 Debug.Log(String.Format("{0} has been added to Characters on GameController", this.gameObject.name));
             }
@@ -174,7 +174,7 @@ namespace MarblesAndMonsters.Characters
             mySheet.IsInvincible = true;
             //apply invincibility effect
             invincibilityEffect.Play();
-            mySheet.InvincibleTimeCounter = GameController.Instance.DefaultEffectTime;
+            mySheet.InvincibleTimeCounter = GameManager.Instance.DefaultEffectTime;
         }
 
         internal virtual void ApplyFire()
@@ -289,7 +289,7 @@ namespace MarblesAndMonsters.Characters
         //  helps to determine 
         protected virtual void SetLookDirection()
         {
-            Vector2 input_acceleration = GameController.Instance.Input_Acceleration;
+            Vector2 input_acceleration = GameManager.Instance.Input_Acceleration;
             if (!Mathf.Approximately(input_acceleration.x, 0.0f) || !Mathf.Approximately(input_acceleration.y, 0.0f))
             {
                 lookDirection = input_acceleration;

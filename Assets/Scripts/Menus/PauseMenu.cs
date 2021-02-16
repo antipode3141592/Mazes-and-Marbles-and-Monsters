@@ -10,7 +10,7 @@ namespace MarblesAndMonsters.Menus
     {
         public void OnResumePressed()
         {
-            GameController.Instance.UnpauseGame();
+            GameManager.Instance.UnpauseGame();
             base.OnBackPressed();   //return to GameMenu
         }
 
