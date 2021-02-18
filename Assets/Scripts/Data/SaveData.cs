@@ -19,6 +19,7 @@ namespace LevelManagement.Data
 
         //completed levels data
         public List<LevelSaveData> LevelSaves;
+        public List<LocationSaveData> LocationSaves;
 
         //player stats
         public int playerCurrentHealth;
@@ -38,6 +39,7 @@ namespace LevelManagement.Data
             playerTreasureCounter = 0;
             hashValue = "";
             LevelSaves = new List<LevelSaveData>();
+            LocationSaves = new List<LocationSaveData>();
         }
 
     }

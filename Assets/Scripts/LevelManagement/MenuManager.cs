@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
+﻿using LevelManagement.Menus;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using LevelManagement.Menus;
-using System;
-using System.Collections.ObjectModel;
 
 //code based on the course content at https://www.udemy.com/course/level-management-in-unity/ , which was super helpeful and highly recommended
 //  Class Name:  MenuManager
@@ -14,37 +11,12 @@ using System.Collections.ObjectModel;
 
 namespace MarblesAndMonsters.Menus
 {
-    public enum MenuTypes {MainMenu, GameMenu, SettingsMenu, CreditsMenu, PauseMenu, WinMenu, DefeatMenu, MainMapMenu}
+    public enum MenuTypes {MainMenu, GameMenu, SettingsMenu, CreditsMenu, PauseMenu, WinMenu, DefeatMenu, MapMenu, MapPopupMenu}
 
     public class MenuManager : MonoBehaviour
     {
-        //[SerializeField]
-        //private MainMenu mainMenuPrefab;
-        //[SerializeField]
-        //private SettingsMenu settingsMenuPrefab;
-        //[SerializeField]
-        //private CreditsMenu creditsScreenPrefab;
-        //[SerializeField]
-        //private GameMenu gameMenuPrefab;    //the ingame UI
-        //[SerializeField]
-        //private PauseMenu pauseMenuPrefab;
-        //[SerializeField]
-        //private WinMenu winMenuPrefab;
-        //[SerializeField]
-        //private DefeatMenu defeatMenuPrefab;
-        //[SerializeField]
-        //private GameObject MenusParentPrefab;
-
-        //private GameObject _menusParent;
-
         private Dictionary<MenuTypes, Menu> menuCollection = new Dictionary<MenuTypes, Menu>();
-
-
-        //[SerializeField]
-        //private Transform _menuParent;
-
         private Stack<Menu> _menuStack = new Stack<Menu>();
-        //private List<Menu> _menuList = new List<Menu>();
 
         private static MenuManager _instance;
 
@@ -75,6 +47,8 @@ namespace MarblesAndMonsters.Menus
                 menuCollection.Add(MenuTypes.PauseMenu, FindObjectOfType<PauseMenu>(true));
                 menuCollection.Add(MenuTypes.WinMenu, FindObjectOfType<WinMenu>(true));
                 menuCollection.Add(MenuTypes.DefeatMenu, FindObjectOfType<DefeatMenu>(true));
+                menuCollection.Add(MenuTypes.MapMenu, FindObjectOfType<MapMenu>(true));
+                menuCollection.Add(MenuTypes.MapPopupMenu, FindObjectOfType<MapPopupMenu>(true));
                 //}
                 //Debug.Log(string.Format("there are {0} items in the _menuList: {1}", _menuList.Count, string.Join(", ", _menuList)));
             }
@@ -95,74 +69,20 @@ namespace MarblesAndMonsters.Menus
 
         private void InitializeMenus()
         {
-            //foreach (Menu menu in _menuList)
-            //{
-            //    if (menu != mainMenuPrefab)
-            //    {
-            //        menu.gameObject.SetActive(false);
-            //    }
-            //}
-
             if (SceneManager.GetActiveScene().buildIndex <= 1)
             {
                 Debug.Log(string.Format("Active Scene Index: {0}", SceneManager.GetActiveScene().buildIndex));
                 OpenMenu(MenuTypes.MainMenu);
             }
+            else if (SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                OpenMenu(MenuTypes.MapMenu);
+            }
             else
             {
                 OpenMenu(MenuTypes.GameMenu);
             }
-
-            //if (_menuParent == null)
-            //{
-            //    GameObject menuParentObject = new GameObject("Menus");
-            //    _menuParent = menuParentObject.transform;
-            //}
-            //Object.DontDestroyOnLoad(_menuParent.gameObject);   //protect the parent
-
-            ////use reflection to get menus
-            //System.Type myType = this.GetType();
-            //BindingFlags myFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
-            //FieldInfo[] fields = myType.GetFields(myFlags);
-
-            //foreach (FieldInfo field in fields)
-            //{
-            //    Menu prefab = field.GetValue(this) as Menu;
-            //    if (prefab != null)
-            //    {
-
-            //        Menu menuInstance = Instantiate(prefab, _menuParent);
-            //        if (prefab != mainMenuPrefab)
-            //        {
-            //            menuInstance.gameObject.SetActive(false);
-            //        } else if (SceneManager.GetActiveScene().buildIndex <= 1)
-            //        {
-            //            Debug.Log(string.Format("Active Scene Index: {0}", SceneManager.GetActiveScene().buildIndex));
-            //            OpenMenu(menuInstance);
-            //        } else
-            //        {
-            //            menuInstance.gameObject.SetActive(false);
-            //            OpenMenu(gameMenuPrefab);
-            //        }
-            //    }
-            //}
         }
-
-        //public void Open(MenuTypes menuType)
-        //{
-        //    if (_menuStack.Count > 0)
-        //    {
-        //        foreach (Menu menu in _menuStack)
-        //        {
-        //            if ()
-        //            Debug.Log(string.Format("Deactivating Menu in Stack: {0}", menu.name));
-        //            menu.gameObject.SetActive(false);
-        //        }
-        //    }
-        //    menuInstance.gameObject.SetActive(true);
-        //    _menuStack.Push(menuInstance);
-        //    Debug.Log(string.Format("After push to stack, there are {0} menus in _menuStack", _menuStack.Count));
-        //}
         
         public void OpenMenu(Menu menuInstance)
         {

@@ -42,29 +42,6 @@ namespace LevelManagement
             }
         }
 
-        ///// <summary>
-        ///// Load the next scene in the LevelList, as tracked by the LevelSelector
-        ///// </summary>
-        //public void LoadNextLevel()
-        //{
-        //    if (SceneManager.GetActiveScene().buildIndex == mainMenuIndex) 
-        //    {
-        //        LoadLevel(GetFirstLevel().Id);    //first level is defined in LevelList scriptable object
-        //    }
-        //    else
-        //    {
-        //        if (DataManager.Instance != null)
-        //        {
-        //            //check current level for null
-        //            if (DataManager.Instance.CheckPointLevelId == null)
-        //            {
-        //                DataManager.Instance.CheckPointLevelId = CurrentLevel().Id;
-        //            }
-        //            LoadLevel(GetNextLevelSpecs(DataManager.Instance.CheckPointLevelId).Id);
-        //        }
-        //    }
-        //}
-
         /// <summary>
         /// Load a specific scene by levelId
         /// </summary>
@@ -157,10 +134,10 @@ namespace LevelManagement
         }
 
         /// <summary>
-        /// 
+        /// Get the LevelSpecs of the map given by mapId
         /// </summary>
-        /// <returns>LevelSpecs of the </returns>
-        public LevelSpecs GetMap()
+        /// <returns>LevelSpecs of the desired map (Main Map, by default) </returns>
+        public LevelSpecs GetMap(string mapId = "Main_Map")
         {
             return GetLevelSpecsById(levelList.MapId);
         }

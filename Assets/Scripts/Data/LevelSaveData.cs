@@ -2,6 +2,10 @@ using System;
 
 namespace LevelManagement.Data
 {
+    /// <summary>
+    /// Store data about a level given by LevelId
+    /// </summary>
+
     [Serializable]
     public class LevelSaveData
     {

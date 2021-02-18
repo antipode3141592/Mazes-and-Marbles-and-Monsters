@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96463dd756abcf149865d957d65c2d03, type: 3}
   m_Name: BaseStats_Marble
   m_EditorClassIdentifier: 
-  MaxHealth: 0
+  MaxHealth: 1
   Strength: 0
-  Armor: 0
-  DamageImmunities: 
-  RespawnFlag: 0
+  Armor: 1
+  DamageImmunities: 00000000
+  RespawnFlag: 1
   ClipHit: {fileID: 0}
   ClipHeal: {fileID: 0}
   ClipDeathNormal: {fileID: 0}
