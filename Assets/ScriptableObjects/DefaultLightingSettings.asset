@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca0848827bb2e234caeda79f9b9883d9, type: 3}
+  m_Name: DefaultLightingSettings
+  m_EditorClassIdentifier: 
+  GlobalLightOnIntensity: 1
+  PlayerLightOnIntensity: 1
+  GlobalLightOffIntensity: 0.1
+  GlobalLightOnColor: {r: 1, g: 0.9882353, b: 0.9490196, a: 0}
+  PlayerLightOnColor: {r: 1, g: 0.9882353, b: 0.9490196, a: 0}
+  GlobalLightOffColor: {r: 1, g: 0.9882353, b: 0.9490196, a: 0}

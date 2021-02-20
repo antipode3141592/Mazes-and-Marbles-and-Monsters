@@ -1,6 +1,7 @@
 ﻿using Cinemachine;
 using LevelManagement.Data;
 using MarblesAndMonsters.Menus;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,11 @@ namespace MarblesAndMonsters.Characters
         private List<ItemStats> inventory;
         [SerializeField]
         private static readonly int inventoryMaxSize = 5;
+
+        [SerializeField]
+        private LightingSettings lightingSettings;
+        private GlobalLight globalLight;
+        private PlayerTorch playerTorch;
 
         public List<ItemStats> Inventory => inventory;//read only accessor
                                                           //HealthBarController healthBarController;
@@ -53,7 +59,8 @@ namespace MarblesAndMonsters.Characters
                 _instance = (Player)this;
                 //DontDestroyOnLoad(gameObject);
             }
-
+            globalLight = FindObjectOfType<GlobalLight>();
+            playerTorch = FindObjectOfType<PlayerTorch>();
             inventory = new List<ItemStats>();
             base.Awake();
         }
@@ -77,7 +84,20 @@ namespace MarblesAndMonsters.Characters
                 treasureCount = 0;
                 mySheet.MaxHealth = 3;
             }
+            AdjustLight();
             base.Start();
+        }
+
+        private void AdjustLight()
+        {
+            if (globalLight.Intensity < 1.0) 
+            {
+                playerTorch.gameObject.SetActive(true);
+                playerTorch.AdjustLight(lightingSettings.PlayerLightOnIntensity, lightingSettings.PlayerLightOnColor);
+            } else
+            {
+                playerTorch.gameObject.SetActive(false);
+            }
         }
 
         protected override void OnEnable()

@@ -14,11 +14,13 @@ namespace LevelManagement.Data
     {
         public string LocationId;   //key
         public bool Completed;      //true if player has completed all 
+        public string CheckpointLevelId;    //level ID to restore to
 
-        public LocationSaveData(string id = null, bool complete = false) 
+        public LocationSaveData(string id = null , string checkpointLevelId = null, bool complete = false) 
         {
             LocationId = id;
             Completed = complete;
+            CheckpointLevelId = checkpointLevelId;
         }
 
         public bool LocationCompletionCheck()

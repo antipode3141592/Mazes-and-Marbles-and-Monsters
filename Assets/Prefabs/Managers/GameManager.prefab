@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2606928710311212366}
   - component: {fileID: 2606928710311212367}
   m_Layer: 0
-  m_Name: GameController
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,10 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c34d5eb51801ea488f828300247f55c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMultiplier: 9.81
-  playerPrefab: {fileID: 1236707307626652074, guid: 43e04367663ca2a4aa21e5dd7bd803db,
-    type: 3}
   transitionPrefab: {fileID: 6751052077715780103, guid: ddd4664cb03311b48a2cd2d4ed700c7c,
     type: 3}
-  marblePrefab: {fileID: 2626821578083694134, guid: 5adef9eee92f8c34c8f45bb4a9333310,
-    type: 3}
+  defaultEffectTime: 3
+  lightingSettings: {fileID: 11400000, guid: 28f30b7e509461a46b9c3df67241d44d, type: 2}

@@ -13,6 +13,8 @@ namespace MarblesAndMonsters.Characters
 
     public class CharacterSheet: MonoBehaviour
     {
+        public CharacterBaseStats baseStats;
+
         [SerializeField]
         private int maxHealth;
         private int currentHealth;

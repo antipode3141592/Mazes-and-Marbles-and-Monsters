@@ -75,8 +75,6 @@ namespace MarblesAndMonsters
             else
             {
                 _instance = this;
-                //DontDestroyOnLoad(gameObject);
-                //InitializeReferences();
             }
         }
 
@@ -95,6 +93,8 @@ namespace MarblesAndMonsters
             levelLoader = FindObjectOfType<LevelLoader>();
 
             gameStateMachine.Initialize(state_start);
+
+
         }
 
         public void Update()
