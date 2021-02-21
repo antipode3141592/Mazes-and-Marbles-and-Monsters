@@ -10,7 +10,7 @@ namespace LevelManagement.Levels
     /// </summary>
     public class Location : MonoBehaviour
     {
-        private LevelLoader levelLoader;
+        private LevelManager levelLoader;
         [SerializeField] private string locationId;
         private Sprite sprite;
         [SerializeField] private Sprite occupiedSprite;
@@ -22,7 +22,7 @@ namespace LevelManagement.Levels
         //  update sprite
         private void Awake()
         {
-            levelLoader = FindObjectOfType<LevelLoader>();
+            levelLoader = FindObjectOfType<LevelManager>();
             sprite = GetComponent<Sprite>();
         }
 

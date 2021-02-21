@@ -11,15 +11,16 @@ namespace LevelManagement
 {
 
     //
-    public class LevelLoader : MonoBehaviour
+    public class LevelManager : MonoBehaviour
     {
         private static readonly int mainMenuIndex = 1;   //splash screen is build index 0
         [SerializeField] private LevelList levelList;    //scriptable object with all accessible levels
+        [SerializeField] private TransitionFader levelLoadTransition;
 
         private Dictionary<string, LevelSpecs> levelSpecsById = new Dictionary<string, LevelSpecs>(); // key is string Id
 
-        private static LevelLoader _instance;
-        public static LevelLoader Instance
+        private static LevelManager _instance;
+        public static LevelManager Instance
         {
             get { return _instance; }
         }
@@ -73,8 +74,14 @@ namespace LevelManagement
             }
         }
 
+        /// <summary>
+        /// Plays the transition, loads sceneName asyncronously, then fade out the transition
+        /// </summary>
+        /// <param name="sceneName"></param>
+        /// <returns></returns>
         private IEnumerator LoadLevelAsync(string sceneName)
         {
+            //SceneManager
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
             while (!asyncOperation.isDone)
             {

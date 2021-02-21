@@ -34,12 +34,12 @@ namespace MarblesAndMonsters.Menus
         [SerializeField]
         private GameObject resumeButton;
 
-        private LevelLoader levelLoader;
+        private LevelManager levelLoader;
 
         protected override void Awake()
         {
             base.Awake();
-            levelLoader = GameObject.FindObjectOfType<LevelLoader>();
+            levelLoader = GameObject.FindObjectOfType<LevelManager>();
             
         }
         protected void Start()

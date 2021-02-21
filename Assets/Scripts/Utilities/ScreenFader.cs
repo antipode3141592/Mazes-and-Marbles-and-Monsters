@@ -22,6 +22,9 @@ namespace LevelManagement
         [SerializeField]
         private MaskableGraphic[] graphicsToFade;
 
+        [SerializeField]
+        private Text text;
+
         public float FadeOnDuration { get => _fadeOnDuration; }
         public float FadeOffDuration { get => _fadeOffDuration; }
 
@@ -45,6 +48,11 @@ namespace LevelManagement
                     graphic.CrossFadeAlpha(targetAlpha, duration, true);
                 }
             }
+        }
+
+        public void UpdateText(string _text)
+        {
+            text.text = _text;
         }
 
         public void FadeOff()

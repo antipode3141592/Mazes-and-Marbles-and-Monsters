@@ -23,7 +23,9 @@ namespace MarblesAndMonsters
     {
         #region Properties
         [SerializeField]
-        private TransitionFader transitionPrefab;
+        private TransitionFader startTransition;
+        [SerializeField]
+        private TransitionFader endTransition;
 
         [SerializeField]
         private float defaultEffectTime = 3.0f;    //fire, poison, freeze lasts for N seconds
@@ -50,7 +52,7 @@ namespace MarblesAndMonsters
         public Defeat state_defeat;
         public END state_end;
 
-        private LevelLoader levelLoader;
+        private LevelManager levelLoader;
 
         //singleton stuff
         private static GameManager _instance;
@@ -90,7 +92,7 @@ namespace MarblesAndMonsters
             state_defeat = new Defeat(gameStateMachine);
             state_end = new END(gameStateMachine);
 
-            levelLoader = FindObjectOfType<LevelLoader>();
+            levelLoader = FindObjectOfType<LevelManager>();
 
             gameStateMachine.Initialize(state_start);
 
@@ -193,20 +195,20 @@ namespace MarblesAndMonsters
 
         private IEnumerator WinRoutine()
         {
-            TransitionFader.PlayTransition(transitionPrefab);
+            TransitionFader.PlayTransition(endTransition);
             //yield return new WaitForSeconds(0.5f);
             //TransitionFader.PlayTransition(transitionPrefab);
-            float fadeDelay = transitionPrefab != null ? transitionPrefab.Delay + transitionPrefab.FadeOnDuration : 0f;
+            float fadeDelay = endTransition != null ? endTransition.Delay + endTransition.FadeOnDuration : 0f;
             yield return new WaitForSeconds(fadeDelay);
             levelLoader.LoadLevel(string.Empty);
         }
 
         private IEnumerator WinRoutine(string levelId)
         {
-            TransitionFader.PlayTransition(transitionPrefab);
+            TransitionFader.PlayTransition(endTransition);
             //yield return new WaitForSeconds(0.5f);
             //TransitionFader.PlayTransition(transitionPrefab);
-            float fadeDelay = transitionPrefab != null ? transitionPrefab.Delay + transitionPrefab.FadeOnDuration : 0f;
+            float fadeDelay = endTransition != null ? endTransition.Delay + endTransition.FadeOnDuration : 0f;
             yield return new WaitForSeconds(fadeDelay);
             levelLoader.LoadLevel(levelId);
         }

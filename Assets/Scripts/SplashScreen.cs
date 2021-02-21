@@ -32,7 +32,7 @@ namespace MarblesAndMonsters.Menus
             
             yield return new WaitForSeconds(delay);
             _screenFader.FadeOff();
-            LevelLoader.LoadMainMenuLevel();
+            LevelManager.LoadMainMenuLevel();
             //wait for fade
             yield return new WaitForSeconds(_screenFader.FadeOffDuration);
 

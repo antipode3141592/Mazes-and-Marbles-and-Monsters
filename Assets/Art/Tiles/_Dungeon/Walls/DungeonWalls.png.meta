@@ -52,7 +52,7 @@ TextureImporter:
     second: DungeonWalls_15
   - first:
       213: -8975275942417109717
-    second: Gate_Blue
+    second: StoneFloor01
   - first:
       213: 5216523830551611268
     second: EastWestGate_Blue
@@ -61,10 +61,10 @@ TextureImporter:
     second: NorthSouthGate_Blue
   - first:
       213: 2223568702498792095
-    second: WestGate
+    second: StoneFloor02
   - first:
       213: 2819428699401860279
-    second: EastGate
+    second: StoneFloor03
   - first:
       213: 5629631854944892751
     second: EastWestGate_Red
@@ -110,6 +110,9 @@ TextureImporter:
   - first:
       213: 1657407885918320856
     second: DungeonWalls_28
+  - first:
+      213: -198201496676963745
+    second: StoneFloor04
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -993,6 +996,90 @@ TextureImporter:
       bones: []
       spriteID: 8d8b710e0bb400710800000000000000
       internalID: 1657407885918320856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StoneFloor01
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2d6e1b551a617380800000000000000
+      internalID: -8975275942417109717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StoneFloor02
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f92ed1634f3bbde10800000000000000
+      internalID: 2223568702498792095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StoneFloor03
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b4b361d67f902720800000000000000
+      internalID: 2819428699401860279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StoneFloor04
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5a6e94f9c8df3df0800000000000000
+      internalID: -198201496676963745
       vertices: []
       indices: 
       edges: []

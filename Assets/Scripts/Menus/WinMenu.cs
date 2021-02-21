@@ -7,12 +7,12 @@ namespace MarblesAndMonsters.Menus
 {
     public class WinMenu : Menu<WinMenu>
     {
-        private LevelLoader levelLoader;
+        private LevelManager levelLoader;
 
         protected override void Awake()
         {
             base.Awake();
-            levelLoader = GameObject.FindObjectOfType<LevelLoader>();
+            levelLoader = GameObject.FindObjectOfType<LevelManager>();
         }
 
         public void OnNextLevelPressed()
@@ -30,7 +30,7 @@ namespace MarblesAndMonsters.Menus
 
         public void OnMainMenuPressed()
         {
-            LevelLoader.LoadMainMenuLevel();
+            LevelManager.LoadMainMenuLevel();
             //MainMenu.Open();
             MenuManager.Instance.OpenMenu(MenuTypes.MainMenu);
         }

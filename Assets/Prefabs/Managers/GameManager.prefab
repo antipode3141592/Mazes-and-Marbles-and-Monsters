@@ -43,7 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c34d5eb51801ea488f828300247f55c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionPrefab: {fileID: 6751052077715780103, guid: ddd4664cb03311b48a2cd2d4ed700c7c,
+  startTransition: {fileID: 5985439094147491876, guid: 2d2dfd4d5b6b4614f96baa149f6749b3,
+    type: 3}
+  endTransition: {fileID: 6751052077715780103, guid: ddd4664cb03311b48a2cd2d4ed700c7c,
     type: 3}
   defaultEffectTime: 3
-  lightingSettings: {fileID: 11400000, guid: 28f30b7e509461a46b9c3df67241d44d, type: 2}

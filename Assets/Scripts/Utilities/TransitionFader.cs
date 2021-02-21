@@ -44,5 +44,15 @@ namespace LevelManagement
                 instance.Play();
             }
         }
+
+        public static void PlayTransitionCustomText(TransitionFader transitionPrefab, string customText)
+        {
+            if (transitionPrefab != null)
+            {
+                TransitionFader instance = Instantiate(transitionPrefab, Vector3.zero, Quaternion.identity);
+                instance.UpdateText(customText);
+                instance.Play();
+            }
+        }
     }
 }
