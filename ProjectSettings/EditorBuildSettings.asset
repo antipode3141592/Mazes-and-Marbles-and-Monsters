@@ -14,36 +14,36 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMap.unity
     guid: 8a9550d285d91f842980f459de272720
-  - enabled: 1
-    path: Assets/Scenes/Dungeon/Level_01.unity
-    guid: 95cddc6935a21c94f8651ffaa8ad1079
-  - enabled: 1
-    path: Assets/Scenes/Dungeon/Level_02.unity
-    guid: b513348839c8d8a4eb38f21c251bb104
-  - enabled: 1
-    path: Assets/Scenes/Dungeon/Level_03.unity
-    guid: 71472f950773bbd4e88220d34f249e66
-  - enabled: 1
-    path: Assets/Scenes/Dungeon/Level_04.unity
-    guid: 7c485daca920ce549ba95bb8095128ac
-  - enabled: 1
-    path: Assets/Scenes/Dungeon/Level_05.unity
-    guid: 880b793376e7942448fa329c705b9230
-  - enabled: 1
-    path: Assets/Scenes/Dungeon/Level_06.unity
-    guid: 497785ddccd761042ae684dbe7fb3961
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Dungeon/Level_07.unity
     guid: 9967740d4ed7d5b488c0504737376c1b
-  - enabled: 1
-    path: Assets/Scenes/Dungeon/Level_08.unity
-    guid: 8f96536a49058ff4681efaace631b1c6
-  - enabled: 1
-    path: Assets/Scenes/Dungeon/Level_09.unity
-    guid: 7948509b1211b8e419b55e87a8451b98
-  - enabled: 1
-    path: Assets/Scenes/Dungeon/Level_10.unity
-    guid: 365d029c27baa4e4488d021d73fdfba3
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Stone/Room_01.unity
     guid: c0aee8ff904b4884ca2eebd2f4355c87

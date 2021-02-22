@@ -20,7 +20,7 @@ namespace MarblesAndMonsters.Characters
         protected override IEnumerator DeathAnimation(DeathType deathType)
         {
             //Debug.Log(string.Format("DeathAnimation {0} has died of {1}!", gameObject.name, deathType.ToString()));
-            yield return new WaitForSeconds(0.5f);  //death animations are 8 frames, current fps is 12
+            yield return new WaitForSeconds(0.5f);  //death animations are 6 frames, current fps is 12
             gameObject.SetActive(false);
         }
     }
