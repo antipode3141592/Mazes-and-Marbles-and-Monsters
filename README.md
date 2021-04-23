@@ -5,7 +5,7 @@ a game by Sean Vo Kirkpatrick
 
 All Rights Reserved
 
-A marble roller and adventure roleplaying game with retro sound and visuals (8bit).
+A marble roller and adventure roleplaying game with retro sound and visuals (8bit).  Currently in development.
 
 Design Document:
 https://docs.google.com/document/d/1fRFSXKWJFm9H9Svx5vRLnmUum90gGcU5em7GkGJTBNA/edit?usp=sharing
