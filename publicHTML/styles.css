@@ -1,0 +1,49 @@
+
+
+header {
+    font-style: Cambria, serif;
+    font-size: 40px;
+    background-color: gray;
+    border: black 2px solid;
+    padding: 24px;
+}
+
+header p {
+    font-style: italic;
+    font-size: 24px;
+}
+
+nav {
+    margin: 16px;
+    padding: 8px;
+}
+
+nav a{
+    font-style: Cambria, serif;
+    background-color: lightgray;
+    display: inline-flexblock;
+    margin: 8px;
+    padding: 8px;
+    height: 24px;
+    min-width: 48px;
+    border: gray 1px solid;
+}
+
+section, article {
+    font-family: Georgia, serif;
+    font-size: 14px;
+    border: black 1px solid;
+    margin: 16px;
+    padding: 8px;
+    display: block;
+}
+
+aside {
+    font-family: Verdana, sans-serif;
+    font-style: italic;
+    border: black 1px dotted;
+    float: right;
+    margin: 16px;
+    padding: 8px;
+    display: block;
+}

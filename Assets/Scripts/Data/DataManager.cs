@@ -28,7 +28,9 @@ namespace LevelManagement.Data
 
         public int PlayerTreasureCount { get { return saveData.playerTreasureCounter; } set { saveData.playerTreasureCounter = value; } }
 
-        public List<LevelSaveData> LevelSaves { get { return saveData.LevelSaves; } set { saveData.LevelSaves = value; }}
+        public List<LevelSaveData> LevelSaves { get { return saveData.LevelSaves; } set { saveData.LevelSaves = value; } }
+
+        public List<LocationSaveData> LocationSaves { get { return saveData.LocationSaves; } set { saveData.LocationSaves = value; } }
 
         private static DataManager _instance;
         public static DataManager Instance
@@ -82,6 +84,21 @@ namespace LevelManagement.Data
                 LevelSaves.Add(levelData);
             }
             
+        }
+
+        public void UpdateLocationSaves(LocationSaveData locationData)
+        {
+            //check for Location in LevelSaves
+            int index = LocationSaves.FindIndex(x => x.LocationId == locationData.LocationId);
+            //if so, update
+            if (index >= 0)
+            {
+                LocationSaves[index] = locationData;
+            }
+            else
+            {
+                LocationSaves.Add(locationData);
+            }
         }
 
         public void Load()

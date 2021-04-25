@@ -234,6 +234,7 @@ namespace MarblesAndMonsters
                     DataManager.Instance.PlayerTreasureCount = Player.Instance.TreasureCount;
                     DataManager.Instance.UpdateLevelSaves(new LevelSaveData(DataManager.Instance.CheckPointLevelId, 
                         DataManager.Instance.SavedLocation, 0, true));
+                    //DataManager.Instance.UpdateLocationSaves(new LocationSaveData(DataManager.Instance.loc))
                     DataManager.Instance.Save();
                 } else
                 {

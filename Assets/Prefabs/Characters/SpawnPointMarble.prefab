@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1155016795966515041}
   - component: {fileID: 2469067477965308947}
   - component: {fileID: 6433658583621299295}
+  - component: {fileID: 4594881115445210022}
   m_Layer: 0
   m_Name: SpawnPointMarble
   m_TagString: Spawn_Marble
@@ -116,3 +117,22 @@ MonoBehaviour:
     type: 3}
   charactersToSpawn: 1
   isAvailable: 1
+--- !u!95 &4594881115445210022
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3957741403348988544}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 07ab27c85ee189741988bc4ef7ad0181, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

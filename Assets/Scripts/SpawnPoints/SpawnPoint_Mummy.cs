@@ -8,13 +8,23 @@ namespace MarblesAndMonsters.Characters
     //Mummy does not respawn (but is reset upon player death 
     public class SpawnPoint_Mummy : SpawnPoint
     {
-        
+        private ParticleSystem triggerParticles;
+        [SerializeField]
+        private Collider2D triggerCollider;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            triggerParticles = GetComponentInChildren<ParticleSystem>();
+        }
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Player"))
             {
                 animator.SetTrigger("Open");
+                triggerCollider.enabled = false;
+                triggerParticles.Stop();
                 StartCoroutine(Open(.25f));
             }
         }
@@ -23,6 +33,8 @@ namespace MarblesAndMonsters.Characters
         {
             base.Reset();
             animator.SetTrigger("Close");
+            triggerCollider.enabled = true;
+            triggerParticles.Play();
         }
 
         private IEnumerator Open(float waitTime)

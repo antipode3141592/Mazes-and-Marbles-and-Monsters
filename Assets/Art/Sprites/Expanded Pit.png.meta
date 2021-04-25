@@ -1614,6 +1614,35 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Expanded Pit_40
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: -3, y: 9}
+        - {x: -10, y: 2}
+        - {x: -10, y: -3}
+        - {x: -3, y: -10}
+        - {x: 2, y: -10}
+        - {x: 9, y: -3}
+        - {x: 9, y: 2}
+        - {x: 3, y: 9}
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50ed28364893e2e30800000000000000
+      internalID: 4480581920048209413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
