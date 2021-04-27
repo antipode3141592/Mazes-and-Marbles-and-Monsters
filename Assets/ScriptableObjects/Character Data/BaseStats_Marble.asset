@@ -17,7 +17,7 @@ MonoBehaviour:
   Armor: 1
   DamageImmunities: 00000000
   RespawnFlag: 1
-  ClipHit: {fileID: 0}
+  ClipHit: {fileID: 8300000, guid: 59b9d05e64a9bc348a3ec089846f7fc9, type: 3}
   ClipHeal: {fileID: 0}
   ClipDeathNormal: {fileID: 0}
   ClipDeathFall: {fileID: 0}

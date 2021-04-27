@@ -10,31 +10,26 @@ namespace MarblesAndMonsters.Characters
     //      Armor (integer amount of damage reduction every time they are struck)
     //      Attacks (integer damage value and type of damage effect, combined in Attack class)
     //      Moves (
+    //  Dependencies:
+    //      CharacterBaseStats - each type of character has a corresponding scriptable object containing the base stats
 
     public class CharacterSheet: MonoBehaviour
     {
         public CharacterBaseStats baseStats;
 
-        [SerializeField]
         private int maxHealth;
         private int currentHealth;
-        [SerializeField]
-        private int startingHealth;
-        [SerializeField]
+        //private int startingHealth;
         private int maxHealthLimit = 10;
 
-        [SerializeField]
         private int strength;
-        [SerializeField]
         private int armor;
         private TouchAttack touchAttack;
         private ReachAttack reachAttack;
         private RangedAttack rangedAttack;
 
-        [SerializeField]
         private List<DamageType> damageImmunities;
 
-        [SerializeField]
         private bool respawnFlag;   //if true, character respawn
         [SerializeField]
         private float respawnPeriod;    //seconds before respawn
@@ -78,7 +73,7 @@ namespace MarblesAndMonsters.Characters
         public float FireTimeCounter { get => fireTimeCounter; set => fireTimeCounter = value; }
         public float InvincibleTimeCounter { get => invincibleTimeCounter; set => invincibleTimeCounter = value; }
 
-        public Vector3 SpawnPoint => spawnPoint;
+        //public Vector3 SpawnPoint => spawnPoint;
 
         //read-only accessors
         public List<DamageType> DamageImmunities => damageImmunities;
@@ -87,6 +82,7 @@ namespace MarblesAndMonsters.Characters
         public RangedAttack RangedAttack => rangedAttack;
         public List<Movement> Movements => movements;
 
+        #region Unity Functions
         private void Awake()
         {
             //grab attached Movement Components
@@ -95,7 +91,10 @@ namespace MarblesAndMonsters.Characters
             touchAttack = GetComponent<TouchAttack>();
             reachAttack = GetComponent<ReachAttack>();
             rangedAttack = GetComponent<RangedAttack>();
+            SetInitialStats();
         }
+
+        #endregion
 
         public void Wakeup()
         {
@@ -107,9 +106,19 @@ namespace MarblesAndMonsters.Characters
             isAsleep = true;
         }
 
-        public void SetSpawnLocation(Transform _transform)
+        //public void SetSpawnLocation(Transform _transform)
+        //{
+        //    spawnPoint = _transform.position;
+        //}
+
+        public void SetInitialStats()
         {
-            spawnPoint = _transform.position;
+            Strength = baseStats.Strength;
+            Armor = baseStats.Armor;
+            MaxHealth = baseStats.MaxHealth;
+
+            respawnFlag = baseStats.RespawnFlag;
+            damageImmunities = baseStats.DamageImmunities;
         }
     }
 

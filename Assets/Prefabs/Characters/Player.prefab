@@ -135,6 +135,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   treasureEffect: {fileID: 4097187610937647480}
   addMaxHealthEffect: {fileID: 3735710819123007440}
+  lightingSettings: {fileID: 0}
 --- !u!95 &5024499731912051238
 Animator:
   serializedVersion: 3
@@ -182,13 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9c6b6e68a423447a0be67e008d7d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  startingHealth: 3
-  maxHealthLimit: 10
-  strength: 0
-  armor: 0
-  damageImmunities: 
-  respawnFlag: 1
+  baseStats: {fileID: 11400000, guid: c72376ff26d23b042b3f2bd1fbe2a6de, type: 2}
   respawnPeriod: 1.5
   isAsleep: 0
   spawnPoint: {x: 0, y: 0, z: 0}
@@ -699,33 +694,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
         type: 3}
-      propertyPath: m_AlphaBlendOnOverlap
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
-        type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
-        type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.data[1]
-      value: -1300080759
-      objectReference: {fileID: 0}
-    - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
-        type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.data[2]
-      value: 751866379
-      objectReference: {fileID: 0}
-    - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
-        type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.data[3]
-      value: 2132497015
-      objectReference: {fileID: 0}
-    - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
-        type: 3}
-      propertyPath: m_ApplyToSortingLayers.Array.data[4]
-      value: -973043651
+      propertyPath: m_PointLightOuterRadius
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8b887f609a34eb488e56399e84bea08, type: 3}

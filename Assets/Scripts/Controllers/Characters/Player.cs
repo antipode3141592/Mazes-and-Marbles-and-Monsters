@@ -76,7 +76,7 @@ namespace MarblesAndMonsters.Characters
             {
                 deathCount = DataManager.Instance.PlayerTotalDeathCount > 0 ? DataManager.Instance.PlayerTotalDeathCount : 0;
                 treasureCount = DataManager.Instance.PlayerTreasureCount > 0 ? DataManager.Instance.PlayerTreasureCount : 0;
-                mySheet.MaxHealth = DataManager.Instance.PlayerMaxHealth > 3 ? DataManager.Instance.PlayerMaxHealth : 3;
+                mySheet.MaxHealth = DataManager.Instance.PlayerMaxHealth > 3 ? DataManager.Instance.PlayerMaxHealth : MySheet.baseStats.MaxHealth;
             } else
             {
                 deathCount = 0;
@@ -174,16 +174,16 @@ namespace MarblesAndMonsters.Characters
             //refresh player current stats?
         }
 
-        public override void CharacterSpawn()
-        {
-            ////check for spawn location
-            if (spawnPoint == null)
-            {
-                SetSpawnLocation();
-            }
-            base.CharacterSpawn();
-            treasureCount = DataManager.Instance.PlayerTreasureCount > 0 ? DataManager.Instance.PlayerTreasureCount : 0;
-        }
+        //public override void CharacterSpawn()
+        //{
+        //    ////check for spawn location
+        //    if (spawnPoint == null)
+        //    {
+        //        SetSpawnLocation();
+        //    }
+        //    base.CharacterSpawn();
+        //    treasureCount = DataManager.Instance.PlayerTreasureCount > 0 ? DataManager.Instance.PlayerTreasureCount : 0;
+        //}
 
         private void SetSpawnLocation()
         {
@@ -209,6 +209,8 @@ namespace MarblesAndMonsters.Characters
                     case DeathType.Falling:
                         //animator.SetBool("Falling", true);
                         animator.SetTrigger("Falling");
+                        audioSource.clip = MySheet.baseStats.ClipDeathFall;
+                        audioSource.Play();
                         break;
                     case DeathType.Damage:
                         animator.SetTrigger("DeathbyDamage");
@@ -251,6 +253,7 @@ namespace MarblesAndMonsters.Characters
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            audioSource.clip = MySheet.baseStats.ClipHit;
             audioSource.Play();
         }
     }

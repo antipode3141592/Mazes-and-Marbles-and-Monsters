@@ -39,7 +39,6 @@ namespace MarblesAndMonsters.Characters
 
         public bool isDying = false;   //similar to invincibility flag for ensuring multiple death calls won't be evaluated
 
-        [SerializeField]
         protected SpawnPoint spawnPoint;
 
         protected bool Respawn = false;
@@ -204,29 +203,29 @@ namespace MarblesAndMonsters.Characters
             spawnPoint = _spawnPoint;
         }
 
-        public virtual void CharacterSpawn()
-        {
-            gameObject.transform.position = mySheet.SpawnPoint;
-            mySheet.Wakeup();
-            foreach (Collider2D collider in myColliders)
-            {
-                collider.enabled = true;
-            }
-            //myRigidbody.WakeUp();
-            mySheet.CurrentHealth = mySheet.MaxHealth;
-        }
+        //public virtual void CharacterSpawn()
+        //{
+        //    gameObject.transform.position = mySheet.SpawnPoint;
+        //    mySheet.Wakeup();
+        //    foreach (Collider2D collider in myColliders)
+        //    {
+        //        collider.enabled = true;
+        //    }
+        //    //myRigidbody.WakeUp();
+        //    mySheet.CurrentHealth = mySheet.MaxHealth;
+        //}
 
-        public virtual void CharacterSpawn(Vector3 spawnPosition)
-        {
-            gameObject.transform.position = spawnPosition;
-            mySheet.Wakeup();
-            foreach (Collider2D collider in myColliders)
-            {
-                collider.enabled = true;
-            }
-            //myRigidbody.WakeUp();
-            mySheet.CurrentHealth = mySheet.MaxHealth;
-        }
+        //public virtual void CharacterSpawn(Vector3 spawnPosition)
+        //{
+        //    gameObject.transform.position = spawnPosition;
+        //    mySheet.Wakeup();
+        //    foreach (Collider2D collider in myColliders)
+        //    {
+        //        collider.enabled = true;
+        //    }
+        //    //myRigidbody.WakeUp();
+        //    mySheet.CurrentHealth = mySheet.MaxHealth;
+        //}
 
         public virtual void CharacterDeath(DeathType deathType)
         {

@@ -43,7 +43,15 @@ namespace MarblesAndMonsters.Characters
 
         protected virtual void Start()
         {
-            //instantiate required characters, add them to Characters list, and disable them
+            InstantiateAllCharacters();
+        }
+
+        /// <summary>
+        /// Instantiate required characters, add them to Characters list, and disable them
+        /// </summary>
+        private void InstantiateAllCharacters()
+        {
+            
             for (int i = 0; i < charactersToSpawn; i++)
             {
                 CharacterControl character = Instantiate(characterPrefab, transform.position, Quaternion.identity);
@@ -87,6 +95,9 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
+        /// <summary>
+        /// Disable each active game object in the characters list
+        /// </summary>
         public virtual void Reset()
         {
             foreach (var _char in characters)

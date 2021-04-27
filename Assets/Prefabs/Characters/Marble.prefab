@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 4579781963234093208}
   - component: {fileID: 8042973779161212819}
   - component: {fileID: 6486380821672526513}
+  - component: {fileID: 6617150097688686585}
   m_Layer: 11
   m_Name: Marble
   m_TagString: Marble
@@ -172,13 +173,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats: {fileID: 11400000, guid: 7fde14390a1a7324cb88c914846c0674, type: 2}
-  maxHealth: 1
-  startingHealth: 1
-  maxHealthLimit: 10
-  strength: 1
-  armor: 0
-  damageImmunities: 00000000
-  respawnFlag: 1
   respawnPeriod: 1.5
   isAsleep: 0
   spawnPoint: {x: 0, y: 0, z: 0}
@@ -314,3 +308,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6617150097688686585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2626821578083694134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 895782b20b92d02c3d8800c6
+  m_ShapePath:
+  - {x: -0.22833452, y: -0.13346715, z: 0}
+  - {x: -0.084163785, y: -0.25600928, z: 0}
+  - {x: 0.17456526, y: -0.25600928, z: 0}
+  - {x: 0.29732892, y: -0.07740922, z: 0}
+  - {x: 0.28008026, y: 0.14640355, z: 0}
+  - {x: 0.13144377, y: 0.295946, z: 0}
+  - {x: -0.08847599, y: 0.2873217, z: 0}
+  - {x: -0.24127094, y: 0.12915501, z: 0}
+  m_ShapePathHash: 1607791605
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 70042

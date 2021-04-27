@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 4718217192294197086}
   - component: {fileID: 7874845947719492022}
   - component: {fileID: 403738622881017094}
+  - component: {fileID: 7890975193990014343}
   m_Layer: 11
   m_Name: Roller
   m_TagString: Marble
@@ -253,13 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9c6b6e68a423447a0be67e008d7d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
-  startingHealth: 1
-  maxHealthLimit: 10
-  strength: 1
-  armor: 0
-  damageImmunities: 00000000
-  respawnFlag: 0
+  baseStats: {fileID: 0}
   respawnPeriod: 0
   isAsleep: 0
   spawnPoint: {x: 0, y: 0, z: 0}
@@ -279,3 +274,29 @@ MonoBehaviour:
   currentDamageModifier: 0
   damageType: 1
   displayName: 
+--- !u!114 &7890975193990014343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4832113540386924202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000895782b20b92d02c77521b7f3d8800c6
+  m_ShapePath:
+  - {x: -0.4979596, y: -0.41226244, z: 0}
+  - {x: 0.4918384, y: -0.41838363, z: 0}
+  - {x: 0.49591923, y: 0.36329266, z: 0}
+  - {x: -0.5020404, y: 0.36941385, z: 0}
+  m_ShapePathHash: 830742019
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 48680

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4171957815178582534}
   - component: {fileID: 6712585708218962869}
   - component: {fileID: 7774725849334288606}
+  - component: {fileID: 974670354963722726}
   m_Layer: 11
   m_Name: Mummy
   m_TagString: Monster
@@ -197,13 +198,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats: {fileID: 0}
-  maxHealth: 5
-  startingHealth: 5
-  maxHealthLimit: 10
-  strength: 1
-  armor: 1
-  damageImmunities: 
-  respawnFlag: 0
   respawnPeriod: 0
   isAsleep: 0
   spawnPoint: {x: 0, y: 0, z: 0}
@@ -226,6 +220,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &974670354963722726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685750014967127573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000895782b20b92d02c77521b7f3d8800c6
+  m_ShapePath:
+  - {x: -0.15625, y: -0.21875, z: 0}
+  - {x: 0.15625, y: -0.21875, z: 0}
+  - {x: 0.15625, y: 0.21875, z: 0}
+  - {x: -0.15625, y: 0.21875, z: 0}
+  m_ShapePathHash: 0
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -65190
 --- !u!1001 &1399402214501059231
 PrefabInstance:
   m_ObjectHideFlags: 0
