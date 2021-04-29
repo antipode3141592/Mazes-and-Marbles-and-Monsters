@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: BaseStats_Marble
   m_EditorClassIdentifier: 
   MaxHealth: 1
-  Strength: 0
+  Strength: 1
   Armor: 1
   DamageImmunities: 00000000
   RespawnFlag: 1
+  RespawnPeriod: 3
   ClipHit: {fileID: 8300000, guid: 59b9d05e64a9bc348a3ec089846f7fc9, type: 3}
   ClipHeal: {fileID: 0}
   ClipDeathNormal: {fileID: 0}

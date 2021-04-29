@@ -15,6 +15,6 @@ MonoBehaviour:
   GlobalLightOnIntensity: 1
   PlayerLightOnIntensity: 1
   GlobalLightOffIntensity: 0.1
-  GlobalLightOnColor: {r: 1, g: 0.9882353, b: 0.9490196, a: 0}
-  PlayerLightOnColor: {r: 1, g: 0.9882353, b: 0.9490196, a: 0}
-  GlobalLightOffColor: {r: 1, g: 0.9882353, b: 0.9490196, a: 0}
+  GlobalLightOnColor: {r: 0.92156863, g: 0.94509804, b: 1, a: 1}
+  PlayerLightOnColor: {r: 0.92156863, g: 0.94509804, b: 1, a: 1}
+  GlobalLightOffColor: {r: 0.5886792, g: 0.7120754, b: 1, a: 1}

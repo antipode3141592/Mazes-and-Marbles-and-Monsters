@@ -145,7 +145,6 @@ MonoBehaviour:
   healEffect: {fileID: 0}
   invincibilityEffect: {fileID: 0}
   isDying: 0
-  spawnPoint: {fileID: 0}
 --- !u!114 &847608114787040653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,9 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats: {fileID: 11400000, guid: 7fde14390a1a7324cb88c914846c0674, type: 2}
-  respawnPeriod: 1.5
   isAsleep: 0
-  spawnPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &4579781963234093208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageModifier: 0
   currentDamageModifier: 0
-  damageType: 0
+  damageType: 1
   displayName: 
 --- !u!95 &8042973779161212819
 Animator:
@@ -325,7 +322,7 @@ MonoBehaviour:
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
-  m_ApplyToSortingLayers: 895782b20b92d02c3d8800c6
+  m_ApplyToSortingLayers: 00000000895782b20b92d02c77521b7f3d8800c6
   m_ShapePath:
   - {x: -0.22833452, y: -0.13346715, z: 0}
   - {x: -0.084163785, y: -0.25600928, z: 0}
@@ -337,4 +334,4 @@ MonoBehaviour:
   - {x: -0.24127094, y: 0.12915501, z: 0}
   m_ShapePathHash: 1607791605
   m_Mesh: {fileID: 0}
-  m_InstanceId: 70042
+  m_InstanceId: 116944

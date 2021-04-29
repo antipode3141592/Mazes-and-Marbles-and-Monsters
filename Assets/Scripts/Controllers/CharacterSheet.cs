@@ -20,7 +20,7 @@ namespace MarblesAndMonsters.Characters
         private int maxHealth;
         private int currentHealth;
         //private int startingHealth;
-        private int maxHealthLimit = 10;
+        //private int maxHealthLimit = 10;
 
         private int strength;
         private int armor;
@@ -31,7 +31,7 @@ namespace MarblesAndMonsters.Characters
         private List<DamageType> damageImmunities;
 
         private bool respawnFlag;   //if true, character respawn
-        [SerializeField]
+        //[SerializeField]
         private float respawnPeriod;    //seconds before respawn
         [SerializeField]
         private bool isAsleep;
@@ -39,8 +39,8 @@ namespace MarblesAndMonsters.Characters
         private bool isAflame;
         private bool isFrozen;
         private bool isInvincible;
-        [SerializeField]
-        private Vector3 spawnPoint;
+        //[SerializeField]
+        //private Vector3 spawnPoint;
 
         private float sleepTimeCounter;
         private float poisonTimeCounter;
@@ -73,7 +73,6 @@ namespace MarblesAndMonsters.Characters
         public float FireTimeCounter { get => fireTimeCounter; set => fireTimeCounter = value; }
         public float InvincibleTimeCounter { get => invincibleTimeCounter; set => invincibleTimeCounter = value; }
 
-        //public Vector3 SpawnPoint => spawnPoint;
 
         //read-only accessors
         public List<DamageType> DamageImmunities => damageImmunities;
@@ -91,7 +90,10 @@ namespace MarblesAndMonsters.Characters
             touchAttack = GetComponent<TouchAttack>();
             reachAttack = GetComponent<ReachAttack>();
             rangedAttack = GetComponent<RangedAttack>();
-            SetInitialStats();
+            if (baseStats)
+            {
+                SetInitialStats();
+            }
         }
 
         #endregion
@@ -106,11 +108,6 @@ namespace MarblesAndMonsters.Characters
             isAsleep = true;
         }
 
-        //public void SetSpawnLocation(Transform _transform)
-        //{
-        //    spawnPoint = _transform.position;
-        //}
-
         public void SetInitialStats()
         {
             Strength = baseStats.Strength;
@@ -118,6 +115,7 @@ namespace MarblesAndMonsters.Characters
             MaxHealth = baseStats.MaxHealth;
 
             respawnFlag = baseStats.RespawnFlag;
+            respawnPeriod = baseStats.RespawnPeriod;
             damageImmunities = baseStats.DamageImmunities;
         }
     }

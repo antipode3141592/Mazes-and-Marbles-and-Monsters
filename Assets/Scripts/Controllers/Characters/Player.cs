@@ -76,7 +76,8 @@ namespace MarblesAndMonsters.Characters
             {
                 deathCount = DataManager.Instance.PlayerTotalDeathCount > 0 ? DataManager.Instance.PlayerTotalDeathCount : 0;
                 treasureCount = DataManager.Instance.PlayerTreasureCount > 0 ? DataManager.Instance.PlayerTreasureCount : 0;
-                mySheet.MaxHealth = DataManager.Instance.PlayerMaxHealth > 3 ? DataManager.Instance.PlayerMaxHealth : MySheet.baseStats.MaxHealth;
+                mySheet.MaxHealth = DataManager.Instance.PlayerMaxHealth > 3 ? DataManager.Instance.PlayerMaxHealth : mySheet.baseStats.MaxHealth;
+                mySheet.CurrentHealth = DataManager.Instance.PlayerCurrentHealth > 0 ? DataManager.Instance.PlayerCurrentHealth : mySheet.MaxHealth;
             } else
             {
                 deathCount = 0;

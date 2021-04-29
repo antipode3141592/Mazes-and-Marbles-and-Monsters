@@ -161,7 +161,6 @@ MonoBehaviour:
   healEffect: {fileID: 0}
   invincibilityEffect: {fileID: 0}
   isDying: 0
-  spawnPoint: {fileID: 0}
   explosiveForce: 100
   attackDelay: 0.2
   isReady: 1
@@ -178,16 +177,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9c6b6e68a423447a0be67e008d7d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
-  startingHealth: 1
-  maxHealthLimit: 10
-  strength: 0
-  armor: 0
-  damageImmunities: 00000000
-  respawnFlag: 0
-  respawnPeriod: 0
+  baseStats: {fileID: 11400000, guid: 8c9258372cb45154cbf95996e1ff411b, type: 2}
   isAsleep: 0
-  spawnPoint: {x: 0, y: 0, z: 0}
 --- !u!58 &2147151165598470432
 CircleCollider2D:
   m_ObjectHideFlags: 0

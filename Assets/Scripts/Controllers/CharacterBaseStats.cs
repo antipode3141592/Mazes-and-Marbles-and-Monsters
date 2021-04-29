@@ -18,6 +18,7 @@ namespace MarblesAndMonsters.Characters
         public List<DamageType> DamageImmunities;
 
         public bool RespawnFlag;   //if true, character respawns automatically, otherwise, when character only respawns at PopulateLevel state
+        public float RespawnPeriod;
 
         //sounds clips
         public AudioClip ClipHit;

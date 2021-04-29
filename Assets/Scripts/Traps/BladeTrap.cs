@@ -13,7 +13,6 @@ namespace MarblesAndMonsters.Objects
         ContactFilter2D contactFilter;
         [SerializeField]
         private bool isReady = true;
-        private float readyTimer = 0f;
         [SerializeField]
         private float readyTimerDelay = 0.6f;
 

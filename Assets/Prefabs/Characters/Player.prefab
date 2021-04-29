@@ -132,10 +132,9 @@ MonoBehaviour:
   healEffect: {fileID: 3735710819123007440}
   invincibilityEffect: {fileID: 7064711046569503975}
   isDying: 0
-  spawnPoint: {fileID: 0}
   treasureEffect: {fileID: 4097187610937647480}
   addMaxHealthEffect: {fileID: 3735710819123007440}
-  lightingSettings: {fileID: 0}
+  lightingSettings: {fileID: 11400000, guid: 28f30b7e509461a46b9c3df67241d44d, type: 2}
 --- !u!95 &5024499731912051238
 Animator:
   serializedVersion: 3
@@ -184,9 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats: {fileID: 11400000, guid: c72376ff26d23b042b3f2bd1fbe2a6de, type: 2}
-  respawnPeriod: 1.5
   isAsleep: 0
-  spawnPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &8861542608265353331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -684,7 +681,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
         type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.94449985
+      objectReference: {fileID: 0}
+    - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.91886795
+      objectReference: {fileID: 0}
+    - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
+        type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
+        type: 3}
+      propertyPath: m_ShadowIntensity
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,

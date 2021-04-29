@@ -58,21 +58,19 @@ namespace MarblesAndMonsters.Characters
             audioSource = GetComponent<AudioSource>();
         }
 
+        protected virtual void OnEnable()
+        {
+            ResetHealth();
+            isDying = false;
+        }
+
         protected virtual void Start()
         {
-            mySheet.CurrentHealth = mySheet.MaxHealth;
             if (GameManager.Instance.StoreCharacter(this))
             {
                 Debug.Log(String.Format("{0} has been added to Characters on GameController", this.gameObject.name));
             }
             //animator.SetBool("Falling", false);
-        }
-
-        protected virtual void OnEnable()
-        {
-            mySheet.CurrentHealth = mySheet.MaxHealth;
-            isDying = false;
-            
         }
 
         //saddest state machine
@@ -127,45 +125,51 @@ namespace MarblesAndMonsters.Characters
         #region Damage and Effects
         public virtual void TakeDamage(int damageAmount, DamageType damageType)
         {
-            //check for invincibility
-            if (mySheet.IsInvincible || mySheet.DamageImmunities.Contains(DamageType.All))
+            try
             {
-                //Debug.Log(string.Format("{0} is invincible!", gameObject.name));
-            }
-            //check immunity to damage type
-            else if (mySheet.DamageImmunities.Contains(damageType))
-            {
-                //Debug.Log(string.Format("{0} is immune to {1} and takes no damage!", gameObject.name, damageType));
-            }
-            //check damage > armor
-            else if (damageAmount <= mySheet.Armor)
-            {
-                //Debug.Log(string.Format("{0}'s armor absorbs all damage!", gameObject.name));
-            }
-            else
-            {
-                //take that damage!
-                //adjust current health
-                mySheet.CurrentHealth -= (damageAmount - mySheet.Armor);
-                //set state for unique damage types
-                if (damageType == DamageType.Fire) { ApplyFire(); }
-                if (damageType == DamageType.Poison) { ApplyPoison(); }
-                if (damageType == DamageType.Ice) { ApplyIce(); }
-                
-                //check for death, if still alive, play particle effect and hit animation
-                if (mySheet.CurrentHealth <= 0)
+                //check for invincibility
+                if (mySheet.IsInvincible || mySheet.DamageImmunities.Contains(DamageType.All))
                 {
-                    Debug.Log("Death trigger from TakeDamage()");
-                    CharacterDeath(DeathType.Damage);
+                    //Debug.Log(string.Format("{0} is invincible!", gameObject.name));
+                }
+                //check immunity to damage type
+                else if (mySheet.DamageImmunities.Contains(damageType))
+                {
+                    //Debug.Log(string.Format("{0} is immune to {1} and takes no damage!", gameObject.name, damageType));
+                }
+                //check damage > armor
+                else if (damageAmount <= mySheet.Armor)
+                {
+                    //Debug.Log(string.Format("{0}'s armor absorbs all damage!", gameObject.name));
                 }
                 else
                 {
-                    hitEffect.Play();   //particles
-                    animator.SetTrigger("DamageNormal");
-                    ApplyInvincible();
+                    //take that damage!
+                    //adjust current health
+                    mySheet.CurrentHealth -= (damageAmount - mySheet.Armor);
+                    //set state for unique damage types
+                    if (damageType == DamageType.Fire) { ApplyFire(); }
+                    if (damageType == DamageType.Poison) { ApplyPoison(); }
+                    if (damageType == DamageType.Ice) { ApplyIce(); }
+
+                    //check for death, if still alive, play particle effect and hit animation
+                    if (mySheet.CurrentHealth <= 0)
+                    {
+                        Debug.Log("Death trigger from TakeDamage()");
+                        CharacterDeath(DeathType.Damage);
+                    }
+                    else
+                    {
+                        hitEffect.Play();   //particles
+                        animator.SetTrigger("DamageNormal");
+                        ApplyInvincible();
+                    }
                 }
+                //
+            }catch(Exception ex)
+            {
+                Debug.LogException(ex);
             }
-            //
         }
 
         public virtual void ApplyInvincible()
@@ -201,6 +205,12 @@ namespace MarblesAndMonsters.Characters
         internal virtual void SetSpawnPoint(SpawnPoint _spawnPoint)
         {
             spawnPoint = _spawnPoint;
+        }
+
+        private void ResetHealth()
+        {
+            mySheet.CurrentHealth = mySheet.MaxHealth;
+            Debug.Log(string.Format("{0} - Current Health: {1}, Max Health: {2}", this.gameObject.name, MySheet.CurrentHealth, MySheet.MaxHealth));
         }
 
         //public virtual void CharacterSpawn()
