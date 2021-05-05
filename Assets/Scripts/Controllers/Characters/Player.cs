@@ -137,7 +137,7 @@ namespace MarblesAndMonsters.Characters
         public void AddTreasure(int value)
         {
             treasureCount += value;
-            treasureEffect.Play();
+            //treasureEffect.Play();
             GameMenu.Instance.treasureUI.UpdateTreasureCount();
         }
 
@@ -209,12 +209,12 @@ namespace MarblesAndMonsters.Characters
                 {
                     case DeathType.Falling:
                         //animator.SetBool("Falling", true);
-                        animator.SetTrigger("Falling");
+                        animator.SetTrigger(aTriggerFalling);
                         audioSource.clip = MySheet.baseStats.ClipDeathFall;
                         audioSource.Play();
                         break;
                     case DeathType.Damage:
-                        animator.SetTrigger("DeathbyDamage");
+                        animator.SetTrigger(aTriggerDeathByDamage);
                         break;
                     case DeathType.Fire:
                         break;
@@ -241,7 +241,7 @@ namespace MarblesAndMonsters.Characters
         public override void TakeDamage(int damageAmount, DamageType damageType)
         {
             base.TakeDamage(damageAmount, damageType);
-            animator.SetTrigger("DamageNormal");
+            animator.SetTrigger(aTriggerDamageNormal);
             GameMenu.Instance.healthBarController.UpdateHealth();
         }
 

@@ -15,6 +15,7 @@ namespace MarblesAndMonsters.Objects
         private bool isReady = true;
         [SerializeField]
         private float readyTimerDelay = 0.6f;
+        protected int aTriggerisSprung;
 
 
         //Animator animator;
@@ -24,6 +25,7 @@ namespace MarblesAndMonsters.Objects
             base.Awake();
             contactFilter.NoFilter();
             animator = GetComponent<Animator>();
+            aTriggerisSprung = Animator.StringToHash("isSprung");
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -33,7 +35,7 @@ namespace MarblesAndMonsters.Objects
             {
                 isReady = false;
                 //animator
-                animator.SetTrigger("isSprung");
+                animator.SetTrigger(aTriggerisSprung);
                 //Debug.Log(string.Format("You've activated my trap, {0}!", gameObject.name));
                 StartCoroutine(SpringTrap(other));
                 //Explosion2D((Vector2)transform.position, explosiveForce, 0.4641175f);

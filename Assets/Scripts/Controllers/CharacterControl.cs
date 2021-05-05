@@ -33,6 +33,13 @@ namespace MarblesAndMonsters.Characters
         protected Animator animator;
         protected float _speed;
         protected Vector2 lookDirection = new Vector2(1,0); //default look right
+        protected int aFloatSpeed;
+        protected int aFloatLookX;
+        protected int aFloatLookY;
+        protected int aTriggerDamageNormal;
+        protected int aTriggerFalling;
+        protected int aTriggerDeathByDamage;
+        
 
         //sound control
         protected AudioSource audioSource;
@@ -56,6 +63,15 @@ namespace MarblesAndMonsters.Characters
             mySpriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
             audioSource = GetComponent<AudioSource>();
+
+            aFloatSpeed = Animator.StringToHash("Speed");
+            aFloatLookX = Animator.StringToHash("Look X");
+            aFloatLookY = Animator.StringToHash("Look Y");
+            aTriggerDamageNormal = Animator.StringToHash("DamageNormal");
+            aTriggerFalling = Animator.StringToHash("Falling");
+            aTriggerDeathByDamage = Animator.StringToHash("DeathByDamage");
+            
+            
         }
 
         protected virtual void OnEnable()
@@ -106,7 +122,7 @@ namespace MarblesAndMonsters.Characters
 
         protected virtual void FixedUpdate()
         {
-            animator.SetFloat("Speed", myRigidbody.velocity.magnitude);
+            animator.SetFloat(aFloatSpeed, myRigidbody.velocity.magnitude);
         }
 
         protected virtual void OnDisable()
@@ -161,7 +177,7 @@ namespace MarblesAndMonsters.Characters
                     else
                     {
                         hitEffect.Play();   //particles
-                        animator.SetTrigger("DamageNormal");
+                        animator.SetTrigger(aTriggerDamageNormal);
                         ApplyInvincible();
                     }
                 }
@@ -256,10 +272,10 @@ namespace MarblesAndMonsters.Characters
                 {
                     case DeathType.Falling:
                         //animator.SetBool("Falling", true);
-                        animator.SetTrigger("Falling");
+                        animator.SetTrigger(aTriggerFalling);
                         break;
                     case DeathType.Damage:
-                        animator.SetTrigger("DeathbyDamage");
+                        animator.SetTrigger(aTriggerDeathByDamage);
                         break;
                     case DeathType.Fire:
                         break;
@@ -305,8 +321,8 @@ namespace MarblesAndMonsters.Characters
                 lookDirection.Normalize();
             }
 
-            animator.SetFloat("Look X", lookDirection.x);
-            animator.SetFloat("Look Y", lookDirection.y);
+            animator.SetFloat(aFloatLookX, lookDirection.x);
+            animator.SetFloat(aFloatLookY, lookDirection.y);
             //animator.SetFloat("Speed", input_acceleration.magnitude);
             
         }

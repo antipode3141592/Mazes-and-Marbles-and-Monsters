@@ -1,4 +1,5 @@
 ﻿using MarblesAndMonsters.Characters;
+using System.Collections;
 using UnityEngine;
 
 namespace MarblesAndMonsters.Items
@@ -22,6 +23,16 @@ namespace MarblesAndMonsters.Items
         private void OnTriggerEnter2D(Collider2D other)
         {
             Player.Instance.AddTreasure(value);
+            animator.SetTrigger(aTriggerPickup);
+            audioSource.clip = ItemStats.ClipPickup;
+            audioSource.Play();
+            StartCoroutine(PickupScroll());
+            
+        }
+
+        private IEnumerator PickupScroll()
+        {
+            yield return new WaitForSeconds(0.5f);
             gameObject.SetActive(false);
         }
     }

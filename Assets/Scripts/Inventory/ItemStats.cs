@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace MarblesAndMonsters
 {
-    public abstract class ItemStats : ScriptableObject
+    [CreateAssetMenu(menuName = "Stats/Item Stats/Basic Item Stats")]
+    public class ItemStats : ScriptableObject
     {
         public Sprite InventoryIcon;
+        public AudioClip ClipPickup;
     }
 }

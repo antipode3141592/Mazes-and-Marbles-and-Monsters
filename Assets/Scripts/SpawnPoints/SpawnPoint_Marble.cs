@@ -10,6 +10,13 @@ namespace MarblesAndMonsters.Characters
     {
         [SerializeField]
         private Vector2 launchForce;  //the force to apply to spawned object
+        private int spawnTriggerHash;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            spawnTriggerHash = Animator.StringToHash("Spawn");
+        }
 
         public override void SpawnCharacter()
         {
@@ -31,7 +38,7 @@ namespace MarblesAndMonsters.Characters
 
         private IEnumerator MarbleSpawn(CharacterControl character)
         {
-            animator.SetTrigger("Spawn");
+            animator.SetTrigger(spawnTriggerHash);
             yield return new WaitForSeconds(0.25f);
             character.gameObject.SetActive(true);
             character.transform.position = transform.position;

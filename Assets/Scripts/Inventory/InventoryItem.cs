@@ -7,6 +7,7 @@ namespace MarblesAndMonsters.Items
         protected SpriteRenderer spriteRenderer;
         protected Animator animator;
         protected AudioSource audioSource;
+        protected int aTriggerPickup;
 
         //[SerializeField]
         //protected Sprite InventoryIcon;
@@ -17,6 +18,7 @@ namespace MarblesAndMonsters.Items
             spriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
             audioSource = GetComponent<AudioSource>();
+            aTriggerPickup = Animator.StringToHash("Pickup");
         }
 
         public virtual void Reset()
