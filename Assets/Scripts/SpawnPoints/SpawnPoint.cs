@@ -16,7 +16,7 @@ namespace MarblesAndMonsters.Characters
         protected int charactersToSpawn = 1;    //# of characters this spawnpoint will spawn
 
         //private Queue<CharacterSheetController> spawnQueue; //ephemeral 
-        private List<CharacterControl> characters;  //the collection of all instantiated character objects
+        protected List<CharacterControl> characters;  //the collection of all instantiated character objects
 
         private float spawnTimer;
         [SerializeField]

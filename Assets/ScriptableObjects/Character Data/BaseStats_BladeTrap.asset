@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96463dd756abcf149865d957d65c2d03, type: 3}
   m_Name: BaseStats_BladeTrap
   m_EditorClassIdentifier: 
-  MaxHealth: 0
+  MaxHealth: 1
   Strength: 0
   Armor: 0
-  DamageImmunities: 
+  DamageImmunities: 00000000
   RespawnFlag: 0
   RespawnPeriod: 0
   ClipHit: {fileID: 0}
