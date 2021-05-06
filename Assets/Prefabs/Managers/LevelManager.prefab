@@ -57,3 +57,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelList: {fileID: 11400000, guid: db13a2fa33ef03e43acc6afa2b1fc391, type: 2}
+  levelLoadTransition: {fileID: 5985439094147491876, guid: 2d2dfd4d5b6b4614f96baa149f6749b3,
+    type: 3}

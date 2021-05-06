@@ -39,7 +39,7 @@ namespace MarblesAndMonsters.Characters
         private IEnumerator MarbleSpawn(CharacterControl character)
         {
             animator.SetTrigger(spawnTriggerHash);
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.75f);     //includes 0.5 sec ready blinking and 0.25 sec opening
             character.gameObject.SetActive(true);
             character.transform.position = transform.position;
             character.GetComponent<Rigidbody2D>().AddForce(launchForce, ForceMode2D.Impulse);

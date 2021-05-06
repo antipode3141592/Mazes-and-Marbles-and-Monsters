@@ -45,5 +45,45 @@ MonoBehaviour:
     _sceneName: Assets/Scenes/Stone/Room_03.unity
     _description: 
     _thumbnailLocation: 
+  - _id: Stone_04
+    _map: 
+    _location: Stone
+    _sortOrder: 3
+    _displayName: Fourth Room
+    _sceneName: Assets/Scenes/Stone/Room_04.unity
+    _description: 
+    _thumbnailLocation: 
+  - _id: Stone_05
+    _map: 
+    _location: Stone
+    _sortOrder: 4
+    _displayName: Fifth Room
+    _sceneName: Assets/Scenes/Stone/Room_05.unity
+    _description: 
+    _thumbnailLocation: 
+  - _id: Stone_06
+    _map: 
+    _location: Stone
+    _sortOrder: 5
+    _displayName: Sixth Room
+    _sceneName: Assets/Scenes/Stone/Room_06.unity
+    _description: 
+    _thumbnailLocation: 
+  - _id: Stone_07
+    _map: 
+    _location: Stone
+    _sortOrder: 6
+    _displayName: Seventh Room
+    _sceneName: Assets/Scenes/Stone/Room_07.unity
+    _description: 
+    _thumbnailLocation: 
+  - _id: Stone_08
+    _map: 
+    _location: Stone
+    _sortOrder: 7
+    _displayName: Final Room
+    _sceneName: Assets/Scenes/Stone/Room_08.unity
+    _description: 
+    _thumbnailLocation: 
   mapId: Main_Map
   firstLevelId: Stone_01

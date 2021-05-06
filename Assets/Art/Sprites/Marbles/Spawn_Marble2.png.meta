@@ -20,6 +20,9 @@ TextureImporter:
   - first:
       213: 7749208081524931009
     second: Spawn_Marble2_5
+  - first:
+      213: 7828368850105985947
+    second: Spawn_Marble2_6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -266,6 +269,27 @@ TextureImporter:
       bones: []
       spriteID: 1c931ed61b7ba8b60800000000000000
       internalID: 7749208081524931009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spawn_Marble2_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9bec412ef3f3ac60800000000000000
+      internalID: 7828368850105985947
       vertices: []
       indices: 
       edges: []
