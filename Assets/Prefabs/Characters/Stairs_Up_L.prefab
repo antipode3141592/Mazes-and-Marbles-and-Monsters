@@ -33,6 +33,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4524786597414270104, guid: 4129d419fd67489498b87a0382262df6,
+        type: 3}
+      propertyPath: spawnOffset.x
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5196659619175788737, guid: 4129d419fd67489498b87a0382262df6,
         type: 3}
       propertyPath: m_Name

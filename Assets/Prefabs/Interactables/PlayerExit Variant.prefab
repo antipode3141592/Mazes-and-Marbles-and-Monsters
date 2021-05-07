@@ -13,7 +13,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.5, y: 0.5}
+  m_Offset: {x: 0.5, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -46,7 +46,7 @@ PrefabInstance:
     - target: {fileID: 5790476055170181544, guid: b559bcd24cb7a6241961728caf6376d1,
         type: 3}
       propertyPath: m_Offset.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5790476055170181544, guid: b559bcd24cb7a6241961728caf6376d1,
         type: 3}
@@ -124,6 +124,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -6686385420236822338, guid: 75f9206ccc6459e49b1c3612ad6675cd,
         type: 3}
+    - target: {fileID: 5790476055170181591, guid: b559bcd24cb7a6241961728caf6376d1,
+        type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b559bcd24cb7a6241961728caf6376d1, type: 3}
 --- !u!1 &4920838361041273300 stripped

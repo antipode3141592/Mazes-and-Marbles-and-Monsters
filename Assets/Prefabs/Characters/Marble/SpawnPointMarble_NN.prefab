@@ -36,7 +36,7 @@ PrefabInstance:
     - target: {fileID: 3957741403348988544, guid: a1c9b16a78e44b248bb91375eca3cc59,
         type: 3}
       propertyPath: m_Name
-      value: SpawnPointMarble Variant
+      value: SpawnPointMarble_NN
       objectReference: {fileID: 0}
     - target: {fileID: 3957741403348988544, guid: a1c9b16a78e44b248bb91375eca3cc59,
         type: 3}
@@ -107,6 +107,16 @@ PrefabInstance:
         type: 3}
       propertyPath: launchForce.y
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6433658583621299295, guid: a1c9b16a78e44b248bb91375eca3cc59,
+        type: 3}
+      propertyPath: spawnOffset.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6433658583621299295, guid: a1c9b16a78e44b248bb91375eca3cc59,
+        type: 3}
+      propertyPath: spawnAnimationDelay
+      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1c9b16a78e44b248bb91375eca3cc59, type: 3}

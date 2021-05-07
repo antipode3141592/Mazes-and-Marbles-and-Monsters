@@ -48,7 +48,7 @@ namespace FiniteStateMachine.States.GameStates
         public override void Enter()
         {
             base.Enter();
-            GameManager.Instance.SpawnAll();
+            //GameManager.Instance.SpawnAll();
         }
 
         public override void LogicUpdate()
@@ -72,6 +72,7 @@ namespace FiniteStateMachine.States.GameStates
         public override void Enter()
         {
             base.Enter();
+            GameManager.Instance.SpawnAll();
             //GameController.Instance.StoreCharacters();
             Time.timeScale = 1.0f;
             //GameMenu.Open();

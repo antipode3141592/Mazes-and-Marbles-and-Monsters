@@ -211,6 +211,11 @@ namespace MarblesAndMonsters.Characters
             throw new System.NotImplementedException();
         }
 
+        public void ApplyImpulse(Vector2 force)
+        {
+            myRigidbody.AddForce(force, ForceMode2D.Impulse);
+        }
+
         public virtual void HealDamage(int healAmount)
         {
 
