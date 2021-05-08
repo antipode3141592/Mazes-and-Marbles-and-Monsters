@@ -85,3 +85,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b47a16bdcca62439673f8305482cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialState: 1
+  litIntensity: 1
+  unlitIntensity: 0.1

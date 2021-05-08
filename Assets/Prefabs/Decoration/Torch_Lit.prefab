@@ -24,12 +24,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3394348883589979674, guid: 19288d56851c069439f8c52da51438a2,
         type: 3}
-      propertyPath: initialState
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3394348883589979674, guid: 19288d56851c069439f8c52da51438a2,
         type: 3}
-      propertyPath: m_Enabled
+      propertyPath: initialState
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3394348883589979676, guid: 19288d56851c069439f8c52da51438a2,
@@ -41,8 +41,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -7320097879632847686, guid: e9e19ed77e2406349945fa0f2fe51462,
+      objectReference: {fileID: -7190723785182093173, guid: 172b4649484b92c45bf29bd670b45c2c,
         type: 3}
+    - target: {fileID: 3394348883589979678, guid: 19288d56851c069439f8c52da51438a2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3394348883589979678, guid: 19288d56851c069439f8c52da51438a2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -60,6 +65,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3394348883589979678, guid: 19288d56851c069439f8c52da51438a2,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3394348883589979678, guid: 19288d56851c069439f8c52da51438a2,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -71,16 +81,6 @@ PrefabInstance:
     - target: {fileID: 3394348883589979678, guid: 19288d56851c069439f8c52da51438a2,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3394348883589979678, guid: 19288d56851c069439f8c52da51438a2,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3394348883589979678, guid: 19288d56851c069439f8c52da51438a2,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3394348883589979678, guid: 19288d56851c069439f8c52da51438a2,

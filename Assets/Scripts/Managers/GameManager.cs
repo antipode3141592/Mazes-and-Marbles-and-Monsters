@@ -5,6 +5,7 @@ using LevelManagement.Data;
 using MarblesAndMonsters.Characters;
 using MarblesAndMonsters.Items;
 using MarblesAndMonsters.Menus;
+using MarblesAndMonsters.Tiles;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,6 +37,7 @@ namespace MarblesAndMonsters
         private List<Characters.CharacterControl> characters;
         private List<InventoryItem> inventoryItems;
         private List<SpawnPoint> spawnPoints;
+        private List<Gate> gates;
 
         //for tracking playtime
         private TimeSpan sessionTimeElapsed;
@@ -131,21 +133,27 @@ namespace MarblesAndMonsters
             MenuManager.Instance.OpenMenu(MenuTypes.PauseMenu);
         }
         
+        /// <summary>
+        /// cache references to all spawnpoints, inventory items, and gates
+        /// </summary>
+        /// <returns>spawnpoint count (-1 if none found)</returns>
         public int InitializeReferences()
         {
             //TODO this doesn't find 
-            inventoryItems = new List<InventoryItem>(GameObject.FindObjectsOfType<InventoryItem>());
-            
-            spawnPoints = new List<SpawnPoint>(GameObject.FindObjectsOfType<SpawnPoint>());
+            inventoryItems = new List<InventoryItem>(FindObjectsOfType<InventoryItem>());
+            spawnPoints = new List<SpawnPoint>(FindObjectsOfType<SpawnPoint>());
+            gates = new List<Gate>(FindObjectsOfType<Gate>());
 
-            string spawnlist = "";
-            string inventoryList = "";
-            foreach (SpawnPoint _spawnpoint in spawnPoints) { spawnlist += String.Format("{0}, ", _spawnpoint.gameObject.name); }
-            foreach (InventoryItem _inventory in inventoryItems) { inventoryList += String.Format("{0}, ", _inventory.gameObject.name); }
-            Debug.Log(String.Format("InitializeReferences(), there are {0} spawnpoints : {1}", spawnPoints.Count, spawnlist));
-            Debug.Log(String.Format("InitializeReferences(), there are {0} inventoryItems : {1}", inventoryItems.Count, inventoryList));
+            ////log the 
+            //string spawnlist = "";
+            //string inventoryList = "";
+            //foreach (SpawnPoint _spawnpoint in spawnPoints) { spawnlist += String.Format("{0}, ", _spawnpoint.gameObject.name); }
+            //foreach (InventoryItem _inventory in inventoryItems) { inventoryList += String.Format("{0}, ", _inventory.gameObject.name); }
+            //Debug.Log(String.Format("InitializeReferences(), there are {0} spawnpoints : {1}", spawnPoints.Count, spawnlist));
+            //Debug.Log(String.Format("InitializeReferences(), there are {0} inventoryItems : {1}", inventoryItems.Count, inventoryList));
             if (spawnPoints.Count == 0) 
             { 
+                //player start position is a spawnpoint, so a valid level shall have at least 1 spawnpoint
                 return -1; 
             }
             else
@@ -154,16 +162,23 @@ namespace MarblesAndMonsters
             }
         }
 
+        /// <summary>
+        /// Reset all objects
+        /// </summary>
         internal void ResetAll()
         {
-            foreach(SpawnPoint spawnPoint in spawnPoints)
+            foreach(Gate gate in gates)
             {
-                spawnPoint.Reset();
+                gate.Lock();
             }
 
             foreach (InventoryItem inventoryItem in inventoryItems)
             {
                 inventoryItem.Reset();
+            }
+            foreach (SpawnPoint spawnPoint in spawnPoints)
+            {
+                spawnPoint.Reset();
             }
         }
 

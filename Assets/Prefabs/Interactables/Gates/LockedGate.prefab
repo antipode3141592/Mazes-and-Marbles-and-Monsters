@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5994042539244463960}
   - component: {fileID: 8464655257774082147}
   - component: {fileID: 7646774577424828008}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LockedGate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,9 +72,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingLayerID: 751866379
+  m_SortingLayer: 2
+  m_SortingOrder: 10
   m_Sprite: {fileID: -1391193988281709189, guid: 202e83e4870e2a14fbb1e24e93c6ac4b,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
