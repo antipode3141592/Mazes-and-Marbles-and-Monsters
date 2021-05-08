@@ -85,5 +85,37 @@ MonoBehaviour:
     _sceneName: Assets/Scenes/Stone/Room_08.unity
     _description: 
     _thumbnailLocation: 
+  - _id: Starter_01
+    _map: 
+    _location: Starter
+    _sortOrder: 0
+    _displayName: The Entryway
+    _sceneName: Assets/Scenes/Starter/Starter_01.unity
+    _description: 
+    _thumbnailLocation: 
+  - _id: Starter_02
+    _map: 
+    _location: Starter
+    _sortOrder: 1
+    _displayName: The Second Room
+    _sceneName: Assets/Scenes/Starter/Starter_02.unity
+    _description: 
+    _thumbnailLocation: 
+  - _id: Starter_03
+    _map: 
+    _location: Starter
+    _sortOrder: 2
+    _displayName: The Third Room
+    _sceneName: Assets/Scenes/Stater/Starter_03.unity
+    _description: 
+    _thumbnailLocation: 
+  - _id: Starter_04
+    _map: 
+    _location: Starter
+    _sortOrder: 3
+    _displayName: A Way Out!
+    _sceneName: Assets/Scenes/Starter/Starter_04.unity
+    _description: 
+    _thumbnailLocation: 
   mapId: Main_Map
-  firstLevelId: Stone_01
+  firstLevelId: Starter_01

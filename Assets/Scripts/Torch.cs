@@ -8,6 +8,10 @@ namespace MarblesAndMonsters.Objects
     {
         [SerializeField]
         private bool initialState = false;
+        [SerializeField]
+        private float litIntensity = .9f;
+        [SerializeField]
+        private float unlitIntensity = 0.2f;
 
         private Light2D lightObject;
         private Animator animationController;
@@ -16,13 +20,18 @@ namespace MarblesAndMonsters.Objects
         {
             lightObject = gameObject.GetComponent<Light2D>();
             animationController = gameObject.GetComponent<Animator>();
+            
         }
 
         private void Start()
         {
             if (initialState)
             {
+                lightObject.intensity = litIntensity;
                 animationController.SetBool("initialState", true);
+            } else
+            {
+                lightObject.intensity = unlitIntensity;
             }
         }
 
@@ -30,7 +39,7 @@ namespace MarblesAndMonsters.Objects
         {
             if (other != null && other.gameObject.CompareTag("Player"))
             {
-                //lightObject.intensity = 1.0f;
+                lightObject.intensity = litIntensity;
                 animationController.SetTrigger("Light");
             }
 
