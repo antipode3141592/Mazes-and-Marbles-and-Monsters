@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+
 namespace MarblesAndMonsters.Items
 {
     //for all your locking needs

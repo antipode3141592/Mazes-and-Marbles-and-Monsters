@@ -1,10 +1,8 @@
-﻿using System.Collections;
+﻿using MarblesAndMonsters.Characters;
+using MarblesAndMonsters.Items;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using MarblesAndMonsters.Items;
-using MarblesAndMonsters.Characters;
-using System;
 
 namespace MarblesAndMonsters.Tiles
 {
@@ -26,9 +24,7 @@ namespace MarblesAndMonsters.Tiles
 
         public bool Lock()
         {
-
             StartCoroutine(CloseAnimation());
-
             return true;
         }
 

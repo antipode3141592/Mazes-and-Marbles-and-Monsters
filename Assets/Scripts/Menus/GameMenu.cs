@@ -36,5 +36,10 @@ namespace MarblesAndMonsters.Menus
         {
             GameManager.Instance.PauseGame();
         }
+
+        public void OnBackpackPressed()
+        {
+            MenuManager.Instance.OpenMenu(MenuTypes.BackpackMenu);
+        }
     }
 }

@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 
 namespace MarblesAndMonsters.Menus
 {
-    public enum MenuTypes {MainMenu, GameMenu, SettingsMenu, CreditsMenu, PauseMenu, WinMenu, DefeatMenu, MapMenu, MapPopupMenu}
+    public enum MenuTypes {MainMenu, GameMenu, SettingsMenu, CreditsMenu, PauseMenu, WinMenu, DefeatMenu, MapMenu, MapPopupMenu, BackpackMenu}
 
     public class MenuManager : MonoBehaviour
     {
@@ -40,6 +40,7 @@ namespace MarblesAndMonsters.Menus
                 //_menuList = new List<Menu>(FindObjectsOfType<Menu>(true));    //true to include inactive menu items
                 //foreach (Menu menu in _menuList)
                 //{
+                //the true flag is to include inactive objects
                 menuCollection.Add(MenuTypes.MainMenu, FindObjectOfType<MainMenu>(true));
                 menuCollection.Add(MenuTypes.GameMenu, FindObjectOfType<GameMenu>(true));
                 menuCollection.Add(MenuTypes.SettingsMenu, FindObjectOfType<SettingsMenu>(true));
@@ -49,6 +50,7 @@ namespace MarblesAndMonsters.Menus
                 menuCollection.Add(MenuTypes.DefeatMenu, FindObjectOfType<DefeatMenu>(true));
                 menuCollection.Add(MenuTypes.MapMenu, FindObjectOfType<MapMenu>(true));
                 menuCollection.Add(MenuTypes.MapPopupMenu, FindObjectOfType<MapPopupMenu>(true));
+                menuCollection.Add(MenuTypes.BackpackMenu, FindObjectOfType<BackpackMenu>(true));
                 //}
                 //Debug.Log(string.Format("there are {0} items in the _menuList: {1}", _menuList.Count, string.Join(", ", _menuList)));
             }

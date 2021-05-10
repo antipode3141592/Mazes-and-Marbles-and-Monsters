@@ -45,7 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e971a368c27b40a4a958303620e77ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locationName: Stone
+  locationId: 
+  occupiedSprite: {fileID: 357019019462592255, guid: 84749374900226a4e8d2fa7506e7aea5,
+    type: 3}
+  availableSprite: {fileID: 680417261897402861, guid: 84749374900226a4e8d2fa7506e7aea5,
+    type: 3}
+  completeSprite: {fileID: -8834855449609206177, guid: 84749374900226a4e8d2fa7506e7aea5,
+    type: 3}
 --- !u!212 &24452670902050864
 SpriteRenderer:
   m_ObjectHideFlags: 0

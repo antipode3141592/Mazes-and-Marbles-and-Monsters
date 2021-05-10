@@ -1,4 +1,7 @@
 
+html {
+
+}
 
 header {
     font-style: Cambria, serif;
@@ -45,5 +48,16 @@ aside {
     float: right;
     margin: 16px;
     padding: 8px;
+    display: block;
+}
+
+.example {
+    margin: 0px auto;
+    font-weight: bold;
+}
+
+article img {
+    border: 1px black solid;
+    margin: 8px auto;
     display: block;
 }
