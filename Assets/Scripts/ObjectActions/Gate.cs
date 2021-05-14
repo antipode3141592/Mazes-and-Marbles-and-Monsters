@@ -15,11 +15,14 @@ namespace MarblesAndMonsters.Tiles
         private Animator animator;
         private List<Collider2D> collider2Ds;
 
+        private int aIsLocked;
+
         private void Awake()
         {
             //gateController = FindObjectOfType<GateController>();
             animator = GetComponent<Animator>();
             collider2Ds = new List<Collider2D>(GetComponents<Collider2D>());
+            aIsLocked = Animator.StringToHash("isLocked");
         }
 
         public bool Lock()
@@ -61,7 +64,7 @@ namespace MarblesAndMonsters.Tiles
 
         private IEnumerator OpenAnimation()
         {
-            animator.SetBool("isLocked", false);
+            animator.SetBool(aIsLocked, false);
             yield return new WaitForSeconds(0.5f);
 
             foreach(var collider in collider2Ds) { collider.enabled = false; }
@@ -69,7 +72,7 @@ namespace MarblesAndMonsters.Tiles
 
         private IEnumerator CloseAnimation()
         {
-            animator.SetBool("isLocked", true);
+            animator.SetBool(aIsLocked, true);
             yield return new WaitForSeconds(0.5f);
 
             foreach (var collider in collider2Ds) { collider.enabled = true; }

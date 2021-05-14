@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="styles.css"/>
+        <link href="prism.css" rel="stylesheet"/>
         <title>Marbles, Monsters, &amp; Mazes - Development Journal</title>
     </head>
     <body>
@@ -211,6 +212,45 @@
 
                 <h3>Procedural Generation</h3>
                 <p>Levels can be constructed as a 2d grid of tile identifiers, with a database of tiles/objects.  There are composite colliders for both the Walls and Pits tilemaps, so there will be at least three different layers that will need to be populated.  To save the map data, each tile will need position and layer data.  Probably going to use JSON, but a level file may look like:</p>
+
+                <pre>
+                    <code class="language-json">
+                        { "level" :
+                            {
+                                "name" : "LevelName",
+                                "description" : "Level Description",
+                                "tiles" : [
+                                    {
+                                    "id" : "TileId",
+                                    "layer" : "Floor, Walls, Etc.",
+                                    "positions" : [
+                        {
+                        "x" : "X position",
+                        "y" : "Y position",
+                        "init" : {
+                            "initialCondition" : "on,off,etc."
+                        }
+                        },
+                        {
+                        "x" : "X position",
+                        "y" : "Y position"
+                                    ]},
+                                    {
+                                    "id" : "TileId",
+                                    "layer" : "Floor",
+                                    "positions" : [
+                        {
+                        "x" : "X position",
+                        "y" : "Y position"
+                        }
+                                    ]
+                                    }
+                                ]
+                            }
+                        }
+                    </code>
+                </pre>
+
             </article>
 
             <article class="journalentry" name="j02162021" id="j02162021">
@@ -386,5 +426,6 @@
         <footer>
             <p>Sean Kirkpatrick, All Rights Reserved</p>
         </footer>
+        <script src="prism.js"></script>
     </body>
 </html>

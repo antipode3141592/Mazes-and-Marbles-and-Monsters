@@ -5,6 +5,8 @@ using UnityEngine;
 
 namespace MarblesAndMonsters.Characters
 {
+
+    
     //Controller for characters
     //  Executes actions based on the attached character sheet (Unity component)
     //  Core Loop:
@@ -306,8 +308,9 @@ namespace MarblesAndMonsters.Characters
 
         protected virtual IEnumerator DeathAnimation(DeathType deathType)
         {
-            Debug.Log(string.Format("DeathAnimation {0} has died of {1}!", gameObject.name, deathType.ToString()));
-            yield return new WaitForSeconds(0.667f);  //death animations are 8 frames, current fps is 12
+            float animationLength = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+            Debug.Log(string.Format("DeathAnimation {0} has died of {1}!  the animation takes {2} sec", gameObject.name, deathType.ToString(), animationLength));
+            yield return new WaitForSeconds(animationLength);  //death animations are 8 frames, current fps is 12
             gameObject.SetActive(false);
         }
         #endregion

@@ -80,13 +80,13 @@ SpriteRenderer:
   m_SortingLayerID: -973043651
   m_SortingLayer: 4
   m_SortingOrder: 5
-  m_Sprite: {fileID: 3058647473027972742, guid: 6f6c57e032720264f9c1e68568f052be,
+  m_Sprite: {fileID: 1613321934942184280, guid: 676c4121e22021240a358107d8979664,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.9375, y: 1}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -146,8 +146,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.3125, y: 0.4375}
-    newSize: {x: 0.9375, y: 1}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d83f84d8134264da879a599c058c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedModifier: 0.5
+  speedModifier: 0.4
 --- !u!114 &4171957815178582534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +208,7 @@ Animator:
   m_GameObject: {fileID: 1685750014967127573}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e09ad84f880b0694bbde0a00574a79b2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
   - {x: -0.15625, y: 0.21875, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 100830
+  m_InstanceId: 51486
 --- !u!1001 &1399402214501059231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -309,6 +309,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MummyHitEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523418283399527071, guid: 9e30976073747b64ea383d2e739db0cc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e30976073747b64ea383d2e739db0cc, type: 3}

@@ -231,8 +231,12 @@ namespace MarblesAndMonsters.Characters
 
         protected override IEnumerator DeathAnimation(DeathType deathType)
         {
-            yield return new WaitForSeconds(0.667f);  //death animations are 8 frames, current fps is 12
+            
             ResetInventoryItems();
+            float animationLength = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+
+            Debug.Log(string.Format("DeathAnimation {0} has died of {1}!  the animation takes {2} sec", gameObject.name, deathType.ToString(), animationLength));
+            yield return new WaitForSeconds(animationLength);  //death animations are 8 frames, current fps is 12
             //GameController.Instance.EndLevel(false);
             GameManager.Instance.LevelLose();
             gameObject.SetActive(false);

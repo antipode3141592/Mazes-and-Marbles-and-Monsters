@@ -15,12 +15,15 @@ namespace MarblesAndMonsters.Objects
 
         private Light2D lightObject;
         private Animator animationController;
+        private int aInitialState;
+        private int aLight;
 
         private void Awake()
         {
             lightObject = gameObject.GetComponent<Light2D>();
             animationController = gameObject.GetComponent<Animator>();
-            
+            aInitialState = Animator.StringToHash("initialState");
+            aLight = Animator.StringToHash("Light");
         }
 
         private void Start()
@@ -28,7 +31,7 @@ namespace MarblesAndMonsters.Objects
             if (initialState)
             {
                 lightObject.intensity = litIntensity;
-                animationController.SetBool("initialState", true);
+                animationController.SetBool(aInitialState, true);
             } else
             {
                 lightObject.intensity = unlitIntensity;
@@ -40,7 +43,7 @@ namespace MarblesAndMonsters.Objects
             if (other != null && other.gameObject.CompareTag("Player"))
             {
                 lightObject.intensity = litIntensity;
-                animationController.SetTrigger("Light");
+                animationController.SetTrigger(aLight);
             }
 
         }

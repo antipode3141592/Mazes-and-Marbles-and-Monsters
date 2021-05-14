@@ -1,8 +1,3 @@
-
-html {
-
-}
-
 header {
     font-style: Cambria, serif;
     font-size: 40px;
@@ -17,19 +12,19 @@ header p {
 }
 
 nav {
-    margin: 16px;
+    margin: 16px auto;
     padding: 8px;
 }
 
 nav a{
     font-style: Cambria, serif;
     background-color: lightgray;
-    display: inline-flexblock;
     margin: 8px;
     padding: 8px;
     height: 24px;
     min-width: 48px;
     border: gray 1px solid;
+    float: none;
 }
 
 section, article {
@@ -61,3 +56,9 @@ article img {
     margin: 8px auto;
     display: block;
 }
+
+#journalentries {
+    width: 66%;
+    margin: 0px auto;
+}
+
