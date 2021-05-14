@@ -9,9 +9,10 @@ namespace MarblesAndMonsters.Characters
         private void OnTriggerEnter2D(Collider2D other)
         {
             IDamagable damagable = other.gameObject.GetComponent<IDamagable>();
+
             if (damagable != null)
             {
-                damagable.TakeDamage(mySheet.Strength + mySheet.TouchAttack.DamageModifier, mySheet.TouchAttack.DamageType);
+                DealDamageTo(damagable);
             }
         }
     }

@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96463dd756abcf149865d957d65c2d03, type: 3}
   m_Name: BaseStats_Player
   m_EditorClassIdentifier: 
-  MaxHealth: 3
-  Strength: 0
+  MaxHealth: 5
   Armor: 0
   DamageImmunities: 
   RespawnFlag: 0
   RespawnPeriod: 0.1
+  TouchAttack: {fileID: 0}
+  RangedAttack: {fileID: 0}
+  ReachAttack: {fileID: 0}
   ClipHit: {fileID: 8300000, guid: 44d001b2e4e072549affa584142e3ede, type: 3}
   ClipHeal: {fileID: 0}
   ClipDeathNormal: {fileID: 0}

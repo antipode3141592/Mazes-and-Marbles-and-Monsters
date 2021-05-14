@@ -22,11 +22,7 @@ namespace MarblesAndMonsters.Characters
         //private int startingHealth;
         //private int maxHealthLimit = 10;
 
-        private int strength;
         private int armor;
-        private TouchAttack touchAttack;
-        private ReachAttack reachAttack;
-        private RangedAttack rangedAttack;
 
         private List<DamageType> damageImmunities;
 
@@ -53,7 +49,6 @@ namespace MarblesAndMonsters.Characters
         public bool RespawnFlag => respawnFlag;
         public float RespawnPeriod => respawnPeriod;
         //accessors
-        public int Strength { get { return strength; } set { strength = value; } }
         public int Armor { get { return armor; } set { armor = value; } }
         public int CurrentHealth { 
             get { return currentHealth; } 
@@ -76,9 +71,6 @@ namespace MarblesAndMonsters.Characters
 
         //read-only accessors
         public List<DamageType> DamageImmunities => damageImmunities;
-        public TouchAttack TouchAttack => touchAttack;
-        public ReachAttack ReachAttack => reachAttack;
-        public RangedAttack RangedAttack => rangedAttack;
         public List<Movement> Movements => movements;
 
         #region Unity Functions
@@ -86,10 +78,6 @@ namespace MarblesAndMonsters.Characters
         {
             //grab attached Movement Components
             movements = new List<Movement>(GetComponents<Movement>());
-            //grab attached Attack Components
-            touchAttack = GetComponent<TouchAttack>();
-            reachAttack = GetComponent<ReachAttack>();
-            rangedAttack = GetComponent<RangedAttack>();
             if (baseStats)
             {
                 SetInitialStats();
@@ -110,7 +98,6 @@ namespace MarblesAndMonsters.Characters
 
         public void SetInitialStats()
         {
-            Strength = baseStats.Strength;
             Armor = baseStats.Armor;
             MaxHealth = baseStats.MaxHealth;
 

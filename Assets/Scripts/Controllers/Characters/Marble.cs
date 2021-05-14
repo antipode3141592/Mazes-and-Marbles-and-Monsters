@@ -19,8 +19,8 @@ namespace MarblesAndMonsters.Characters
 
             IDamagable damagable = other.gameObject.GetComponent<IDamagable>();
             if (damagable != null) 
-            { 
-                damagable.TakeDamage(mySheet.Strength + mySheet.TouchAttack.DamageModifier, mySheet.TouchAttack.DamageType);   
+            {
+                DealDamageTo(damagable);
             }
         }
 

@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: BaseStats_BladeTrap
   m_EditorClassIdentifier: 
   MaxHealth: 1
-  Strength: 0
   Armor: 0
   DamageImmunities: 00000000
   RespawnFlag: 0
   RespawnPeriod: 0
+  TouchAttack: {fileID: 11400000, guid: ceee77361a43b1b41b7eeba74956d41d, type: 2}
+  RangedAttack: {fileID: 0}
+  ReachAttack: {fileID: 0}
   ClipHit: {fileID: 0}
   ClipHeal: {fileID: 0}
   ClipDeathNormal: {fileID: 0}

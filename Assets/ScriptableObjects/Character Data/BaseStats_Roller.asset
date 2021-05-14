@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: BaseStats_Roller
   m_EditorClassIdentifier: 
   MaxHealth: 1
-  Strength: 1
   Armor: 0
   DamageImmunities: 00000000
   RespawnFlag: 0
+  RespawnPeriod: 0
+  TouchAttack: {fileID: 11400000, guid: 2fe5294411407244982b38d35bfba892, type: 2}
+  RangedAttack: {fileID: 0}
+  ReachAttack: {fileID: 0}
   ClipHit: {fileID: 0}
   ClipHeal: {fileID: 0}
   ClipDeathNormal: {fileID: 0}

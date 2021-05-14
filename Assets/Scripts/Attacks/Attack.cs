@@ -13,7 +13,7 @@ namespace MarblesAndMonsters
     //  Class that defines parameters of a generic attack
     //      
     [Serializable]
-    public class Attack : MonoBehaviour
+    public abstract class Attack : ScriptableObject
     {
         [SerializeField]
         private int damageModifier;

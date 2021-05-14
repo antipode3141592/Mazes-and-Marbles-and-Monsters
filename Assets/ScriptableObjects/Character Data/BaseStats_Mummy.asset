@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: BaseStats_Mummy
   m_EditorClassIdentifier: 
   MaxHealth: 3
-  Strength: 0
   Armor: 0
-  DamageImmunities: 
+  DamageImmunities: 04000000
   RespawnFlag: 0
   RespawnPeriod: 0
+  TouchAttack: {fileID: 0}
+  RangedAttack: {fileID: 0}
+  ReachAttack: {fileID: 0}
   ClipHit: {fileID: 0}
   ClipHeal: {fileID: 0}
   ClipDeathNormal: {fileID: 0}

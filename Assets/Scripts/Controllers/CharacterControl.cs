@@ -120,12 +120,13 @@ namespace MarblesAndMonsters.Characters
             //    Debug.Log("death check from charactersheetcontroller update()");
             //    CharacterDeath(DeathType.Damage);
             //}
-        }
-
-        protected virtual void FixedUpdate()
-        {
             animator.SetFloat(aFloatSpeed, myRigidbody.velocity.magnitude);
         }
+
+        //protected virtual void FixedUpdate()
+        //{
+        //    animator.SetFloat(aFloatSpeed, myRigidbody.velocity.magnitude);
+        //}
 
         protected virtual void OnDisable()
         {   
@@ -221,6 +222,11 @@ namespace MarblesAndMonsters.Characters
         public virtual void HealDamage(int healAmount)
         {
 
+        }
+
+        public virtual void DealDamageTo(IDamagable damagable)
+        {
+            damagable.TakeDamage(mySheet.baseStats.TouchAttack.DamageModifier, mySheet.baseStats.TouchAttack.DamageType);
         }
         #endregion
 
