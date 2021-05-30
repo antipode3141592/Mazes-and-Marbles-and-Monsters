@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: FloorSconceTile
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: -2294057378736690467, guid: 172b4649484b92c45bf29bd670b45c2c,
+  m_DefaultSprite: {fileID: -7190723785182093173, guid: 172b4649484b92c45bf29bd670b45c2c,
     type: 3}
   m_DefaultGameObject: {fileID: 3394348883589979672, guid: 19288d56851c069439f8c52da51438a2,
     type: 3}

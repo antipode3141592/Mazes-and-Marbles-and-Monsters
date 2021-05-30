@@ -20,7 +20,7 @@ MonoBehaviour:
   TouchAttack: {fileID: 0}
   RangedAttack: {fileID: 0}
   ReachAttack: {fileID: 0}
-  ClipHit: {fileID: 8300000, guid: 44d001b2e4e072549affa584142e3ede, type: 3}
+  ClipHit: {fileID: 8300000, guid: dbfb978442c24e54391debaa05ba685e, type: 3}
   ClipHeal: {fileID: 0}
   ClipDeathNormal: {fileID: 0}
   ClipDeathFall: {fileID: 8300000, guid: b5e9bdd3eb0f347408eb081db5a31112, type: 3}

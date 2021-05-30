@@ -60,3 +60,6 @@ TagManager:
   - name: Characters
     uniqueID: 3321923645
     locked: 0
+  - name: FX
+    uniqueID: 3469119899
+    locked: 0

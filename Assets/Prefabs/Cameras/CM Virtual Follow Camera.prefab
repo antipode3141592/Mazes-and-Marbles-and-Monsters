@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3027399308973924516}
   - component: {fileID: 3027399308973924517}
   m_Layer: 0
-  m_Name: CM vcam1
+  m_Name: CM Virtual Follow Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -183,8 +183,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 1
   m_FollowOffset: {x: 0, y: 0, z: -10}
-  m_XDamping: 4
-  m_YDamping: 4
+  m_XDamping: 2
+  m_YDamping: 2
   m_ZDamping: 1
   m_AngularDampingMode: 0
   m_PitchDamping: 0

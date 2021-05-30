@@ -13,14 +13,14 @@ namespace MarblesAndMonsters
     {
         private CinemachineVirtualCamera followCamera;
 
-        void Start()
+        private void Awake()
         {
             followCamera = FindObjectOfType<CinemachineVirtualCamera>();
-            if (followCamera != null)
-            {
-                //
-                followCamera.Follow = Player.Instance.gameObject.transform;
-            }
+        }
+
+        void Start()
+        {
+            FollowObject(Player.Instance.gameObject.transform);
         }
 
         // Update is called once per frame
@@ -30,9 +30,13 @@ namespace MarblesAndMonsters
         }
 
 
-        public void FollowObject(Transform transform)
+        public void FollowObject(Transform followTransform)
         {
-
+            if (followCamera != null)
+            {
+                //
+                followCamera.Follow = followTransform;
+            }
         }
     }
 }
