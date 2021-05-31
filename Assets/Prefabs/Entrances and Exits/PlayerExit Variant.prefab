@@ -16,7 +16,7 @@ BoxCollider2D:
   m_Offset: {x: 0.5, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -26,6 +26,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &4314492751114790882
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4920838361041273300}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2a4cc49a2d145754ba49f4522efcfa05, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1446133905754810495
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51,12 +70,12 @@ PrefabInstance:
     - target: {fileID: 5790476055170181544, guid: b559bcd24cb7a6241961728caf6376d1,
         type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5790476055170181544, guid: b559bcd24cb7a6241961728caf6376d1,
         type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5790476055170181545, guid: b559bcd24cb7a6241961728caf6376d1,
         type: 3}
@@ -122,7 +141,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -6686385420236822338, guid: 75f9206ccc6459e49b1c3612ad6675cd,
+      objectReference: {fileID: -7523786722682602230, guid: 504f09da3687f694bbc23bf6d4ef2830,
         type: 3}
     - target: {fileID: 5790476055170181591, guid: b559bcd24cb7a6241961728caf6376d1,
         type: 3}

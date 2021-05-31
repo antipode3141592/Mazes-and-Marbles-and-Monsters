@@ -20,6 +20,12 @@ TextureImporter:
   - first:
       213: 6789622038876869873
     second: Torch_Wall_5
+  - first:
+      213: -6982815555568484978
+    second: Torch_Wall_6
+  - first:
+      213: 4309250046137370929
+    second: Torch_Wall_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -266,6 +272,48 @@ TextureImporter:
       bones: []
       spriteID: 1f45b6a7545993e50800000000000000
       internalID: 6789622038876869873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torch_Wall_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8db44eaf3e081f90800000000000000
+      internalID: -6982815555568484978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Torch_Wall_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1398a58e5188dcb30800000000000000
+      internalID: 4309250046137370929
       vertices: []
       indices: 
       edges: []

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Stairs_Down_R Tile
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: -6686385420236822338, guid: 75f9206ccc6459e49b1c3612ad6675cd,
+  m_DefaultSprite: {fileID: -7523786722682602230, guid: 504f09da3687f694bbc23bf6d4ef2830,
     type: 3}
   m_DefaultGameObject: {fileID: 4920838361041273300, guid: 128380fe60376b4448e7f0043d7621a3,
     type: 3}

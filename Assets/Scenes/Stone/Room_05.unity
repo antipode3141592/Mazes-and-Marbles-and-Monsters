@@ -123,49 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &25213784
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 25213786}
-  - component: {fileID: 25213785}
-  m_Layer: 0
-  m_Name: CameraManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &25213785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 25213784}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37fcf76027f053643be03ff09b52f71a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &25213786
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 25213784}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1325922, y: -0.8886179, z: -13.7178}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &83406918
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -310,7 +267,7 @@ PrefabInstance:
     - target: {fileID: 490399799716507299, guid: 4af2df6e569a0c3419f59a41528aa328,
         type: 3}
       propertyPath: orthographic size
-      value: 7.5
+      value: 6.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4af2df6e569a0c3419f59a41528aa328, type: 3}
@@ -2968,7 +2925,7 @@ Tilemap:
     m_Data: {fileID: -6409518873591035822, guid: 0d85d702c8fa24348a3541ff3f684e0e,
       type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: -6686385420236822338, guid: 75f9206ccc6459e49b1c3612ad6675cd,
+    m_Data: {fileID: -7523786722682602230, guid: 504f09da3687f694bbc23bf6d4ef2830,
       type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 412447f0ddf2bc14bbf6fbda9f5d521a, type: 3}
@@ -3413,78 +3370,33 @@ Tilemap:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1945891868}
   m_Enabled: 1
-  m_Tiles:
-  - first: {x: 16, y: -2, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 0
-  - first: {x: 16, y: 0, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 0
-  m_AnimatedTiles:
-  - first: {x: 16, y: -2, z: 0}
-    second:
-      m_AnimatedSprites:
-      - {fileID: 981758705836627661, guid: 2e8fc8dcbdff1e549990317345261a48, type: 3}
-      - {fileID: -4961670321836806497, guid: 2e8fc8dcbdff1e549990317345261a48, type: 3}
-      - {fileID: 5464246106411333134, guid: 2e8fc8dcbdff1e549990317345261a48, type: 3}
-      - {fileID: -7716886440322036071, guid: 2e8fc8dcbdff1e549990317345261a48, type: 3}
-      - {fileID: -4974045910387455979, guid: 2e8fc8dcbdff1e549990317345261a48, type: 3}
-      - {fileID: 6789622038876869873, guid: 2e8fc8dcbdff1e549990317345261a48, type: 3}
-      m_AnimationSpeed: 12
-      m_AnimationTimeOffset: 0
-      m_IsLooping: 1
-  - first: {x: 16, y: 0, z: 0}
-    second:
-      m_AnimatedSprites:
-      - {fileID: 981758705836627661, guid: 2e8fc8dcbdff1e549990317345261a48, type: 3}
-      - {fileID: -4961670321836806497, guid: 2e8fc8dcbdff1e549990317345261a48, type: 3}
-      - {fileID: 5464246106411333134, guid: 2e8fc8dcbdff1e549990317345261a48, type: 3}
-      - {fileID: -7716886440322036071, guid: 2e8fc8dcbdff1e549990317345261a48, type: 3}
-      - {fileID: -4974045910387455979, guid: 2e8fc8dcbdff1e549990317345261a48, type: 3}
-      - {fileID: 6789622038876869873, guid: 2e8fc8dcbdff1e549990317345261a48, type: 3}
-      m_AnimationSpeed: 12
-      m_AnimationTimeOffset: 0
-      m_IsLooping: 1
+  m_Tiles: {}
+  m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 2
-    m_Data: {fileID: 11400000, guid: 779bb8a345a14914ea76496ebc89eee5, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
-  - m_RefCount: 2
-    m_Data: {fileID: 6789622038876869873, guid: 2e8fc8dcbdff1e549990317345261a48,
-      type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
-  - m_RefCount: 2
+  - m_RefCount: 0
     m_Data:
-      e00: 0.000000059604645
-      e01: 0.99999994
-      e02: 0
-      e03: 0
-      e10: -0.99999994
-      e11: 0.000000059604645
-      e12: -0
-      e13: 0
-      e20: -0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
+      e00: 2.5244127e-29
+      e01: 146099.62
+      e02: 146085.25
+      e03: 146085.25
+      e10: 7.8e-43
+      e11: 3.27e-43
+      e12: 3.27e-43
+      e13: 3.27e-43
+      e20: 2.8511474e-31
+      e21: 8.811053e+9
+      e22: -0.0000000053153606
+      e23: 8.811053e+9
+      e30: 4.5905e-41
+      e31: 7.82e-43
+      e32: 7.79e-43
+      e33: 7.82e-43
   - m_RefCount: 0
     m_Data:
       e00: 146159.75
@@ -3504,8 +3416,8 @@ Tilemap:
       e32: 3.27e-43
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 2
-    m_Data: {r: 1, g: 1, b: 1, a: 1}
+  - m_RefCount: 0
+    m_Data: {r: 8.810693e+9, g: 8.810693e+9, b: 8.810693e+9, a: 8.810693e+9}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -10754,7 +10666,7 @@ Tilemap:
       - {fileID: -7716886440322036071, guid: 2e8fc8dcbdff1e549990317345261a48, type: 3}
       - {fileID: -4974045910387455979, guid: 2e8fc8dcbdff1e549990317345261a48, type: 3}
       - {fileID: 6789622038876869873, guid: 2e8fc8dcbdff1e549990317345261a48, type: 3}
-      m_AnimationSpeed: 12.000001
+      m_AnimationSpeed: 12
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -7, y: 9, z: 0}

@@ -1,37 +1,43 @@
 fileFormatVersion: 2
-guid: 172b4649484b92c45bf29bd670b45c2c
+guid: 504f09da3687f694bbc23bf6d4ef2830
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7993394939795719220
-    second: FloorSconce_0
+      213: -7745354739226846691
+    second: Stairs_Down_wTorches_0
   - first:
-      213: -6673368236609638375
-    second: FloorSconce_1
+      213: -7523786722682602230
+    second: Stairs_Down_wTorches_1
   - first:
-      213: -7190723785182093173
-    second: FloorSconce_2
+      213: -9137308713980947389
+    second: Stairs_Down_wTorches_2
   - first:
-      213: -6833388883866064696
-    second: FloorSconce_3
+      213: -1704212800089032560
+    second: Stairs_Down_wTorches_3
   - first:
-      213: -4943515696449165224
-    second: FloorSconce_4
+      213: -3452248150174799626
+    second: Stairs_Down_wTorches_4
   - first:
-      213: 8330213899912137270
-    second: FloorSconce_5
+      213: -8444954439869246222
+    second: Stairs_Down_wTorches_5
   - first:
-      213: -2294057378736690467
-    second: FloorSconce_6
+      213: -7178070280278813119
+    second: Stairs_Down_wTorches_6
   - first:
-      213: -8155196136496647867
-    second: FloorSconce_7
+      213: 4635070814462436459
+    second: Stairs_Down_wTorches_7
   - first:
-      213: -7783217232892419867
-    second: FloorSconce_8
+      213: 6858187674663124696
+    second: Stairs_Down_wTorches_8
   - first:
-      213: -2416350165875434822
-    second: FloorSconce_9
+      213: 7173081366528661370
+    second: Stairs_Down_wTorches_9
+  - first:
+      213: -7452871368149536246
+    second: Stairs_Down_wTorches_10
+  - first:
+      213: -8242687531679484468
+    second: Stairs_Down_wTorches_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -157,7 +163,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FloorSconce_0
+      name: Stairs_Down_wTorches_0
       rect:
         serializedVersion: 2
         x: 0
@@ -165,28 +171,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -6, y: 9}
-        - {x: -9, y: 6}
-        - {x: -9, y: -7}
-        - {x: -6, y: -10}
-        - {x: 7, y: -10}
-        - {x: 10, y: -7}
-        - {x: 10, y: 6}
-        - {x: 7, y: 9}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 434cdefc85e3eee60800000000000000
-      internalID: 7993394939795719220
+      spriteID: d1adefcb6e8f28490800000000000000
+      internalID: -7745354739226846691
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorSconce_1
+      name: Stairs_Down_wTorches_1
       rect:
         serializedVersion: 2
         x: 32
@@ -194,86 +192,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -6, y: 9}
-        - {x: -9, y: 6}
-        - {x: -9, y: -7}
-        - {x: -6, y: -10}
-        - {x: 7, y: -10}
-        - {x: 10, y: -7}
-        - {x: 10, y: 6}
-        - {x: 7, y: 9}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 910f18122fe6363a0800000000000000
-      internalID: -6673368236609638375
+      spriteID: a0df3b4a6d3269790800000000000000
+      internalID: -7523786722682602230
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorSconce_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -6, y: 9}
-        - {x: -9, y: 6}
-        - {x: -9, y: -7}
-        - {x: -6, y: -10}
-        - {x: 7, y: -10}
-        - {x: 10, y: -7}
-        - {x: 10, y: 6}
-        - {x: 7, y: 9}
-      tessellationDetail: 0
-      bones: []
-      spriteID: b80e442c0da653c90800000000000000
-      internalID: -7190723785182093173
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FloorSconce_3
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -6, y: 9}
-        - {x: -9, y: 6}
-        - {x: -9, y: -7}
-        - {x: -6, y: -10}
-        - {x: 7, y: -10}
-        - {x: 10, y: -7}
-        - {x: 10, y: 6}
-        - {x: 7, y: 9}
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8c86f05d30dea21a0800000000000000
-      internalID: -6833388883866064696
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FloorSconce_4
+      name: Stairs_Down_wTorches_2
       rect:
         serializedVersion: 2
         x: 128
@@ -281,28 +213,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -6, y: 9}
-        - {x: -9, y: 6}
-        - {x: -9, y: -7}
-        - {x: -6, y: -10}
-        - {x: 7, y: -10}
-        - {x: 10, y: -7}
-        - {x: 10, y: 6}
-        - {x: 7, y: 9}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 858649b7aaa156bb0800000000000000
-      internalID: -4943515696449165224
+      spriteID: 344951cd222c13180800000000000000
+      internalID: -9137308713980947389
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorSconce_5
+      name: Stairs_Down_wTorches_3
       rect:
         serializedVersion: 2
         x: 160
@@ -310,86 +234,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -6, y: 9}
-        - {x: -9, y: 6}
-        - {x: -9, y: -7}
-        - {x: -6, y: -10}
-        - {x: 7, y: -10}
-        - {x: 10, y: -7}
-        - {x: 10, y: 6}
-        - {x: 7, y: 9}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63ac847186dda9370800000000000000
-      internalID: 8330213899912137270
+      spriteID: 098f405dc7b6958e0800000000000000
+      internalID: -1704212800089032560
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorSconce_6
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -6, y: 9}
-        - {x: -9, y: 6}
-        - {x: -9, y: -7}
-        - {x: -6, y: -10}
-        - {x: 7, y: -10}
-        - {x: 10, y: -7}
-        - {x: 10, y: 6}
-        - {x: 7, y: 9}
-      tessellationDetail: 0
-      bones: []
-      spriteID: dda290ee7fed920e0800000000000000
-      internalID: -2294057378736690467
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FloorSconce_7
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -6, y: 9}
-        - {x: -9, y: 6}
-        - {x: -9, y: -7}
-        - {x: -6, y: -10}
-        - {x: 7, y: -10}
-        - {x: 10, y: -7}
-        - {x: 10, y: 6}
-        - {x: 7, y: 9}
-      tessellationDetail: 0
-      bones: []
-      spriteID: 541ba7a625ce2de80800000000000000
-      internalID: -8155196136496647867
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FloorSconce_8
+      name: Stairs_Down_wTorches_4
       rect:
         serializedVersion: 2
         x: 256
@@ -397,28 +255,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -6, y: 9}
-        - {x: -9, y: 6}
-        - {x: -9, y: -7}
-        - {x: -6, y: -10}
-        - {x: 7, y: -10}
-        - {x: 10, y: -7}
-        - {x: 10, y: 6}
-        - {x: 7, y: 9}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e0afb7f9257cf390800000000000000
-      internalID: -7783217232892419867
+      spriteID: 6f8e45429962710d0800000000000000
+      internalID: -3452248150174799626
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FloorSconce_9
+      name: Stairs_Down_wTorches_5
       rect:
         serializedVersion: 2
         x: 288
@@ -426,22 +276,140 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -6, y: 9}
-        - {x: -9, y: 6}
-        - {x: -9, y: -7}
-        - {x: -6, y: -10}
-        - {x: 7, y: -10}
-        - {x: 10, y: -7}
-        - {x: 10, y: 6}
-        - {x: 7, y: 9}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: abad9069356677ed0800000000000000
-      internalID: -2416350165875434822
+      spriteID: 2f45c332eae7dca80800000000000000
+      internalID: -8444954439869246222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stairs_Down_wTorches_6
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14651337c1f526c90800000000000000
+      internalID: -7178070280278813119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stairs_Down_wTorches_7
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6460dc1954135040800000000000000
+      internalID: 4635070814462436459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stairs_Down_wTorches_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8def1479a5d2d2f50800000000000000
+      internalID: 6858187674663124696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stairs_Down_wTorches_9
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a771aec8f77eb8360800000000000000
+      internalID: 7173081366528661370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stairs_Down_wTorches_10
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0274c84af4129890800000000000000
+      internalID: -7452871368149536246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Stairs_Down_wTorches_11
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc5f3bf8c571c9d80800000000000000
+      internalID: -8242687531679484468
       vertices: []
       indices: 
       edges: []

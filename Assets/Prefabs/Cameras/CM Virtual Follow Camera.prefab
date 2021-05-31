@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 7.5
+    OrthographicSize: 6.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -135,7 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3027399309719568093}
   - component: {fileID: 3027399309719568088}
-  - component: {fileID: 3027399309719568094}
+  - component: {fileID: 5130009872468313668}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3027399309719568094
+--- !u!114 &5130009872468313668
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,8 +183,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 1
   m_FollowOffset: {x: 0, y: 0, z: -10}
-  m_XDamping: 2
-  m_YDamping: 2
+  m_XDamping: 1
+  m_YDamping: 1
   m_ZDamping: 1
   m_AngularDampingMode: 0
   m_PitchDamping: 0
