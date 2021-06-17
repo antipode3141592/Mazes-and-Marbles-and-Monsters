@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using LevelManagement.Levels;
 using LevelManagement.Data;
+using MarblesAndMonsters;
 
 //code based on the course content at https://www.udemy.com/course/level-management-in-unity/ , which was super helpeful and highly recommended
 
@@ -52,7 +54,13 @@ namespace LevelManagement
             if (levelId == string.Empty)
             {
                 //load next level in level list
-                levelId = GetNextLevelSpecs(DataManager.Instance.CheckPointLevelId).Id;
+                if (DataManager.Instance.CheckPointLevelId != string.Empty)
+                {
+                    levelId = GetNextLevelSpecs(DataManager.Instance.CheckPointLevelId).Id;
+                } else
+                {
+                    levelId = GetNextLevelSpecs(GetCurrentLevelId()).Id;
+                }
             }
             Debug.Log("attempting to load " + levelId);
             if (Application.CanStreamedLevelBeLoaded(GetLevelSpecsById(levelId).SceneName))
@@ -87,6 +95,10 @@ namespace LevelManagement
             {
                 yield return null; //yield this frame
             }
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.ResetStateMachine();
+            }
         }
 
         public static void LoadMainMenuLevel()
@@ -110,6 +122,12 @@ namespace LevelManagement
             {
                 return GetMap();    //default to return to main map if id not found
             }
+        }
+
+        public string GetCurrentLevelId() {
+            var currentScene = SceneManager.GetActiveScene();
+            var retval = levelSpecsById.Where(x => x.Value.SceneName == currentScene.path).FirstOrDefault();
+            return retval.Key;
         }
 
         /// <summary>

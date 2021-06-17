@@ -30,9 +30,9 @@ namespace MarblesAndMonsters
             if (other != null && other.gameObject.CompareTag("Player"))
             {
                 //grab keys from inventory and test for match (or skeleton)
-                foreach (KeyStats item in Player.Instance.Inventory)
+                foreach (KeyItem item in Player.Instance.KeyChain)
                 {
-                    if (item.KeyType == requiredKeyType || item.KeyType == KeyType.Skeleton)
+                    if (item.KeyStats.KeyType == requiredKeyType || item.KeyStats.KeyType == KeyType.Skeleton)
                     {
                         //unlock!
                         Debug.Log("the right key!  the lock clicks open!");
@@ -52,11 +52,11 @@ namespace MarblesAndMonsters
             }
         }
 
-        private IEnumerator Unlock(KeyStats item)
+        private IEnumerator Unlock(KeyItem keyItem)
         {
             yield return new WaitForSeconds(0.2f);
 
-            //Player.Instance.RemoveItemFromInventory(item);
+            Player.Instance.RemoveKeyFromKeyChain(keyItem);
 
             //for now, disable the parent object representing the lock
             gameObject.SetActive(false);

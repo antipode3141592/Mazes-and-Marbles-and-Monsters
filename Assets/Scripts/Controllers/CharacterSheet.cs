@@ -98,8 +98,9 @@ namespace MarblesAndMonsters.Characters
 
         public void SetInitialStats()
         {
-            Armor = baseStats.Armor;
-            MaxHealth = baseStats.MaxHealth;
+            armor = baseStats.Armor;
+            maxHealth = baseStats.MaxHealth;
+            currentHealth = baseStats.MaxHealth;
 
             respawnFlag = baseStats.RespawnFlag;
             respawnPeriod = baseStats.RespawnPeriod;

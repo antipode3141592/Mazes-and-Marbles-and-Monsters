@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace MarblesAndMonsters
 {
@@ -36,6 +37,7 @@ namespace MarblesAndMonsters
         //references to various game objects
         private List<Characters.CharacterControl> characters;
         private List<InventoryItem> inventoryItems;
+        private List<KeyItem> keyItems;
         private List<SpawnPoint> spawnPoints;
         private List<Gate> gates;
 
@@ -54,7 +56,11 @@ namespace MarblesAndMonsters
         public Defeat state_defeat;
         public END state_end;
 
+        public State CurrentState => gameStateMachine.CurrentState;
+
         private LevelManager levelLoader;
+        [SerializeField]
+        private Tilemap spawnPointTileMap;
 
         //singleton stuff
         private static GameManager _instance;
@@ -121,6 +127,11 @@ namespace MarblesAndMonsters
         }
         #endregion
 
+        public void ResetStateMachine()
+        {
+            gameStateMachine.ChangeState(state_start);
+        }
+
         public void UnpauseGame()
         {
             gameStateMachine.ChangeState(state_playing);
@@ -134,13 +145,14 @@ namespace MarblesAndMonsters
         }
         
         /// <summary>
-        /// cache references to all spawnpoints, inventory items, and gates
+        /// cache references to all spawnpoints, inventory items, gates, and keys
         /// </summary>
         /// <returns>spawnpoint count (-1 if none found)</returns>
         public int InitializeReferences()
         {
             //TODO this doesn't find 
             inventoryItems = new List<InventoryItem>(FindObjectsOfType<InventoryItem>());
+            keyItems = new List<KeyItem>(FindObjectsOfType<KeyItem>());
             spawnPoints = new List<SpawnPoint>(FindObjectsOfType<SpawnPoint>());
             gates = new List<Gate>(FindObjectsOfType<Gate>());
 
@@ -180,6 +192,10 @@ namespace MarblesAndMonsters
             {
                 spawnPoint.Reset();
             }
+            foreach (KeyItem keyItem in keyItems)
+            {
+                keyItem.Reset();
+            }
         }
 
         #region LevelManagement
@@ -210,22 +226,23 @@ namespace MarblesAndMonsters
 
         private IEnumerator WinRoutine()
         {
-            TransitionFader.PlayTransition(endTransition);
+            //TransitionFader.PlayTransition(endTransition);
             //yield return new WaitForSeconds(0.5f);
             //TransitionFader.PlayTransition(transitionPrefab);
-            float fadeDelay = endTransition != null ? endTransition.Delay + endTransition.FadeOnDuration : 0f;
-            yield return new WaitForSeconds(fadeDelay);
             levelLoader.LoadLevel(string.Empty);
+            //float fadeDelay = endTransition != null ? endTransition.Delay + endTransition.FadeOnDuration : 0f;
+            yield return null;
         }
 
         private IEnumerator WinRoutine(string levelId)
         {
-            TransitionFader.PlayTransition(endTransition);
+            //TransitionFader.PlayTransition(endTransition);
             //yield return new WaitForSeconds(0.5f);
             //TransitionFader.PlayTransition(transitionPrefab);
-            float fadeDelay = endTransition != null ? endTransition.Delay + endTransition.FadeOnDuration : 0f;
-            yield return new WaitForSeconds(fadeDelay);
             levelLoader.LoadLevel(levelId);
+            //float fadeDelay = endTransition != null ? endTransition.Delay + endTransition.FadeOnDuration : 0f;
+            yield return null;
+            
         }
 
         private IEnumerator DefeatRoutine()
@@ -242,13 +259,20 @@ namespace MarblesAndMonsters
             {
                 if (Player.Instance != null)
                 {
-                    //if the Fsm global variables are available, save some of them to disk
                     DataManager.Instance.PlayerMaxHealth = Player.Instance.MySheet.MaxHealth;
                     DataManager.Instance.PlayerCurrentHealth = Player.Instance.MySheet.CurrentHealth;
                     DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;
                     DataManager.Instance.PlayerTreasureCount = Player.Instance.TreasureCount;
-                    DataManager.Instance.UpdateLevelSaves(new LevelSaveData(DataManager.Instance.CheckPointLevelId, 
-                        DataManager.Instance.SavedLocation, 0, true));
+                    if (DataManager.Instance.CheckPointLevelId != string.Empty)
+                    {
+                        DataManager.Instance.UpdateLevelSaves(new LevelSaveData(DataManager.Instance.CheckPointLevelId,
+                            DataManager.Instance.SavedLocation, 0, true));
+                    } else
+                    {
+                        string levelId = LevelManager.Instance.GetCurrentLevelId();
+                        DataManager.Instance.UpdateLevelSaves(new LevelSaveData(levelId, 
+                            LevelManager.Instance.GetLevelSpecsById(levelId).Location, 0, true));
+                    }
                     //DataManager.Instance.UpdateLocationSaves(new LocationSaveData(DataManager.Instance.loc))
                     DataManager.Instance.Save();
                 } else
@@ -333,7 +357,7 @@ namespace MarblesAndMonsters
         {
             if (characters != null)
             {
-                foreach (Characters.CharacterControl character in characters)
+                foreach (CharacterControl character in characters)
                 {
                     if (character != null && character.gameObject.activeInHierarchy && !character.MySheet.IsAsleep && !character.isDying )
                     {
@@ -349,6 +373,14 @@ namespace MarblesAndMonsters
             } else {
                 Debug.LogError("Characters list null, calling StoreCharacters()");
                 StoreCharacters(); 
+            }
+        }
+
+        public void StopAllCharacters(List<CharacterControl> exceptionList = null)
+        {
+            if (exceptionList != null)
+            {
+                
             }
         }
     }

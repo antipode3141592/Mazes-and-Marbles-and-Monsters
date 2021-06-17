@@ -11,7 +11,7 @@ namespace MarblesAndMonsters.Items
 
         //[SerializeField]
         //protected Sprite InventoryIcon;
-        public ItemStats ItemStats;
+        public ItemStatsBase ItemStats;
 
         protected void Awake()
         {

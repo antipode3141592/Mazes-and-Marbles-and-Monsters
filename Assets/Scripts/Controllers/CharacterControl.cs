@@ -239,7 +239,7 @@ namespace MarblesAndMonsters.Characters
         private void ResetHealth()
         {
             mySheet.CurrentHealth = mySheet.MaxHealth;
-            Debug.Log(string.Format("{0} - Current Health: {1}, Max Health: {2}", this.gameObject.name, MySheet.CurrentHealth, MySheet.MaxHealth));
+            Debug.Log(string.Format("{0} - Current Health: {1}, Max Health: {2}", this.gameObject.name, mySheet.CurrentHealth, mySheet.MaxHealth));
         }
 
         //public virtual void CharacterSpawn()

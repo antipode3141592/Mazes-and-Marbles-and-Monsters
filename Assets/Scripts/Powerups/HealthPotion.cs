@@ -25,7 +25,7 @@ namespace MarblesAndMonsters.Items
                     }
                     else
                     {
-                        Player.Instance.AddItemToInventory(this.ItemStats);
+                        Player.Instance.AddItemToInventory(this);
                     }
                 }
             }

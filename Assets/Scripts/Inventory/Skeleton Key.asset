@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InventoryIcon: {fileID: -8236273935571282256, guid: bdcec1004ebc74645b5054ce427f69e9,
     type: 3}
+  ClipPickup: {fileID: 8300000, guid: 13f25a3dd0c8a214d8dad129a4d41151, type: 3}
   KeyType: 4

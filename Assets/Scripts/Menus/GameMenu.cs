@@ -9,7 +9,8 @@ namespace MarblesAndMonsters.Menus
         public DeathCounterController deathCountUI;
         public HealthBarController healthBarController;
         public TreasureCounterController treasureUI;
-        public InventoryUI inventoryUI;
+        public InventoryUIController inventoryUI;
+        public KeyChainUIController keychainUI;
 
         protected override void Awake()
         {
@@ -17,7 +18,8 @@ namespace MarblesAndMonsters.Menus
             deathCountUI = GameObject.FindObjectOfType<DeathCounterController>();
             healthBarController = GameObject.FindObjectOfType<HealthBarController>();
             treasureUI = GameObject.FindObjectOfType<TreasureCounterController>();
-            inventoryUI = GameObject.FindObjectOfType<InventoryUI>();
+            inventoryUI = GameObject.FindObjectOfType<InventoryUIController>();
+            keychainUI = GameObject.FindObjectOfType<KeyChainUIController>();
         }
          protected void Start()
         {
@@ -29,7 +31,6 @@ namespace MarblesAndMonsters.Menus
             deathCountUI.UpdateDeathCountUI();
             healthBarController.UpdateHealth();
             treasureUI.UpdateTreasureCount();
-            inventoryUI.UpdateUI();
         }
         
         public void OnPausePressed()

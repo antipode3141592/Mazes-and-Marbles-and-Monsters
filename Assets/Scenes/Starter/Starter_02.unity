@@ -10374,7 +10374,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 412447f0ddf2bc14bbf6fbda9f5d521a, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: -6686385420236822338, guid: 75f9206ccc6459e49b1c3612ad6675cd,
+    m_Data: {fileID: -7523786722682602230, guid: 504f09da3687f694bbc23bf6d4ef2830,
       type: 3}
   m_TileMatrixArray:
   - m_RefCount: 17
@@ -17661,6 +17661,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 490399799716507299, guid: 4af2df6e569a0c3419f59a41528aa328,
+        type: 3}
+      propertyPath: orthographic size
+      value: 6.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4af2df6e569a0c3419f59a41528aa328, type: 3}

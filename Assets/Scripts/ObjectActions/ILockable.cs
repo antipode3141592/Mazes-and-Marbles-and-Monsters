@@ -10,6 +10,6 @@ namespace MarblesAndMonsters.Items
         public bool Lock();
 
         //returns true if testKey unlocks else false
-        public bool Unlock();
+        public bool Unlock(KeyItem testKey);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MarblesAndMonsters.Menus;
@@ -18,27 +19,7 @@ namespace FiniteStateMachine.States.GameStates
         public override void Enter()
         {
             base.Enter();
-            Time.timeScale = 0.0f;
-            spawnWaitCounter = 0;
-        }
-
-        public override void LogicUpdate()
-        {
-            base.LogicUpdate();
-            //check if the tilemaps are done producing characters
-
-            if (GameManager.Instance.InitializeReferences() > 0)
-            {
-                stateMachine.ChangeState(GameManager.Instance.state_populateLevel);
-                Debug.Log(string.Format("spawnWaitCounter = {0}", spawnWaitCounter));
-            } else
-            {
-                spawnWaitCounter++;
-                if (spawnWaitCounter > 30)
-                {
-                    Debug.LogError("No spawnpoints found!");
-                }
-            }
+            stateMachine.ChangeState(GameManager.Instance.state_populateLevel);
         }
     }
 
@@ -48,15 +29,19 @@ namespace FiniteStateMachine.States.GameStates
         public override void Enter()
         {
             base.Enter();
-            //GameManager.Instance.SpawnAll();
         }
 
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            //if (GameController.Instance.StoreCharacters() == GameController.Instance.InitializeReferences()) { 
+            if (GameManager.Instance.InitializeReferences() > 0)
+            {
                 stateMachine.ChangeState(GameManager.Instance.state_playing);
-            //}
+            }
+            else
+            {
+                Debug.LogError(string.Format("InitializeReferences returned <= 0"));
+            }
         }
 
         public override void Exit()
@@ -122,7 +107,7 @@ namespace FiniteStateMachine.States.GameStates
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            stateMachine.ChangeState(GameManager.Instance.state_start);
+            stateMachine.ChangeState(GameManager.Instance.state_end);
         }
 
         public override void Exit()

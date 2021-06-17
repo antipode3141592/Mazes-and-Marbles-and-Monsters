@@ -1,9 +1,12 @@
 ﻿using Cinemachine;
 using LevelManagement.Data;
 using MarblesAndMonsters.Menus;
+using MarblesAndMonsters.Items;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace MarblesAndMonsters.Characters
 {
@@ -21,17 +24,20 @@ namespace MarblesAndMonsters.Characters
 
         private int deathCount = 0;
         private int treasureCount = 0;
-        private List<ItemStats> inventory;
-        [SerializeField]
-        private static readonly int inventoryMaxSize = 5;
+
+        private List<InventoryItem> inventory;
+        private List<KeyItem> keyChain;
+        //[SerializeField]
+        //private static readonly int inventoryMaxSize = 5;
 
         [SerializeField]
         private LightingSettings lightingSettings;
         private GlobalLight globalLight;
         private PlayerTorch playerTorch;
 
-        public List<ItemStats> Inventory => inventory;//read only accessor
-                                                          //HealthBarController healthBarController;
+        public List<InventoryItem> Inventory => inventory;//read only accessor shorthand
+                                                      //HealthBarController healthBarController;
+        public List<KeyItem> KeyChain => keyChain; 
 
         //singleton stuff
         private static Player _instance;
@@ -60,12 +66,14 @@ namespace MarblesAndMonsters.Characters
             }
             globalLight = FindObjectOfType<GlobalLight>();
             playerTorch = FindObjectOfType<PlayerTorch>();
-            inventory = new List<ItemStats>();
+            inventory = new List<InventoryItem>();
+            keyChain = new List<KeyItem>();
             base.Awake();
         }
 
         protected override void Start()
         {
+            base.Start();  //store character in game manager
             followCamera = FindObjectOfType<CinemachineVirtualCamera>();
             if (followCamera != null)
             {
@@ -78,6 +86,8 @@ namespace MarblesAndMonsters.Characters
                 treasureCount = DataManager.Instance.PlayerTreasureCount > 0 ? DataManager.Instance.PlayerTreasureCount : 0;
                 mySheet.MaxHealth = DataManager.Instance.PlayerMaxHealth > 3 ? DataManager.Instance.PlayerMaxHealth : mySheet.baseStats.MaxHealth;
                 mySheet.CurrentHealth = DataManager.Instance.PlayerCurrentHealth > 0 ? DataManager.Instance.PlayerCurrentHealth : mySheet.MaxHealth;
+                //TODO: add inventory and keychain initializers
+
             } else
             {
                 deathCount = 0;
@@ -85,7 +95,10 @@ namespace MarblesAndMonsters.Characters
                 mySheet.MaxHealth = 3;
             }
             AdjustLight();
-            base.Start();
+            if (GameMenu.Instance != null)
+            {
+                GameMenu.Instance.RefreshUI();
+            }
         }
 
         private void AdjustLight()
@@ -100,14 +113,14 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-            if (GameMenu.Instance != null)
-            {
-                GameMenu.Instance.RefreshUI();
-            }
-        }
+        //protected override void OnEnable()
+        //{
+        //    base.OnEnable();
+        //    if (GameMenu.Instance != null)
+        //    {
+        //        GameMenu.Instance.RefreshUI();
+        //    }
+        //}
 
         //cleanup for static instance
         protected virtual void OnDestroy()
@@ -147,32 +160,56 @@ namespace MarblesAndMonsters.Characters
             GameMenu.Instance.treasureUI.UpdateTreasureCount();
         }
 
-        public void AddItemToInventory(ItemStats itemToAdd)
+        public void AddItemToInventory(InventoryItem itemToAdd)
         {
-            if (inventory == null) { inventory = new List<ItemStats>(); }
+            if (inventory == null) { inventory = new List<InventoryItem>(); }
             inventory.Add(itemToAdd);
-            GameMenu.Instance.inventoryUI.UpdateUI();
+            UpdateInventoryUI();
             Debug.Log("Player added a " + itemToAdd.name + "to inventory!");
         }
 
-        public void RemoveItemFromInventory(ItemStats itemToRemove)
+        public void RemoveItemFromInventory(InventoryItem itemToRemove)
         {
-            
             inventory.Remove(itemToRemove);
-            GameMenu.Instance.inventoryUI.UpdateUI();
+            UpdateInventoryUI();
         }
 
         //remove all items from inventory
         public void ResetInventoryItems()
         {
-            foreach(var item in inventory)
+            foreach (var item in inventory)
             {
                 //
             }
             inventory.Clear();
+            keyChain.Clear();
             Debug.Log("Player:  Removed all items from inventory!");
-            //GameMenu.Instance.inventoryUI.UpdateUI();
-            //refresh player current stats?
+            UpdateInventoryUI();
+            UpdateKeyChainUI();
+        }
+
+        public void AddToKeyChain(KeyItem keyToAdd)
+        {
+            if (keyChain == null) { keyChain = new List<KeyItem>(); }
+            keyChain.Add(keyToAdd);
+            UpdateKeyChainUI();
+            Debug.Log("Player added a " + keyToAdd.name + "to keychain!");
+        }
+
+        public void RemoveKeyFromKeyChain(KeyItem keyToRemove)
+        {
+            keyChain.Remove(keyToRemove);
+            UpdateKeyChainUI();
+        }
+
+        private void UpdateKeyChainUI()
+        {
+            GameMenu.Instance.keychainUI.UpdateUI(keyChain.Select(x => x.KeyStats.InventoryIcon).ToList());
+        }
+
+        private void UpdateInventoryUI()
+        {
+            GameMenu.Instance.inventoryUI.UpdateUI(inventory.Select(x => x.ItemStats.InventoryIcon).ToList());
         }
 
         //public override void CharacterSpawn()

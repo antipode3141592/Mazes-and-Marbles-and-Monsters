@@ -71,8 +71,18 @@ namespace MarblesAndMonsters.Characters
 
         public virtual void RemoteTriggerSpawn(float spawnDelay)
         {
-            Debug.Log(string.Format("RemoteTriggerSpawn({0}) called", spawnDelay));
-            StartCoroutine(Spawn(spawnDelay));
+            if (GameManager.Instance != null)
+            {
+                if (GameManager.Instance.CurrentState is FiniteStateMachine.States.GameStates.PopulateLevel
+                    || GameManager.Instance.CurrentState is FiniteStateMachine.States.GameStates.Playing)
+                {
+                    Debug.Log(string.Format("Current State: {0}, RemoteTriggerSpawn({1}) called", GameManager.Instance.CurrentState.ToString(), spawnDelay));
+                    StartCoroutine(Spawn(spawnDelay));
+                } else
+                {
+                    Debug.Log(string.Format("Current State: {0}, respawn not permissable", GameManager.Instance.CurrentState.ToString()));
+                }
+            }
         }
 
         public virtual IEnumerator Spawn(float spawnDelay)

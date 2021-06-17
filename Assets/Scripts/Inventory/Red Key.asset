@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7195893fd9c6d8e4c95c53c29d92a65d, type: 3}
   m_Name: Red Key
   m_EditorClassIdentifier: 
-  InventoryIcon: {fileID: 9171665185608005271, guid: cc120c65b64252e439cd57c78eb0e172,
+  InventoryIcon: {fileID: 5282435661479473037, guid: a8bfe43a995e69a4aa33a045e6f6853f,
     type: 3}
+  ClipPickup: {fileID: 8300000, guid: 13f25a3dd0c8a214d8dad129a4d41151, type: 3}
   KeyType: 0
