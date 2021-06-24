@@ -11,7 +11,7 @@ namespace MarblesAndMonsters.Menus
         public void OnResumePressed()
         {
             GameManager.Instance.UnpauseGame();
-            base.OnBackPressed();   //return to GameMenu
+            //base.OnBackPressed();   //return to GameMenu
         }
 
         public void OnRestartPressed() {

@@ -83,9 +83,9 @@ namespace MarblesAndMonsters.Characters
             if (DataManager.Instance != null)
             {
                 deathCount = DataManager.Instance.PlayerTotalDeathCount > 0 ? DataManager.Instance.PlayerTotalDeathCount : 0;
-                treasureCount = DataManager.Instance.PlayerTreasureCount > 0 ? DataManager.Instance.PlayerTreasureCount : 0;
+                treasureCount = DataManager.Instance.PlayerScrollCount > 0 ? DataManager.Instance.PlayerScrollCount : 0;
                 mySheet.MaxHealth = DataManager.Instance.PlayerMaxHealth > 3 ? DataManager.Instance.PlayerMaxHealth : mySheet.baseStats.MaxHealth;
-                mySheet.CurrentHealth = DataManager.Instance.PlayerCurrentHealth > 0 ? DataManager.Instance.PlayerCurrentHealth : mySheet.MaxHealth;
+                mySheet.CurrentHealth = mySheet.MaxHealth;
                 //TODO: add inventory and keychain initializers
 
             } else
@@ -246,12 +246,12 @@ namespace MarblesAndMonsters.Characters
                 {
                     case DeathType.Falling:
                         //animator.SetBool("Falling", true);
-                        animator.SetTrigger(aTriggerFalling);
+                        animator.SetBool(aTriggerFalling, true);
                         audioSource.clip = MySheet.baseStats.ClipDeathFall;
                         audioSource.Play();
                         break;
                     case DeathType.Damage:
-                        animator.SetTrigger(aTriggerDeathByDamage);
+                        animator.SetBool(aTriggerDeathByDamage, true);
                         break;
                     case DeathType.Fire:
                         break;
@@ -271,19 +271,40 @@ namespace MarblesAndMonsters.Characters
             
             ResetInventoryItems();
             float animationLength = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+            string animationName = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
 
-            Debug.Log(string.Format("DeathAnimation {0} has died of {1}!  the animation takes {2} sec", gameObject.name, deathType.ToString(), animationLength));
-            yield return new WaitForSeconds(animationLength);  //death animations are 8 frames, current fps is 12
+            Debug.Log(string.Format("DeathAnimation {0} has died of {1}!  the animation named {2} takes {3:#,###.###} sec", 
+                gameObject.name, deathType.ToString(), animationName ,animationLength));
+            yield return new WaitForSeconds(0.75f);  //death animations are 8 frames, current fps is 12
             //GameController.Instance.EndLevel(false);
+            switch (deathType)
+            {
+                case DeathType.Falling:
+                    animator.SetBool(aTriggerFalling, false);
+                    break;
+                case DeathType.Damage:
+                    animator.SetBool(aTriggerDeathByDamage, false);
+                    break;
+                case DeathType.Fire:
+                    break;
+                case DeathType.Poison:
+                    break;
+                default:
+                    Debug.LogError("Unhandled deathtype enum!");
+                    break;
+            }
             GameManager.Instance.LevelLose();
-            gameObject.SetActive(false);
+
+            //gameObject.SetActive(false);
+            //Destroy(this);
         }
 
         public override void TakeDamage(int damageAmount, DamageType damageType)
         {
             base.TakeDamage(damageAmount, damageType);
-            animator.SetTrigger(aTriggerDamageNormal);
+            animator.SetBool(aTriggerDamageNormal, true);
             GameMenu.Instance.healthBarController.UpdateHealth();
+            animator.SetBool(aTriggerDamageNormal, false);
         }
 
         public void TakeDamage(int amount, DamageType damageType, Vector2 attackVector)

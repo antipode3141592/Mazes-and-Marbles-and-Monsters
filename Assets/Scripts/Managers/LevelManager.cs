@@ -51,14 +51,17 @@ namespace LevelManagement
         public void LoadLevel(string levelId)
         
         {
+            Debug.Log(string.Format("LoadLevel(string {0})", levelId));
             if (levelId == string.Empty)
             {
                 //load next level in level list
                 if (DataManager.Instance.CheckPointLevelId != string.Empty)
                 {
+                    Debug.Log(string.Format("CheckPointLevelId: {0}", DataManager.Instance.CheckPointLevelId));
                     levelId = GetNextLevelSpecs(DataManager.Instance.CheckPointLevelId).Id;
                 } else
                 {
+                    Debug.Log("checkpointlevelid is empty, using GetCurrentLevelId()");
                     levelId = GetNextLevelSpecs(GetCurrentLevelId()).Id;
                 }
             }

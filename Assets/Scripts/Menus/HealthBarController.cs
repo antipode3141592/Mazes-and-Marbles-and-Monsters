@@ -47,6 +47,13 @@ namespace MarblesAndMonsters.Menus.Components
                 {
                     heartArray[i].SetActive(false);
                 }
+            } else
+            {
+                Debug.Log("No player available");
+                foreach (var heart in heartArray)
+                {
+                    heart.SetActive(false);
+                }
             }
         }
     }

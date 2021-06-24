@@ -196,6 +196,7 @@ namespace MarblesAndMonsters
             {
                 keyItem.Reset();
             }
+            //Destroy(Player.Instance);
         }
 
         #region LevelManagement
@@ -218,7 +219,7 @@ namespace MarblesAndMonsters
         {
             if (DataManager.Instance != null)
             {
-                DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;  //increment, THEN store, silly
+                DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;
                 DataManager.Instance.Save();
             }
             gameStateMachine.ChangeState(state_defeat);
@@ -262,7 +263,7 @@ namespace MarblesAndMonsters
                     DataManager.Instance.PlayerMaxHealth = Player.Instance.MySheet.MaxHealth;
                     DataManager.Instance.PlayerCurrentHealth = Player.Instance.MySheet.CurrentHealth;
                     DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;
-                    DataManager.Instance.PlayerTreasureCount = Player.Instance.TreasureCount;
+                    DataManager.Instance.PlayerScrollCount = Player.Instance.TreasureCount;
                     if (DataManager.Instance.CheckPointLevelId != string.Empty)
                     {
                         DataManager.Instance.UpdateLevelSaves(new LevelSaveData(DataManager.Instance.CheckPointLevelId,

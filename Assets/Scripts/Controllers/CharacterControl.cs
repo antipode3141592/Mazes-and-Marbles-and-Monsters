@@ -277,7 +277,7 @@ namespace MarblesAndMonsters.Characters
             else
             {
                 isDying = true;
-                myRigidbody.velocity = Vector2.zero;
+                myRigidbody.velocity = myRigidbody.velocity * 0.15f;
                 //myRigidbody.Sleep();
 
                 //Debug.Log(string.Format("CharacterDeath(DeathType deathType):  {0} has died by {1}", gameObject.name, deathType.ToString()));
@@ -285,10 +285,10 @@ namespace MarblesAndMonsters.Characters
                 {
                     case DeathType.Falling:
                         //animator.SetBool("Falling", true);
-                        animator.SetTrigger(aTriggerFalling);
+                        animator.SetBool(aTriggerFalling, true);
                         break;
                     case DeathType.Damage:
-                        animator.SetTrigger(aTriggerDeathByDamage);
+                        animator.SetBool(aTriggerDeathByDamage, true);
                         break;
                     case DeathType.Fire:
                         break;
@@ -315,9 +315,29 @@ namespace MarblesAndMonsters.Characters
         protected virtual IEnumerator DeathAnimation(DeathType deathType)
         {
             float animationLength = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
-            Debug.Log(string.Format("DeathAnimation {0} has died of {1}!  the animation takes {2} sec", gameObject.name, deathType.ToString(), animationLength));
+            string animationName = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
+
+            Debug.Log(string.Format("DeathAnimation {0} has died of {1}!  the animation named {2} takes {3:#,###.###} sec",
+                gameObject.name, deathType.ToString(), animationName, animationLength));
             yield return new WaitForSeconds(animationLength);  //death animations are 8 frames, current fps is 12
-            gameObject.SetActive(false);
+            switch (deathType)
+            {
+                case DeathType.Falling:
+                    animator.SetBool(aTriggerFalling, false);
+                    break;
+                case DeathType.Damage:
+                    animator.SetBool(aTriggerDeathByDamage, false);
+                    break;
+                case DeathType.Fire:
+                    break;
+                case DeathType.Poison:
+                    break;
+                default:
+                    Debug.LogError("Unhandled deathtype enum!");
+                    break;
+            }
+            //gameObject.SetActive(false);
+            Destroy(this);
         }
         #endregion
 

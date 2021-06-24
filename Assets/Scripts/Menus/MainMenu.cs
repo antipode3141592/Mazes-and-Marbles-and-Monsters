@@ -26,7 +26,7 @@ namespace MarblesAndMonsters.Menus
         [SerializeField]
         private Text playerHealth;
         [SerializeField]
-        private Text treasureCount;
+        private Text scrollCount;
         [SerializeField]
         private Text deathCount;
         [SerializeField]
@@ -53,13 +53,13 @@ namespace MarblesAndMonsters.Menus
             {
                 currentGameGroup.SetActive(true);
                 resumeButton.SetActive(true);
-                treasureCount.text = "Scrolls Collected: " + DataManager.Instance.PlayerTreasureCount;
+               
+                scrollCount.text = "Scrolls Collected: " + DataManager.Instance.PlayerScrollCount;
                 currentLevel.text = string.Format("Current Level: {0} - {1}",
                     DataManager.Instance.SavedLocation, 
                     DataManager.Instance.CheckPointLevelId);
-                playerHealth.text = "Max Health: " + DataManager.Instance.PlayerMaxHealth;
+                playerHealth.text = "Health: " + DataManager.Instance.PlayerMaxHealth;
                 deathCount.text = "Deaths: " + DataManager.Instance.PlayerTotalDeathCount;
-
             }
             else
             {

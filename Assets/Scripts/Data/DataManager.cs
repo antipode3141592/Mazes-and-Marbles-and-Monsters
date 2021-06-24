@@ -26,7 +26,7 @@ namespace LevelManagement.Data
 
         public int PlayerTotalDeathCount { get { return saveData.playerDeathCount; } set { saveData.playerDeathCount = value; } }
 
-        public int PlayerTreasureCount { get { return saveData.playerTreasureCounter; } set { saveData.playerTreasureCounter = value; } }
+        public int PlayerScrollCount { get { return saveData.playerScrollCount; } set { saveData.playerScrollCount = value; } }
 
         public List<LevelSaveData> LevelSaves { get { return saveData.LevelSaves; } set { saveData.LevelSaves = value; } }
 
@@ -51,12 +51,9 @@ namespace LevelManagement.Data
                 saveData = new SaveData();
                 jsonSaver = new JSONSaver();
             }
-        }
-
-        private void Start()
-        {
             Load();
         }
+
         private void OnDestroy()
         {
             if (_instance == this)

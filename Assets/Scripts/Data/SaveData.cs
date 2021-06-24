@@ -25,7 +25,7 @@ namespace LevelManagement.Data
         public int playerCurrentHealth;
         public int playerMaxHealth;
         public int playerDeathCount;
-        public int playerTreasureCounter;
+        public int playerScrollCount;
 
         public string hashValue;    //for verifying save file integrity
 
@@ -36,7 +36,7 @@ namespace LevelManagement.Data
             musicVolume = 0f;
             playerMaxHealth = 3; //default max health is 3 hearts
             playerDeathCount = 0;
-            playerTreasureCounter = 0;
+            playerScrollCount = 0;
             hashValue = "";
             LevelSaves = new List<LevelSaveData>();
             LocationSaves = new List<LocationSaveData>();

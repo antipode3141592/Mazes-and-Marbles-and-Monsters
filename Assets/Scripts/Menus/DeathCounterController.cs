@@ -18,7 +18,7 @@ namespace MarblesAndMonsters.Menus.Components
         {
             if (Player.Instance != null)
             {
-                Debug.Log(string.Format("DeathCounterController: UpdateDeathCountUI() deathcount = {0}", Player.Instance.DeathCount));
+                //Debug.Log(string.Format("DeathCounterController: UpdateDeathCountUI() deathcount = {0}", Player.Instance.DeathCount));
                 deathCountText.text = Player.Instance.DeathCount.ToString();
             }
         }

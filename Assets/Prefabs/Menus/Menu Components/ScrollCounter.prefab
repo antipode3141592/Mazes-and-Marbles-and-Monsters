@@ -88,7 +88,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3200973414315802643}
-  - component: {fileID: 4240618569011064049}
+  - component: {fileID: 5649070891773114311}
   m_Layer: 5
   m_Name: ScrollCounter
   m_TagString: Untagged
@@ -117,7 +117,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 40}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4240618569011064049
+--- !u!114 &5649070891773114311
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,10 +126,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4768654383277466865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 382a9e898f38ca94abf154300473c56e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d51661b62abc2b42856e41fd5f84c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  treasureCountText: {fileID: 4152720850604995556}
+  ScrollCountText: {fileID: 4152720850604995556}
 --- !u!1 &7926590166544464352
 GameObject:
   m_ObjectHideFlags: 0

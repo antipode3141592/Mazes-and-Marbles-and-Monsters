@@ -13,7 +13,6 @@ namespace FiniteStateMachine.States.GameStates
     //Start occurs when a new level/scene is loaded, so take this opportunity to check for Player, assign spawn points, etc
     public class START : State
     {
-        private int spawnWaitCounter = 0;
         //use the base class constructor
         public START(StateMachine stateMachine) : base(stateMachine){}
         public override void Enter()
@@ -29,6 +28,7 @@ namespace FiniteStateMachine.States.GameStates
         public override void Enter()
         {
             base.Enter();
+            
         }
 
         public override void LogicUpdate()
@@ -36,6 +36,7 @@ namespace FiniteStateMachine.States.GameStates
             base.LogicUpdate();
             if (GameManager.Instance.InitializeReferences() > 0)
             {
+                GameManager.Instance.SpawnAll();
                 stateMachine.ChangeState(GameManager.Instance.state_playing);
             }
             else
@@ -57,12 +58,12 @@ namespace FiniteStateMachine.States.GameStates
         public override void Enter()
         {
             base.Enter();
-            GameManager.Instance.SpawnAll();
+            
             //GameController.Instance.StoreCharacters();
             Time.timeScale = 1.0f;
             //GameMenu.Open();
-            MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
-            GameMenu.Instance.RefreshUI();
+            //MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
+            //GameMenu.Instance.RefreshUI();
         }
         public override void HandleInput()
         {
@@ -85,13 +86,18 @@ namespace FiniteStateMachine.States.GameStates
         public override void Exit()
         {
             base.Exit();
-            Time.timeScale = 0.0f;
+            
         }
     }
 
     public class Paused : State
     {
         public Paused(StateMachine stateMachine) : base(stateMachine) { }
+        public override void Enter()
+        {
+            base.Enter();
+            Time.timeScale = 0.0f;
+        }
     }
 
     public class Victory : State

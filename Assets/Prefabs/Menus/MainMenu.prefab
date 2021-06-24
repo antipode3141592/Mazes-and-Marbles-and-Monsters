@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 7167313156666216106}
   - component: {fileID: 3246032540889498011}
   m_Layer: 5
-  m_Name: CurrentMaxHealthText
+  m_Name: CurrentHealthText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -397,7 +397,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Max Health:  05'
+  m_Text: 'Current Health: 4/4'
 --- !u!1 &2673011918747899676
 GameObject:
   m_ObjectHideFlags: 0
@@ -1709,7 +1709,7 @@ MonoBehaviour:
     type: 3}
   currentLevel: {fileID: 2649802695947579207}
   playerHealth: {fileID: 3246032540889498011}
-  treasureCount: {fileID: 449313174036814129}
+  scrollCount: {fileID: 449313174036814129}
   deathCount: {fileID: 4990942073462047962}
   currentGameGroup: {fileID: 7961406057364282305}
   resumeButton: {fileID: 1260812502904150596}
@@ -1937,7 +1937,7 @@ GameObject:
   - component: {fileID: 660044549097407103}
   - component: {fileID: 449313174036814129}
   m_Layer: 5
-  m_Name: CurrentTreasureCountText
+  m_Name: CurrentScrollCountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2003,7 +2003,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Treasures Collected:  99'
+  m_Text: 'Scrolls Collected:  99'
 --- !u!1 &4213073222798922077
 GameObject:
   m_ObjectHideFlags: 0
