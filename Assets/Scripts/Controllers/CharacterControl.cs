@@ -196,7 +196,7 @@ namespace MarblesAndMonsters.Characters
             mySheet.IsInvincible = true;
             //apply invincibility effect
             invincibilityEffect.Play();
-            mySheet.InvincibleTimeCounter = GameManager.Instance.DefaultEffectTime;
+            mySheet.InvincibleTimeCounter = GameManager.Instance.DefaultInvincibilityTime;
         }
 
         internal virtual void ApplyFire()
@@ -277,7 +277,7 @@ namespace MarblesAndMonsters.Characters
             else
             {
                 isDying = true;
-                myRigidbody.velocity = myRigidbody.velocity * 0.15f;
+                myRigidbody.velocity = Vector2.zero;
                 //myRigidbody.Sleep();
 
                 //Debug.Log(string.Format("CharacterDeath(DeathType deathType):  {0} has died by {1}", gameObject.name, deathType.ToString()));

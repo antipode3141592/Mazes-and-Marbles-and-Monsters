@@ -167,9 +167,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.090990774, y: -0.0040845694}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.2914181
+  m_Radius: 0.3
 --- !u!114 &8033061730288465647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,17 +682,17 @@ PrefabInstance:
     - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
         type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.9490196
       objectReference: {fileID: 0}
     - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.94449985
+      value: 0.9882353
       objectReference: {fileID: 0}
     - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.91886795
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9208101037377203735, guid: b8b887f609a34eb488e56399e84bea08,
         type: 3}

@@ -31,6 +31,8 @@ namespace MarblesAndMonsters
 
         [SerializeField]
         private float defaultEffectTime = 3.0f;    //fire, poison, freeze lasts for N seconds
+        [SerializeField]
+        private float defaultInvincibilityTime = 1.0f;
 
         public Vector2 Input_Acceleration { get; set; }
 
@@ -71,6 +73,8 @@ namespace MarblesAndMonsters
         }
 
         public float DefaultEffectTime => defaultEffectTime;
+
+        public float DefaultInvincibilityTime => defaultInvincibilityTime;
         #endregion
 
         #region Unity Overrides

@@ -277,22 +277,22 @@ namespace MarblesAndMonsters.Characters
                 gameObject.name, deathType.ToString(), animationName ,animationLength));
             yield return new WaitForSeconds(0.75f);  //death animations are 8 frames, current fps is 12
             //GameController.Instance.EndLevel(false);
-            switch (deathType)
-            {
-                case DeathType.Falling:
-                    animator.SetBool(aTriggerFalling, false);
-                    break;
-                case DeathType.Damage:
-                    animator.SetBool(aTriggerDeathByDamage, false);
-                    break;
-                case DeathType.Fire:
-                    break;
-                case DeathType.Poison:
-                    break;
-                default:
-                    Debug.LogError("Unhandled deathtype enum!");
-                    break;
-            }
+            //switch (deathType)
+            //{
+            //    case DeathType.Falling:
+            //        animator.SetBool(aTriggerFalling, false);
+            //        break;
+            //    case DeathType.Damage:
+            //        animator.SetBool(aTriggerDeathByDamage, false);
+            //        break;
+            //    case DeathType.Fire:
+            //        break;
+            //    case DeathType.Poison:
+            //        break;
+            //    default:
+            //        Debug.LogError("Unhandled deathtype enum!");
+            //        break;
+            //}
             GameManager.Instance.LevelLose();
 
             //gameObject.SetActive(false);
