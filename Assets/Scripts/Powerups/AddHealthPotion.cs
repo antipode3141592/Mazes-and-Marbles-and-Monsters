@@ -6,7 +6,7 @@ using MarblesAndMonsters.Characters;
 namespace MarblesAndMonsters.Items
 {
 
-    //Add Health Potion - when consumed, +HealthStrength to max HP and heal to full
+    //Add Health Potion - immediately consumed, add to max health and heal all damage
     public class AddHealthPotion : InventoryItem
     {
         [SerializeField]
@@ -20,7 +20,7 @@ namespace MarblesAndMonsters.Items
             if (collision.gameObject.CompareTag("Player"))
             {
                 audioSource.Play();
-                Player.Instance.AddMaxHealth(healthItemStats.HealingStrength);
+                healthItemStats.Action();
                 //Destroy(gameObject);    //destroy self (these are relatively rare, so no need for pooling)
                 //gameObject.SetActive(false);
                 

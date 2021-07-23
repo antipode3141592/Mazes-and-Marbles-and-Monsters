@@ -85,6 +85,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b47a16bdcca62439673f8305482cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lightingSettings: {fileID: 11400000, guid: 28f30b7e509461a46b9c3df67241d44d, type: 2}
   initialState: 1
-  litIntensity: 0.99
-  unlitIntensity: 0

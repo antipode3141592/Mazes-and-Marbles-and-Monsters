@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca0848827bb2e234caeda79f9b9883d9, type: 3}
   m_Name: DefaultLightingSettings
   m_EditorClassIdentifier: 
-  GlobalLightOnIntensity: 1
-  PlayerLightOnIntensity: 1
-  GlobalLightOffIntensity: 0.1
-  GlobalLightOnColor: {r: 0.92156863, g: 0.94509804, b: 1, a: 1}
-  PlayerLightOnColor: {r: 0.92156863, g: 0.94509804, b: 1, a: 1}
+  GlobalLightOnIntensity: 0.99
+  PlayerLightOnIntensity: 0.99
+  GlobalLightOffIntensity: 0
+  GlobalLightOnColor: {r: 1, g: 0.9882353, b: 0.9490196, a: 1}
+  PlayerLightOnColor: {r: 1, g: 0.9882353, b: 0.9490196, a: 1}
   GlobalLightOffColor: {r: 0.5886792, g: 0.7120754, b: 1, a: 1}

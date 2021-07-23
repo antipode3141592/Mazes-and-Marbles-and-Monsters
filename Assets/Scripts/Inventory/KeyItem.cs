@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using MarblesAndMonsters.Characters;
+using System.Collections;
 using UnityEngine;
-using MarblesAndMonsters;
-using MarblesAndMonsters.Characters;
 
 namespace MarblesAndMonsters.Items
 {

@@ -26,10 +26,10 @@ namespace MarblesAndMonsters.Items
             gameObject.SetActive(true);
         }
 
-        public virtual Sprite GetSprite()
-        {
-            throw new System.NotImplementedException();
-        }
+        //public virtual Sprite GetSprite()
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
         public virtual Sprite GetUISprite()
         {

@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using MarblesAndMonsters.Menus.Components;
 
 namespace MarblesAndMonsters.Characters
 {
@@ -25,8 +26,10 @@ namespace MarblesAndMonsters.Characters
         private int deathCount = 0;
         private int treasureCount = 0;
 
-        private List<InventoryItem> inventory;
+        private List<InventorySlot> inventory;
         private List<KeyItem> keyChain;
+        //private int[] quickAccess;
+
         //[SerializeField]
         //private static readonly int inventoryMaxSize = 5;
 
@@ -35,9 +38,11 @@ namespace MarblesAndMonsters.Characters
         private GlobalLight globalLight;
         private PlayerTorch playerTorch;
 
-        public List<InventoryItem> Inventory => inventory;//read only accessor shorthand
+        public List<InventorySlot> Inventory => inventory;//read only accessor shorthand
                                                       //HealthBarController healthBarController;
-        public List<KeyItem> KeyChain => keyChain; 
+        public List<KeyItem> KeyChain => keyChain;
+
+        //public int[] QuickAccess => quickAccess;
 
         //singleton stuff
         private static Player _instance;
@@ -66,8 +71,9 @@ namespace MarblesAndMonsters.Characters
             }
             globalLight = FindObjectOfType<GlobalLight>();
             playerTorch = FindObjectOfType<PlayerTorch>();
-            inventory = new List<InventoryItem>();
+            inventory = new List<InventorySlot>();
             keyChain = new List<KeyItem>();
+            //quickAccess = { -1, -1};
             base.Awake();
         }
 
@@ -103,7 +109,7 @@ namespace MarblesAndMonsters.Characters
 
         private void AdjustLight()
         {
-            if (globalLight.Intensity < 1.0) 
+            if (globalLight.Intensity < 0.9f) 
             {
                 playerTorch.gameObject.SetActive(true);
                 playerTorch.AdjustLight(lightingSettings.PlayerLightOnIntensity, lightingSettings.PlayerLightOnColor);
@@ -112,15 +118,6 @@ namespace MarblesAndMonsters.Characters
                 playerTorch.gameObject.SetActive(false);
             }
         }
-
-        //protected override void OnEnable()
-        //{
-        //    base.OnEnable();
-        //    if (GameMenu.Instance != null)
-        //    {
-        //        GameMenu.Instance.RefreshUI();
-        //    }
-        //}
 
         //cleanup for static instance
         protected virtual void OnDestroy()
@@ -136,7 +133,7 @@ namespace MarblesAndMonsters.Characters
         {
             //adjust max health
             mySheet.MaxHealth += amount;
-            mySheet.CurrentHealth += amount;
+            mySheet.CurrentHealth = mySheet.MaxHealth;
             //trigger animation
             //trigger particle effects
             if (amount > 0)
@@ -145,6 +142,30 @@ namespace MarblesAndMonsters.Characters
             }
             //
             GameMenu.Instance.healthBarController.UpdateHealth();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="healAmount"></param>
+        public override bool HealDamage(int healAmount)
+        {
+            //check for damage, skip if no healing needed
+            if (mySheet.CurrentHealth < mySheet.MaxHealth)
+            {
+                if (healAmount < 0)
+                {
+                    //heal all
+                    mySheet.CurrentHealth = mySheet.MaxHealth;
+                }
+                else
+                {
+                    mySheet.CurrentHealth += healAmount;
+                }
+                GameMenu.Instance.healthBarController.UpdateHealth();
+                return true;
+            }
+            return false;
         }
 
         public void AddTreasure(int value)
@@ -160,19 +181,67 @@ namespace MarblesAndMonsters.Characters
             GameMenu.Instance.treasureUI.UpdateTreasureCount();
         }
 
-        public void AddItemToInventory(InventoryItem itemToAdd)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemToAdd"></param>
+        public void AddItemToInventory(ItemStatsBase itemStats)
         {
-            if (inventory == null) { inventory = new List<InventoryItem>(); }
-            inventory.Add(itemToAdd);
-            UpdateInventoryUI();
-            Debug.Log("Player added a " + itemToAdd.name + "to inventory!");
+            if (inventory == null) { inventory = new List<InventorySlot>(); }
+            if (itemStats.Stackable && inventory.Exists(x => x.ItemStats.Id == itemStats.Id))
+            {
+                //if stackable and exists, update count
+                inventory.Find(x => x.ItemStats.Id == itemStats.Id).Quantity++;
+                var quickSlot = inventory.Find(x => x.ItemStats.Id == itemStats.Id).QuickAccessSlot;
+                //if quick access, update UI
+                if (quickSlot >= 0) 
+                { 
+                    if (GameMenu.Instance)
+                    {
+                        GameMenu.Instance.quickAccessController.UpdateQuantity(quickSlot, 
+                            inventory.Find(x => x.ItemStats.Id == itemStats.Id).Quantity);
+                    }
+                }
+                
+                //else add item to inventory as per usual
+            }
+            else
+            {
+                //else insert item into first slot of inventory inventory
+                inventory.Insert(0, new InventorySlot(itemStats, 1));
+                //check quick access slots
+                for (int i = 0; i < QuickAccessController.QuickSlotMax; i++)
+                {
+                    if (!inventory.Exists(x => x.QuickAccessSlot == i))
+                    {
+                        inventory[0].QuickAccessSlot = i;
+                        if (GameMenu.Instance)
+                        {
+                            GameMenu.Instance.quickAccessController.AssignQuickAccess(i,itemStats);
+                        }
+                        break;
+                    }
+                }
+            }
+            Debug.Log("Player added a " + itemStats.name + "to inventory!");
+            PrintInventory();
         }
 
-        public void RemoveItemFromInventory(InventoryItem itemToRemove)
+        /// <summary>
+        /// debug function for printing contents of Inventory to console
+        /// </summary>
+        public void PrintInventory()
         {
-            inventory.Remove(itemToRemove);
-            UpdateInventoryUI();
+            foreach(var item in inventory)
+            {
+                Debug.Log(string.Format("  Item {0}: quantity = {1}, id = {2}", item.ItemStats.name, item.Quantity, item.Id));
+            }
         }
+
+        //public void RemoveItemFromInventory(InventoryItem itemToRemove)
+        //{
+        //    inventory.Remove(itemToRemove);
+        //}
 
         //remove all items from inventory
         public void ResetInventoryItems()
@@ -184,9 +253,36 @@ namespace MarblesAndMonsters.Characters
             inventory.Clear();
             keyChain.Clear();
             Debug.Log("Player:  Removed all items from inventory!");
-            UpdateInventoryUI();
             UpdateKeyChainUI();
+            GameMenu.Instance.quickAccessController.ClearAll();
         }
+
+        /// <summary>
+        /// check Invetory for 
+        /// </summary>
+        /// <param name="Id">item Id to be consumed</param>
+        /// <returns>true if item is correctly consumed, false if something went wrong</returns>
+        public bool ConsumeItem(string Id) 
+        {
+            if (inventory.Exists(x => x.Id == Id))
+            {
+                //var newQuantity = inventory.Find(x => x.Id == Id).Quantity--;
+                var quickSlot = inventory.Find(x => x.Id == Id).QuickAccessSlot;
+                inventory[quickSlot].Quantity--;
+                //if quantity is zero (or less, somehow?) remove the item from the quickslot and then remove from inventory
+                if (inventory[quickSlot].Quantity <= 0)
+                {
+                    GameMenu.Instance.quickAccessController.UnassignQuickAccess(quickSlot);
+                    inventory.Remove(inventory.Find(x => x.Id == Id));
+                } else {
+                    //update QuickAccessSlot Quantity
+                    GameMenu.Instance.quickAccessController.UpdateQuantity(quickSlot, inventory[quickSlot].Quantity);
+                }
+                return true;
+            }
+            return false;
+        }
+
 
         public void AddToKeyChain(KeyItem keyToAdd)
         {
@@ -212,17 +308,6 @@ namespace MarblesAndMonsters.Characters
             GameMenu.Instance.inventoryUI.UpdateUI(inventory.Select(x => x.ItemStats.InventoryIcon).ToList());
         }
 
-        //public override void CharacterSpawn()
-        //{
-        //    ////check for spawn location
-        //    if (spawnPoint == null)
-        //    {
-        //        SetSpawnLocation();
-        //    }
-        //    base.CharacterSpawn();
-        //    treasureCount = DataManager.Instance.PlayerTreasureCount > 0 ? DataManager.Instance.PlayerTreasureCount : 0;
-        //}
-
         private void SetSpawnLocation()
         {
             spawnPoint = GameObject.FindObjectOfType<SpawnPoint_Player>();
@@ -235,17 +320,12 @@ namespace MarblesAndMonsters.Characters
             if (isDying) { return; }
             else
             {
-                //Time.timeScale = 0.0f;  //stop time, for the drama, and to stop everything moving
                 isDying = true;
                 myRigidbody.velocity = Vector2.zero;
-                myRigidbody.Sleep();
                 deathCount++;
-                
-                //Debug.Log(string.Format("CharacterDeath(DeathType deathType):  {0} has died by {1}", gameObject.name, deathType.ToString()));
                 switch (deathType)
                 {
                     case DeathType.Falling:
-                        //animator.SetBool("Falling", true);
                         animator.SetBool(aTriggerFalling, true);
                         audioSource.clip = MySheet.baseStats.ClipDeathFall;
                         audioSource.Play();
@@ -260,7 +340,6 @@ namespace MarblesAndMonsters.Characters
                     default:
                         Debug.LogError("Unhandled deathtype enum!");
                         break;
-
                 }
                 StartCoroutine(DeathAnimation(deathType));
             }
@@ -276,27 +355,7 @@ namespace MarblesAndMonsters.Characters
             Debug.Log(string.Format("DeathAnimation {0} has died of {1}!  the animation named {2} takes {3:#,###.###} sec", 
                 gameObject.name, deathType.ToString(), animationName ,animationLength));
             yield return new WaitForSeconds(0.75f);  //death animations are 8 frames, current fps is 12
-            //GameController.Instance.EndLevel(false);
-            //switch (deathType)
-            //{
-            //    case DeathType.Falling:
-            //        animator.SetBool(aTriggerFalling, false);
-            //        break;
-            //    case DeathType.Damage:
-            //        animator.SetBool(aTriggerDeathByDamage, false);
-            //        break;
-            //    case DeathType.Fire:
-            //        break;
-            //    case DeathType.Poison:
-            //        break;
-            //    default:
-            //        Debug.LogError("Unhandled deathtype enum!");
-            //        break;
-            //}
             GameManager.Instance.LevelLose();
-
-            //gameObject.SetActive(false);
-            //Destroy(this);
         }
 
         public override void TakeDamage(int damageAmount, DamageType damageType)

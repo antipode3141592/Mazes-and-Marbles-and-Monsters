@@ -8,7 +8,7 @@ namespace MarblesAndMonsters.Menus.Components
     public abstract class InventoryUIBase : MonoBehaviour
     {
         [SerializeField]
-        private List<Image> contents;  //UI images of objects, defined in editor
+        protected List<Image> contents;  //UI images of objects, defined in editor
 
         public virtual void UpdateUI(List<Sprite> itemIcons)
         {
@@ -38,7 +38,7 @@ namespace MarblesAndMonsters.Menus.Components
         }
 
         //remove icons from all images and set transparent
-        public void Clear()
+        public virtual void Clear()
         {
             foreach (var item in contents)
             {

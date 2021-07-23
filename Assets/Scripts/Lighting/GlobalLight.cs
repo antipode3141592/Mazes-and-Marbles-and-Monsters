@@ -8,12 +8,10 @@ public class GlobalLight : MonoBehaviour, IAdjustableLight2D
     private Light2D light2D;
 
     [SerializeField]
-    private bool initialState = false;
+    private LightingSettings lightingSettings;
 
     [SerializeField]
-    private float litIntensity = 1.0f;
-    [SerializeField]
-    private float unlitIntensity = 0.1f;
+    private bool initialState = false;
 
     public float Intensity { get { return light2D.intensity; } }
 
@@ -22,10 +20,10 @@ public class GlobalLight : MonoBehaviour, IAdjustableLight2D
         light2D = GetComponent<Light2D>();
         if (initialState)
         {
-            light2D.intensity = litIntensity;
+            AdjustLight(lightingSettings.GlobalLightOnIntensity, lightingSettings.GlobalLightOnColor);
         } else
         {
-            light2D.intensity = unlitIntensity;
+            AdjustLight(lightingSettings.GlobalLightOffIntensity, lightingSettings.GlobalLightOffColor);
         }
     }
 

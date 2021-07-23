@@ -11,6 +11,7 @@ namespace MarblesAndMonsters.Menus
         public ScrollCounterController treasureUI;
         public InventoryUIController inventoryUI;
         public KeyChainUIController keychainUI;
+        public QuickAccessController quickAccessController;
 
         protected override void Awake()
         {
@@ -20,6 +21,7 @@ namespace MarblesAndMonsters.Menus
             treasureUI = GameObject.FindObjectOfType<ScrollCounterController>();
             inventoryUI = GameObject.FindObjectOfType<InventoryUIController>();
             keychainUI = GameObject.FindObjectOfType<KeyChainUIController>();
+            quickAccessController = GameObject.FindObjectOfType<QuickAccessController>();
         }
 
         //protected void OnEnable()
@@ -34,7 +36,7 @@ namespace MarblesAndMonsters.Menus
             healthBarController.UpdateHealth();
             treasureUI.UpdateTreasureCount();
             keychainUI.Clear();
-            inventoryUI.Clear();
+            quickAccessController.ClearAll();
         }
         
         public void OnPausePressed()

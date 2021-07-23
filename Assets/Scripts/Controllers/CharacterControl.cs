@@ -219,9 +219,9 @@ namespace MarblesAndMonsters.Characters
             myRigidbody.AddForce(force, ForceMode2D.Impulse);
         }
 
-        public virtual void HealDamage(int healAmount)
+        public virtual bool HealDamage(int healAmount)
         {
-
+            return false;
         }
 
         public virtual void DealDamageTo(IDamagable damagable)
@@ -242,45 +242,17 @@ namespace MarblesAndMonsters.Characters
             Debug.Log(string.Format("{0} - Current Health: {1}, Max Health: {2}", this.gameObject.name, mySheet.CurrentHealth, mySheet.MaxHealth));
         }
 
-        //public virtual void CharacterSpawn()
-        //{
-        //    gameObject.transform.position = mySheet.SpawnPoint;
-        //    mySheet.Wakeup();
-        //    foreach (Collider2D collider in myColliders)
-        //    {
-        //        collider.enabled = true;
-        //    }
-        //    //myRigidbody.WakeUp();
-        //    mySheet.CurrentHealth = mySheet.MaxHealth;
-        //}
-
-        //public virtual void CharacterSpawn(Vector3 spawnPosition)
-        //{
-        //    gameObject.transform.position = spawnPosition;
-        //    mySheet.Wakeup();
-        //    foreach (Collider2D collider in myColliders)
-        //    {
-        //        collider.enabled = true;
-        //    }
-        //    //myRigidbody.WakeUp();
-        //    mySheet.CurrentHealth = mySheet.MaxHealth;
-        //}
-
         public virtual void CharacterDeath(DeathType deathType)
         {
-            //Debug.Log(string.Format("{0}'s CharacterDeath() function called", gameObject.name));
             if (isDying) 
             {
-                //Debug.Log(string.Format("{0}'s CharacterDeath() function called while dying, skipping...", gameObject.name));
                 return; 
             }
             else
             {
                 isDying = true;
                 myRigidbody.velocity = Vector2.zero;
-                //myRigidbody.Sleep();
 
-                //Debug.Log(string.Format("CharacterDeath(DeathType deathType):  {0} has died by {1}", gameObject.name, deathType.ToString()));
                 switch (deathType)
                 {
                     case DeathType.Falling:
@@ -314,28 +286,23 @@ namespace MarblesAndMonsters.Characters
 
         protected virtual IEnumerator DeathAnimation(DeathType deathType)
         {
-            float animationLength = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
-            string animationName = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
-
-            Debug.Log(string.Format("DeathAnimation {0} has died of {1}!  the animation named {2} takes {3:#,###.###} sec",
-                gameObject.name, deathType.ToString(), animationName, animationLength));
-            yield return new WaitForSeconds(animationLength);  //death animations are 8 frames, current fps is 12
-            switch (deathType)
-            {
-                case DeathType.Falling:
-                    animator.SetBool(aTriggerFalling, false);
-                    break;
-                case DeathType.Damage:
-                    animator.SetBool(aTriggerDeathByDamage, false);
-                    break;
-                case DeathType.Fire:
-                    break;
-                case DeathType.Poison:
-                    break;
-                default:
-                    Debug.LogError("Unhandled deathtype enum!");
-                    break;
-            }
+            yield return new WaitForSeconds(0.5f);  //death animations are 8 frames, current fps is 12
+            //switch (deathType)
+            //{
+            //    case DeathType.Falling:
+            //        animator.SetBool(aTriggerFalling, false);
+            //        break;
+            //    case DeathType.Damage:
+            //        animator.SetBool(aTriggerDeathByDamage, false);
+            //        break;
+            //    case DeathType.Fire:
+            //        break;
+            //    case DeathType.Poison:
+            //        break;
+            //    default:
+            //        Debug.LogError("Unhandled deathtype enum!");
+            //        break;
+            //}
             //gameObject.SetActive(false);
             Destroy(this);
         }
