@@ -181,7 +181,7 @@ namespace MarblesAndMonsters.Characters
                     {
                         hitEffect.Play();   //particles
                         animator.SetTrigger(aTriggerDamageNormal);
-                        ApplyInvincible();
+                        ApplyInvincible(GameManager.Instance.DefaultInvincibilityTime);
                     }
                 }
                 //
@@ -191,12 +191,12 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
-        public virtual void ApplyInvincible()
+        public virtual void ApplyInvincible(float duration)
         {
             mySheet.IsInvincible = true;
             //apply invincibility effect
             invincibilityEffect.Play();
-            mySheet.InvincibleTimeCounter = GameManager.Instance.DefaultInvincibilityTime;
+            mySheet.InvincibleTimeCounter = duration;
         }
 
         internal virtual void ApplyFire()

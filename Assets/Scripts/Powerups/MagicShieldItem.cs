@@ -1,18 +1,29 @@
+using MarblesAndMonsters.Characters;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicShieldItem : MonoBehaviour
+namespace MarblesAndMonsters.Items
 {
-    // Start is called before the first frame update
-    void Start()
+    public class MagicShieldItem : InventoryItem
     {
-        
-    }
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            //only Player objects can pickup and use 
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                if (Player.Instance != null)
+                {
+                    Player.Instance.AddItemToInventory(this.ItemStats);
+                    StartCoroutine(PickupItem());
+                }
+            }
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private IEnumerator PickupItem()
+        {
+            yield return new WaitForSeconds(0.1f);
+            gameObject.SetActive(false);
+        }
     }
 }

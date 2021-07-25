@@ -38,6 +38,11 @@ namespace MarblesAndMonsters.Characters
         private GlobalLight globalLight;
         private PlayerTorch playerTorch;
 
+        //special abilities
+        [SerializeField]
+        public ForceBubble forceBubble;
+        public float ForceBubbleDuration = 3.0f;
+
         public List<InventorySlot> Inventory => inventory;//read only accessor shorthand
                                                       //HealthBarController healthBarController;
         public List<KeyItem> KeyChain => keyChain;
@@ -223,7 +228,7 @@ namespace MarblesAndMonsters.Characters
                     }
                 }
             }
-            Debug.Log("Player added a " + itemStats.name + "to inventory!");
+            Debug.Log("Player added a " + itemStats.name + " to inventory!");
             PrintInventory();
         }
 
@@ -234,7 +239,7 @@ namespace MarblesAndMonsters.Characters
         {
             foreach(var item in inventory)
             {
-                Debug.Log(string.Format("  Item {0}: quantity = {1}, id = {2}", item.ItemStats.name, item.Quantity, item.Id));
+                Debug.Log(string.Format("PrintInventory() =>  Item {0}: quantity = {1}, id = {2}", item.ItemStats.name, item.Quantity, item.Id));
             }
         }
 
@@ -306,6 +311,12 @@ namespace MarblesAndMonsters.Characters
         private void UpdateInventoryUI()
         {
             GameMenu.Instance.inventoryUI.UpdateUI(inventory.Select(x => x.ItemStats.InventoryIcon).ToList());
+        }
+
+        public void UseForceBubble()
+        {
+            forceBubble.Activate(ForceBubbleDuration);
+            ApplyInvincible(ForceBubbleDuration);
         }
 
         private void SetSpawnLocation()
