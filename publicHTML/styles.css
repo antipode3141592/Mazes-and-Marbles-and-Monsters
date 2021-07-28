@@ -62,3 +62,10 @@ article img {
     margin: 0px auto;
 }
 
+article .caption {
+    margin: 8px auto;
+}
+
+a .strikeout {
+    text-decoration:line-through;
+}

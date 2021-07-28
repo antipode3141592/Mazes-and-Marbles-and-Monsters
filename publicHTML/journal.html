@@ -17,13 +17,202 @@
             <a href="gallery.html">Gallery</a>
             <a href="about.html">About</a>
         </nav>
-        
+        <section>
+            <p>My development journal in a relatively raw form.  Typically, I use Google docs for capturing my thoughts in the moment, then later I edit and mark them up for posting here.</p>
+            <p>I built a few game prototypes using Unity in 2016 and 2017 and then didn't get back into it until February 2020.  This time, I got a <a href="https://learn.unity.com/">Unity Learn</a> account and really started digging in.  I've always enjoyed marble labrinth games and have had the idea of a "living marble labrinth" for years, so it seemed like a simple enough idea to use as my first project.</p>
+            <p>It was easy enough to get a playable demo of the idea using some free assets and the PlayMaker plugin.  Once I was able to play it a bit with some basic traps and a basic following monster (no pathfinding, just a vector pointing at the player), it felt fun.  Next, I started making some custom art assets, just to see what the process of making 2d retro art for a game would be like, and after I saw my goofy initial animation of the Player "walking" in the game, I was hooked.  Making games is fun!  (but holy cow, it's a LOT of work)</p>
+        </section>
         <section id="journalentries">
+            <article class="journalentry" name="j07242021" id="j07242021">
+                <h2>July 24, 2021</h2>
+                <p>Making progress on the Quick Access system.  I created a simple container class, InventorySlot, that I can create a List of for tracking inventory items.</p>
+                <pre>
+                    <code class="language-csharp">
+                        public class InventorySlot
+                        {
+                            public ItemStatsBase ItemStats;
+                            public int Quantity;
+                            public bool IsAvailable;
+                            public int QuickAccessSlot;  //0-index for quick access slots, negative indicates no assignment
+
+                            public string Id => ItemStats.Id;
+
+                            public InventorySlot(ItemStatsBase itemStats, int quantity = 1, bool isAvailable = true, int quickAccessSlot = -1)
+                            {
+                                ItemStats = itemStats;
+                                Quantity = quantity;
+                                IsAvailable = isAvailable;
+                                QuickAccessSlot = quickAccessSlot;
+                            }
+                        }
+                    </code>
+                </pre>
+                <p>Currently, the code uses LINQ to query the InventoryList for specific Ids, but that may get updated to a Dictionary with the ID as the key, or even a database.  Will worry about making it faster later (if performance needs improvement).</p>
+                <p>The next functionality to add is a click-and-drag system for assigning quick slot items/abilities in an inventory popup.  Also, the inventory popup.  </p>
+
+            </article>
+
+            <article class="journalentry" name="j07142021" id="j07142021">
+                <h2>July 14, 2021</h2>
+                <p>I’ve spent a few days tooling around with the Inventory system, first, hacking together some UI buttons that call an Action function on the inventory item.  The first item is a new version of the simple healing potion - a consumable/stackable item that will restore some number of hit points when used.  The intended sequence for picking up an item:</p>
+
+                    <ol>
+                        Player collides with ItemObject on map
+                        <li>If item is Instant Use, take the Item Action immediately, then proceed to (6)</li>
+                        <li>Add the Item to the Player Inventory:</li>
+                        <ol>
+                            <li>If Item is stackable/consumable and an item with the same Id is in the Player Inventory, increment the Quantity of that item in inventory</li>
+                            <li>Else if Item is not stackable/consumable and an item with the same Id is in the Player inventory,</li>
+                        </ol>
+                        If a Quick Slot is available, add the item to the first available Quick Slot
+                        If item is added to Quick Slot, update Quick Slot UI
+                        Disable the ItemObject on the map
+                    </ol>
+                    
+                    <ul>
+                        Types of Items:
+                        <li>Consumable/Stackable - stored in inventory, reduces quantity when used, begin cooldown. When Quantity = 0, remove from inventory automatically</li>
+                        <li>Instant Use - not stored in inventory, Action is applied immediately upon pickup, no cooldown (limited by number of items on the game board)</li>
+                        <li>Usable Magic - a unique item stored in inventory.  apply action when used and begin a cooldown</li>
+                        <li>Static Magic - a unique item stored in inventory.  can be added to an equip slot to apply a constant effect.  cannot be added to quick slot.</li>
+                    </ul>
+                    
+                    <ol>
+                        Using an Item:
+                        <li>Click on Quick Slot of item</li>
+                        <li>If item in Cooldown, no effect</li>
+                        If item activation criteria is met, apply item Action,
+                        start Cooldown timer
+                        Else no effect
+                    </ol>
+            </article>
+
+            <article class="journalentry" name="j06302021" id="j06302021">
+                <h2>June 30, 2021</h2>
+                <p>Been working on getting the game working with no bugs, such as mistimed animation states (particularly when a death animation plays and the animator moves to the Exit state.  this would automatically reset to the Enter state, which automatically transitions to the Idle state, so you’d see a frame or two of the character in their idle state after they died), UI showing old/inaccurate data, etc.</p>
+
+                <p>Early on, I added object pooling to each spawnpoint, but after lots of weird workarounds and unexpected behaviors, I decided to remove all object pooling, and simply destroy and instantiate objects.  There just isn’t enough churn of characters to warrant it.  Even instantiating a new Player is fast.  I need to do some profile testing to see how many characters it can handle.</p>
+            </article>
+
+            <article class="journalentry" name="j06202021" id="j06202021">
+                <h2>June 20, 2021</h2>
+                <p>Haven’t been doing much work <a class="strikeout">since Mass Effect Legendary Edition released</a> over the last month, but I’m getting back into the swing of it.  I’m getting a better sense of how much work there is to do for the pixel art, and what graphical features I’d like to include (depending on performance of target devices):</p>
+                <h3>Post Processing</h3>
+                <p>Bloom - this requires saving a separate layer defining the bloom for each frame.  did not have discernable performance penalty and looks really good for the fire animations (and will look good for various glowing effects like the shield sphere effect)</p>
+
+                <h3>Particle Effects</h3>
+                <p>Careful application of small particle effects can add a lot of life to the animations</p>
+                <ul>
+                    <li>Fire - smoke and ember particles</li>
+                    <li>Invincibility - sparks/sparkles</li>
+                    <li></li>
+                </ul>
+
+                <h3>Realtime Lighting</h3>
+                <p>Shadows - this is the most resource intensive effect (in this game, anyway) and 2d shadows are still an experimental feature, so there’s not all the features and compatibilities that I’d like.  ShadowCaster2d objects must be added either by hand or via a script.</p>
+
+                <img src="../publicHTML/resources/Image 042.png">
+                <p class="caption">Marbles.  ShadowCaster2d object doesn’t work with CircleColliders at the moment, so I opted to use the Edit Shape option in the ShadowCaster and drew a dodecagon.  Works well.</p>
+
+                <img src="../publicHTML/resources/June 29_1.png">
+                <p class="caption">The wall shadows are… tricky.</p>
+
+                <p>The above was made using a script that generates the ShadowCaster2Ds from the composite colliders of the wall tilemap.  The perspective warping I chose for the walls doesn’t quite work with the shadows yet.  If I adjust the colliders on the wall tile sprites, I could improve placement of shadows, but anything like the wall torches that are visible “above” the top section of the wall</p>
+
+            </article>
+            
+            <article class="journalentry" name="j06052021" id="j06052021">
+                <h2>June 5, 2021</h2>
+                <p>Reworking the Inventory system to separate the keys from the regular inventory items - Player now has an Inventory of InventoryItems and a KeyChain of KeyItems.  InventoryItems can be assigned to the quick access menu via the Backpack and each InventoryItem has a special action when activated.  InventoryItems are tracked in .  KeyItems are added to the player’s KeyChain, which is displayed on the GameMenu, and used to open Gates (and other ILockable objects) - Keys are consumed when used (so no need to persist the keys).</p>
+            </article>
+            
+            <article class="journalentry" name="j06012021" id="j06012021">
+                <h2>June 1, 2021</h2>
+                <p>Like a modern action RPG’s radial menu, the backpack/inventory screen should be compact, central, and slow (not stop) time.  Of course, this will only matter if I come up with enough interesting powers/items that the player will want to hot-swap during gameplay.</p>
+
+                <p>Added a basic Forest Maze tileset with a rule tile and custom physics shapes.  48 tiles are needed for tiling basically any filled or hollow 2d shape.  For my initial stone tileset, I chose a smaller 16 tile model for filling any hollow 2d shape.</p>
+                    
+                <img src="../publicHTML/resources/DungeonWalls.png">
+                <p class="caption">An early stone wall tileset. I chose overhead lighting with a slight southeast facing.</p>
+                    
+                <img src="../publicHTML/resources/Forest Tiles Draft.png">
+                <p class="caption">First draft of the forest tiles, determining the edge pixels for smooth transitions in all combinations.</p>
+                    
+                <img src="../publicHTML/resources/Image 035.png">
+                <p>Testing the rule tile.  Checking for consistency with the custom physics shapes, as well as the borders.  A floor-adjacent edge has 3px floor bright, 3px floor dark, 2px foliage dark, and foliage-adjacent edges.  I’m not sure how to duplicate custom physics shapes, but it was easy to create a preset for the rule tile settings.  It took about a day to create from mostly scratch - I used my stone wall set as the base shapes.  The next tileset I create will use this forest tileset as the baseline.  One thought for a better workflow might be to create a layer for the physics shape, so each tileset would have three layers:  (a) Image, (b) physics shape, (c) HDR bloom.</p>
+                
+                <img src="..//publicHTML/resources/Image 038.png">
+                <p class="caption">After the initial pass, I added some more color splotches to see how they tile.  I think some alternate tiles are in order for the central tile and the long wall tiles</p>
+                
+                <img src="../publicHTML/resources/Image 033.png">
+                <p class="caption">With one tile, the long wall looks too samey.</p>
+            </article>
+
+            <article class="journalentry" name="j05282021" id="j05282021">
+                <h2>May 28, 2021</h2>
+                <p>Added some details to the Art Direction section.  Decided on 1px solid black borders for characters, 1px solid white borders for UI icons.  Use max 16 colors per sprite as a guideline (player will likely use slightly more).</p>
+
+                <p>Been spending time on art/animations.  The <a href="https://www.cosmigo.com/pixel_animation_software/plugins/available-plugins">rotation plugin</a> for Pro Motion NG really helps in creating the 8 directional sprites (NN, NE, EE, SE, etc.).  For now, I’m making a EE and SE sprite and then using the rotate tool to create the other six rotations.  For the five value shading, this does create some incongruent shading between the character and background, but in practice it’s not very noticeable (similar to how flipping a sprite in a 2d platformer isn’t really noticed).  Completed the walk and run cycles for the player, and the 8 directional movement looks good. </p>
+            </article>
+            
+            <article class="journalentry" name="j05122021" id="j05122021">
+                <h2>May 12, 2021</h2>
+                <p>Ok, it’s time to actually put some effort into art design for the main character.  For simplicity, there will be a single player character.  Once a base design is fully implemented (all animations, one hair style, one clothing set), I can get a better idea how much effort it will be to add customizable clothes and hair.  Drawing and exporting the animations in layers is probably the best bet - base layer for the character with separate layers for clothes and hair.  Doing palette swaps on the various layers should be simple, but I’m unsure whether that should be handled in Unity at runtime, or these should be in ProMotion and stored as separate sprites.</p>
+
+                    
+                <ol>Player Animation States
+                    <li>Moving
+                        <ol>
+                            <li>Idle:	< 0.1 speed </li>
+                            <li>Walk Slow:	0.1 < speed < 1</li>
+                            <li>Walk:	1 < speed < 5</li>
+                            <li>Run:	5 < speed < 10</li>
+                            <li>Sprint:	10 < speed</li>
+                        </ol>
+                    </li>
+                    <li>Dying
+                        <ol>
+                            <li>Falling</li>
+                            <li>Drowning</li>
+                        </ol>
+                    </li>
+                    <li>Getting Hit
+                        <ol>
+                            <li>Standard Hit</li>
+                            <li></li>
+                        </ol>
+                    </li>
+                    <li>Timed Effects
+                        <ol>
+                            <li>Poisoned</li>
+                            <li>On Fire</li>
+                            <li>Frozen</li>
+                            <li>Sleeping</li>
+                            <li>Invincible</li>
+                        </ol>
+                    </li>
+                    <li>Actions
+                        <ol>
+                            <li>Cast Spell</li>
+                        </ol>
+                    </li>
+                </ol>
+                    
+            </article>
+
+            <article class="journalentry" name="j05112021" id="j05112021">
+                <h2>May 11, 2021</h2>
+                <p>Been getting frustrated with the programming side of the animation process (the art process is super fun, though tedious).  I would love a more programmatic approach, but so much of the educational content is geared towards beginners and not best practices.  <a href="https://youtu.be/nBkiSJ5z-hE">This video</a> had some good content for frame-based animation in Unity.  Unity is really geared towards 3d first, and skeleton animation 2nd, and frame-based 2d sprite animation is shoehorned into that system.  Instead of using blend trees and a bunch of transitions, you can use animator.Play({hash for animation name}) to play animations directly.  You can also grab the animation length by animator.GetCurrentAnimatorStateInfo(0)[0].clip.length, which is handy, but can give results you may not expect if you are controlling animations via script (such as triggering an animation and then wait for the length of that animation, you may get the length of the previous clip if the animator state hasn’t updated by the time you try to get the length).</p>
+            </article>
+            
+            <article class="journalentry" name="j05102021" id="j05102021">
+                <h2>May 10, 2021</h2>
+                <p>Looked for ways to display source-code cleanly and decided on <a href="https://prismjs.com/index.html">Prism</a>.  Was easy to add and use with no real configuration, with the option for a good assortment of features.</p>
+            </article>
+
             <article class="journalentry" name="j05092021" id="j05092021">
                 <h2>May 9, 2021</h2>
-                <p>Converted these journal entries into html for the github page.  Will soon stop writing journal entries here (google docs) and write  directly to the website (which is part of the whole project on github anyway).  Added a rudimentary Inventory screen.  The goal will to have a backpack where the player can assign special powers to the item hotkeys on the gamescreen.  Game does not pause while backpack is open, so the player will have to keep their device stable while managing their hotkeys - this is to give the player the flexibility to swap powers mid level, but at the cost of needing to find a stable/safe spot to stop (unlike, say, Skyrim - where you can eat 99 cheese wheels in an instant, pause the game to regroup, etc).  I don’t know what the “correct” number of quickslots is - maybe 2 or 3?  I feel that more would crowd the screen.</p>
-
-                <p></p>
+                <p>Converted these journal entries into html for the github page (considered making a simple Wordpress site, but github pages has the distinct advantage of being completely free).  Will soon stop writing journal entries here (google docs) and write directly to the website (which is part of the whole project on github anyway).  Added a rudimentary Inventory screen.  The goal will be to have a backpack where the player can assign special powers to the item hotkeys on the game screen.  Game does not pause while backpack is open, so the player will have to keep their device stable while managing their hotkeys - this is to give the player the flexibility to swap powers mid level, but at the cost of needing to find a stable/safe spot to stop (unlike, say, Skyrim - where you can eat 99 cheese wheels in an instant, pause the game to regroup, etc).  I still don’t know what the “correct” number of quickslots is - maybe 2 or 3?  I feel that more would crowd the screen, but I only have a few types of powers.  Oh, but potions!</p>
             </article>
 
             <article class="journalentry" name="j05082021" id="j05082021">
@@ -424,7 +613,9 @@
         </section>
         
         <footer>
-            <p>Sean Kirkpatrick, All Rights Reserved</p>
+            <p>Sean Kirkpatrick, All Rights Reserved 2020-2021</p>
+
+            <p>This game and site are both works in progress!  It's just me, so it'll be a while...</p>
         </footer>
         <script src="prism.js"></script>
     </body>

@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <link rel="stylesheet" href="./publicHTML/styles.css">
+        <link rel="stylesheet" href="./publicHTML/prism.css">
         <title>Marbles, Monsters, &amp; Mazes - Home</title>
     </head>
     <body>
@@ -17,21 +18,41 @@
             <a href="./publicHTML/about.html">About</a>
         </nav>
         <section id="Intro">
-            <p>Better write something good here!</p>
+            <p>Marbles, Monsters, &amp; Mazes is a top-down, physics-based action puzzler with retro 16-bit style.  It is my most developed game project to date, and this site is for sharing my progress.  The site looks like a potato currently, but I will get around to styling it...  probably.</p>
         </section>
         <section id="journal">
-            <h2>April 24th, 2021</h2>
-            <p>Vivamus integer non suscipit taciti mus etiam at primis tempor sagittis sit, euismod libero facilisi aptent elementum felis blandit cursus gravida sociis erat ante, eleifend lectus nullam dapibus netus feugiat curae curabitur est ad. Massa curae fringilla porttitor quam sollicitudin iaculis aptent leo ligula euismod dictumst, orci penatibus mauris eros etiam praesent erat volutpat posuere hac. Metus fringilla nec ullamcorper odio aliquam lacinia conubia mauris tempor, etiam ultricies proin quisque lectus sociis id tristique, integer phasellus taciti pretium adipiscing tortor sagittis ligula.</p>
+            <h2><a href="./publicHTML/journal.html">Latest Post: July 24, 2021</a></h2>
+            <p>Making progress on the Quick Access system.  I created a simple container class, InventorySlot, that I can create a List of for tracking inventory items.</p>
+                <pre>
+                    <code class="language-csharp">
+                        public class InventorySlot
+                        {
+                            public ItemStatsBase ItemStats;
+                            public int Quantity;
+                            public bool IsAvailable;
+                            public int QuickAccessSlot;  //0-index for quick access slots, negative indicates no assignment
 
-            <p>Mollis pretium lorem primis senectus habitasse lectus scelerisque donec, ultricies tortor suspendisse adipiscing fusce morbi volutpat pellentesque, consectetur mi risus molestie curae malesuada cum. Dignissim lacus convallis massa mauris enim ad mattis magnis senectus montes, mollis taciti phasellus accumsan bibendum semper blandit suspendisse faucibus nibh est, metus lobortis morbi cras magna vivamus per risus fermentum. Dapibus imperdiet praesent magnis ridiculus congue gravida curabitur dictum sagittis, enim et magna sit inceptos sodales parturient pharetra mollis, aenean vel nostra tellus commodo pretium sapien sociosqu.</p>
+                            public string Id => ItemStats.Id;
+
+                            public InventorySlot(ItemStatsBase itemStats, int quantity = 1, bool isAvailable = true, int quickAccessSlot = -1)
+                            {
+                                ItemStats = itemStats;
+                                Quantity = quantity;
+                                IsAvailable = isAvailable;
+                                QuickAccessSlot = quickAccessSlot;
+                            }
+                        }
+                    </code>
+                </pre>
+                <p>Currently, the code uses LINQ to query the InventoryList for specific Ids, but that may get updated to a Dictionary with the ID as the key, or even a database.  Will worry about making it faster later (if performance needs improvement).</p>
+                <p>The next functionality to add is a click-and-drag system for assigning quick slot items/abilities in an inventory popup.  Also, the inventory popup.  </p>
         </section>
-        <aside>
-            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit, urna consequat felis vehicula class ultricies mollis dictumst, aenean non a in donec nulla. Phasellus ante pellentesque erat cum risus consequat imperdiet aliquam, integer placerat et turpis mi eros nec lobortis taciti, vehicula nisl litora tellus ligula porttitor metus. </p>
-        </aside>
         
-
         <footer>
-            <p>Sean Kirkpatrick, All Rights Reserved</p>
+            <p>Sean Kirkpatrick, All Rights Reserved 2020-2021</p>
+
+            <p>This game and site are both works in progress!  It's just me, so it'll be a while...</p>
         </footer>
+        <script src="./publicHTML/prism.js"></script>
     </body>
 </html>
