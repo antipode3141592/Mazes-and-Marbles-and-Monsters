@@ -5,9 +5,16 @@ a game by Sean Vo Kirkpatrick
 
 All Rights Reserved
 
-A marble roller and adventure roleplaying game with retro sound and visuals (8bit).  Currently in development.
+A marble roller and adventure roleplaying game with 16bit retro sound and visuals.  Currently in development.
 
-Design Document:
+Website:
+https://antipode3141592.github.io/Mazes-and-Marbles-and-Monsters/
+
+Design Doc:
+https://docs.google.com/document/d/11qK7cfK9LlB4x7PEFcE3yYa49anv8MWRw_wBOW5aJqg/edit?usp=sharing
+
+Design Journal:
 https://docs.google.com/document/d/1fRFSXKWJFm9H9Svx5vRLnmUum90gGcU5em7GkGJTBNA/edit?usp=sharing
+
 Class and State Diagrams:
-https://app.lucidchart.com/invitations/accept/0da93ea6-418c-4e5c-ad42-e140eecb527e
+https://lucid.app/folder/invitations/accept/inv_0e4197a2-6d78-4882-9b2f-b72f6e5f4f41
