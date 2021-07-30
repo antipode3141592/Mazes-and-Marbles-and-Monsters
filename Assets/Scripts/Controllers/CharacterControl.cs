@@ -15,10 +15,13 @@ namespace MarblesAndMonsters.Characters
 
     public abstract class CharacterControl: MonoBehaviour, IDamagable
     {
+        #region Properties
         //particle effects
         public ParticleSystem hitEffect;    //plays when stuck/attacked/damaged
         public ParticleSystem healEffect;   //plays when healing (players use a potion, monster regenerates, etc.)
         public ParticleSystem invincibilityEffect;
+        public ParticleSystem fireEffect;
+        public ParticleSystem levitationEffect;
 
         //rigidbody and collider references
         protected Rigidbody2D myRigidbody;
@@ -53,7 +56,7 @@ namespace MarblesAndMonsters.Characters
         protected bool Respawn = false;
 
         public CharacterSheet MySheet => mySheet; //read-only accessor for accessing stats directly (for hp, attack/def values, etc)
-
+        #endregion
 
         #region Unity Scripts
         protected virtual void Awake()
@@ -71,15 +74,20 @@ namespace MarblesAndMonsters.Characters
             aFloatLookY = Animator.StringToHash("Look Y");
             aTriggerDamageNormal = Animator.StringToHash("DamageNormal");
             aTriggerFalling = Animator.StringToHash("Falling");
-            aTriggerDeathByDamage = Animator.StringToHash("DeathByDamage");
-            
-            
+            aTriggerDeathByDamage = Animator.StringToHash("DeathByDamage");   
         }
 
         protected virtual void OnEnable()
         {
             ResetHealth();
             isDying = false;
+            //comment: subscribe!
+            MySheet.OnBurning += FireOnHandler;
+            MySheet.OnBurningEnd += FireOffHandler;
+            MySheet.OnInvincible += InvincibileOnHandler;
+            MySheet.OnInvincibleEnd += InvincibileOffHandler;
+            MySheet.OnLevitating += LevitateOnHandler;
+            MySheet.OnLevitatingEnd += LevitateOffHandler;
         }
 
         protected virtual void Start()
@@ -89,47 +97,20 @@ namespace MarblesAndMonsters.Characters
                 Debug.Log(String.Format("{0} has been added to Characters on GameController", this.gameObject.name));
             }
             //animator.SetBool("Falling", false);
+            
         }
 
-        //saddest state machine
         protected virtual void Update()
         {
-            //default Update action
-
             //grab acceleration input
             SetLookDirection();
-
-            //state checks:
-            //  invincible
-            if (mySheet.IsInvincible)
-            {
-                mySheet.InvincibleTimeCounter -= Time.deltaTime;
-                if (mySheet.InvincibleTimeCounter <= 0.0f)
-                {
-                    mySheet.IsInvincible = false;
-                    //disable invincibility effect
-                    invincibilityEffect.Stop();
-                }
-            }
-            //  fire - if firetoken.count > 0, take 1 damage and remove fire token
-            //  poison - if poison... "  "
-            //  frozen - ... "   "
-            //  death for 0 or less hp
-            //if (mySheet.CurrentHealth <= 0)
-            //{
-            //    Debug.Log("death check from charactersheetcontroller update()");
-            //    CharacterDeath(DeathType.Damage);
-            //}
             animator.SetFloat(aFloatSpeed, myRigidbody.velocity.magnitude);
         }
 
-        //protected virtual void FixedUpdate()
-        //{
-        //    animator.SetFloat(aFloatSpeed, myRigidbody.velocity.magnitude);
-        //}
-
         protected virtual void OnDisable()
-        {   
+        {
+            MySheet.OnBurning -= FireOnHandler;
+            MySheet.OnBurningEnd -= FireOffHandler;
             //if this character is the respawning type, start the spawn coroutine
             if (mySheet.RespawnFlag)
             {
@@ -141,7 +122,7 @@ namespace MarblesAndMonsters.Characters
         }
         #endregion
 
-        #region Damage and Effects
+        #region Damage and Powers
         public virtual void TakeDamage(int damageAmount, DamageType damageType)
         {
             try
@@ -193,15 +174,45 @@ namespace MarblesAndMonsters.Characters
 
         public virtual void ApplyInvincible(float duration)
         {
-            mySheet.IsInvincible = true;
-            //apply invincibility effect
-            invincibilityEffect.Play();
-            mySheet.InvincibleTimeCounter = duration;
+            MySheet.IsInvincible = true;
+            MySheet.InvincibleTimeCounter = duration;
+        }
+
+        void InvincibileOnHandler(object sender, EventArgs e)
+        {
+            if (invincibilityEffect)
+            {
+                invincibilityEffect.Play();
+            }
+        }
+
+        void InvincibileOffHandler(object sender, EventArgs e)
+        {
+            if (invincibilityEffect)
+            {
+                invincibilityEffect.Stop();
+            }
         }
 
         internal virtual void ApplyFire()
         {
             //add 
+        }
+
+        void FireOnHandler(object sender, EventArgs e)
+        {
+            if (fireEffect)
+            {
+                fireEffect.Play();
+            }
+        }
+
+        void FireOffHandler(object sender, EventArgs e)
+        {
+            if (fireEffect)
+            {
+                fireEffect.Stop();
+            }
         }
 
         internal virtual void ApplyPoison()
@@ -219,6 +230,36 @@ namespace MarblesAndMonsters.Characters
             myRigidbody.AddForce(force, ForceMode2D.Impulse);
         }
 
+        public void ApplyLevitate(float duration)
+        {
+            MySheet.IsLevitating = true;
+            MySheet.LevitatingTimeCounter = duration;
+        }
+
+        void LevitateOnHandler(object sender, EventArgs e)
+        {
+            if (levitationEffect)
+            {
+                levitationEffect.Play();
+            }
+        }
+        void LevitateOffHandler(object sender, EventArgs e)
+        {
+            if (levitationEffect)
+            {
+                levitationEffect.Stop();
+            }
+        }
+
+        public void ApplyFalling(Vector3 position)
+        {
+            if (!MySheet.IsLevitating)
+            {
+                myRigidbody.MovePosition(position);
+                CharacterDeath(DeathType.Falling);
+            }
+        }
+
         public virtual bool HealDamage(int healAmount)
         {
             return false;
@@ -230,7 +271,7 @@ namespace MarblesAndMonsters.Characters
         }
         #endregion
 
-        #region Life and Death
+        #region Spawning and Dying
         internal virtual void SetSpawnPoint(SpawnPoint _spawnPoint)
         {
             spawnPoint = _spawnPoint;

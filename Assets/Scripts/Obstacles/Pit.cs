@@ -23,13 +23,12 @@ namespace MarblesAndMonsters.Objects
             {
                 var position = other.transform.position;
                 var tilemapPosition = tileMap.WorldToCell(position);
-                other.attachedRigidbody.MovePosition(CenteredTilemapPosition(tilemapPosition));
-                character.CharacterDeath(DeathType.Falling);
+                character.ApplyFalling(tilemapPosition);
             }
         }
 
         //utility script to apply an offset to an input vector3int 
-        public Vector3 CenteredTilemapPosition(Vector3Int tilemapPosition)
+        static public Vector3 CenteredTilemapPosition(Vector3Int tilemapPosition)
         {
             Vector3 offset = new Vector3(0.5f, 0.5f);
             return (Vector3)tilemapPosition + offset;

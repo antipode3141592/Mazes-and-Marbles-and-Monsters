@@ -14,7 +14,7 @@ namespace MarblesAndMonsters.Items
         
 
 
-        //potion is consumed immediately (it would feel weird to have to activate it 
+        //potion is consumed immediately (it would feel weird to have to activate it) 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Player"))

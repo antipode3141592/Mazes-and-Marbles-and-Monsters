@@ -5,16 +5,16 @@ using UnityEngine;
 
 namespace MarblesAndMonsters.Items
 {
-    [CreateAssetMenu(menuName = "Stats/Item Stats/Magic Shield Item Stats")]
-
-    public class MagicShieldItemStats : ItemStats
+    [CreateAssetMenu(menuName = "Stats/Item Stats/Levitating Item Stats")]
+    public class LevitatingItemStats : ItemStats
     {
+        public float Duration;
         public override void Action()
         {
             base.Action();
             if (Player.Instance != null)
             {
-                Player.Instance.UseForceBubble();
+                Player.Instance.ApplyLevitate(Duration);
             }
         }
     }

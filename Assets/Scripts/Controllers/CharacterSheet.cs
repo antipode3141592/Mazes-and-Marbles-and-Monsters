@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using MarblesAndMonsters.Actions;
+using System;
 
 namespace MarblesAndMonsters.Characters
 {
@@ -12,6 +13,15 @@ namespace MarblesAndMonsters.Characters
     //      Moves (
     //  Dependencies:
     //      CharacterBaseStats - each type of character has a corresponding scriptable object containing the base stats
+
+    public class CharacterStateEventArgs: EventArgs
+    {
+        public string Message { get; set; }
+        CharacterStateEventArgs(string message)
+        {
+            Message = message;
+        }
+    }
 
     public class CharacterSheet: MonoBehaviour
     {
@@ -32,16 +42,23 @@ namespace MarblesAndMonsters.Characters
         [SerializeField]
         private bool isAsleep;
         private bool isPoisoned;
-        private bool isAflame;
+        private bool isBurning;
         private bool isFrozen;
         private bool isInvincible;
-        //[SerializeField]
-        //private Vector3 spawnPoint;
+        private bool isLevitating;
+
+        public event EventHandler OnBurning;
+        public event EventHandler OnBurningEnd;
+        public event EventHandler OnInvincible;
+        public event EventHandler OnInvincibleEnd;
+        public event EventHandler OnLevitating;
+        public event EventHandler OnLevitatingEnd;
 
         private float sleepTimeCounter;
         private float poisonTimeCounter;
-        private float fireTimeCounter;
+        private float burnTimeCounter;
         private float invincibleTimeCounter;
+        private float levitatingTimeCounter;
 
         protected List<Movement> movements;
 
@@ -58,20 +75,65 @@ namespace MarblesAndMonsters.Characters
         public int MaxHealth { get { return maxHealth; } set { maxHealth = value; } }
 
         public bool IsAsleep => isAsleep;
-        public bool IsPoisoned => isPoisoned;
-        public bool IsAflame => isAflame;
+        public bool IsPoisoned { get; set; }
+        public bool IsBurning 
+        { 
+            get {
+                return isBurning;
+            }
+            set {
+                isBurning = value;
+                if (value)
+                {
+                    OnBurning?.Invoke(this, EventArgs.Empty);
+                } else
+                {
+                    OnBurningEnd?.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
         public bool IsFrozen => isFrozen;
-        public bool IsInvincible { get { return isInvincible; } set { isInvincible = value; } }
-
+        public bool IsInvincible 
+        { 
+            get { return isInvincible; } 
+            set {
+                isInvincible = value; 
+                if (value)
+                {
+                    OnInvincible?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    OnInvincibleEnd?.Invoke(this, EventArgs.Empty);
+                }
+            } 
+        }
+        public bool IsLevitating 
+        { 
+            get { return isLevitating; } 
+            set { 
+                isLevitating = value;
+                if (value)
+                {
+                    OnLevitating?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    OnLevitatingEnd?.Invoke(this, EventArgs.Empty);
+                }
+            } 
+        }
         public float SleepTimeCounter { get => sleepTimeCounter; set => sleepTimeCounter = value; }
         public float PoisonTimeCounter { get => poisonTimeCounter; set => poisonTimeCounter = value; }
-        public float FireTimeCounter { get => fireTimeCounter; set => fireTimeCounter = value; }
+        public float FireTimeCounter { get => burnTimeCounter; set => burnTimeCounter = value; }
         public float InvincibleTimeCounter { get => invincibleTimeCounter; set => invincibleTimeCounter = value; }
-
+        public float LevitatingTimeCounter { get => levitatingTimeCounter; set => levitatingTimeCounter = value; }
 
         //read-only accessors
         public List<DamageType> DamageImmunities => damageImmunities;
         public List<Movement> Movements => movements;
+
+
 
         #region Unity Functions
         private void Awake()
@@ -84,17 +146,51 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
+        private void Update()
+        {
+            var dT = Time.deltaTime;
+            
+            //decrement state counters
+            if (IsInvincible)
+            {
+                invincibleTimeCounter -= dT;
+                if (invincibleTimeCounter < 0.0f)
+                {
+                    invincibleTimeCounter = 0.0f;
+                    IsInvincible = false;
+                }
+            }
+            if (IsLevitating)
+            {
+                levitatingTimeCounter -= dT;
+                if (levitatingTimeCounter < 0.0f)
+                {
+                    levitatingTimeCounter = 0.0f;
+                    IsLevitating = false;
+                }
+            }
+            if (IsPoisoned)
+            {
+                poisonTimeCounter -= dT;
+                if (poisonTimeCounter < 0.0f)
+                {
+                    poisonTimeCounter = 0.0f;
+                    IsPoisoned = false;
+                }
+            }
+            if (IsBurning)
+            {
+                burnTimeCounter -= dT;
+                if (burnTimeCounter < 0.0f)
+                {
+                    burnTimeCounter = 0.0f;
+                    IsBurning = false;
+                }
+            }
+        }
         #endregion
 
-        public void Wakeup()
-        {
-            isAsleep = false;
-        }
 
-        public void PutToSleep()
-        {
-            isAsleep = true;
-        }
 
         public void SetInitialStats()
         {
@@ -107,7 +203,4 @@ namespace MarblesAndMonsters.Characters
             damageImmunities = baseStats.DamageImmunities;
         }
     }
-
-
-
 }

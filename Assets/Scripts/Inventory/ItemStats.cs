@@ -25,7 +25,7 @@ namespace MarblesAndMonsters
         /// </summary>
         public virtual void Action()
         {
-            
+            Debug.Log(string.Format("base Action() called for ItemStats with ID = {0}", Id));
         }
     }
 }
