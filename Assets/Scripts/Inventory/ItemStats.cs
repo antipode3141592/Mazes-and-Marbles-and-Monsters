@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MarblesAndMonsters.Events;
 
 namespace MarblesAndMonsters
 {
@@ -17,8 +19,13 @@ namespace MarblesAndMonsters
         public bool Stackable;
         public Sprite InventoryIcon;
         public AudioClip ClipPickup;
+        public ActionName AssociatedAction;
+
+        public float EffectDuration;
+        public float CooldownDuration;
 
         public string Id => id;
+
 
         /// <summary>
         /// The game action performed by the item when used.  Can be used as callback for UI button presses

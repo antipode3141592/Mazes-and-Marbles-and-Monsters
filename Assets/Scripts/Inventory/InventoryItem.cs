@@ -38,14 +38,15 @@ namespace MarblesAndMonsters.Items
             return ItemStats.InventoryIcon;
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        protected virtual void OnTriggerEnter2D(Collider2D collision)
         {
             //only Player objects can pickup and use 
             if (collision.gameObject.CompareTag("Player"))
             {
                 if (Player.Instance != null)
                 {
-                    Player.Instance.AddItemToInventory(this.ItemStats);
+                    Debug.Log(string.Format("InventoryItem {0} has been picked up by player!", gameObject.name));
+                    Player.Instance.AddItemToInventory(ItemStats);
                     StartCoroutine(PickupItem());
                 }
             }

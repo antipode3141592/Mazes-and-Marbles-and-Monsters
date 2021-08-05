@@ -46,6 +46,7 @@ namespace MarblesAndMonsters.Menus
 
         public void OnBackpackPressed()
         {
+            Time.timeScale = 0.0f;
             MenuManager.Instance.OpenMenu(MenuTypes.BackpackMenu);
         }
     }

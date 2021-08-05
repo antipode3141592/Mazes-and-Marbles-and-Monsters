@@ -21,7 +21,7 @@ namespace MarblesAndMonsters.Characters
         public ParticleSystem healEffect;   //plays when healing (players use a potion, monster regenerates, etc.)
         public ParticleSystem invincibilityEffect;
         public ParticleSystem fireEffect;
-        public ParticleSystem levitationEffect;
+        //public ParticleSystem levitationEffect;
 
         //rigidbody and collider references
         protected Rigidbody2D myRigidbody;
@@ -86,8 +86,8 @@ namespace MarblesAndMonsters.Characters
             MySheet.OnBurningEnd += FireOffHandler;
             MySheet.OnInvincible += InvincibileOnHandler;
             MySheet.OnInvincibleEnd += InvincibileOffHandler;
-            MySheet.OnLevitating += LevitateOnHandler;
-            MySheet.OnLevitatingEnd += LevitateOffHandler;
+            //MySheet.OnLevitating += LevitateOnHandler;
+            //MySheet.OnLevitatingEnd += LevitateOffHandler;
         }
 
         protected virtual void Start()
@@ -111,6 +111,10 @@ namespace MarblesAndMonsters.Characters
         {
             MySheet.OnBurning -= FireOnHandler;
             MySheet.OnBurningEnd -= FireOffHandler;
+            MySheet.OnInvincible -= InvincibileOnHandler;
+            MySheet.OnInvincibleEnd -= InvincibileOffHandler;
+            //MySheet.OnLevitating -= LevitateOnHandler;
+            //MySheet.OnLevitatingEnd -= LevitateOffHandler;
             //if this character is the respawning type, start the spawn coroutine
             if (mySheet.RespawnFlag)
             {
@@ -230,25 +234,31 @@ namespace MarblesAndMonsters.Characters
             myRigidbody.AddForce(force, ForceMode2D.Impulse);
         }
 
-        public void ApplyLevitate(float duration)
-        {
-            MySheet.IsLevitating = true;
-            MySheet.LevitatingTimeCounter = duration;
-        }
+        //public void ApplyLevitate(float duration)
+        //{
+        //    MySheet.IsLevitating = true;
+        //    MySheet.LevitatingTimeCounter = duration;
+        //}
 
-        void LevitateOnHandler(object sender, EventArgs e)
+        //void LevitateOnHandler(object sender, EventArgs e)
+        //{
+        //    if (levitationEffect)
+        //    {
+        //        levitationEffect.Play();
+        //    }
+        //}
+        //void LevitateOffHandler(object sender, EventArgs e)
+        //{
+        //    if (levitationEffect)
+        //    {
+        //        levitationEffect.Stop();
+        //    }
+        //}
+
+        public void ApplyForceBubble(float duration)
         {
-            if (levitationEffect)
-            {
-                levitationEffect.Play();
-            }
-        }
-        void LevitateOffHandler(object sender, EventArgs e)
-        {
-            if (levitationEffect)
-            {
-                levitationEffect.Stop();
-            }
+            MySheet.Actions.Find(x => x.ActionName == ActionName.ForceBubble).Action();
+            //ApplyInvincible(duration);
         }
 
         public void ApplyFalling(Vector3 position)

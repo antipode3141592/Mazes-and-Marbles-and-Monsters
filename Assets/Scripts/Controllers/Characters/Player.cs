@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using MarblesAndMonsters.Menus.Components;
+using MarblesAndMonsters.Actions;
 
 namespace MarblesAndMonsters.Characters
 {
@@ -38,10 +39,10 @@ namespace MarblesAndMonsters.Characters
         private GlobalLight globalLight;
         private PlayerTorch playerTorch;
 
-        //special abilities
-        [SerializeField]
-        public ForceBubble forceBubble;
-        public float ForceBubbleDuration = 3.0f;
+        ////special abilities
+        //[SerializeField]
+        //public ForceBubbleAction forceBubble;
+        //public float ForceBubbleDuration = 3.0f;
 
         public List<InventorySlot> Inventory => inventory;//read only accessor shorthand
                                                       //HealthBarController healthBarController;
@@ -192,44 +193,25 @@ namespace MarblesAndMonsters.Characters
         /// <param name="itemToAdd"></param>
         public void AddItemToInventory(ItemStatsBase itemStats)
         {
-            if (inventory == null) { inventory = new List<InventorySlot>(); }
-            if (itemStats.Stackable && inventory.Exists(x => x.ItemStats.Id == itemStats.Id))
+            InventorySlot inventorySlot = new InventorySlot(itemStats);
+            inventory.Add(inventorySlot);
+            AddItemtoQuickAccess(inventorySlot);
+        }
+
+        public void AddItemtoQuickAccess(InventorySlot inventorySlot)
+        {
+            for (int i = 0; i < QuickAccessController.QuickSlotMax; i++)
             {
-                //if stackable and exists, update count
-                inventory.Find(x => x.ItemStats.Id == itemStats.Id).Quantity++;
-                var quickSlot = inventory.Find(x => x.ItemStats.Id == itemStats.Id).QuickAccessSlot;
-                //if quick access, update UI
-                if (quickSlot >= 0) 
-                { 
+                if (!inventory.Exists(x => x.QuickAccessSlot == i))
+                {
+                    inventorySlot.QuickAccessSlot = i;
                     if (GameMenu.Instance)
                     {
-                        GameMenu.Instance.quickAccessController.UpdateQuantity(quickSlot, 
-                            inventory.Find(x => x.ItemStats.Id == itemStats.Id).Quantity);
+                        GameMenu.Instance.quickAccessController.AssignQuickAccess(i, inventorySlot.ItemStats);
                     }
-                }
-                
-                //else add item to inventory as per usual
-            }
-            else
-            {
-                //else insert item into first slot of inventory inventory
-                inventory.Insert(0, new InventorySlot(itemStats, 1));
-                //check quick access slots
-                for (int i = 0; i < QuickAccessController.QuickSlotMax; i++)
-                {
-                    if (!inventory.Exists(x => x.QuickAccessSlot == i))
-                    {
-                        inventory[0].QuickAccessSlot = i;
-                        if (GameMenu.Instance)
-                        {
-                            GameMenu.Instance.quickAccessController.AssignQuickAccess(i,itemStats);
-                        }
-                        break;
-                    }
+                    break;
                 }
             }
-            Debug.Log("Player added a " + itemStats.name + " to inventory!");
-            PrintInventory();
         }
 
         /// <summary>
@@ -267,26 +249,26 @@ namespace MarblesAndMonsters.Characters
         /// </summary>
         /// <param name="Id">item Id to be consumed</param>
         /// <returns>true if item is correctly consumed, false if something went wrong</returns>
-        public bool ConsumeItem(string Id) 
-        {
-            if (inventory.Exists(x => x.Id == Id))
-            {
-                //var newQuantity = inventory.Find(x => x.Id == Id).Quantity--;
-                var quickSlot = inventory.Find(x => x.Id == Id).QuickAccessSlot;
-                inventory[quickSlot].Quantity--;
-                //if quantity is zero (or less, somehow?) remove the item from the quickslot and then remove from inventory
-                if (inventory[quickSlot].Quantity <= 0)
-                {
-                    GameMenu.Instance.quickAccessController.UnassignQuickAccess(quickSlot);
-                    inventory.Remove(inventory.Find(x => x.Id == Id));
-                } else {
-                    //update QuickAccessSlot Quantity
-                    GameMenu.Instance.quickAccessController.UpdateQuantity(quickSlot, inventory[quickSlot].Quantity);
-                }
-                return true;
-            }
-            return false;
-        }
+        //public bool ConsumeItem(string Id) 
+        //{
+        //    if (inventory.Exists(x => x.Id == Id))
+        //    {
+        //        //var newQuantity = inventory.Find(x => x.Id == Id).Quantity--;
+        //        var quickSlot = inventory.Find(x => x.Id == Id).QuickAccessSlot;
+        //        inventory[quickSlot].Quantity--;
+        //        //if quantity is zero (or less, somehow?) remove the item from the quickslot and then remove from inventory
+        //        if (inventory[quickSlot].Quantity <= 0)
+        //        {
+        //            GameMenu.Instance.quickAccessController.UnassignQuickAccess(quickSlot, inventory[quickSlot].ItemStats);
+        //            inventory.Remove(inventory.Find(x => x.Id == Id));
+        //        } else {
+        //            //update QuickAccessSlot Quantity
+        //            GameMenu.Instance.quickAccessController.UpdateQuantity(quickSlot, inventory[quickSlot].Quantity);
+        //        }
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
 
         public void AddToKeyChain(KeyItem keyToAdd)
@@ -313,11 +295,11 @@ namespace MarblesAndMonsters.Characters
             GameMenu.Instance.inventoryUI.UpdateUI(inventory.Select(x => x.ItemStats.InventoryIcon).ToList());
         }
 
-        public void UseForceBubble()
-        {
-            forceBubble.Activate(ForceBubbleDuration);
-            ApplyInvincible(ForceBubbleDuration);
-        }
+        //public void UseForceBubble(float duration)
+        //{
+        //    forceBubble.Activate(duration);
+        //    ApplyInvincible(duration);
+        //}
 
         private void SetSpawnLocation()
         {

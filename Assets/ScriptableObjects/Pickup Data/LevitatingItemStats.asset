@@ -16,4 +16,6 @@ MonoBehaviour:
   Stackable: 0
   InventoryIcon: {fileID: 21300000, guid: 5e9f3836beeaf4c4d90b30a12404a43f, type: 3}
   ClipPickup: {fileID: 0}
-  Duration: 3
+  AssociatedAction: 0
+  EffectDuration: 3
+  CooldownDuration: 3
