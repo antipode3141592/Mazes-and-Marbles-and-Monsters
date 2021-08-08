@@ -23,6 +23,66 @@
             <p>It was easy enough to get a playable demo of the idea using some free assets and the PlayMaker plugin.  Once I was able to play it a bit with some basic traps and a basic following monster (no pathfinding, just a vector pointing at the player), it felt fun.  Next, I started making some custom art assets, just to see what the process of making 2d retro art for a game would be like, and after I saw my goofy initial animation of the Player "walking" in the game, I was hooked.  Making games is fun!  (but holy cow, it's a LOT of work)</p>
         </section>
         <section id="journalentries">
+            <article class="journalentry" name="j08082021" id="j08082021">
+                <h2>August 8, 2021</h2>
+                <p>Already I’ve changed my mind on the menus for the Inventory.  It’s distracting to have the health bar and other ingame stats while tinkering with spell slots.  I’m going back to the idea of a separate full screen menu.  Oh, and I’m pretty sure on the spell theme, so I’ll be using runes and spell slots.  I can add in a staff upgrade system that will add up to four slots.  The real limit to active spell slots is physical size for finger placement.  The iPhone SE has 67mm width, the iPhone 4s 58.6mm width, and the Galaxy S9+ has a 73.9mm width so there’s reasonably 4 buttons at 15mm that can fit on a side with no gaps on the smallest phones.  (Note to self: acquire a potato for testing - some $50 prepaid Android).  To leave enough space for buttons, I’ll update the UI to move the pause and backpack icons to the left side so only spell slots are on the right.</p>
+
+                <img src="../publicHTML/resources/UI Stuff - Game Menu.png">
+
+                <p>I’m not crazy about the white areas above, but the green interactable areas feel correct and give enough space (just enough space for the smallest devices on the right-hand side).  The health bar’s top left placement is fairly common.  The keychain icons could be on the top bar.  I may not track the player deaths on the game screen.  Maybe the end-of-level screen could include the deaths and time information - stats more important as long term targets for subsequent playthroughs.  In the current run, the player only needs to know what their health is, what their active spells are, and how many collectibles (scrolls, statues, relics, etc) they have.</p>
+
+                <p>Sidenote, I’m watching speedruns and just heard the dev of My Friend Pedro mention their business model - the free to play version makes you restart when you die while the paid version allows you to continue from your point of death.  I’m not sure if they run ads on the free version, but it’s something to look into.  I have considered an ad-supported free version with an ad-free unlock (either as an in-app purchase or a separate “pro” version, or both?) as well as a completely free version with the paid version having the level editor (which I haven’t started developing yet) and access to user-generated levels (which requires infrastructure….).  Anyway, I do need to spend some time engineering a level editor and level save system.  I’m guessing it will be close to the json format from the Feb 23, 2021 journal entry.</p>
+
+                <p>Back to the Inventory menu.  This version of the Inventory screen displays all of the player’s spells, keys, and collectibles.  There’s plenty of space between the elements, and it’ll be easier to manage events if I don’t have to tango with the Game menu.  Also, there’s no way the player can accidentally exit the menu by dragging an icon to the right.</p>
+
+                <img src="../publicHTML/resources/UI Stuff - Inventory v3.png">
+
+            </article>
+            <article class="journalentry" name="j08072021" id="j08072021">
+                <h2>August 7, 2021</h2>
+                <p>Trying to get something as “simple” as a click-and-drag function working is… tricky.  The event system has fairly clear interfaces to implement for responding to inputs (IBeginDragHandler, IEndDragHandler, IDragHandler), but responding to clicks on game objects vs UI objects and vectors in worldspace or the UI space is confusing.  I’m also getting results I don’t expect when using click handlers on game objects and UI elements instantiated at runtime via script.</p>
+
+                <p>I updated to the new Input package to try out the newer event system (and to experiment with joystick/gamepad control of the board, so it could be played on any device with a gamepad.  also, to support the Switch, using the accelerometer for movement and buttons for actions), and noticed while using Unity Remote my clicking functions were no longer firing.  The accelerometer was still reading, so I tried rebooting.  I clicked with my mouse, and saw the click events were working, but not when using a touch press on my Remote.  After trying a few different configurations based on the new Input docs with no avail, I searched for more info on the Remote.  Turns out it hasn’t been meaningfully updated in years and the new Input system wasn’t created with the Remote in mind, so has limited functionality.  Very frustrating as the amount of mobile games that use Unity is huge, and most of us (if the forums are any indicator) use Remote to quickly iterate without having to do full builds.  Anyway, while we all wait for a new Remote, I can use it for the accelerometer in tandem with a mouse to click on things.  It’s weird, but works.</p>
+            </article>
+            <article class="journalentry" name="j08022021" id="j08022021">
+                <h2>August 2, 2021</h2>
+                <p>While implementing the Inventory Menu from a couple days ago, I thought of a slightly different layout and workflow for the user.  Instead of a separate menu, create a popup overlaying the game so the quickbar remains in place.  If the graphic looks like the player’s staff, it can reinforce the feel of readying a spell or installing a rune.  Still not sure the best way to represent the spell/item/power, but I’m leaning towards the rune - the actual pickup/item can be a book/scroll/tablet with the rune while the icon on the staff/quick bar can be a more simplified glyph.</p>
+                <img src="../publicHTML/resources/UI Stuff - Inventory v2.png">
+
+            </article>
+            <article class="journalentry" name="j07312021" id="j07312021">
+                <h2>July 31, 2021</h2>
+                <p>More inventory and quick access thoughts:  consumables are bad.  Or rather, I think I’ll stick with spells/powers.  Most of the potion ideas I had were items for removing bad status effects such as fire and poison or healing.  I’ve heard many arguments for and against consumables in games.  For many players, hoarding consumables and rarely if ever using them is the norm.  In each of my Skyrim playthroughs, for example, I have at least one chest with hundreds of scrolls and potions in addition to the several hundred potions and scrolls I carry on my person - and end the game chock full of consumables.</p>
+
+                <p>Sticking with powers/abilities with various cooldowns and limited active slots is much cleaner in a UI sense.  Text for displaying item quantity in a consistently readable way is hard for the quick access - especially with pixel art, where the text size increments are larger - so getting  rid of them entirely seems good.  Saves both coding and design time and makes for a simpler game mechanic.  I really want to avoid fiddly resource management and player item hoarding.  Removing healing potions and status effect removal potions makes health management more important, encouraging more thoughtful play (or rather, punishing reckless play).  I do want to include secondary effects and combination effects for the powers.  For example, the levitate ability creates a wind vortex around the character, so it could easily remove active fire effects from the character</p>
+
+                <img src="../publicHTML/resources/MMM_demo_08_01_2021.gif">
+
+                <p>Playing through levels with only the Force Bubble and Levitate powers is fun.   The prototype levitate power has no animation yet, just the swirling particles (which need to be more numerous, more tightly packed, and a closer radius around the character).  By eliminating consumables and sticking with powers, I can reduce the needed animations.  Player character identity is still evolving.  I like the idea of an archivist mage, armed only with defensive spells, exploring the map and recovering stolen artifacts and knowledge.  Instead of an abstract quick access bar, I can display the mage’s staff with slots for active spells.  Maybe the UI staff is animated with different color lights and particle effects to mimic what the character is doing?  Could be too distracting, but I’ll give it a try.  First, I need to make a ‘Cast Spell’ animation, where the player lifts their staff and it glows a variable color.  I only have a few spell ideas at the moment.</p>
+
+                <ol>Current Spell List
+                    <li>Force Bubble - invincible bubble (can still fall to death)</li>
+                    <li>Levitate - float for a brief time</li>
+                    <li>Freeze Time - freeze all non-player elements on board</li>
+                    <li>Transmute (monster type) - morph into a monster for a while</li>
+                </ol>
+                    
+            </article>
+            <article class="journalentry" name="j07302021" id="j07302021">
+                <h2>July 30, 2021</h2>
+                <p>As it turns out, Unity’s UI tools are… cumbersome.  WPF and JS/CSS are both sooo much easier to use for UI work, but that’s just me complaining.  There are a number of free/cheap assets I have looked into, but I don’t need or want complicated equipment (with head/chest/arm/whatever slots) or crating systems.</p>
+                <img src="../publicHTML/resources/InventoryUI Draft.png">
+                <p>This is my initial thought, a menu with two components, a Quick Access assignment bar with an icon for each quick slot, and an Inventory area with icons for each Inventory Slot (with numerical text for consumable item quantities).  When the menu is opened, the icons are populated from the data in the Player object.  Display order is stored and can be changed.  I don’t think that there will be more than 16 unique items/powers, but this menu should be able to scroll down.  I like a textless aesthetic and minimal UI.  As this is intended for mobile devices with touchscreens, so the icon tapping and dragging should be intuitive (but we’ll see what players actually do in playtesting, I suppose)</p>
+
+                <ol>Actions:
+                    <li>Quick Access Assignment - click/tap and drag the desired icon from Inventory to the Quick Access slot.</li>
+                    <li>click/tap and drag Quick Slot to Quickslot to swap assignments</li>
+                    <li>click/tap and drag outside of bounds to unassign that Quick Slot</li>
+                    <li>Organize Inventory - click/tap and drag an Inventory icon to another Inventory icon to swap the positions of the two items.</li>
+                    <li>Exit Menu - click/tap outside the bounds to return to the game</li>
+                </ol>
+                    
+            </article>
             <article class="journalentry" name="j07242021" id="j07242021">
                 <h2>July 24, 2021</h2>
                 <p>Making progress on the Quick Access system.  I created a simple container class, InventorySlot, that I can create a List of for tracking inventory items.</p>

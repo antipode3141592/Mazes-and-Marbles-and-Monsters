@@ -55,6 +55,7 @@ article img {
     border: 1px black solid;
     margin: 8px auto;
     display: block;
+    max-width: 100%;
 }
 
 #journalentries {

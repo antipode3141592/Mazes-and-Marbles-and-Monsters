@@ -21,31 +21,20 @@
             <p>Marbles, Monsters, &amp; Mazes is a top-down, physics-based action puzzler with retro 16-bit style.  It is my most developed game project to date, and this site is for sharing my progress.  The site looks like a potato currently, but I will get around to styling it...  probably.</p>
         </section>
         <section id="journal">
-            <h2><a href="./publicHTML/journal.html">Latest Post: July 24, 2021</a></h2>
-            <p>Making progress on the Quick Access system.  I created a simple container class, InventorySlot, that I can create a List of for tracking inventory items.</p>
-                <pre>
-                    <code class="language-csharp">
-                        public class InventorySlot
-                        {
-                            public ItemStatsBase ItemStats;
-                            public int Quantity;
-                            public bool IsAvailable;
-                            public int QuickAccessSlot;  //0-index for quick access slots, negative indicates no assignment
+            <article>
+            <h2><a href="./publicHTML/journal.html">Latest Post: August 8, 2021</a></h2>
+            <p>Already I’ve changed my mind on the menus for the Inventory.  It’s distracting to have the health bar and other ingame stats while tinkering with spell slots.  I’m going back to the idea of a separate full screen menu.  Oh, and I’m pretty sure on the spell theme, so I’ll be using runes and spell slots.  I can add in a staff upgrade system that will add up to four slots.  The real limit to active spell slots is physical size for finger placement.  The iPhone SE has 67mm width, the iPhone 4s 58.6mm width, and the Galaxy S9+ has a 73.9mm width so there’s reasonably 4 buttons at 15mm that can fit on a side with no gaps on the smallest phones.  (Note to self: acquire a potato for testing - some $50 prepaid Android).  To leave enough space for buttons, I’ll update the UI to move the pause and backpack icons to the left side so only spell slots are on the right.</p>
 
-                            public string Id => ItemStats.Id;
+                <img src="./publicHTML/resources/UI Stuff - Game Menu.png">
 
-                            public InventorySlot(ItemStatsBase itemStats, int quantity = 1, bool isAvailable = true, int quickAccessSlot = -1)
-                            {
-                                ItemStats = itemStats;
-                                Quantity = quantity;
-                                IsAvailable = isAvailable;
-                                QuickAccessSlot = quickAccessSlot;
-                            }
-                        }
-                    </code>
-                </pre>
-                <p>Currently, the code uses LINQ to query the InventoryList for specific Ids, but that may get updated to a Dictionary with the ID as the key, or even a database.  Will worry about making it faster later (if performance needs improvement).</p>
-                <p>The next functionality to add is a click-and-drag system for assigning quick slot items/abilities in an inventory popup.  Also, the inventory popup.  </p>
+                <p>I’m not crazy about the white areas above, but the green interactable areas feel correct and give enough space (just enough space for the smallest devices on the right-hand side).  The health bar’s top left placement is fairly common.  The keychain icons could be on the top bar.  I may not track the player deaths on the game screen.  Maybe the end-of-level screen could include the deaths and time information - stats more important as long term targets for subsequent playthroughs.  In the current run, the player only needs to know what their health is, what their active spells are, and how many collectibles (scrolls, statues, relics, etc) they have.</p>
+
+                <p>Sidenote, I’m watching speedruns and just heard the dev of My Friend Pedro mention their business model - the free to play version makes you restart when you die while the paid version allows you to continue from your point of death.  I’m not sure if they run ads on the free version, but it’s something to look into.  I have considered an ad-supported free version with an ad-free unlock (either as an in-app purchase or a separate “pro” version, or both?) as well as a completely free version with the paid version having the level editor (which I haven’t started developing yet) and access to user-generated levels (which requires infrastructure….).  Anyway, I do need to spend some time engineering a level editor and level save system.  I’m guessing it will be close to the json format from the Feb 23, 2021 journal entry.</p>
+
+                <p>Back to the Inventory menu.  This version of the Inventory screen displays all of the player’s spells, keys, and collectibles.  There’s plenty of space between the elements, and it’ll be easier to manage events if I don’t have to tango with the Game menu.  Also, there’s no way the player can accidentally exit the menu by dragging an icon to the right.</p>
+
+                <img src="./publicHTML/resources/UI Stuff - Inventory v3.png">
+            </article>
         </section>
         
         <footer>
