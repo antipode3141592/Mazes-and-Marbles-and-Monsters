@@ -100,7 +100,6 @@ namespace MarblesAndMonsters.Menus
                 levelLoader.LoadLevel(DataManager.Instance.CheckPointLevelId);
                 yield return new WaitForSeconds(_playDelay);
             }
-            //GameMenu.Open();
         }
 
         public void OnPlayPressed()

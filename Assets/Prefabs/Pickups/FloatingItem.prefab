@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4550803154290388258}
   m_Layer: 12
   m_Name: FloatingItem
-  m_TagString: Untagged
+  m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,4 +122,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614a7cee52003da41864061dc970f5ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemStats: {fileID: 11400000, guid: 82e0b448f49868143a02d6e8e3100dad, type: 2}
+  Stats: {fileID: 11400000, guid: 82e0b448f49868143a02d6e8e3100dad, type: 2}

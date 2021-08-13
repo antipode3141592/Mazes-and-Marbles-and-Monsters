@@ -13,7 +13,7 @@ namespace MarblesAndMonsters.Items
 
         //[SerializeField]
         //protected Sprite InventoryIcon;
-        public ItemStatsBase ItemStats;
+        public SpellStats Stats;
 
         protected void Awake()
         {
@@ -35,7 +35,7 @@ namespace MarblesAndMonsters.Items
 
         public virtual Sprite GetUISprite()
         {
-            return ItemStats.InventoryIcon;
+            return Stats.InventoryIcon;
         }
 
         protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -46,7 +46,7 @@ namespace MarblesAndMonsters.Items
                 if (Player.Instance != null)
                 {
                     Debug.Log(string.Format("InventoryItem {0} has been picked up by player!", gameObject.name));
-                    Player.Instance.AddItemToInventory(ItemStats);
+                    Player.Instance.AddItemToInventory(Stats);
                     StartCoroutine(PickupItem());
                 }
             }

@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using MarblesAndMonsters.Spells;
 
 namespace MarblesAndMonsters
 {
@@ -37,8 +38,9 @@ namespace MarblesAndMonsters
         public Vector2 Input_Acceleration { get; set; }
 
         //references to various game objects
-        private List<Characters.CharacterControl> characters;
+        private List<CharacterControl> characters;
         private List<InventoryItem> inventoryItems;
+        private List<SpellPickup> spellPickups;
         private List<KeyItem> keyItems;
         private List<SpawnPoint> spawnPoints;
         private List<Gate> gates;
@@ -159,6 +161,7 @@ namespace MarblesAndMonsters
             keyItems = new List<KeyItem>(FindObjectsOfType<KeyItem>());
             spawnPoints = new List<SpawnPoint>(FindObjectsOfType<SpawnPoint>());
             gates = new List<Gate>(FindObjectsOfType<Gate>());
+            spellPickups = new List<SpellPickup>(FindObjectsOfType<SpellPickup>());
 
             ////log the 
             //string spawnlist = "";
@@ -199,6 +202,10 @@ namespace MarblesAndMonsters
             foreach (KeyItem keyItem in keyItems)
             {
                 keyItem.Reset();
+            }
+            foreach (SpellPickup spellPickup in spellPickups)
+            {
+                spellPickup.Reset();
             }
             //Destroy(Player.Instance);
         }
@@ -356,8 +363,6 @@ namespace MarblesAndMonsters
 
 
         //move all characters
-        //  currently just moves characters.  if any objects/traps/whatever get movements, move is now an interface so this functions
-        //  refactor will be easier to collect all available Moves and execute them
         public void MoveAll()
         {
             if (characters != null)

@@ -58,7 +58,7 @@ namespace FiniteStateMachine.States.GameStates
         public override void Enter()
         {
             base.Enter();
-            
+            MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
             //GameController.Instance.StoreCharacters();
             Time.timeScale = 1.0f;
             //GameMenu.Open();

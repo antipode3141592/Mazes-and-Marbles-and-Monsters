@@ -34,11 +34,11 @@ namespace MarblesAndMonsters.Characters
 
         private int armor;
 
-        private List<DamageType> damageImmunities;
-
         private bool respawnFlag;   //if true, character respawn
         //[SerializeField]
         private float respawnPeriod;    //seconds before respawn
+
+        //character states that could apply to any character
         [SerializeField]
         private bool isAsleep;
         private bool isPoisoned;
@@ -46,7 +46,8 @@ namespace MarblesAndMonsters.Characters
         private bool isFrozen;
         private bool isInvincible;
         private bool isLevitating;
-        private bool isForceBubble;
+        private bool isStealth;
+        //private bool isForceBubble;
 
         public event EventHandler OnBurning;
         public event EventHandler OnBurningEnd;
@@ -54,8 +55,10 @@ namespace MarblesAndMonsters.Characters
         public event EventHandler OnInvincibleEnd;
         public event EventHandler OnLevitating;
         public event EventHandler OnLevitatingEnd;
-        public event EventHandler OnForceBubble;
-        public event EventHandler OnForcebubbleEnd;
+        public event EventHandler OnStealth;
+        public event EventHandler OnStealthEnd;
+        //public event EventHandler OnForceBubble;
+        //public event EventHandler OnForcebubbleEnd;
 
         private float sleepTimeCounter;
         private float poisonTimeCounter;
@@ -64,8 +67,8 @@ namespace MarblesAndMonsters.Characters
         private float levitatingTimeCounter;
         private float forceBubbleTimeCounter;
 
-        protected List<Movement> movements;
-        protected List<ItemAction> actions;
+        //protected List<Movement> movements;
+        //protected List<Spell> actions;
 
         //read only
         public bool RespawnFlag => respawnFlag;
@@ -129,32 +132,17 @@ namespace MarblesAndMonsters.Characters
             } 
         }
 
-        public bool IsForceBubble
-        {
-            get { return isForceBubble; }
-            set
-            {
-                isForceBubble = value;
-                if (value)
-                {
-                    OnForceBubble?.Invoke(this, EventArgs.Empty);
-                } else
-                {
-                    OnForcebubbleEnd?.Invoke(this, EventArgs.Empty);
-                }
-            }
-        }
         public float SleepTimeCounter { get => sleepTimeCounter; set => sleepTimeCounter = value; }
         public float PoisonTimeCounter { get => poisonTimeCounter; set => poisonTimeCounter = value; }
         public float FireTimeCounter { get => burnTimeCounter; set => burnTimeCounter = value; }
         public float InvincibleTimeCounter { get => invincibleTimeCounter; set => invincibleTimeCounter = value; }
-        public float LevitatingTimeCounter { get => levitatingTimeCounter; set => levitatingTimeCounter = value; }
-        public float ForceBubbleTimeCounter { get => forceBubbleTimeCounter; set => forceBubbleTimeCounter = value; }
+        //public float LevitatingTimeCounter { get => levitatingTimeCounter; set => levitatingTimeCounter = value; }
+        public List<DamageType> DamageImmunities;
+
 
         //read-only accessors
-        public List<DamageType> DamageImmunities => damageImmunities;
-        public List<Movement> Movements => movements;
-        public List<ItemAction> Actions => actions;
+        public List<Movement> Movements;
+        public Dictionary<SpellName,Spell> Spells;
 
 
 
@@ -162,11 +150,12 @@ namespace MarblesAndMonsters.Characters
         private void Awake()
         {
             //grab attached Movement Components
-            movements = new List<Movement>(GetComponents<Movement>());
-            actions = new List<ItemAction>(GetComponentsInChildren<ItemAction>());
-            foreach (var action in actions)
+            Movements = new List<Movement>(GetComponents<Movement>());
+            Spells = new Dictionary<SpellName,Spell>();
+            foreach (Spell _spell in GetComponentsInChildren<Spell>())
             {
-                Debug.Log(string.Format("Action {0} associated with {1}", action.name, action.ItemStats.AssociatedAction));
+                Spells.Add(_spell.SpellName, _spell);
+                Debug.Log(string.Format("Spell {0} associated with {1}", _spell.name, _spell.SpellStats.SpellName));
             }
             if (baseStats)
             {
@@ -188,15 +177,15 @@ namespace MarblesAndMonsters.Characters
                     IsInvincible = false;
                 }
             }
-            if (IsLevitating)
-            {
-                levitatingTimeCounter -= dT;
-                if (levitatingTimeCounter < 0.0f)
-                {
-                    levitatingTimeCounter = 0.0f;
-                    IsLevitating = false;
-                }
-            }
+            //if (IsLevitating)
+            //{
+            //    levitatingTimeCounter -= dT;
+            //    if (levitatingTimeCounter < 0.0f)
+            //    {
+            //        levitatingTimeCounter = 0.0f;
+            //        IsLevitating = false;
+            //    }
+            //}
             if (IsPoisoned)
             {
                 poisonTimeCounter -= dT;
@@ -215,15 +204,6 @@ namespace MarblesAndMonsters.Characters
                     IsBurning = false;
                 }
             }
-            if (IsForceBubble)
-            {
-                forceBubbleTimeCounter -= dT;
-                if (forceBubbleTimeCounter < 0.0f)
-                {
-                    forceBubbleTimeCounter = 0.0f;
-                    IsForceBubble = false;
-                }
-            }
         }
         #endregion
 
@@ -237,7 +217,7 @@ namespace MarblesAndMonsters.Characters
 
             respawnFlag = baseStats.RespawnFlag;
             respawnPeriod = baseStats.RespawnPeriod;
-            damageImmunities = baseStats.DamageImmunities;
+            DamageImmunities = baseStats.DamageImmunities;
         }
     }
 }

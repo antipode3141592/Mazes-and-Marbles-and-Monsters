@@ -16,42 +16,33 @@ namespace MarblesAndMonsters.Menus
         public Transform InventoryTransform;
 
         public GridLayoutGroup grid;
-        public InventoryItemUITemplate ItemTemplate;
+        //public UISpellIconTemplate ItemTemplate;
 
-        private List<InventoryItemUITemplate> inventoryItems;
-        private List<InventoryItemUITemplate> quickAccess;
+        private List<UISpellIconTemplate> spellBook;
+        //private List<UISpellIconTemplate> quickAccess;
 
         protected override void Awake()
         {
             base.Awake();
-            inventoryItems = new List<InventoryItemUITemplate>();
-            quickAccess = new List<InventoryItemUITemplate>();
+            spellBook = new List<UISpellIconTemplate>(GetComponentsInChildren<UISpellIconTemplate>());
+            //quickAccess = new List<UISpellIconTemplate>();
         }
 
         private void OnEnable()
         {
             Time.timeScale = 0.0f;
-            //Debug.Log("BackpackMenu OnEnable()...");
+            Debug.Log("BackpackMenu OnEnable()...");
             if (Player.Instance != null && grid != null)
             {
-                inventoryItems.Clear();
-                quickAccess.Clear();
-                foreach (var slot in Player.Instance.Inventory)
+                int i = 0;
+                foreach (KeyValuePair<SpellName, Spell> _spell in Player.Instance.MySheet.Spells)
                 {
-                    Debug.Log(string.Format("slot: {0}, item id: {1}", Player.Instance.Inventory.IndexOf(slot), slot.Id));
-                    var itemIcon = Instantiate<InventoryItemUITemplate>(ItemTemplate, InventoryTransform);
-                    inventoryItems.Add(itemIcon);
-                    itemIcon.button.image.sprite = slot.ItemStats.InventoryIcon;
-                    itemIcon.button.image.color = Color.white;
-                    itemIcon.Quantity.text = slot.Quantity.ToString();
-                    if (slot.QuickAccessSlot >= 0)
-                    {
-                        var itemIcon2 = Instantiate<InventoryItemUITemplate>(ItemTemplate, QuickAccessTransform);
-                        quickAccess.Add(itemIcon2);
-                        itemIcon2.button.image.sprite = slot.ItemStats.InventoryIcon;
-                        itemIcon2.button.image.color = Color.white;
-                        itemIcon2.Quantity.text = slot.Quantity.ToString();
-                    }
+                    Debug.Log(string.Format("spell name: {0}, spell id: {1}, isUnlocked = {2}", _spell.Key.ToString(), _spell.Value.SpellStats.Id, _spell.Value.IsUnlocked.ToString()));
+                    //var itemIcon = Instantiate<UISpellIconTemplate>(ItemTemplate, InventoryTransform);
+                    //spellBook.Add(itemIcon);
+                    spellBook[i].Icon.sprite = _spell.Value.SpellStats.InventoryIcon;
+                    spellBook[i].Icon.color = Color.white;
+                    i++;
                 }
             }
         }
@@ -59,16 +50,10 @@ namespace MarblesAndMonsters.Menus
         private void OnDisable()
         {
             Time.timeScale = 1.0f;
-            foreach (var item in inventoryItems)
+            foreach (UISpellIconTemplate spellIcon in spellBook)
             {
-                Destroy(item.gameObject);
+                spellIcon.Icon.color = Color.clear;
             }
-            foreach (var item in quickAccess)
-            {
-                Destroy(item.gameObject);
-            }
-            inventoryItems.Clear();
-            quickAccess.Clear();
         }
 
         //inventory management actions

@@ -255,11 +255,11 @@ namespace MarblesAndMonsters.Characters
         //    }
         //}
 
-        public void ApplyForceBubble(float duration)
-        {
-            MySheet.Actions.Find(x => x.ActionName == ActionName.ForceBubble).Action();
-            //ApplyInvincible(duration);
-        }
+        //public void ApplyForceBubble(float duration)
+        //{
+        //    MySheet.Spells[SpellName.ForceBubble].Cast();
+        //    //ApplyInvincible(duration);
+        //}
 
         public void ApplyFalling(Vector3 position)
         {

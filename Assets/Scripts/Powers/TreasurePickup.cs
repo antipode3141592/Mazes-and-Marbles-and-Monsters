@@ -24,7 +24,7 @@ namespace MarblesAndMonsters.Items
         {
             Player.Instance.AddTreasure(value);
             animator.SetTrigger(aTriggerPickup);
-            audioSource.clip = ItemStats.ClipPickup;
+            audioSource.clip = Stats.ClipPickup;
             audioSource.Play();
             StartCoroutine(PickupScroll());
             

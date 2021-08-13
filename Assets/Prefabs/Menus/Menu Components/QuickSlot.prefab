@@ -212,7 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemImage: {fileID: 8223539649186552142}
   BackgroundImage: {fileID: 6460753340699686028}
-  ItemStats: {fileID: 0}
+  storedActionName: 0
 --- !u!1 &8065008639500397457
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1785747940950654041}
   - component: {fileID: 1175384529286208101}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Levitation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,9 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331ce7a20f3645148b51f84cc29f4b62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemStats: {fileID: 11400000, guid: 82e0b448f49868143a02d6e8e3100dad, type: 2}
+  SpellStats: {fileID: 11400000, guid: 82e0b448f49868143a02d6e8e3100dad, type: 2}
   ParticleEffect: {fileID: 2974716659741218755}
-  ActionName: 0
+  SpellName: 0
+  isUnlocked: 0
 --- !u!1001 &1761651128002928288
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58,6 +59,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LevitationEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 4152963785822092830, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6680460101468517958, guid: 8f983bb74dc9a2547b3ef757d24c414e,
         type: 3}

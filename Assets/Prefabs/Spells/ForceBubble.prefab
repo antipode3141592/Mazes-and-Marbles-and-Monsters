@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8257246270025820640}
   - component: {fileID: 7415414380953251292}
   - component: {fileID: 2298679476401974668}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: ForceBubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,9 +113,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e14bf095fa68a9347a27a72749e1743b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemStats: {fileID: 11400000, guid: b90f0b40d60a9dc4e86eb74181018f02, type: 2}
+  SpellStats: {fileID: 11400000, guid: b90f0b40d60a9dc4e86eb74181018f02, type: 2}
   ParticleEffect: {fileID: 0}
-  ActionName: 1
+  SpellName: 1
+  isUnlocked: 0
   circleCollider2D: {fileID: 0}
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}

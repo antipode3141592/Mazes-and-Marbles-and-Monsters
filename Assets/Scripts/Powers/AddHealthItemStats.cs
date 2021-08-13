@@ -6,7 +6,7 @@ using MarblesAndMonsters.Characters;
 namespace MarblesAndMonsters.Items
 {
     [CreateAssetMenu(menuName = "Stats/Item Stats/Health Stats")]
-    public class AddHealthItemStats : ItemStats
+    public class AddHealthItemStats : SpellStats
     {
         public int HealingStrength;
 

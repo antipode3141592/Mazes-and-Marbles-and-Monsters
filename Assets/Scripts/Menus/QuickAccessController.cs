@@ -22,12 +22,12 @@ namespace MarblesAndMonsters.Menus.Components
         /// <param name="slot">index of quickslot to be assigned</param>
         /// <param name="item">reference to item</param>
         /// <returns></returns>
-        public void AssignQuickAccess(int slot, ItemStatsBase itemStats)
+        public void AssignQuickAccess(int slot, SpellStats spellStats)
         {
-            quickSlot[slot].AssignSlot(itemStats);
+            quickSlot[slot].AssignSlot(spellStats);
         }
 
-        public void UnassignQuickAccess(int slot, ItemStatsBase itemStats)
+        public void UnassignQuickAccess(int slot)
         {
             quickSlot[slot].UnassignSlot();
         }
@@ -39,7 +39,5 @@ namespace MarblesAndMonsters.Menus.Components
                 quickSlot[i].UnassignSlot();
             }
         }
-
-       
     }
 }

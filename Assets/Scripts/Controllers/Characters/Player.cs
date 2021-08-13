@@ -29,26 +29,18 @@ namespace MarblesAndMonsters.Characters
 
         private List<InventorySlot> inventory;
         private List<KeyItem> keyChain;
-        //private int[] quickAccess;
-
-        //[SerializeField]
-        //private static readonly int inventoryMaxSize = 5;
 
         [SerializeField]
         private LightingSettings lightingSettings;
         private GlobalLight globalLight;
         private PlayerTorch playerTorch;
 
-        ////special abilities
-        //[SerializeField]
-        //public ForceBubbleAction forceBubble;
-        //public float ForceBubbleDuration = 3.0f;
-
         public List<InventorySlot> Inventory => inventory;//read only accessor shorthand
                                                       //HealthBarController healthBarController;
         public List<KeyItem> KeyChain => keyChain;
 
         //public int[] QuickAccess => quickAccess;
+        public List<SpellName> ActiveSpells;
 
         //singleton stuff
         private static Player _instance;
@@ -191,11 +183,11 @@ namespace MarblesAndMonsters.Characters
         /// 
         /// </summary>
         /// <param name="itemToAdd"></param>
-        public void AddItemToInventory(ItemStatsBase itemStats)
+        public void AddItemToInventory(SpellStats itemStats)
         {
             InventorySlot inventorySlot = new InventorySlot(itemStats);
             inventory.Add(inventorySlot);
-            AddItemtoQuickAccess(inventorySlot);
+            //AddItemtoQuickAccess(inventorySlot);
         }
 
         public void AddItemtoQuickAccess(InventorySlot inventorySlot)
@@ -211,6 +203,40 @@ namespace MarblesAndMonsters.Characters
                     }
                     break;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Add a spell the Player's Active Spells and update the Quick Access icons on the Game Menu.
+        ///     If 
+        /// </summary>
+        /// <param name="stats"></param>
+        public void AddtoActiveSpells(SpellStats stats)
+        {
+            // if the spell is all ready in the active list, skip
+            if (!ActiveSpells.Exists(x => x == stats.SpellName))
+            {
+                for (int i = 0; i < QuickAccessController.QuickSlotMax; i++)
+                {
+                    //if any spell is assigned to slot i, skip
+                    if (MySheet.Spells.Any(x => x.Value.QuickSlot == i && x.Value.IsQuickSlotAssigned))
+                    {
+                        Debug.Log(string.Format("Quickslot {0} is all ready assigned, skipping...", i.ToString()));
+                        continue;
+                    }
+                    ActiveSpells.Add(stats.SpellName);
+                    MySheet.Spells[stats.SpellName].IsQuickSlotAssigned = true;
+                    MySheet.Spells[stats.SpellName].QuickSlot = i;
+                    
+                    if (GameMenu.Instance)
+                    {
+                        GameMenu.Instance.quickAccessController.AssignQuickAccess(i, stats);
+                    }
+                    break;
+                }
+            } else
+            {
+                Debug.Log(string.Format("The spell {0} is all ready in Player's Active Spells", stats.SpellName.ToString()));
             }
         }
 
@@ -241,7 +267,7 @@ namespace MarblesAndMonsters.Characters
             keyChain.Clear();
             Debug.Log("Player:  Removed all items from inventory!");
             UpdateKeyChainUI();
-            GameMenu.Instance.quickAccessController.ClearAll();
+            //GameMenu.Instance.quickAccessController.ClearAll();
         }
 
         /// <summary>
@@ -316,6 +342,10 @@ namespace MarblesAndMonsters.Characters
                 isDying = true;
                 myRigidbody.velocity = Vector2.zero;
                 deathCount++;
+                if (GameMenu.Instance)
+                {
+                    GameMenu.Instance.quickAccessController.ClearAll();
+                }
                 switch (deathType)
                 {
                     case DeathType.Falling:

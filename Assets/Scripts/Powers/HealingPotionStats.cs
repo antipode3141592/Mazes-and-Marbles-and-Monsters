@@ -7,7 +7,7 @@ namespace MarblesAndMonsters.Items
 {
     [CreateAssetMenu(menuName = "Stats/Item Stats/Healing Item Stats")]
 
-    public class HealingPotionStats: ItemStats
+    public class HealingPotionStats: SpellStats
     {
         //public override void Action()
         //{

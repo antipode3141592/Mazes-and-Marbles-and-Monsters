@@ -5,7 +5,7 @@ using UnityEngine;
 namespace MarblesAndMonsters.Items
 {
     [CreateAssetMenu(menuName = "Stats/Item Stats/Key Stats")]
-    public class KeyStats : ItemStatsBase
+    public class KeyStats : SpellStats
     {
         public KeyType KeyType;
     }

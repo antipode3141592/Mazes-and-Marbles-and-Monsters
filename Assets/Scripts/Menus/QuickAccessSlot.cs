@@ -12,7 +12,7 @@ namespace MarblesAndMonsters.Menus.Components
     {
         public Button ItemImage;
         public Image BackgroundImage;
-        public ItemAction StoredAction;
+        public SpellName storedSpellName;
 
         protected void Awake()
         {
@@ -20,19 +20,15 @@ namespace MarblesAndMonsters.Menus.Components
             BackgroundImage.color = Color.clear;
         }
 
-        public void AssignSlot(ItemStatsBase itemStats)
+        public void AssignSlot(SpellStats spellStats)
         {
-            ItemImage.image.sprite = itemStats.InventoryIcon;
+            ItemImage.image.sprite = spellStats.InventoryIcon;
             ItemImage.image.color = Color.white;
-            ItemImage.onClick.AddListener(itemStats.Action);
-            StoredAction = Player.Instance.MySheet.Actions.Find(x => x.ActionName == itemStats.AssociatedAction);
-            if (StoredAction)
-            {
-                StoredAction.OnCooldownStart += CooldownStartHandler;
-                StoredAction.OnCooldownEnd += CooldownEndHandler;
-                StoredAction.CooldownTimer += CooldownHandler;
-            }
-            
+            ItemImage.onClick.AddListener(Player.Instance.MySheet.Spells[spellStats.SpellName].Cast);
+            storedSpellName = spellStats.SpellName;
+            Player.Instance.MySheet.Spells[storedSpellName].OnCooldownStart += CooldownStartHandler;
+            Player.Instance.MySheet.Spells[storedSpellName].OnCooldownEnd += CooldownEndHandler;
+            Player.Instance.MySheet.Spells[storedSpellName].CooldownTimer += CooldownHandler;
         }
 
         public void UnassignSlot()
@@ -40,12 +36,9 @@ namespace MarblesAndMonsters.Menus.Components
             ItemImage.image.sprite = null;
             ItemImage.image.color = Color.clear;
             ItemImage.onClick.RemoveAllListeners();
-            if (StoredAction)
-            {
-                StoredAction.OnCooldownStart -= CooldownStartHandler;
-                StoredAction.OnCooldownEnd -= CooldownEndHandler;
-                StoredAction.CooldownTimer -= CooldownHandler;
-            }
+            Player.Instance.MySheet.Spells[storedSpellName].OnCooldownStart -= CooldownStartHandler;
+            Player.Instance.MySheet.Spells[storedSpellName].OnCooldownEnd -= CooldownEndHandler;
+            Player.Instance.MySheet.Spells[storedSpellName].CooldownTimer -= CooldownHandler;
         }
 
         public void CooldownStartHandler(object sender, EventArgs e)

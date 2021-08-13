@@ -12,22 +12,23 @@ namespace MarblesAndMonsters.Menus
         public InventoryUIController inventoryUI;
         public KeyChainUIController keychainUI;
         public QuickAccessController quickAccessController;
+        public BackpackController backpackController;
+
+        [SerializeField]
+        private Animator backpackIconAnimator;
 
         protected override void Awake()
         {
             base.Awake();
-            deathCountUI = GameObject.FindObjectOfType<DeathCounterController>();
-            healthBarController = GameObject.FindObjectOfType<HealthBarController>();
-            treasureUI = GameObject.FindObjectOfType<ScrollCounterController>();
-            inventoryUI = GameObject.FindObjectOfType<InventoryUIController>();
-            keychainUI = GameObject.FindObjectOfType<KeyChainUIController>();
-            quickAccessController = GameObject.FindObjectOfType<QuickAccessController>();
+            deathCountUI = FindObjectOfType<DeathCounterController>();
+            healthBarController = FindObjectOfType<HealthBarController>();
+            treasureUI = FindObjectOfType<ScrollCounterController>();
+            inventoryUI = FindObjectOfType<InventoryUIController>();
+            keychainUI = FindObjectOfType<KeyChainUIController>();
+            quickAccessController = FindObjectOfType<QuickAccessController>();
+            backpackController = FindObjectOfType<BackpackController>(true); //include inactive
+            
         }
-
-        //protected void OnEnable()
-        //{
-        //    RefreshUI();
-        //}
 
         public void RefreshUI() 
         {
@@ -46,7 +47,6 @@ namespace MarblesAndMonsters.Menus
 
         public void OnBackpackPressed()
         {
-            Time.timeScale = 0.0f;
             MenuManager.Instance.OpenMenu(MenuTypes.BackpackMenu);
         }
     }

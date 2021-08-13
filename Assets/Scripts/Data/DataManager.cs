@@ -100,7 +100,14 @@ namespace LevelManagement.Data
 
         public void Load()
         {
-            jsonSaver.Load(saveData);
+            try
+            {
+                jsonSaver.Load(saveData);
+            }
+            catch
+            {
+
+            }
         }
 
         public void Clear()
