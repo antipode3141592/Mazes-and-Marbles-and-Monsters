@@ -22,18 +22,96 @@
         </section>
         <section id="journal">
             <article>
-            <h2><a href="./publicHTML/journal.html">Latest Post: August 8, 2021</a></h2>
-            <p>Already I’ve changed my mind on the menus for the Inventory.  It’s distracting to have the health bar and other ingame stats while tinkering with spell slots.  I’m going back to the idea of a separate full screen menu.  Oh, and I’m pretty sure on the spell theme, so I’ll be using runes and spell slots.  I can add in a staff upgrade system that will add up to four slots.  The real limit to active spell slots is physical size for finger placement.  The iPhone SE has 67mm width, the iPhone 4s 58.6mm width, and the Galaxy S9+ has a 73.9mm width so there’s reasonably 4 buttons at 15mm that can fit on a side with no gaps on the smallest phones.  (Note to self: acquire a potato for testing - some $50 prepaid Android).  To leave enough space for buttons, I’ll update the UI to move the pause and backpack icons to the left side so only spell slots are on the right.</p>
+            <h2><a href="./publicHTML/journal.html">Latest Post: August 10, 2021</a></h2>
+                <p>The spell casting system needs a little bit of formalization so I can clean up my code.  Right now, there’s still a weird hodge-podge of consumables and items that are tracked in an inventory.  With the simplified Spell Book with a static number of spells (some of the spells may be able to be upgraded).  Spells are prefabs that contain all animations and particles necessary.</p>
 
-                <img src="./publicHTML/resources/UI Stuff - Game Menu.png">
+                <h3>Magic Staff</h3>
+                <ul>
+                    <li>Level I - two spell slots</li>
+                    <li>Level II - three spell slots</li>
+                    <li>Level III - four spell slots</li>
+                </ul>
 
-                <p>I’m not crazy about the white areas above, but the green interactable areas feel correct and give enough space (just enough space for the smallest devices on the right-hand side).  The health bar’s top left placement is fairly common.  The keychain icons could be on the top bar.  I may not track the player deaths on the game screen.  Maybe the end-of-level screen could include the deaths and time information - stats more important as long term targets for subsequent playthroughs.  In the current run, the player only needs to know what their health is, what their active spells are, and how many collectibles (scrolls, statues, relics, etc) they have.</p>
+                <p>My design goals for spells are to have clear functions, no targets (just press the Cast button, no additional tapping on the screen), and no damage dealing effects.  I’m tired of games that are just about destructive spell casting - they can be really fun, but violence is the default, which is whack.</p>
 
-                <p>Sidenote, I’m watching speedruns and just heard the dev of My Friend Pedro mention their business model - the free to play version makes you restart when you die while the paid version allows you to continue from your point of death.  I’m not sure if they run ads on the free version, but it’s something to look into.  I have considered an ad-supported free version with an ad-free unlock (either as an in-app purchase or a separate “pro” version, or both?) as well as a completely free version with the paid version having the level editor (which I haven’t started developing yet) and access to user-generated levels (which requires infrastructure….).  Anyway, I do need to spend some time engineering a level editor and level save system.  I’m guessing it will be close to the json format from the Feb 23, 2021 journal entry.</p>
+                <h3>Spell List</h3>
+                <ul>
+                    <li>Force Bubble - invincible bubble (can still fall to death) surrounds the player
+                        <ul>
+                            <li>Level I - small diameter, short duration</li>
+                            <li>Level II - medium diameter, medium duration</li>
+                            <li>Level III - largest diameter, longest duration</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Levitate - float for a brief time (can pass over pits, unaffected by the Board Move).  Removes all fire effects from the character.  Applies small force to characters entering radius of effect, perpendicular to vector between caster and colliding character (simulate effect of counter-clockwise wind vortex surrounding caster).
+                        <ul>
+                            <li>Level I - small diameter, small force</li>
+                            <li>Level II - medium diameter, medium force</li>
+                            <li>Level III - large diameter, large force</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Slow Time - slow time for all non-caster elements on board
+                        <ul>
+                            <li>Level I - small time reduction</li>
+                            <li>Level II - medium time reduction</li>
+                            <li>Level III - stop time for duration</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Transmute - morph into a monster for a while
+                        <ul>
+                            <li>Level I - weak monster</li>
+                            <li>Level II - medium monster</li>
+                            <li>Level III - powerful monster, something that can crush normal marbles and rollers</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Stone Form - become an stationary, invincible statue for a short period
+                        <ul>
+                            <li>Level I - short duration</li>
+                            <li>Level II - medium duration</li>
+                            <li>Level III - long duration</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Entangle - create an area of vines that grab and hold all characters except the caster for the duration (classic druid spell)
+                        <ul>
+                            <li>Level I - small diameter, short duration</li>
+                            <li>Level II - medium diameter, medium duration</li>
+                            <li>Level III - largest diameter, longest duration</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Force Push - apply force to characters entering radius of effect along vector between caster and character.  force applied increases with proximity.
+                        <ul>
+                            <li>Level I - less force</li>
+                            <li>Level II - medium force</li>
+                            <li>Level III - large force</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Teleport - first cast creates a Teleport Point, second cast moves caster to the Teleport Point and deletes the Teleport Point.
+                        <ul>
+                            <li>Level I - slowest cooldown</li>
+                            <li>Level II - medium cooldown</li>
+                            <li>Level III - fastest cooldown</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Ghost Form - reduce alpha on sprite, caster can pass through colliders (I’m sure that won’t be in any way problematic), other characters cannot observe caster during duration
+                        <ul>
+                            <li>Level I - shortest duration</li>
+                            <li>Level II - medium duration</li>
+                            <li>Level III - longest duration</li>
+                        </ul>
+                    </li>
+                </ul>
 
-                <p>Back to the Inventory menu.  This version of the Inventory screen displays all of the player’s spells, keys, and collectibles.  There’s plenty of space between the elements, and it’ll be easier to manage events if I don’t have to tango with the Game menu.  Also, there’s no way the player can accidentally exit the menu by dragging an icon to the right.</p>
+                <p>Of these spells, the most problematic to program are probably going to be the Slow Time and Teleport.  Unity does not support separate timelines, and weird stuff happens when TimeScale = 0.0f.  My first thoughts are to decrease the timescale and apply extra forces to the caster to make them move faster then calculate the “normal” velocity and set it directly upon exit.  For Teleport, I’ll need to figure out how to best use Duration and Cooldown in context of the spell.  Should there be a cooldown after the Teleport Point has been created?  Maybe two cooldowns, one short after the Create Teleport Point and one longer after the Teleport.  Both Teleport and Force Push are instantaneous spells, but may be useful for them to have small durations for animations or something.  Depends on how I’ll decide to represent the timers.</p>
 
-                <img src="./publicHTML/resources/UI Stuff - Inventory v3.png">
+                <p>As a final note, I really need to find a good way to capture gameplay.  The built-in Recorder adds a lot of lag, especially the GIF function.  Maybe I can tweak settings enough to make it performant and less glitchy/artifacty.  </p>
             </article>
         </section>
         

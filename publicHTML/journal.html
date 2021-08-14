@@ -23,6 +23,99 @@
             <p>It was easy enough to get a playable demo of the idea using some free assets and the PlayMaker plugin.  Once I was able to play it a bit with some basic traps and a basic following monster (no pathfinding, just a vector pointing at the player), it felt fun.  Next, I started making some custom art assets, just to see what the process of making 2d retro art for a game would be like, and after I saw my goofy initial animation of the Player "walking" in the game, I was hooked.  Making games is fun!  (but holy cow, it's a LOT of work)</p>
         </section>
         <section id="journalentries">
+            <article class="journalentry" name="j08102021" id="j08102021">
+                <h2>August 10, 2021</h2>
+                <p>The spell casting system needs a little bit of formalization so I can clean up my code.  Right now, there’s still a weird hodge-podge of consumables and items that are tracked in an inventory.  With the simplified Spell Book with a static number of spells (some of the spells may be able to be upgraded).  Spells are prefabs that contain all animations and particles necessary.</p>
+
+                <h3>Magic Staff</h3>
+                <ul>
+                    <li>Level I - two spell slots</li>
+                    <li>Level II - three spell slots</li>
+                    <li>Level III - four spell slots</li>
+                </ul>
+
+                <p>My design goals for spells are to have clear functions, no targets (just press the Cast button, no additional tapping on the screen), and no damage dealing effects.  I’m tired of games that are just about destructive spell casting - they can be really fun, but violence is the default, which is whack.</p>
+
+                <h3>Spell List</h3>
+                <ul>
+                    <li>Force Bubble - invincible bubble (can still fall to death) surrounds the player
+                        <ul>
+                            <li>Level I - small diameter, short duration</li>
+                            <li>Level II - medium diameter, medium duration</li>
+                            <li>Level III - largest diameter, longest duration</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Levitate - float for a brief time (can pass over pits, unaffected by the Board Move).  Removes all fire effects from the character.  Applies small force to characters entering radius of effect, perpendicular to vector between caster and colliding character (simulate effect of counter-clockwise wind vortex surrounding caster).
+                        <ul>
+                            <li>Level I - small diameter, small force</li>
+                            <li>Level II - medium diameter, medium force</li>
+                            <li>Level III - large diameter, large force</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Slow Time - slow time for all non-caster elements on board
+                        <ul>
+                            <li>Level I - small time reduction</li>
+                            <li>Level II - medium time reduction</li>
+                            <li>Level III - stop time for duration</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Transmute - morph into a monster for a while
+                        <ul>
+                            <li>Level I - weak monster</li>
+                            <li>Level II - medium monster</li>
+                            <li>Level III - powerful monster, something that can crush normal marbles and rollers</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Stone Form - become an stationary, invincible statue for a short period
+                        <ul>
+                            <li>Level I - short duration</li>
+                            <li>Level II - medium duration</li>
+                            <li>Level III - long duration</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Entangle - create an area of vines that grab and hold all characters except the caster for the duration (classic druid spell)
+                        <ul>
+                            <li>Level I - small diameter, short duration</li>
+                            <li>Level II - medium diameter, medium duration</li>
+                            <li>Level III - largest diameter, longest duration</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Force Push - apply force to characters entering radius of effect along vector between caster and character.  force applied increases with proximity.
+                        <ul>
+                            <li>Level I - less force</li>
+                            <li>Level II - medium force</li>
+                            <li>Level III - large force</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Teleport - first cast creates a Teleport Point, second cast moves caster to the Teleport Point and deletes the Teleport Point.
+                        <ul>
+                            <li>Level I - slowest cooldown</li>
+                            <li>Level II - medium cooldown</li>
+                            <li>Level III - fastest cooldown</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Ghost Form - reduce alpha on sprite, caster can pass through colliders (I’m sure that won’t be in any way problematic), other characters cannot observe caster during duration
+                        <ul>
+                            <li>Level I - shortest duration</li>
+                            <li>Level II - medium duration</li>
+                            <li>Level III - longest duration</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <p>Of these spells, the most problematic to program are probably going to be the Slow Time and Teleport.  Unity does not support separate timelines, and weird stuff happens when TimeScale = 0.0f.  My first thoughts are to decrease the timescale and apply extra forces to the caster to make them move faster then calculate the “normal” velocity and set it directly upon exit.  For Teleport, I’ll need to figure out how to best use Duration and Cooldown in context of the spell.  Should there be a cooldown after the Teleport Point has been created?  Maybe two cooldowns, one short after the Create Teleport Point and one longer after the Teleport.  Both Teleport and Force Push are instantaneous spells, but may be useful for them to have small durations for animations or something.  Depends on how I’ll decide to represent the timers.</p>
+
+                <p>As a final note, I really need to find a good way to capture gameplay.  The built-in Recorder adds a lot of lag, especially the GIF function.  Maybe I can tweak settings enough to make it performant and less glitchy/artifacty.  </p>
+
+            </article>
             <article class="journalentry" name="j08082021" id="j08082021">
                 <h2>August 8, 2021</h2>
                 <p>Already I’ve changed my mind on the menus for the Inventory.  It’s distracting to have the health bar and other ingame stats while tinkering with spell slots.  I’m going back to the idea of a separate full screen menu.  Oh, and I’m pretty sure on the spell theme, so I’ll be using runes and spell slots.  I can add in a staff upgrade system that will add up to four slots.  The real limit to active spell slots is physical size for finger placement.  The iPhone SE has 67mm width, the iPhone 4s 58.6mm width, and the Galaxy S9+ has a 73.9mm width so there’s reasonably 4 buttons at 15mm that can fit on a side with no gaps on the smallest phones.  (Note to self: acquire a potato for testing - some $50 prepaid Android).  To leave enough space for buttons, I’ll update the UI to move the pause and backpack icons to the left side so only spell slots are on the right.</p>
