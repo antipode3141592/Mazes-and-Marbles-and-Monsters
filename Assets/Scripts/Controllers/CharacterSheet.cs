@@ -27,15 +27,11 @@ namespace MarblesAndMonsters.Characters
     {
         public CharacterBaseStats baseStats;
 
-        private int maxHealth;
-        private int currentHealth;
-        //private int startingHealth;
-        //private int maxHealthLimit = 10;
-
+        private int maxHealth = 1;
+        private int currentHealth = 1;
         private int armor;
 
         private bool respawnFlag;   //if true, character respawn
-        //[SerializeField]
         private float respawnPeriod;    //seconds before respawn
 
         //character states that could apply to any character
@@ -47,7 +43,6 @@ namespace MarblesAndMonsters.Characters
         private bool isInvincible;
         private bool isLevitating;
         private bool isStealth;
-        //private bool isForceBubble;
 
         public event EventHandler OnBurning;
         public event EventHandler OnBurningEnd;
@@ -57,8 +52,6 @@ namespace MarblesAndMonsters.Characters
         public event EventHandler OnLevitatingEnd;
         public event EventHandler OnStealth;
         public event EventHandler OnStealthEnd;
-        //public event EventHandler OnForceBubble;
-        //public event EventHandler OnForcebubbleEnd;
 
         private float sleepTimeCounter;
         private float poisonTimeCounter;
@@ -66,9 +59,6 @@ namespace MarblesAndMonsters.Characters
         private float invincibleTimeCounter;
         private float levitatingTimeCounter;
         private float forceBubbleTimeCounter;
-
-        //protected List<Movement> movements;
-        //protected List<Spell> actions;
 
         //read only
         public bool RespawnFlag => respawnFlag;
@@ -136,15 +126,12 @@ namespace MarblesAndMonsters.Characters
         public float PoisonTimeCounter { get => poisonTimeCounter; set => poisonTimeCounter = value; }
         public float FireTimeCounter { get => burnTimeCounter; set => burnTimeCounter = value; }
         public float InvincibleTimeCounter { get => invincibleTimeCounter; set => invincibleTimeCounter = value; }
-        //public float LevitatingTimeCounter { get => levitatingTimeCounter; set => levitatingTimeCounter = value; }
-        public List<DamageType> DamageImmunities;
 
+        public List<DamageType> DamageImmunities;
 
         //read-only accessors
         public List<Movement> Movements;
         public Dictionary<SpellName,Spell> Spells;
-
-
 
         #region Unity Functions
         private void Awake()
@@ -152,11 +139,17 @@ namespace MarblesAndMonsters.Characters
             //grab attached Movement Components
             Movements = new List<Movement>(GetComponents<Movement>());
             Spells = new Dictionary<SpellName,Spell>();
+            DamageImmunities = new List<DamageType>();
             foreach (Spell _spell in GetComponentsInChildren<Spell>())
             {
                 Spells.Add(_spell.SpellName, _spell);
                 Debug.Log(string.Format("Spell {0} associated with {1}", _spell.name, _spell.SpellStats.SpellName));
             }
+            
+        }
+
+        protected void OnEnable()
+        {
             if (baseStats)
             {
                 SetInitialStats();
@@ -166,7 +159,6 @@ namespace MarblesAndMonsters.Characters
         private void Update()
         {
             var dT = Time.deltaTime;
-            
             //decrement state counters
             if (IsInvincible)
             {
@@ -177,15 +169,6 @@ namespace MarblesAndMonsters.Characters
                     IsInvincible = false;
                 }
             }
-            //if (IsLevitating)
-            //{
-            //    levitatingTimeCounter -= dT;
-            //    if (levitatingTimeCounter < 0.0f)
-            //    {
-            //        levitatingTimeCounter = 0.0f;
-            //        IsLevitating = false;
-            //    }
-            //}
             if (IsPoisoned)
             {
                 poisonTimeCounter -= dT;
@@ -217,7 +200,11 @@ namespace MarblesAndMonsters.Characters
 
             respawnFlag = baseStats.RespawnFlag;
             respawnPeriod = baseStats.RespawnPeriod;
-            DamageImmunities = baseStats.DamageImmunities;
+            for (int i = 0; i < baseStats.DamageImmunities.Count; i++)
+            {
+                DamageImmunities.Add(baseStats.DamageImmunities[i]);
+            }
+            
         }
     }
 }

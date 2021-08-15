@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af42c0e8bf838c84daa7154455681e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemStats: {fileID: 11400000, guid: 53325775b6cfeb341b383a1f7a09e273, type: 2}
+  Stats: {fileID: 11400000, guid: bae64aee9268fba4db8048fdba6e47b9, type: 2}
   value: 1
 --- !u!95 &2594032429879289532
 Animator:

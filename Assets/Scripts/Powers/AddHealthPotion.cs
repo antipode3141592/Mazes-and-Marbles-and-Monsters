@@ -11,8 +11,6 @@ namespace MarblesAndMonsters.Items
     {
         [SerializeField]
         private AddHealthItemStats healthItemStats;
-        
-
 
         //potion is consumed immediately (it would feel weird to have to activate it) 
         protected override void OnTriggerEnter2D(Collider2D collision)
@@ -20,10 +18,7 @@ namespace MarblesAndMonsters.Items
             if (collision.gameObject.CompareTag("Player"))
             {
                 audioSource.Play();
-                //healthItemStats.Action();
-                //Destroy(gameObject);    //destroy self (these are relatively rare, so no need for pooling)
-                //gameObject.SetActive(false);
-                
+                Player.Instance.AddMaxHealth(healthItemStats.HealingStrength);
                 StartCoroutine(HideItem());
             }
         }

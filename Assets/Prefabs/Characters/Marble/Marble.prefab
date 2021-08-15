@@ -33,7 +33,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2626821578083694134}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -142,6 +142,7 @@ MonoBehaviour:
   hitEffect: {fileID: 0}
   healEffect: {fileID: 0}
   invincibilityEffect: {fileID: 0}
+  fireEffect: {fileID: 0}
   isDying: 0
 --- !u!114 &847608114787040653
 MonoBehaviour:
@@ -171,6 +172,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats: {fileID: 11400000, guid: 7fde14390a1a7324cb88c914846c0674, type: 2}
   isAsleep: 0
+  DamageImmunities: 
+  Movements: []
 --- !u!95 &8042973779161212819
 Animator:
   serializedVersion: 3
@@ -320,4 +323,4 @@ MonoBehaviour:
   - {x: -0.248963, y: 0.096463785, z: 0}
   m_ShapePathHash: 217203677
   m_Mesh: {fileID: 0}
-  m_InstanceId: 216886
+  m_InstanceId: 64890

@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5921899adf7cf26408ad22b2829ca33c, type: 3}
-  m_Name: Scroll Stats
+  m_Script: {fileID: 11500000, guid: 258a399d851bf444dbec4ba6cdb160c8, type: 3}
+  m_Name: Scroll A Data
   m_EditorClassIdentifier: 
+  id: 
   InventoryIcon: {fileID: 0}
   ClipPickup: {fileID: 8300000, guid: c6e5e0e385f7c31439ad18363c6d0ada, type: 3}
+  Description: 
+  PublicName: 

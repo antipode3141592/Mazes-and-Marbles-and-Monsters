@@ -24,6 +24,7 @@ namespace MarblesAndMonsters.Menus.Components
         {
             ItemImage.image.sprite = spellStats.InventoryIcon;
             ItemImage.image.color = Color.white;
+            BackgroundImage.color = Color.green;
             ItemImage.onClick.AddListener(Player.Instance.MySheet.Spells[spellStats.SpellName].Cast);
             storedSpellName = spellStats.SpellName;
             Player.Instance.MySheet.Spells[storedSpellName].OnCooldownStart += CooldownStartHandler;
@@ -35,6 +36,7 @@ namespace MarblesAndMonsters.Menus.Components
         {
             ItemImage.image.sprite = null;
             ItemImage.image.color = Color.clear;
+            BackgroundImage.color = Color.clear;
             ItemImage.onClick.RemoveAllListeners();
             Player.Instance.MySheet.Spells[storedSpellName].OnCooldownStart -= CooldownStartHandler;
             Player.Instance.MySheet.Spells[storedSpellName].OnCooldownEnd -= CooldownEndHandler;

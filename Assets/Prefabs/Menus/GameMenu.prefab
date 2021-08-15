@@ -778,6 +778,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathCounter
       objectReference: {fileID: 0}
+    - target: {fileID: 4733815521434533489, guid: 4d61c4e14acdb76468acb14df2c480d4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8844432932786059374, guid: 4d61c4e14acdb76468acb14df2c480d4,
         type: 3}
       propertyPath: m_Pivot.x

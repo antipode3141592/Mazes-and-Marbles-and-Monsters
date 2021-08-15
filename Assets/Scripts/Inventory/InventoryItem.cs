@@ -12,8 +12,7 @@ namespace MarblesAndMonsters.Items
         protected int aTriggerPickup;
 
         //[SerializeField]
-        //protected Sprite InventoryIcon;
-        public SpellStats Stats;
+        public ItemStats Stats;
 
         protected void Awake()
         {
@@ -27,11 +26,6 @@ namespace MarblesAndMonsters.Items
         {
             gameObject.SetActive(true);
         }
-
-        //public virtual Sprite GetSprite()
-        //{
-        //    throw new System.NotImplementedException();
-        //}
 
         public virtual Sprite GetUISprite()
         {

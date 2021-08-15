@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using LevelManagement.Levels;
+using MarblesAndMonsters.Items;
 
 //code based on the course content at https://www.udemy.com/course/level-management-in-unity/ , which was super helpeful and highly recommended
 
@@ -15,9 +16,6 @@ namespace LevelManagement.Data
         public float MasterVolume { get { return saveData.masterVolume; } set { saveData.masterVolume = value; } }
         public float SFXVolume { get { return saveData.sfxVolume; } set { saveData.sfxVolume = value; } }
         public float MusicVolume { get { return saveData.musicVolume; } set { saveData.musicVolume = value; } }
-        //public int HigestLevelUnlocked { get { return saveData.CurrentLevelIndex; } set { saveData.CurrentLevelIndex = value; } }
-
-        //public LevelSpecs CurrentLevelSpecs { get { return saveData.playerCurrentLevelSpecs; } set { saveData.playerCurrentLevelSpecs = value; } }
         public string SavedLocation { get { return saveData.currentLocation; } set { saveData.currentLocation = value; } }
         public string CheckPointLevelId { get { return saveData.checkPointLevelId; } set { saveData.checkPointLevelId = value; } }
 
@@ -31,6 +29,10 @@ namespace LevelManagement.Data
         public List<LevelSaveData> LevelSaves { get { return saveData.LevelSaves; } set { saveData.LevelSaves = value; } }
 
         public List<LocationSaveData> LocationSaves { get { return saveData.LocationSaves; } set { saveData.LocationSaves = value; } }
+
+        public List<SpellData> UnlockedSpells { get { return saveData.UnlockedSpells; } set { saveData.UnlockedSpells = value; } }
+
+        public List<KeyItem> CollectedKeys { get { return saveData.CollectedKeys; } set { saveData.CollectedKeys = value; } }
 
         private static DataManager _instance;
         public static DataManager Instance

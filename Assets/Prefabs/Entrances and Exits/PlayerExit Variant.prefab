@@ -59,6 +59,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5790476055170181544, guid: b559bcd24cb7a6241961728caf6376d1,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790476055170181544, guid: b559bcd24cb7a6241961728caf6376d1,
+        type: 3}
       propertyPath: m_Offset.x
       value: 0
       objectReference: {fileID: 0}
@@ -136,6 +141,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerExit Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790476055170181547, guid: b559bcd24cb7a6241961728caf6376d1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5790476055170181591, guid: b559bcd24cb7a6241961728caf6376d1,
         type: 3}

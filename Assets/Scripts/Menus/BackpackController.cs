@@ -13,7 +13,7 @@ public class BackpackController : MonoBehaviour
     public UISpellIconTemplate ItemTemplate;
 
     private List<UISpellIconTemplate> inventoryItems;
-    public Canvas ParentCanvas;
+    //public Canvas ParentCanvas;
 
     protected void Awake()
     {
@@ -32,7 +32,7 @@ public class BackpackController : MonoBehaviour
                 Debug.Log(string.Format("slot: {0}, item id: {1}", Player.Instance.Inventory.IndexOf(slot), slot.Id));
                 var itemIcon = Instantiate<UISpellIconTemplate>(ItemTemplate);
                 itemIcon.transform.SetParent(InventoryTransform,false);
-                itemIcon.parentCanvas = ParentCanvas;
+                //itemIcon.parentCanvas = ParentCanvas;
                 inventoryItems.Add(itemIcon);
                 itemIcon.Icon.sprite = slot.ItemStats.InventoryIcon;
                 itemIcon.Icon.color = Color.white;

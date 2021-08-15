@@ -6,18 +6,9 @@ using MarblesAndMonsters.Characters;
 namespace MarblesAndMonsters.Items
 {
     [CreateAssetMenu(menuName = "Stats/Item Stats/Health Stats")]
-    public class AddHealthItemStats : SpellStats
+    public class AddHealthItemStats : ItemStats
     {
         public int HealingStrength;
-
-        //public override void Action()
-        //{
-        //    base.Action();
-        //    if (Player.Instance != null)
-        //    {
-        //        Player.Instance.AddMaxHealth(HealingStrength);
-        //    }
-        //}
     }
 
 }

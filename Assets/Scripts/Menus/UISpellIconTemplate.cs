@@ -6,24 +6,35 @@ using UnityEngine.UI;
 
 namespace MarblesAndMonsters.Menus
 {
-    public class UISpellIconTemplate : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+    public class UISpellIconTemplate : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
     {
         public Image Icon;
         public Image SelectedBackground;
         public Image DragIcon;
         protected BackpackController backpackController;
+        public bool IsUnlocked;
+        public SpellStats SpellStats;
 
-        public Canvas parentCanvas;
         Vector2 pos;
 
-        private void OnMouseDown()
+        private void Awake()
         {
-            SelectedBackground.color = Color.green;
+            //backpackController = GetComponentInParent<BackpackController>();
+            DragIcon.enabled = false;
         }
 
-        private void OnMouseExit()
+        public void OnPointerEnter(PointerEventData eventData)
         {
-            SelectedBackground.color = Color.white;
+            SelectedBackground.color = Color.green;
+            if (BackpackMenu.Instance)
+            {
+                BackpackMenu.Instance.SpellDescription.text = SpellStats.Description;
+            }
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            SelectedBackground.color = Color.clear;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -33,27 +44,17 @@ namespace MarblesAndMonsters.Menus
             DragIcon.sprite = Icon.sprite;
             DragIcon.color = Color.white;
             DragIcon.transform.position = transform.position;
-            //RectTransformUtility.ScreenPointToLocalPointInRectangle(parentCanvas.transform as RectTransform, eventData.position, parentCanvas.worldCamera, out pos);
-            //DragIcon.transform.position = parentCanvas.transform.TransformPoint(pos);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
             Debug.Log("Inventory Item OnDrag()");
-            //RectTransformUtility.ScreenPointToLocalPointInRectangle(parentCanvas.transform as RectTransform, eventData.position, parentCanvas.worldCamera, out pos);
-            //DragIcon.transform.position += parentCanvas.transform.TransformPoint(pos);
             DragIcon.transform.position += (Vector3)eventData.delta;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
             Debug.Log("Inventory Item OnEndDrag()");
-            DragIcon.enabled = false;
-        }
-
-        private void Awake()
-        {
-            backpackController = GetComponentInParent<BackpackController>();
             DragIcon.enabled = false;
         }
     }

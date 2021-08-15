@@ -285,7 +285,19 @@ namespace MarblesAndMonsters
                         DataManager.Instance.UpdateLevelSaves(new LevelSaveData(levelId, 
                             LevelManager.Instance.GetLevelSpecsById(levelId).Location, 0, true));
                     }
-                    //DataManager.Instance.UpdateLocationSaves(new LocationSaveData(DataManager.Instance.loc))
+                    //store unlocked spells
+                    foreach (var spell in Player.Instance.MySheet.Spells)
+                    {
+                        if (spell.Value.IsUnlocked)
+                        {
+                            DataManager.Instance.UnlockedSpells.Add(new SpellData(spell.Value.SpellName, spell.Value.SpellStats, spell.Value.IsQuickSlotAssigned, spell.Value.QuickSlot));
+                        }
+                    }
+                    //store collected keys
+                    foreach (var key in Player.Instance.KeyChain)
+                    {
+                        DataManager.Instance.CollectedKeys.Add(key);
+                    }
                     DataManager.Instance.Save();
                 } else
                 {
@@ -337,7 +349,7 @@ namespace MarblesAndMonsters
 
             string charlist = "";
             foreach(var character in characters) { charlist += String.Format("{0}, ",character.gameObject.name); }
-            Debug.Log(String.Format("there are {0} characters : {1}", characters.Count,charlist));
+            //Debug.Log(String.Format("there are {0} characters : {1}", characters.Count,charlist));
             if (characters.Count > 0)
             {
                 return characters.Count;

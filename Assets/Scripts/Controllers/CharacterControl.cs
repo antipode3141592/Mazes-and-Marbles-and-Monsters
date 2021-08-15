@@ -21,7 +21,6 @@ namespace MarblesAndMonsters.Characters
         public ParticleSystem healEffect;   //plays when healing (players use a potion, monster regenerates, etc.)
         public ParticleSystem invincibilityEffect;
         public ParticleSystem fireEffect;
-        //public ParticleSystem levitationEffect;
 
         //rigidbody and collider references
         protected Rigidbody2D myRigidbody;
@@ -30,7 +29,6 @@ namespace MarblesAndMonsters.Characters
         protected SpriteRenderer mySpriteRenderer;
 
         //input storage
-        //protected Vector2 input_acceleration;
         protected float input_horizontal;
         protected float input_vertical;
 
@@ -94,14 +92,17 @@ namespace MarblesAndMonsters.Characters
         {
             if (GameManager.Instance.StoreCharacter(this))
             {
-                Debug.Log(String.Format("{0} has been added to Characters on GameController", this.gameObject.name));
+                //Debug.Log(String.Format("{0} has been added to Characters on GameController", this.gameObject.name));
             }
-            //animator.SetBool("Falling", false);
-            
         }
 
         protected virtual void Update()
         {
+            //death check
+            if (MySheet.CurrentHealth <= 0)
+            {
+                CharacterDeath(DeathType.Damage);
+            }
             //grab acceleration input
             SetLookDirection();
             animator.SetFloat(aFloatSpeed, myRigidbody.velocity.magnitude);
@@ -113,8 +114,6 @@ namespace MarblesAndMonsters.Characters
             MySheet.OnBurningEnd -= FireOffHandler;
             MySheet.OnInvincible -= InvincibileOnHandler;
             MySheet.OnInvincibleEnd -= InvincibileOffHandler;
-            //MySheet.OnLevitating -= LevitateOnHandler;
-            //MySheet.OnLevitatingEnd -= LevitateOffHandler;
             //if this character is the respawning type, start the spawn coroutine
             if (mySheet.RespawnFlag)
             {
@@ -159,7 +158,7 @@ namespace MarblesAndMonsters.Characters
                     //check for death, if still alive, play particle effect and hit animation
                     if (mySheet.CurrentHealth <= 0)
                     {
-                        Debug.Log("Death trigger from TakeDamage()");
+                        //Debug.Log("Death trigger from TakeDamage()");
                         CharacterDeath(DeathType.Damage);
                     }
                     else
@@ -234,33 +233,6 @@ namespace MarblesAndMonsters.Characters
             myRigidbody.AddForce(force, ForceMode2D.Impulse);
         }
 
-        //public void ApplyLevitate(float duration)
-        //{
-        //    MySheet.IsLevitating = true;
-        //    MySheet.LevitatingTimeCounter = duration;
-        //}
-
-        //void LevitateOnHandler(object sender, EventArgs e)
-        //{
-        //    if (levitationEffect)
-        //    {
-        //        levitationEffect.Play();
-        //    }
-        //}
-        //void LevitateOffHandler(object sender, EventArgs e)
-        //{
-        //    if (levitationEffect)
-        //    {
-        //        levitationEffect.Stop();
-        //    }
-        //}
-
-        //public void ApplyForceBubble(float duration)
-        //{
-        //    MySheet.Spells[SpellName.ForceBubble].Cast();
-        //    //ApplyInvincible(duration);
-        //}
-
         public void ApplyFalling(Vector3 position)
         {
             if (!MySheet.IsLevitating)
@@ -290,7 +262,7 @@ namespace MarblesAndMonsters.Characters
         private void ResetHealth()
         {
             mySheet.CurrentHealth = mySheet.MaxHealth;
-            Debug.Log(string.Format("{0} - Current Health: {1}, Max Health: {2}", this.gameObject.name, mySheet.CurrentHealth, mySheet.MaxHealth));
+            //Debug.Log(string.Format("{0} - Current Health: {1}, Max Health: {2}", this.gameObject.name, mySheet.CurrentHealth, mySheet.MaxHealth));
         }
 
         public virtual void CharacterDeath(DeathType deathType)
@@ -308,10 +280,10 @@ namespace MarblesAndMonsters.Characters
                 {
                     case DeathType.Falling:
                         //animator.SetBool("Falling", true);
-                        animator.SetBool(aTriggerFalling, true);
+                        animator.SetTrigger(aTriggerFalling);
                         break;
                     case DeathType.Damage:
-                        animator.SetBool(aTriggerDeathByDamage, true);
+                        animator.SetTrigger(aTriggerDeathByDamage);
                         break;
                     case DeathType.Fire:
                         break;
@@ -331,30 +303,12 @@ namespace MarblesAndMonsters.Characters
         public virtual void CharacterDeath(DeathType deathType, Vector2 position, Quaternion rotation)
         {
             //set position and rotation to the inputs
-
             CharacterDeath(deathType);
         }
 
         protected virtual IEnumerator DeathAnimation(DeathType deathType)
         {
             yield return new WaitForSeconds(0.5f);  //death animations are 8 frames, current fps is 12
-            //switch (deathType)
-            //{
-            //    case DeathType.Falling:
-            //        animator.SetBool(aTriggerFalling, false);
-            //        break;
-            //    case DeathType.Damage:
-            //        animator.SetBool(aTriggerDeathByDamage, false);
-            //        break;
-            //    case DeathType.Fire:
-            //        break;
-            //    case DeathType.Poison:
-            //        break;
-            //    default:
-            //        Debug.LogError("Unhandled deathtype enum!");
-            //        break;
-            //}
-            //gameObject.SetActive(false);
             Destroy(this);
         }
         #endregion
@@ -375,8 +329,6 @@ namespace MarblesAndMonsters.Characters
 
             animator.SetFloat(aFloatLookX, lookDirection.x);
             animator.SetFloat(aFloatLookY, lookDirection.y);
-            //animator.SetFloat("Speed", input_acceleration.magnitude);
-            
         }
         #endregion
     }

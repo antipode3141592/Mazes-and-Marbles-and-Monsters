@@ -6,14 +6,14 @@ namespace MarblesAndMonsters
 {
     public class InventorySlot
     {
-        public SpellStats ItemStats;
+        public ItemStats ItemStats;
         public int Quantity;
         public bool IsAvailable;
         public int QuickAccessSlot;  //0-index for quick access slots, negative indicates no assignment
 
         public string Id => ItemStats.Id;
 
-        public InventorySlot(SpellStats itemStats, int quantity = 1, bool isAvailable = true, int quickAccessSlot = -1)
+        public InventorySlot(ItemStats itemStats, int quantity = 1, bool isAvailable = true, int quickAccessSlot = -1)
         {
             ItemStats = itemStats;
             Quantity = quantity;

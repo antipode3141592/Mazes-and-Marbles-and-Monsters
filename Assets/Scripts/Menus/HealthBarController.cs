@@ -1,4 +1,5 @@
 ﻿using MarblesAndMonsters.Characters;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MarblesAndMonsters.Menus.Components
@@ -10,49 +11,64 @@ namespace MarblesAndMonsters.Menus.Components
     //  
     public class HealthBarController : MonoBehaviour
     {
-        public GameObject[] heartArray; //currently set in Unity to twenty hearts
-        Animator[] heartAnimators;
+        public List<GameObject> Hearts; //currently set in Unity to twenty hearts
+        public List<Animator> HeartAnimators;
+
+        private List<GameObject> heartsToDelete;
+
+        public Transform ParentTransform;
+        public GameObject heartIconPrefab;
 
         private void Awake()
         {
-            heartAnimators = new Animator[heartArray.Length];
-            //populate array of Animators
-            for (int i = 0; i < heartArray.Length; i++)
+            HeartAnimators = new List<Animator>();
+            Hearts = new List<GameObject>();
+            heartsToDelete = new List<GameObject>();
+        }
+
+        private void OnEnable()
+        {
+            Debug.Log("HealthBarController's OnEnable() called");
+            if (Player.Instance)
             {
-                heartAnimators[i] = heartArray[i].GetComponent<Animator>();
+                for (int i = Hearts.Count; i < Player.Instance.MySheet.MaxHealth; i++)
+                {
+                    AddHeart();
+                }
             }
+        }
+
+        private void AddHeart()
+        {
+            GameObject heart = Instantiate(heartIconPrefab, ParentTransform);
+            Hearts.Add(heart);
+            HeartAnimators.Add(heart.GetComponent<Animator>());
         }
 
         public void UpdateHealth()
         {
+            Debug.Log("UpdateHealth() called");
             if ((Player.Instance != null) && (Player.Instance.MySheet != null))
             {
-                //playerCurrentHealth = Player.Instance.MySheet.CurrentHealth;
-                //playerMaxHealth = Player.Instance.MySheet.MaxHealth;
+                Debug.Log(string.Format("Hearts.Count = {0}, HeartAnimators = {1}, PlayerMaxHealth = {2}", Hearts.Count, HeartAnimators.Count, Player.Instance.MySheet.MaxHealth));
+                if (Hearts.Count < Player.Instance.MySheet.MaxHealth)
+                {
+                    int diff = Player.Instance.MySheet.MaxHealth - Hearts.Count;
+                    for (int j = 0; j < diff; j++)
+                    {
+                        AddHeart();
+                    }
+                }
                 //activate heart objects equal to max health
                 int i = 0;
                 for (; i < Player.Instance.MySheet.CurrentHealth; i++)
                 {
-                    heartArray[i].SetActive(true);
-                    heartAnimators[i].Play("FullHeart");
+                    HeartAnimators[i].Play("FullHeart");
                 }
                 //set hearts up to max health to empty
                 for (; i < Player.Instance.MySheet.MaxHealth; i++)
                 {
-                    heartArray[i].SetActive(true);
-                    heartAnimators[i].Play("LoseHeart");
-                }
-                //deactivate remaining hearts
-                for (; i < heartArray.Length; i++)
-                {
-                    heartArray[i].SetActive(false);
-                }
-            } else
-            {
-                Debug.Log("No player available");
-                foreach (var heart in heartArray)
-                {
-                    heart.SetActive(false);
+                    HeartAnimators[i].Play("LoseHeart");
                 }
             }
         }

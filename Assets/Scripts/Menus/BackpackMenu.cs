@@ -4,6 +4,7 @@ using UnityEngine;
 using LevelManagement.Menus;
 using MarblesAndMonsters.Characters;
 using UnityEngine.UI;
+using UnityEngine.Sprites;
 
 namespace MarblesAndMonsters.Menus
 {
@@ -14,6 +15,7 @@ namespace MarblesAndMonsters.Menus
     {
         public Transform QuickAccessTransform;
         public Transform InventoryTransform;
+        public Text SpellDescription;
 
         public GridLayoutGroup grid;
         //public UISpellIconTemplate ItemTemplate;
@@ -34,15 +36,24 @@ namespace MarblesAndMonsters.Menus
             Debug.Log("BackpackMenu OnEnable()...");
             if (Player.Instance != null && grid != null)
             {
-                int i = 0;
-                foreach (KeyValuePair<SpellName, Spell> _spell in Player.Instance.MySheet.Spells)
+                for (int i = 0; i < spellBook.Count; i++)
                 {
-                    Debug.Log(string.Format("spell name: {0}, spell id: {1}, isUnlocked = {2}", _spell.Key.ToString(), _spell.Value.SpellStats.Id, _spell.Value.IsUnlocked.ToString()));
-                    //var itemIcon = Instantiate<UISpellIconTemplate>(ItemTemplate, InventoryTransform);
-                    //spellBook.Add(itemIcon);
-                    spellBook[i].Icon.sprite = _spell.Value.SpellStats.InventoryIcon;
-                    spellBook[i].Icon.color = Color.white;
-                    i++;
+                    //Spell _spell = Player.Instance.MySheet.Spells[(SpellName)i];
+                    Spell _spell;
+                    if (Player.Instance.MySheet.Spells.TryGetValue((SpellName)i, out _spell))
+                    {
+                        if (_spell.IsUnlocked)
+                        {
+                            spellBook[i].SpellStats = _spell.SpellStats;  //grab relevant stats
+                            spellBook[i].Icon.sprite = _spell.SpellStats.InventoryIcon;
+                            spellBook[i].Icon.color = Color.white;
+                        }
+                    } else
+                    {
+                        spellBook[i].Icon.sprite = null;
+                        spellBook[i].Icon.color = Color.grey;
+                        spellBook[i].SpellStats = null;
+                    }   
                 }
             }
         }
@@ -50,10 +61,6 @@ namespace MarblesAndMonsters.Menus
         private void OnDisable()
         {
             Time.timeScale = 1.0f;
-            foreach (UISpellIconTemplate spellIcon in spellBook)
-            {
-                spellIcon.Icon.color = Color.clear;
-            }
         }
 
         //inventory management actions
