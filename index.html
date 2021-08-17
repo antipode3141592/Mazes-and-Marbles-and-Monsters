@@ -22,96 +22,24 @@
         </section>
         <section id="journal">
             <article>
-            <h2><a href="./publicHTML/journal.html">Latest Post: August 10, 2021</a></h2>
-                <p>The spell casting system needs a little bit of formalization so I can clean up my code.  Right now, there’s still a weird hodge-podge of consumables and items that are tracked in an inventory.  With the simplified Spell Book with a static number of spells (some of the spells may be able to be upgraded).  Spells are prefabs that contain all animations and particles necessary.</p>
+            <h2><a href="./publicHTML/journal.html">Latest Post: August 16, 2021</a></h2>
+            <p>I’ve been doing a lot of refactoring and straight deletion of code to clearly separate the spells, inventory items, and pickups.  It took quite a bit of time, but everything makes much more sense now.  Game development is such a wild ride.  All of my previous programming experience has been in environments where there’s pretty clear scope and requirements, even when prototyping, there’s a clear set of requirements where all the versions explore different methods to meet those requirements.  In games, the most important requirement is fun.  For this game, I have a clear concept - a living marble labyrinth - but the vision has changed quite a bit through the various prototypes.  It’s been a mish-mash of learning Unity (and generally improving my base of programming knowledge), prototyping, re-visioning, working on art and animation, and more prototyping.</p>
 
-                <h3>Magic Staff</h3>
-                <ul>
-                    <li>Level I - two spell slots</li>
-                    <li>Level II - three spell slots</li>
-                    <li>Level III - four spell slots</li>
-                </ul>
+            <p>Recently, the former Bioware producer Mark Darrah started a YouTube channel where he talks about all sorts of interesting game development topics.  In particular, the <a href="https://youtu.be/v0kb0uUWNyA">video he made about project phases in game development</a> helped me to organize my development process.  The phases he lays out are Concept, Vision, Prototype, Prove, Tooling, Production, Fix, Certification, and Balance.  Any real project is going to have overlaps in the phases, but it’s been hard to see where I am in this process.  I’ve certainly been in the preproduction phases of Concept, Vision, and Prototype for the last year and half - so often I play the prototype and it just doesn’t match my expectations, so it’s back to the drawing board.  Meanwhile, I’ve been working on the art and animations assets, which keep getting better, but I have to be careful to not spend too much time on any given asset, as I still don’t know <em>exactly</em> what will end up in the final game.  But I also need to not completely half-ass the art, because I need to know that process well enough to make time estimates and to figure out what the real art requirements are.  For example, what is the minimum number of unique tiles I need to create a new wall and floor set?  As it turns out, the Forest set needs a few extra unique wall pieces compared to the Stone set, as the Stone set looks great with repetition but the forest looks distractingly odd when there’s too much repetition.  So it’s not the static answer that I want, but I at least now know that about 50 tiles will cover nearly every wall configuration and I can make a 80% polish set in a day or two, so if I want four unique environs (Stone, Forest, Desert, Cave), that’s 200 tiles and up to two weeks of work (for full polish).</p>
 
-                <p>My design goals for spells are to have clear functions, no targets (just press the Cast button, no additional tapping on the screen), and no damage dealing effects.  I’m tired of games that are just about destructive spell casting - they can be really fun, but violence is the default, which is whack.</p>
+            <p>Once I implemented spells (well, two of them) and played with them in a level, that was the biggest jump in the fun curve I’ve had with my game since the first few prototypes.  It does transition the game into more of a top-down platformer type experience, but it still feels like a marble roller - the physics of the “tipping the board” feels correct.  This serves to further define the vision of this project, and gives me a better sense of what levels could/should be.  Like any platformer, it’s fun to  use the various special abilities and use them together to unlock new areas or “cheat” problems.  In the production phase, I’ll need to be exceptionally clever when making levels, especially for the end of the campaign when the player has all the spells.  But for now, I need to finish up prototyping the interface, spells, and monsters.</p>
 
-                <h3>Spell List</h3>
-                <ul>
-                    <li>Force Bubble - invincible bubble (can still fall to death) surrounds the player
-                        <ul>
-                            <li>Level I - small diameter, short duration</li>
-                            <li>Level II - medium diameter, medium duration</li>
-                            <li>Level III - largest diameter, longest duration</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Levitate - float for a brief time (can pass over pits, unaffected by the Board Move).  Removes all fire effects from the character.  Applies small force to characters entering radius of effect, perpendicular to vector between caster and colliding character (simulate effect of counter-clockwise wind vortex surrounding caster).
-                        <ul>
-                            <li>Level I - small diameter, small force</li>
-                            <li>Level II - medium diameter, medium force</li>
-                            <li>Level III - large diameter, large force</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Slow Time - slow time for all non-caster elements on board
-                        <ul>
-                            <li>Level I - small time reduction</li>
-                            <li>Level II - medium time reduction</li>
-                            <li>Level III - stop time for duration</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Transmute - morph into a monster for a while
-                        <ul>
-                            <li>Level I - weak monster</li>
-                            <li>Level II - medium monster</li>
-                            <li>Level III - powerful monster, something that can crush normal marbles and rollers</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Stone Form - become an stationary, invincible statue for a short period
-                        <ul>
-                            <li>Level I - short duration</li>
-                            <li>Level II - medium duration</li>
-                            <li>Level III - long duration</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Entangle - create an area of vines that grab and hold all characters except the caster for the duration (classic druid spell)
-                        <ul>
-                            <li>Level I - small diameter, short duration</li>
-                            <li>Level II - medium diameter, medium duration</li>
-                            <li>Level III - largest diameter, longest duration</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Force Push - apply force to characters entering radius of effect along vector between caster and character.  force applied increases with proximity.
-                        <ul>
-                            <li>Level I - less force</li>
-                            <li>Level II - medium force</li>
-                            <li>Level III - large force</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Teleport - first cast creates a Teleport Point, second cast moves caster to the Teleport Point and deletes the Teleport Point.
-                        <ul>
-                            <li>Level I - slowest cooldown</li>
-                            <li>Level II - medium cooldown</li>
-                            <li>Level III - fastest cooldown</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Ghost Form - reduce alpha on sprite, caster can pass through colliders (I’m sure that won’t be in any way problematic), other characters cannot observe caster during duration
-                        <ul>
-                            <li>Level I - shortest duration</li>
-                            <li>Level II - medium duration</li>
-                            <li>Level III - longest duration</li>
-                        </ul>
-                    </li>
-                </ul>
+            <img src="./publicHTML/resources/MMM_demo_d2021-08-16_t02h39m.gif">
 
-                <p>Of these spells, the most problematic to program are probably going to be the Slow Time and Teleport.  Unity does not support separate timelines, and weird stuff happens when TimeScale = 0.0f.  My first thoughts are to decrease the timescale and apply extra forces to the caster to make them move faster then calculate the “normal” velocity and set it directly upon exit.  For Teleport, I’ll need to figure out how to best use Duration and Cooldown in context of the spell.  Should there be a cooldown after the Teleport Point has been created?  Maybe two cooldowns, one short after the Create Teleport Point and one longer after the Teleport.  Both Teleport and Force Push are instantaneous spells, but may be useful for them to have small durations for animations or something.  Depends on how I’ll decide to represent the timers.</p>
+            <p>This capture demonstrates (1) spells being picked up and automatically added to the quick access slots, (2) the health bar initializing correctly, (3) health decrementing when player is damaged, (4) health resetting at beginning of new level (5) spell assignments persisting to next level.  I don’t yet have a fleshed out requirements document, so these don’t correspond to anything directly, but they have all help me checkpoint things I’ve been changing recently.</p>
 
-                <p>As a final note, I really need to find a good way to capture gameplay.  The built-in Recorder adds a lot of lag, especially the GIF function.  Maybe I can tweak settings enough to make it performant and less glitchy/artifacty.  </p>
+            <ol>
+                <li>Spell pickup system - it took many iterations to find a reasonable system for pickups that unlock spells, add those spells to the quick access, and undo that stuff if the player dies before finishing a level.</li>
+                <li>Health Bar - health bar hearts are now generated dynamically</li>
+                <li>Health Bar Update command has been simplified</li>
+                <li>Health now refreshes at end of level, as there’s no healing aside from the +1 max health item.  This may change with a difficulty setting (high difficulty => no health restore at level end).  May add healing potions back in, as pickups that immediately heal the player.</li>
+                <li>Adding Spells to the DataManager and making sure spells are properly initialized took a minute.  Currently, Spells are driven by an enum system, because I’m a dinosaur and haven’t yet taken the time to learn reflection well enough.</li>
+            </ol>
             </article>
         </section>
         
