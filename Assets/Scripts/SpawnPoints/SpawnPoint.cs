@@ -65,12 +65,12 @@ namespace MarblesAndMonsters.Characters
                 if (GameManager.Instance.CurrentState is FiniteStateMachine.States.GameStates.PopulateLevel
                     || GameManager.Instance.CurrentState is FiniteStateMachine.States.GameStates.Playing)
                 {
-                    Debug.Log(string.Format("Current State: {0}, RemoteTriggerSpawn({1}) called", 
-                        GameManager.Instance.CurrentState.ToString(), spawnDelay));
+                    //Debug.Log(string.Format("Current State: {0}, RemoteTriggerSpawn({1}) called", 
+                        //GameManager.Instance.CurrentState.ToString(), spawnDelay));
                     StartCoroutine(Spawn(spawnDelay));
                 } else
                 {
-                    Debug.Log(string.Format("Current State: {0}, respawn not permissable", GameManager.Instance.CurrentState.ToString()));
+                    //Debug.Log(string.Format("Current State: {0}, respawn not permissable", GameManager.Instance.CurrentState.ToString()));
                 }
             }
         }

@@ -39,16 +39,6 @@ namespace MarblesAndMonsters.Spells
             gameObject.SetActive(true);
         }
 
-        //public virtual Sprite GetSprite()
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-
-        public virtual Sprite GetUISprite()
-        {
-            return Stats.InventoryIcon;
-        }
-
         protected virtual void OnTriggerEnter2D(Collider2D collision)
         {
             //only Player objects can pickup and use 

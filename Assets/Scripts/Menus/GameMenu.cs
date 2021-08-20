@@ -27,7 +27,6 @@ namespace MarblesAndMonsters.Menus
             keychainUI = FindObjectOfType<KeyChainUIController>();
             quickAccessController = FindObjectOfType<QuickAccessController>();
             backpackController = FindObjectOfType<BackpackController>(true); //include inactive
-            
         }
 
         public void RefreshUI() 

@@ -49,6 +49,8 @@ namespace MarblesAndMonsters.Characters
         //accessors
         public int TreasureCount { get { return treasureCount; } set { treasureCount = value; } }
         public int DeathCount { get { return deathCount; } set { deathCount = value; } }
+
+        public int StaffLevel = 2;
         #endregion
 
         #region Unity Functions
@@ -94,13 +96,6 @@ namespace MarblesAndMonsters.Characters
                     MySheet.Spells[spell.SpellName].IsUnlocked = true;
                     MySheet.Spells[spell.SpellName].IsQuickSlotAssigned = spell.IsAssigned;
                     MySheet.Spells[spell.SpellName].QuickSlot = spell.QuickSlot;
-                    if (MySheet.Spells[spell.SpellName].IsQuickSlotAssigned)
-                    {
-                        if (GameMenu.Instance)
-                        {
-                            GameMenu.Instance.quickAccessController.AssignQuickAccess(MySheet.Spells[spell.SpellName].QuickSlot, MySheet.Spells[spell.SpellName].SpellStats);
-                        }
-                    }
                 }
                 //TODO: add inventory and keychain initializers
                 foreach (var key in DataManager.Instance.CollectedKeys)
@@ -119,6 +114,7 @@ namespace MarblesAndMonsters.Characters
             if (GameMenu.Instance != null)
             {
                 GameMenu.Instance.RefreshUI();
+                GameMenu.Instance.quickAccessController.AssignAllSpellSlots();
                 UpdateKeyChainUI();
             }
         }
