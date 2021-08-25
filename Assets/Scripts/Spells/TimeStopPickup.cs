@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MarblesAndMonsters.Spells
 {
-    public class TimeStopPickup : SpellPickup
+    public class TimeStopPickup : SpellPickupBase
     {
         
     }

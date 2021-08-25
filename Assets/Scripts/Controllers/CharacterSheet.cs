@@ -30,6 +30,7 @@ namespace MarblesAndMonsters.Characters
         private int maxHealth = 1;
         private int currentHealth = 1;
         private int armor;
+        public Material DefaultMaterial => baseStats.DefaultMaterial;
 
         private bool respawnFlag;   //if true, character respawn
         private float respawnPeriod;    //seconds before respawn

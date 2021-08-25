@@ -16,7 +16,7 @@ namespace MarblesAndMonsters.Menus
         public MagicStaffController MagicStaffController;
         public bool IsUnlocked;
         public SpellStats SpellStats;
-        //public GraphicRaycaster GraphicRaycaster;
+        public GraphicRaycaster graphicRaycaster;
         private List<RaycastResult> raycastResults;
 
         Vector2 pos;
@@ -25,9 +25,10 @@ namespace MarblesAndMonsters.Menus
         {
             //backpackController = GetComponentInParent<BackpackController>();
             raycastResults = new List<RaycastResult>();
-            //GraphicRaycaster = GetComponent<GraphicRaycaster>();
+            graphicRaycaster = GetComponentInParent<GraphicRaycaster>();
             MagicStaffController = FindObjectOfType<MagicStaffController>();
-            DragIcon.enabled = false;
+            //DragIcon = FindObjectOfType<DragIcon>(true).GetComponent<Image>();
+            //DragIcon.enabled = false;
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -66,7 +67,7 @@ namespace MarblesAndMonsters.Menus
         {
             //Debug.Log("Inventory Item OnEndDrag()");
             raycastResults.Clear();
-            BackpackMenu.Instance.GraphicRaycaster.Raycast(eventData, raycastResults);
+            graphicRaycaster.Raycast(eventData, raycastResults);
             foreach (var result in raycastResults)
             {
                 MagicStaffSlot staffSlot = result.gameObject.GetComponent<MagicStaffSlot>();

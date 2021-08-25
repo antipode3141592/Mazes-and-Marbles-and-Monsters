@@ -24,9 +24,9 @@ namespace MarblesAndMonsters.Spells
             spriteRenderer.enabled = false;
         }
 
-        public override void Cast()
+        public override void SpellStartHandler(object sender, EventArgs e)
         {
-            base.Cast();
+            base.SpellStartHandler(sender, e);
             circleCollider2D.enabled = true;
             spriteRenderer.enabled = true;
             _characterControl.MySheet.DamageImmunities.Add(DamageType.All);

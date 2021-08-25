@@ -20,4 +20,4 @@ MonoBehaviour:
   Description: Create an impervious bubble around the caster.
   PublicName: Force Field
   Duration: 3
-  CooldownDuration: 3
+  CooldownDuration: 6

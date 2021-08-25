@@ -16,24 +16,12 @@ namespace MarblesAndMonsters.Spells
             base.Awake();
             //SpellName = SpellName.Levitate;
             circleCollider2D = GetComponent<CircleCollider2D>();
+            //set the radius of the circle collider based on the spell stats
         }
-        //protected void OnEnable()
-        //{
-        //    _characterControl.MySheet.OnLevitating += SpellStartHandler;
-        //    _characterControl.MySheet.OnLevitatingEnd += SpellEndHandler;
-        //}
 
-        //protected void OnDisable()
-        //{
-        //    _characterControl.MySheet.OnLevitating -= SpellStartHandler;
-        //    _characterControl.MySheet.OnLevitatingEnd -= SpellEndHandler;
-        //}
-
-        public override void Cast()
+        public override void SpellStartHandler(object sender, EventArgs e)
         {
-            base.Cast();
-            //_characterControl.ApplyLevitate(ItemStats.EffectDuration);
-            //_characterControl.MySheet.LevitatingTimeCounter = SpellStats.Duration;
+            base.SpellStartHandler(sender, e);
             _characterControl.MySheet.IsLevitating = true;
         }
 
@@ -43,6 +31,7 @@ namespace MarblesAndMonsters.Spells
             _characterControl.MySheet.IsLevitating = false;
         }
 
+        // Apply a simulated "wind" force every frame they are within the range of the trigger collider
         //private void OnTriggerStay2D(Collider2D collision)
         //{
         //    if (collision)

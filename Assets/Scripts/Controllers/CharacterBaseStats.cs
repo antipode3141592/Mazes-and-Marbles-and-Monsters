@@ -32,5 +32,7 @@ namespace MarblesAndMonsters.Characters
         public AudioClip ClipDeathFire;
 
 
+        //default material
+        public Material DefaultMaterial;
     }
 }

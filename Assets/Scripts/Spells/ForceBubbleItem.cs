@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MarblesAndMonsters.Spells
 {
-    public class ForceBubbleItem : SpellPickup
+    public class ForceBubbleItem : SpellPickupBase
     {
 
     }

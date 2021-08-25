@@ -330,6 +330,33 @@ namespace MarblesAndMonsters.Characters
             animator.SetFloat(aFloatLookX, lookDirection.x);
             animator.SetFloat(aFloatLookY, lookDirection.y);
         }
+
+        public virtual void UpdateSpriteMaterial(Material material)
+        {
+            mySpriteRenderer.material = material;
+        }
+
+        public virtual Material GetCurrentMaterial()
+        {
+            return mySpriteRenderer.material;
+        }
+
+        public virtual void ResetMaterial()
+        {
+            mySpriteRenderer.material = MySheet.DefaultMaterial;
+        }
+
+        public virtual void SetAnimationSpeed(float targetSpeed)
+        {
+            animator.speed = targetSpeed;
+        }
+
+        public virtual void SetBodyType(RigidbodyType2D rigidbodyType2D)
+        {
+            myRigidbody.bodyType = rigidbodyType2D;
+        }
+
+
         #endregion
     }
 }

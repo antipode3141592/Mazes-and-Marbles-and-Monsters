@@ -19,11 +19,9 @@ namespace MarblesAndMonsters.Menus
         public Transform InventoryTransform;
         public Text SpellDescription;
         public MagicStaffController MagicStaffController;
-        public QuickAccessDelete QuickAccessDelete;
 
         public GridLayoutGroup grid;
         public GraphicRaycaster GraphicRaycaster;
-        //public UISpellIconTemplate ItemTemplate;
 
         private List<UISpellIconTemplate> spellBook;
         private List<MagicStaffSlot> currentStaffSlots;
@@ -33,17 +31,12 @@ namespace MarblesAndMonsters.Menus
         {
             base.Awake();
             spellBook = new List<UISpellIconTemplate>(GetComponentsInChildren<UISpellIconTemplate>());
-            //QuickAccessDelete = FindObjectOfType<QuickAccessDelete>();
             GraphicRaycaster = GetComponent<GraphicRaycaster>();
-            //MagicStaffController = FindObjectOfType<MagicStaffController>();
-            //currentStaffSlots = new List<MagicStaffSlot>();
-            //newStaffSlots = new List<MagicStaffSlot>();
         }
 
         private void OnEnable()
         {
             Time.timeScale = 0.0f;
-            QuickAccessDelete.Icon.color = Color.clear;
             if (Player.Instance != null)
             {
                 for (int i = 0; i < spellBook.Count; i++)
@@ -59,6 +52,7 @@ namespace MarblesAndMonsters.Menus
                             spellBook[i].IsUnlocked = true;
                             if (_spell.IsQuickSlotAssigned)
                             {
+                                Debug.Log(string.Format("The spell {0} is assigned to quickslot {1}", _spell.SpellName.ToString(), _spell.QuickSlot));
                                 MagicStaffController.AssignQuickAccess(_spell.QuickSlot, _spell.SpellStats);
                             }
                         } else

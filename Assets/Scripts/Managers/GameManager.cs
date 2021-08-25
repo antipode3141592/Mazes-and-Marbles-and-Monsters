@@ -40,7 +40,7 @@ namespace MarblesAndMonsters
         //references to various game objects
         private List<CharacterControl> characters;
         private List<InventoryItem> inventoryItems;
-        private List<SpellPickup> spellPickups;
+        private List<SpellPickupBase> spellPickups;
         private List<KeyItem> keyItems;
         private List<SpawnPoint> spawnPoints;
         private List<Gate> gates;
@@ -161,7 +161,7 @@ namespace MarblesAndMonsters
             keyItems = new List<KeyItem>(FindObjectsOfType<KeyItem>());
             spawnPoints = new List<SpawnPoint>(FindObjectsOfType<SpawnPoint>());
             gates = new List<Gate>(FindObjectsOfType<Gate>());
-            spellPickups = new List<SpellPickup>(FindObjectsOfType<SpellPickup>());
+            spellPickups = new List<SpellPickupBase>(FindObjectsOfType<SpellPickupBase>());
 
             ////log the 
             //string spawnlist = "";
@@ -203,7 +203,7 @@ namespace MarblesAndMonsters
             {
                 keyItem.Reset();
             }
-            foreach (SpellPickup spellPickup in spellPickups)
+            foreach (SpellPickupBase spellPickup in spellPickups)
             {
                 spellPickup.Reset();
             }

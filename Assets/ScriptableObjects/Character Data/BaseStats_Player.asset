@@ -25,3 +25,4 @@ MonoBehaviour:
   ClipDeathNormal: {fileID: 0}
   ClipDeathFall: {fileID: 8300000, guid: b5e9bdd3eb0f347408eb081db5a31112, type: 3}
   ClipDeathFire: {fileID: 0}
+  DefaultMaterial: {fileID: 2100000, guid: c4fc3a97526b9894a8172951f4130f43, type: 2}

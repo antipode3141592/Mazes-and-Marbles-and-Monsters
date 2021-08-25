@@ -39,10 +39,15 @@ namespace MarblesAndMonsters
 
         public float RemainingDuration;
         public float CooldownRemainingDuration;
+
         public event EventHandler<UITimerEventArgs> DurationTimer;
+        public event EventHandler OnDurationStart;
+        public event EventHandler OnDurationEnd;
+
         public event EventHandler<UITimerEventArgs> CooldownTimer;
         public event EventHandler OnCooldownStart;
         public event EventHandler OnCooldownEnd;
+        
         public event EventHandler OnSpellStart;
         public event EventHandler OnSpellEnd;
 
@@ -71,14 +76,6 @@ namespace MarblesAndMonsters
             set
             {
                 isAvailable = value;
-                if (value)
-                {
-                    OnCooldownEnd?.Invoke(this, EventArgs.Empty);
-                }
-                else
-                {
-                    OnCooldownStart?.Invoke(this, EventArgs.Empty);
-                }
             }
         }
 
@@ -97,6 +94,11 @@ namespace MarblesAndMonsters
 
         protected virtual void Update()
         {
+            ////if spell is not available
+            //if (!IsAvailable)
+            //{
+
+            //}
             if (RemainingDuration > 0.0f)
             {
                 RemainingDuration -= Time.deltaTime;
@@ -104,6 +106,7 @@ namespace MarblesAndMonsters
                 if (RemainingDuration <= 0.0f)
                 {
                     OnSpellEnd?.Invoke(this, EventArgs.Empty);
+                    OnDurationEnd?.Invoke(this, EventArgs.Empty);
                 }
             }
             if (CooldownRemainingDuration > 0.0f)
@@ -112,6 +115,7 @@ namespace MarblesAndMonsters
                 CooldownTimer?.Invoke(this, new UITimerEventArgs(CooldownRemainingDuration / SpellStats.CooldownDuration));
                 if (CooldownRemainingDuration <= 0.0f)
                 {
+                    OnCooldownEnd?.Invoke(this, EventArgs.Empty);
                     IsAvailable = true;
                 }
             }
@@ -127,6 +131,7 @@ namespace MarblesAndMonsters
 
         /// <summary>
         /// Cast the spell.  If spell not available, do not cast.  If available, set to not available and cast
+        /// 
         /// Set Duration and Cooldown Timers
         /// 
         /// </summary>
@@ -138,13 +143,22 @@ namespace MarblesAndMonsters
                 RemainingDuration = SpellStats.Duration;
                 CooldownRemainingDuration = SpellStats.CooldownDuration;
                 OnSpellStart?.Invoke(this, EventArgs.Empty);
+                OnCooldownStart?.Invoke(this, EventArgs.Empty);
+                OnDurationStart?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 Debug.Log(string.Format("Spell {0} is not available, skipping cast", SpellName.ToString()));
-                return;
             }
         }
+
+        ///// <summary>
+        ///// override this to add unique spell effects
+        ///// </summary>
+        //protected virtual void SpellEffect()
+        //{
+
+        //}
 
         /// <summary>
         /// Default On Action handler fires the particle effects (if they exist)
