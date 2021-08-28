@@ -264,38 +264,13 @@ namespace MarblesAndMonsters.Characters
             GameMenu.Instance.keychainUI.UpdateUI(keyChain.Select(x => x.KeyStats.InventoryIcon).ToList());
         }
 
-        //there's probably a better way to abstract the CharacterDeath to not copy/paste the base function
-        public override void CharacterDeath(DeathType deathType)
+        protected override void PreDeathAnimation()
         {
-            if (isDying) { return; }
-            else
+            base.PreDeathAnimation();
+            deathCount++;
+            if (GameMenu.Instance)
             {
-                isDying = true;
-                myRigidbody.velocity = Vector2.zero;
-                deathCount++;
-                if (GameMenu.Instance)
-                {
-                    GameMenu.Instance.quickAccessController.ClearAll();
-                }
-                switch (deathType)
-                {
-                    case DeathType.Falling:
-                        animator.SetTrigger(aTriggerFalling);
-                        audioSource.clip = MySheet.baseStats.ClipDeathFall;
-                        audioSource.Play();
-                        break;
-                    case DeathType.Damage:
-                        animator.SetTrigger(aTriggerDeathByDamage);
-                        break;
-                    case DeathType.Fire:
-                        break;
-                    case DeathType.Poison:
-                        break;
-                    default:
-                        Debug.LogError("Unhandled deathtype enum!");
-                        break;
-                }
-                StartCoroutine(DeathAnimation(deathType));
+                GameMenu.Instance.quickAccessController.ClearAll();
             }
         }
 

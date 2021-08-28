@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1785747940950654041}
   - component: {fileID: 1175384529286208101}
+  - component: {fileID: 139425300663378920}
   m_Layer: 11
   m_Name: Levitation
   m_TagString: Untagged
@@ -47,7 +48,27 @@ MonoBehaviour:
   SpellStats: {fileID: 11400000, guid: 82e0b448f49868143a02d6e8e3100dad, type: 2}
   ParticleEffect: {fileID: 2974716659741218755}
   SpellName: 0
-  isUnlocked: 0
+  RemainingDuration: 0
+  CooldownRemainingDuration: 0
+  IsQuickSlotAssigned: 0
+  QuickSlot: -1
+  CircleCollider2D: {fileID: 139425300663378920}
+--- !u!58 &139425300663378920
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7397120972907361703}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2
 --- !u!1001 &1761651128002928288
 PrefabInstance:
   m_ObjectHideFlags: 0

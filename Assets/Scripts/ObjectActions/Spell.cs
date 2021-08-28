@@ -123,6 +123,12 @@ namespace MarblesAndMonsters
 
         protected virtual void OnDisable()
         {
+            ////if (!IsAvailable)
+            ////{
+            //    OnSpellEnd?.Invoke(this, EventArgs.Empty);
+            //    OnDurationEnd?.Invoke(this, EventArgs.Empty);
+            //    OnCooldownEnd?.Invoke(this, EventArgs.Empty);
+            ////}
             OnSpellStart -= SpellStartHandler;
             OnSpellEnd -= SpellEndHandler;
         }
@@ -151,14 +157,6 @@ namespace MarblesAndMonsters
                 Debug.Log(string.Format("Spell {0} is not available, skipping cast", SpellName.ToString()));
             }
         }
-
-        ///// <summary>
-        ///// override this to add unique spell effects
-        ///// </summary>
-        //protected virtual void SpellEffect()
-        //{
-
-        //}
 
         /// <summary>
         /// Default On Action handler fires the particle effects (if they exist)

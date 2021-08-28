@@ -9,21 +9,27 @@ namespace MarblesAndMonsters.Objects
     public class Pit : MonoBehaviour
     {
         public Tilemap tileMap;
+        public TilemapCollider2D tilemapCollider;
 
         protected void Awake()
         {
-            tileMap = gameObject.GetComponent<Tilemap>();
+            //tileMap = gameObject.GetComponent<Tilemap>();
+            //compositeCollider = GetCom
         }
 
         //if the 
         private void OnTriggerStay2D(Collider2D other)
         {
-            Characters.CharacterControl character = other.GetComponent<Characters.CharacterControl>();
-            if (character != null)
+            if (tilemapCollider.OverlapPoint(other.transform.position))
             {
-                var position = other.transform.position;
-                var tilemapPosition = tileMap.WorldToCell(position);
-                character.ApplyFalling(tilemapPosition);
+                Characters.CharacterControl character = other.GetComponent<Characters.CharacterControl>();
+                if (character != null)
+                {
+
+                    //var position = other.transform.position;
+                    //var tilemapPosition = tileMap.WorldToCell(position);
+                    character.ApplyFalling(other.transform.position);
+                }
             }
         }
 

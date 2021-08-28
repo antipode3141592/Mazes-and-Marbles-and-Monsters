@@ -233,6 +233,11 @@ namespace MarblesAndMonsters.Characters
             myRigidbody.AddForce(force, ForceMode2D.Impulse);
         }
 
+        public void ApplyForce(Vector2 force)
+        {
+            myRigidbody.AddForce(force, ForceMode2D.Force);
+        }
+
         public void ApplyFalling(Vector3 position)
         {
             if (!MySheet.IsLevitating)
@@ -275,12 +280,13 @@ namespace MarblesAndMonsters.Characters
             {
                 isDying = true;
                 myRigidbody.velocity = Vector2.zero;
-
+                PreDeathAnimation();
                 switch (deathType)
                 {
                     case DeathType.Falling:
-                        //animator.SetBool("Falling", true);
                         animator.SetTrigger(aTriggerFalling);
+                        audioSource.clip = MySheet.baseStats.ClipDeathFall;
+                        audioSource.Play();
                         break;
                     case DeathType.Damage:
                         animator.SetTrigger(aTriggerDeathByDamage);
@@ -292,10 +298,14 @@ namespace MarblesAndMonsters.Characters
                     default:
                         Debug.LogError("Unhandled deathtype enum!");
                         break;
-
                 }
                 StartCoroutine(DeathAnimation(deathType));
             }
+        }
+
+        protected virtual void PreDeathAnimation()
+        {
+
         }
 
         //plays the death animation at a specific location
