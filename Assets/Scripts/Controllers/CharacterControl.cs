@@ -32,6 +32,8 @@ namespace MarblesAndMonsters.Characters
         protected float input_horizontal;
         protected float input_vertical;
 
+        public float ForceMultiplier = 1.0f;
+
         //animation control
         protected Animator animator;
         protected float _speed;
@@ -42,7 +44,14 @@ namespace MarblesAndMonsters.Characters
         protected int aTriggerDamageNormal;
         protected int aTriggerFalling;
         protected int aTriggerDeathByDamage;
-        
+
+        //attack stuff
+        [SerializeField]
+        protected float ProjectileRestPeriod = 1.0f;
+        protected bool RangedAttackIsAvailable = true;
+        [SerializeField]
+        protected float TouchAttackRestPeriod = 1.0f;
+        protected bool TouchAttackIsAvailable = true;
 
         //sound control
         protected AudioSource audioSource;
@@ -303,6 +312,9 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
+        /// <summary>
+        /// Hook for things you want to be done just before the death animation is played
+        /// </summary>
         protected virtual void PreDeathAnimation()
         {
 
@@ -366,7 +378,17 @@ namespace MarblesAndMonsters.Characters
             myRigidbody.bodyType = rigidbodyType2D;
         }
 
+        protected IEnumerator ProjectileCooldown()
+        {
+            yield return new WaitForSeconds(ProjectileRestPeriod);
+            RangedAttackIsAvailable = true;
+        }
 
+        protected IEnumerator TouchAttackCooldown()
+        {
+            yield return new WaitForSeconds(TouchAttackRestPeriod);
+            TouchAttackIsAvailable = true;
+        }
         #endregion
     }
 }

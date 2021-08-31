@@ -13,9 +13,12 @@ namespace MarblesAndMonsters.Objects
 
         protected void Awake()
         {
-            //tileMap = gameObject.GetComponent<Tilemap>();
-            //compositeCollider = GetCom
-        }
+            if (tileMap == null) {
+                tileMap = gameObject.GetComponent<Tilemap>();
+            }
+            if (tilemapCollider == null)
+                tilemapCollider = GetComponent<TilemapCollider2D>();
+            }
 
         //if the 
         private void OnTriggerStay2D(Collider2D other)

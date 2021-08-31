@@ -11,15 +11,23 @@ namespace MarblesAndMonsters.Characters
 
         }
         //mables apply a touch attack to everything they collide with
-        private void OnCollisionEnter2D(Collision2D other)
+
+        private void OnCollisionEnter2D(Collision2D collision)
         {
             audioSource.clip = MySheet.baseStats.ClipHit;
             audioSource.Play(); //no matter what is struck, play the hit sound
+        }
 
-            IDamagable damagable = other.gameObject.GetComponent<IDamagable>();
-            if (damagable != null) 
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            if (TouchAttackIsAvailable)
             {
-                DealDamageTo(damagable);
+                IDamagable damagable = other.gameObject.GetComponent<IDamagable>();
+                if (damagable != null)
+                {
+                    DealDamageTo(damagable);
+                    StartCoroutine(TouchAttackCooldown());
+                }
             }
         }
 

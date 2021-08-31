@@ -68,7 +68,7 @@ namespace MarblesAndMonsters.Menus.Components
                 //set hearts up to max health to empty
                 for (; i < Player.Instance.MySheet.MaxHealth; i++)
                 {
-                    HeartAnimators[i].Play("LoseHeart");
+                    HeartAnimators[i].Play("EmptyHeart");
                 }
             }
         }

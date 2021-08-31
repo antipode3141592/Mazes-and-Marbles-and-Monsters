@@ -15,6 +15,8 @@ namespace MarblesAndMonsters.Spells
         public Animator animator;
         public SpriteRenderer spriteRenderer;
 
+        public override SpellType SpellType { get { return SpellType.ForceBubble; } }
+
         protected override void Awake()
         {
             base.Awake();

@@ -44,6 +44,7 @@ namespace MarblesAndMonsters
         private List<KeyItem> keyItems;
         private List<SpawnPoint> spawnPoints;
         private List<Gate> gates;
+        private List<SpellEffectBase> spellEffects;
 
         //for tracking playtime
         private TimeSpan sessionTimeElapsed;
@@ -162,14 +163,7 @@ namespace MarblesAndMonsters
             spawnPoints = new List<SpawnPoint>(FindObjectsOfType<SpawnPoint>());
             gates = new List<Gate>(FindObjectsOfType<Gate>());
             spellPickups = new List<SpellPickupBase>(FindObjectsOfType<SpellPickupBase>());
-
-            ////log the 
-            //string spawnlist = "";
-            //string inventoryList = "";
-            //foreach (SpawnPoint _spawnpoint in spawnPoints) { spawnlist += String.Format("{0}, ", _spawnpoint.gameObject.name); }
-            //foreach (InventoryItem _inventory in inventoryItems) { inventoryList += String.Format("{0}, ", _inventory.gameObject.name); }
-            //Debug.Log(String.Format("InitializeReferences(), there are {0} spawnpoints : {1}", spawnPoints.Count, spawnlist));
-            //Debug.Log(String.Format("InitializeReferences(), there are {0} inventoryItems : {1}", inventoryItems.Count, inventoryList));
+            spellEffects = new List<SpellEffectBase>();
             if (spawnPoints.Count == 0) 
             { 
                 //player start position is a spawnpoint, so a valid level shall have at least 1 spawnpoint
@@ -206,6 +200,10 @@ namespace MarblesAndMonsters
             foreach (SpellPickupBase spellPickup in spellPickups)
             {
                 spellPickup.Reset();
+            }
+            foreach(SpellEffectBase spellEffect in spellEffects.FindAll(x => x != null))
+            {
+                spellEffect.EndEffect();
             }
             //Destroy(Player.Instance);
         }
@@ -267,44 +265,67 @@ namespace MarblesAndMonsters
 
         public void SaveGameData()
         {
-            if (DataManager.Instance != null)
+            try
             {
-                if (Player.Instance != null)
+                if (DataManager.Instance != null)
                 {
-                    DataManager.Instance.PlayerMaxHealth = Player.Instance.MySheet.MaxHealth;
-                    DataManager.Instance.PlayerCurrentHealth = Player.Instance.MySheet.CurrentHealth;
-                    DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;
-                    DataManager.Instance.PlayerScrollCount = Player.Instance.TreasureCount;
-                    if (DataManager.Instance.CheckPointLevelId != string.Empty)
+                    if (Player.Instance != null)
                     {
-                        DataManager.Instance.UpdateLevelSaves(new LevelSaveData(DataManager.Instance.CheckPointLevelId,
-                            DataManager.Instance.SavedLocation, 0, true));
-                    } else
-                    {
-                        string levelId = LevelManager.Instance.GetCurrentLevelId();
-                        DataManager.Instance.UpdateLevelSaves(new LevelSaveData(levelId, 
-                            LevelManager.Instance.GetLevelSpecsById(levelId).Location, 0, true));
-                    }
-                    //store unlocked spells
-                    foreach (var spell in Player.Instance.MySheet.Spells)
-                    {
-                        if (spell.Value.IsUnlocked)
+                        DataManager.Instance.PlayerMaxHealth = Player.Instance.MySheet.MaxHealth;
+                        DataManager.Instance.PlayerCurrentHealth = Player.Instance.MySheet.CurrentHealth;
+                        DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;
+                        DataManager.Instance.PlayerScrollCount = Player.Instance.TreasureCount;
+                        if (DataManager.Instance.CheckPointLevelId != string.Empty)
                         {
-                            DataManager.Instance.UnlockedSpells.Add(new SpellData(spell.Value.SpellName, spell.Value.SpellStats, spell.Value.IsQuickSlotAssigned, spell.Value.QuickSlot));
+                            DataManager.Instance.UpdateLevelSaves(new LevelSaveData(DataManager.Instance.CheckPointLevelId,
+                                DataManager.Instance.SavedLocation, 0, true));
                         }
+                        else
+                        {
+                            if (LevelManager.Instance != null)
+                            {
+                                string levelId = LevelManager.Instance.GetCurrentLevelId();
+                                DataManager.Instance.UpdateLevelSaves(new LevelSaveData(levelId,
+                                    LevelManager.Instance.GetLevelSpecsById(levelId).Location, 0, true));
+                            } else
+                            {
+                                throw new Exception("No LevelManager found for GetCurrentLevelId");
+                            }
+                        }
+                        //store unlocked spells
+                        foreach (var spell in Player.Instance.MySheet.Spells)
+                        {
+                            if (spell.Value.IsUnlocked)
+                            {
+                                DataManager.Instance.UnlockedSpells.Add(new SpellData(spell.Value.SpellName, spell.Value.SpellStats, spell.Value.IsQuickSlotAssigned, spell.Value.QuickSlot));
+                            }
+                        }
+                        //store collected keys
+                        foreach (var key in Player.Instance.KeyChain)
+                        {
+                            DataManager.Instance.CollectedKeys.Add(key);
+                        }
+                        DataManager.Instance.Save();
                     }
-                    //store collected keys
-                    foreach (var key in Player.Instance.KeyChain)
+                    else
                     {
-                        DataManager.Instance.CollectedKeys.Add(key);
+                        throw new Exception("No Player Instance found when attempting to save!");
                     }
-                    DataManager.Instance.Save();
-                } else
-                {
-                    Debug.LogWarning("No Player Instance found when attempting to save!");
+                }
+                else 
+                { 
+                    throw new Exception("No DataManager Instance found when attempting to save!"); 
                 }
             }
-            else { Debug.LogWarning("No DataManager Instance found when attempting to save!"); }
+            catch(Exception ex)
+            {
+                Debug.LogError(string.Format("{0}", ex.Message));
+            }
+            finally
+            {
+
+            }
+            
         }
 
 
@@ -377,25 +398,24 @@ namespace MarblesAndMonsters
         //move all characters
         public void MoveAll()
         {
-            if (characters != null)
+            try 
             {
-                foreach (CharacterControl character in characters)
+                foreach (CharacterControl character in characters.FindAll(x => x != null))
                 {
-                    if (character != null && character.gameObject.activeInHierarchy && !character.MySheet.IsAsleep && !character.isDying )
+                    if (character.gameObject.activeInHierarchy && !character.MySheet.IsAsleep && !character.isDying)
                     {
-                        if (character.MySheet.Movements.Count > 0)
+                        foreach (Movement movement in character.MySheet.Movements.FindAll(x => x !=null))
                         {
-                            foreach (Movement movement in character.MySheet.Movements)
-                            {
-                                movement.Move();
-                            }
+                            movement.Move();
                         }
                     }
                 }
-            } else {
-                Debug.LogError("Characters list null, calling StoreCharacters()");
-                StoreCharacters(); 
             }
+            catch (Exception ex)
+            {
+                Debug.LogWarning(ex.Message);
+            }
+
         }
 
         public void StopAllCharacters(List<CharacterControl> exceptionList = null)

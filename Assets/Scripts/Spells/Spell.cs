@@ -4,6 +4,9 @@ using MarblesAndMonsters.Characters;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
+using System.Linq;
+using MarblesAndMonsters.Spells;
 
 namespace MarblesAndMonsters
 {
@@ -36,6 +39,8 @@ namespace MarblesAndMonsters
         public ParticleSystem ParticleEffect;
 
         public SpellName SpellName;
+
+        public abstract SpellType SpellType { get; }
 
         public float RemainingDuration;
         public float CooldownRemainingDuration;
@@ -185,5 +190,7 @@ namespace MarblesAndMonsters
                 ParticleEffect.Stop();
             }
         }
+
+       
     }
 }

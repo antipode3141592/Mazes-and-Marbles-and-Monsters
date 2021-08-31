@@ -11,17 +11,17 @@ namespace MarblesAndMonsters.Actions
     {
         [SerializeField]
         protected bool _moving = true;  //default to moving state
-        [SerializeField]
-        protected float _forceMultiplier = 9.81f; //default to 1g
+        //[SerializeField]
+        //protected float gravity = 9.81f; //default to 1g
 
         public bool Moving { get { return _moving; } set { _moving = value; } }
 
         //all board movable objects will receive a force vector to move
         public override void Move()
         {
-            if (gameObject.activeInHierarchy && _moving && !characterControl.MySheet.IsLevitating)
+            if (_moving)
             {
-                _rigidbody.AddForce(GameManager.Instance.Input_Acceleration * _rigidbody.mass * _forceMultiplier);
+                _rigidbody.AddForce(GameManager.Instance.Input_Acceleration * _rigidbody.mass *characterControl.ForceMultiplier * Gravity.Acceleration);
             }
             
         }

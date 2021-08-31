@@ -11,6 +11,8 @@ namespace MarblesAndMonsters.Spells
         [SerializeField]
         protected Material characterMaterial;
 
+        public override SpellType SpellType { get { return SpellType.StoneForm; } }
+
         public override void SpellStartHandler(object sender, EventArgs e)
         {
             base.SpellStartHandler(sender, e);
