@@ -31,7 +31,7 @@ namespace MarblesAndMonsters.Objects
         private void OnTriggerEnter2D(Collider2D other)
         {
             //when blade trap switch is triggered, an explosive/impulse force is applied to all objects within the blade range
-            if (other != null && isReady == true)
+            if (other != null && isReady == true && !other.isTrigger)
             {
                 isReady = false;
                 //animator

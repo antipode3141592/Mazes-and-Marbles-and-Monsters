@@ -285,7 +285,7 @@ MonoBehaviour:
   - {x: -0.5020404, y: 0.36941385, z: 0}
   m_ShapePathHash: 830742019
   m_Mesh: {fileID: 0}
-  m_InstanceId: 102704
+  m_InstanceId: 141498
 --- !u!82 &7047923513357405875
 AudioSource:
   m_ObjectHideFlags: 0
@@ -295,7 +295,8 @@ AudioSource:
   m_GameObject: {fileID: 4832113540386924202}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4539714577670950212, guid: e6943347c91643d4e8f15dab2226ab44,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

@@ -78,8 +78,6 @@ public class VineElemental : CharacterControl
         }
     }
 
-
-
     IEnumerator FireProjectile(float attackDelay, Vector2 direction)
     {
         Debug.Log("Fire!");

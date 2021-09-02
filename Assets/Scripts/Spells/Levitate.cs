@@ -47,16 +47,11 @@ namespace MarblesAndMonsters.Spells
             {
                 Vector3 casterTotarget = _characterControl.gameObject.transform.position - collision.transform.position;
                 Vector3 forceVector = Vector3.Cross(new Vector3(0, 0, -1.0f), casterTotarget).normalized;
-                collision.attachedRigidbody.AddForce(forceVector * 50.0f, ForceMode2D.Impulse);
+                if (collision.attachedRigidbody != null)
+                {
+                    collision.attachedRigidbody.AddForce(forceVector * 50.0f, ForceMode2D.Impulse);
+                }
             }
-            //CharacterControl character = collision.gameObject.GetComponent<CharacterControl>();
-            //if (character != null && character != _characterControl)
-            //{
-            //    Vector3 casterTotarget = _characterControl.gameObject.transform.position - character.gameObject.transform.position;
-            //    //apply counter-clockwise normal/tangent
-            //    Vector3 forceVector = Vector3.Cross(new Vector3(0,0,-1.0f), casterTotarget).normalized;
-            //    character.ApplyImpulse(forceVector * 50.0f);
-            //}
         }
     }
 }

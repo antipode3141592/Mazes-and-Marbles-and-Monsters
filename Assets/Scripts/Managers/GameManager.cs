@@ -1,5 +1,5 @@
 ﻿using FiniteStateMachine;
-using FiniteStateMachine.States.GameStates;
+using MarblesAndMonsters.States.GameStates;
 using LevelManagement;
 using LevelManagement.Data;
 using MarblesAndMonsters.Characters;
@@ -52,7 +52,7 @@ namespace MarblesAndMonsters
         private DateTime endTime;
 
         //state machine stuff
-        protected StateMachine gameStateMachine;
+        protected GameStateMachine gameStateMachine;
         public START state_start;
         public PopulateLevel state_populateLevel;
         public Playing state_playing;
@@ -61,7 +61,7 @@ namespace MarblesAndMonsters
         public Defeat state_defeat;
         public END state_end;
 
-        public State CurrentState => gameStateMachine.CurrentState;
+        public GameState CurrentState => gameStateMachine.CurrentState;
 
         private LevelManager levelLoader;
         [SerializeField]
@@ -93,37 +93,36 @@ namespace MarblesAndMonsters
             {
                 _instance = this;
             }
+
+            gameStateMachine = GetComponent<GameStateMachine>();
+            var states = new Dictionary<Type, GameState>()
+            {
+                {typeof(START), new START(manager: this) },
+                {typeof(PopulateLevel), new PopulateLevel(manager: this) },
+                {typeof(Playing), new Playing(manager: this) },
+                {typeof(Paused), new Paused(manager: this) },
+                {typeof(Victory), new Victory(manager: this) },
+                {typeof(Defeat), new Defeat(manager: this) },
+                {typeof(END), new END(manager: this) }
+            };
+            gameStateMachine.SetStates(states);
         }
 
         private void Start()
         {
-            gameStateMachine = new StateMachine();
-
-            state_start = new START(gameStateMachine);
-            state_populateLevel = new PopulateLevel(gameStateMachine);
-            state_playing = new Playing(gameStateMachine);
-            state_paused = new Paused(gameStateMachine);
-            state_victory = new Victory(gameStateMachine);
-            state_defeat = new Defeat(gameStateMachine);
-            state_end = new END(gameStateMachine);
-
             levelLoader = FindObjectOfType<LevelManager>();
-
-            gameStateMachine.Initialize(state_start);
-
-
         }
 
-        public void Update()
-        {
-            gameStateMachine.CurrentState.HandleInput();
-            gameStateMachine.CurrentState.LogicUpdate();
-        }
+        //public void Update()
+        //{
+        //    gameStateMachine.CurrentState.HandleInput();
+        //    gameStateMachine.CurrentState.LogicUpdate();
+        //}
 
-        public void FixedUpdate()
-        {
-            gameStateMachine.CurrentState.PhysicsUpdate();   
-        }
+        //public void FixedUpdate()
+        //{
+        //    gameStateMachine.CurrentState.PhysicsUpdate();   
+        //}
 
         private void OnDestroy()
         {
@@ -134,20 +133,20 @@ namespace MarblesAndMonsters
         }
         #endregion
 
-        public void ResetStateMachine()
-        {
-            gameStateMachine.ChangeState(state_start);
-        }
+        //public void ResetStateMachine()
+        //{
+        //    gameStateMachine.ChangeState(state_start);
+        //}
 
         public void UnpauseGame()
         {
-            gameStateMachine.ChangeState(state_playing);
+            gameStateMachine.SwitchToNewState(typeof(Playing));
             MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
         }
 
         public void PauseGame()
         {
-            gameStateMachine.ChangeState(state_paused);
+            gameStateMachine.SwitchToNewState(typeof(Paused));
             MenuManager.Instance.OpenMenu(MenuTypes.PauseMenu);
         }
         
@@ -212,14 +211,14 @@ namespace MarblesAndMonsters
 
         public void LevelWin()
         {
-            gameStateMachine.ChangeState(state_victory);
+            gameStateMachine.SwitchToNewState(typeof(Victory));
             SaveGameData();
             StartCoroutine(WinRoutine());
         }
 
         public void LevelWin(string goToLevelId)
         {
-            gameStateMachine.ChangeState(state_victory);
+            gameStateMachine.SwitchToNewState(typeof(Victory));
             SaveGameData();
             StartCoroutine(WinRoutine(goToLevelId));
         }
@@ -231,7 +230,7 @@ namespace MarblesAndMonsters
                 DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;
                 DataManager.Instance.Save();
             }
-            gameStateMachine.ChangeState(state_defeat);
+            gameStateMachine.SwitchToNewState(typeof(Defeat));
         }
 
         private IEnumerator WinRoutine()

@@ -16,13 +16,23 @@ namespace MarblesAndMonsters.Characters
         {
             audioSource.clip = MySheet.baseStats.ClipHit;
             audioSource.Play(); //no matter what is struck, play the hit sound
+
+            if (TouchAttackIsAvailable)
+            {
+                IDamagable damagable = collision.gameObject.GetComponent<IDamagable>();
+                if (damagable != null)
+                {
+                    DealDamageTo(damagable);
+                    StartCoroutine(TouchAttackCooldown());
+                }
+            }
         }
 
-        private void OnCollisionStay2D(Collision2D other)
+        private void OnCollisionStay2D(Collision2D collision)
         {
             if (TouchAttackIsAvailable)
             {
-                IDamagable damagable = other.gameObject.GetComponent<IDamagable>();
+                IDamagable damagable = collision.gameObject.GetComponent<IDamagable>();
                 if (damagable != null)
                 {
                     DealDamageTo(damagable);

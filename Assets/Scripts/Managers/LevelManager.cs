@@ -98,10 +98,10 @@ namespace LevelManagement
             {
                 yield return null; //yield this frame
             }
-            if (GameManager.Instance != null)
-            {
-                GameManager.Instance.ResetStateMachine();
-            }
+            //if (GameManager.Instance != null)
+            //{
+            //    GameManager.Instance.ResetStateMachine();
+            //}
         }
 
         public static void LoadMainMenuLevel()
