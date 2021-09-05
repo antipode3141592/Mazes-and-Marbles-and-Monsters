@@ -91,7 +91,7 @@ namespace MarblesAndMonsters.Characters
                 //unlock spells
                 foreach(var spell in DataManager.Instance.UnlockedSpells)
                 {
-                    Debug.Log(string.Format("Unlock Spell from Datamanager:  {0}, {1}, {2}", spell.SpellStats.SpellName, spell.IsAssigned, spell.QuickSlot));
+                    //Debug.Log(string.Format("Unlock Spell from Datamanager:  {0}, {1}, {2}", spell.SpellStats.SpellName, spell.IsAssigned, spell.QuickSlot));
                     MySheet.Spells[spell.SpellName].SpellStats = spell.SpellStats;
                     MySheet.Spells[spell.SpellName].IsUnlocked = true;
                     MySheet.Spells[spell.SpellName].IsQuickSlotAssigned = spell.IsAssigned;
@@ -100,7 +100,7 @@ namespace MarblesAndMonsters.Characters
                 //TODO: add inventory and keychain initializers
                 foreach (var key in DataManager.Instance.CollectedKeys)
                 {
-                    Debug.Log(string.Format("Collected Key = {0}", key.name));
+                    //Debug.Log(string.Format("Collected Key = {0}", key.name));
                     keyChain.Add(key);
                 }
 

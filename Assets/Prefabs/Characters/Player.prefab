@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 5024499731912051238}
   - component: {fileID: 1537434581188572169}
   - component: {fileID: 8033061730288465647}
-  - component: {fileID: 8861542608265353331}
   - component: {fileID: 6663435459585313977}
   m_Layer: 10
   m_Name: Player
@@ -137,7 +136,12 @@ MonoBehaviour:
   healEffect: {fileID: 3735710819123007440}
   invincibilityEffect: {fileID: 7064711046569503975}
   fireEffect: {fileID: 0}
+  myRigidbody: {fileID: 0}
+  meleeCollider: {fileID: 0}
+  rangedCollider: {fileID: 0}
   ForceMultiplier: 1
+  ProjectileRestPeriod: 1
+  TouchAttackRestPeriod: 1
   isDying: 0
   treasureEffect: {fileID: 4097187610937647480}
   addMaxHealthEffect: {fileID: 3735710819123007440}
@@ -192,21 +196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats: {fileID: 11400000, guid: c72376ff26d23b042b3f2bd1fbe2a6de, type: 2}
   isAsleep: 0
+  isBoardMovable: 1
   DamageImmunities: 
-  Movements: []
---- !u!114 &8861542608265353331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1236707307626652074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dfc084c56f6f5449947cfc56d091772, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moving: 1
 --- !u!82 &6663435459585313977
 AudioSource:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿//based on the pattern at based on https://www.raywenderlich.com/6034380-state-pattern-using-unity
 using MarblesAndMonsters;
+using MarblesAndMonsters.States;
 using System;
 using UnityEngine;
 
@@ -12,7 +13,5 @@ namespace FiniteStateMachine
         protected GameManager _manager;
 
         public GameState(GameObject gameObject) : base(gameObject) { }
-
-        public virtual void HandleInput() { }
     }
 }

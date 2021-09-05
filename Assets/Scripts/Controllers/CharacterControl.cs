@@ -23,8 +23,12 @@ namespace MarblesAndMonsters.Characters
         public ParticleSystem fireEffect;
 
         //rigidbody and collider references
-        protected Rigidbody2D myRigidbody;
-        protected List<Collider2D> myColliders;
+        public Rigidbody2D myRigidbody;
+        //protected List<Collider2D> myColliders;
+        [SerializeField]
+        public Collider2D meleeCollider; //trigger collider for melee attack range
+        [SerializeField]
+        public Collider2D rangedCollider; //trigger collider for ranged attack range
         protected CharacterSheet mySheet;
         protected SpriteRenderer mySpriteRenderer;
 
@@ -48,10 +52,10 @@ namespace MarblesAndMonsters.Characters
         //attack stuff
         [SerializeField]
         protected float ProjectileRestPeriod = 1.0f;
-        protected bool RangedAttackIsAvailable = true;
+        public bool RangedAttackIsAvailable = true;
         [SerializeField]
         protected float TouchAttackRestPeriod = 1.0f;
-        protected bool TouchAttackIsAvailable = true;
+        public bool TouchAttackIsAvailable = true;
 
         //sound control
         protected AudioSource audioSource;
@@ -70,7 +74,7 @@ namespace MarblesAndMonsters.Characters
         {
             //cache some components
             mySheet = GetComponent<CharacterSheet>();
-            myColliders = new List<Collider2D>(GetComponents<Collider2D>());
+            //myColliders = new List<Collider2D>(GetComponents<Collider2D>());
             myRigidbody = GetComponent<Rigidbody2D>();
             mySpriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
@@ -264,6 +268,16 @@ namespace MarblesAndMonsters.Characters
         public virtual void DealDamageTo(IDamagable damagable)
         {
             damagable.TakeDamage(mySheet.baseStats.TouchAttack.DamageModifier, mySheet.baseStats.TouchAttack.DamageType);
+        }
+
+        public virtual void RangedAttack()
+        {
+
+        }
+
+        public virtual void MeleeAttack()
+        {
+
         }
         #endregion
 

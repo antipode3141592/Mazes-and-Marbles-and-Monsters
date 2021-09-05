@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using MarblesAndMonsters.Spells;
+using MarblesAndMonsters.States;
 
 namespace MarblesAndMonsters
 {
@@ -52,7 +53,7 @@ namespace MarblesAndMonsters
         private DateTime endTime;
 
         //state machine stuff
-        protected GameStateMachine gameStateMachine;
+        protected StateMachine stateMachine;
         public START state_start;
         public PopulateLevel state_populateLevel;
         public Playing state_playing;
@@ -61,7 +62,7 @@ namespace MarblesAndMonsters
         public Defeat state_defeat;
         public END state_end;
 
-        public GameState CurrentState => gameStateMachine.CurrentState;
+        public BaseState CurrentState => stateMachine.CurrentState;
 
         private LevelManager levelLoader;
         [SerializeField]
@@ -94,8 +95,8 @@ namespace MarblesAndMonsters
                 _instance = this;
             }
 
-            gameStateMachine = GetComponent<GameStateMachine>();
-            var states = new Dictionary<Type, GameState>()
+            stateMachine = GetComponent<StateMachine>();
+            var states = new Dictionary<Type, BaseState>()
             {
                 {typeof(START), new START(manager: this) },
                 {typeof(PopulateLevel), new PopulateLevel(manager: this) },
@@ -105,7 +106,8 @@ namespace MarblesAndMonsters
                 {typeof(Defeat), new Defeat(manager: this) },
                 {typeof(END), new END(manager: this) }
             };
-            gameStateMachine.SetStates(states);
+            Debug.Log($"{name} is storing the following states:  {states.Keys.ToString()}");
+            stateMachine.SetStates(states);
         }
 
         private void Start()
@@ -140,13 +142,13 @@ namespace MarblesAndMonsters
 
         public void UnpauseGame()
         {
-            gameStateMachine.SwitchToNewState(typeof(Playing));
+            stateMachine.SwitchToNewState(typeof(Playing));
             MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
         }
 
         public void PauseGame()
         {
-            gameStateMachine.SwitchToNewState(typeof(Paused));
+            stateMachine.SwitchToNewState(typeof(Paused));
             MenuManager.Instance.OpenMenu(MenuTypes.PauseMenu);
         }
         
@@ -211,14 +213,14 @@ namespace MarblesAndMonsters
 
         public void LevelWin()
         {
-            gameStateMachine.SwitchToNewState(typeof(Victory));
+            stateMachine.SwitchToNewState(typeof(Victory));
             SaveGameData();
             StartCoroutine(WinRoutine());
         }
 
         public void LevelWin(string goToLevelId)
         {
-            gameStateMachine.SwitchToNewState(typeof(Victory));
+            stateMachine.SwitchToNewState(typeof(Victory));
             SaveGameData();
             StartCoroutine(WinRoutine(goToLevelId));
         }
@@ -230,7 +232,7 @@ namespace MarblesAndMonsters
                 DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;
                 DataManager.Instance.Save();
             }
-            gameStateMachine.SwitchToNewState(typeof(Defeat));
+            stateMachine.SwitchToNewState(typeof(Defeat));
         }
 
         private IEnumerator WinRoutine()
@@ -401,12 +403,9 @@ namespace MarblesAndMonsters
             {
                 foreach (CharacterControl character in characters.FindAll(x => x != null))
                 {
-                    if (character.gameObject.activeInHierarchy && !character.MySheet.IsAsleep && !character.isDying)
+                    if (character.gameObject.activeInHierarchy && character.MySheet.IsBoardMovable)
                     {
-                        foreach (Movement movement in character.MySheet.Movements.FindAll(x => x !=null))
-                        {
-                            movement.Move();
-                        }
+                        BoardMovement.Move(character.myRigidbody, Input_Acceleration, character.ForceMultiplier);
                     }
                 }
             }

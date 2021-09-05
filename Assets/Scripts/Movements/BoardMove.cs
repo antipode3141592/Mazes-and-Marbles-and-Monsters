@@ -11,8 +11,8 @@ namespace MarblesAndMonsters.Actions
     {
         [SerializeField]
         protected bool _moving = true;  //default to moving state
-        //[SerializeField]
-        //protected float gravity = 9.81f; //default to 1g
+        [SerializeField]
+        protected float gravity = 9.81f; //default to 1g
 
         public bool Moving { get { return _moving; } set { _moving = value; } }
 

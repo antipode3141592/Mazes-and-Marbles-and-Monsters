@@ -12,16 +12,18 @@ GameObject:
   - component: {fileID: 4995651374173321984}
   - component: {fileID: 4995651374173321987}
   - component: {fileID: 4995651374173321986}
-  - component: {fileID: 4995651374173321989}
-  - component: {fileID: 4995651374173321988}
   - component: {fileID: 4995651374173321991}
   - component: {fileID: 4995651374173321990}
   - component: {fileID: 4995651374173322041}
   - component: {fileID: 4995651374173321998}
   - component: {fileID: 4995651374173321999}
-  m_Layer: 0
+  - component: {fileID: 1936389513536938060}
+  - component: {fileID: 1147819808995451384}
+  - component: {fileID: 5785475850333301656}
+  - component: {fileID: 4407937686111066220}
+  m_Layer: 11
   m_Name: Vine Elemental
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,7 +36,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4995651374173322040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.89, y: 5.73, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1082952768691218882}
@@ -108,9 +110,14 @@ MonoBehaviour:
   healEffect: {fileID: 0}
   invincibilityEffect: {fileID: 0}
   fireEffect: {fileID: 0}
+  myRigidbody: {fileID: 0}
+  meleeCollider: {fileID: 1147819808995451384}
+  rangedCollider: {fileID: 4995651374173322041}
   ForceMultiplier: 1
   ProjectileRestPeriod: 3
+  RangedAttackIsAvailable: 1
   TouchAttackRestPeriod: 3
+  TouchAttackIsAvailable: 1
   isDying: 0
   contactFilter:
     useTriggers: 0
@@ -142,34 +149,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats: {fileID: 11400000, guid: 54abb89f1bc3889488215138c041157b, type: 2}
   isAsleep: 0
+  isBoardMovable: 0
   DamageImmunities: 
-  Movements: []
---- !u!114 &4995651374173321989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4995651374173322040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dfc084c56f6f5449947cfc56d091772, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moving: 1
---- !u!114 &4995651374173321988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4995651374173322040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13d83f84d8134264da879a599c058c2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedModifier: 0.25
 --- !u!50 &4995651374173321991
 Rigidbody2D:
   serializedVersion: 4
@@ -339,6 +320,85 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1936389513536938060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4995651374173322040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!58 &1147819808995451384
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4995651374173322040}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.75
+--- !u!114 &5785475850333301656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4995651374173322040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00f8d6fff12ebb34bb2975d7211bb04c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LinearSpeed: 2
+--- !u!114 &4407937686111066220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4995651374173322040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb6a34d769a1e4ac7b0b30e433aa443c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  smoothType: 1
+  subdivisions: 2
+  iterations: 2
+  strength: 0.5
+  uniformLength: 1
+  maxSegmentLength: 2
+  bezierTangentLength: 0.4
+  offset: 0.2
+  factor: 0.1
 --- !u!1001 &92639043298801190
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -405,6 +465,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HitEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 6532341843057444900, guid: bd40524d5b08ef749b9ea1a7f5687f9c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd40524d5b08ef749b9ea1a7f5687f9c, type: 3}

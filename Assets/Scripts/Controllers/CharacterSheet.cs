@@ -44,6 +44,8 @@ namespace MarblesAndMonsters.Characters
         private bool isInvincible;
         private bool isLevitating;
         private bool isStealth;
+        [SerializeField]
+        private bool isBoardMovable = true;
 
         public event EventHandler OnBurning;
         public event EventHandler OnBurningEnd;
@@ -123,6 +125,16 @@ namespace MarblesAndMonsters.Characters
             } 
         }
 
+        public bool IsBoardMovable 
+        { 
+            get => isBoardMovable;
+            set
+            {
+                isBoardMovable = value;
+
+            }
+        }
+
         public float SleepTimeCounter { get => sleepTimeCounter; set => sleepTimeCounter = value; }
         public float PoisonTimeCounter { get => poisonTimeCounter; set => poisonTimeCounter = value; }
         public float FireTimeCounter { get => burnTimeCounter; set => burnTimeCounter = value; }
@@ -131,14 +143,14 @@ namespace MarblesAndMonsters.Characters
         public List<DamageType> DamageImmunities;
 
         //read-only accessors
-        public List<Movement> Movements;
+        //public List<Movement> Movements;
         public Dictionary<SpellName,Spell> Spells;
 
         #region Unity Functions
         private void Awake()
         {
             //grab attached Movement Components
-            Movements = new List<Movement>(GetComponents<Movement>());
+            //Movements = new List<Movement>(GetComponents<Movement>());
             Spells = new Dictionary<SpellName,Spell>();
             DamageImmunities = new List<DamageType>();
             foreach (Spell _spell in GetComponentsInChildren<Spell>())

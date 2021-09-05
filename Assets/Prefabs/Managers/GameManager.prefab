@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2606928710311212366}
   - component: {fileID: 2606928710311212367}
-  - component: {fileID: 3064711502992901899}
+  - component: {fileID: 2010078012004570911}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -51,7 +51,7 @@ MonoBehaviour:
   defaultEffectTime: 3
   defaultInvincibilityTime: 1
   spawnPointTileMap: {fileID: 0}
---- !u!114 &3064711502992901899
+--- !u!114 &2010078012004570911
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -60,6 +60,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2606928710311212361}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77a1ef20a14d71b41bcc47a5052702ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 00f8d6fff12ebb34bb2975d7211bb04c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

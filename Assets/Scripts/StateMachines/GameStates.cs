@@ -14,6 +14,8 @@ namespace MarblesAndMonsters.States.GameStates
     //Start occurs when a new level/scene is loaded, so take this opportunity to check for Player, assign spawn points, etc
     public class START : GameState
     {
+        public override Type Type { get => typeof(START); }
+
         public START(GameManager manager ): base(manager.gameObject)
         {
             _manager = manager;
@@ -27,6 +29,7 @@ namespace MarblesAndMonsters.States.GameStates
 
     public class PopulateLevel : GameState
     {
+        public override Type Type { get => typeof(PopulateLevel); }
         public PopulateLevel(GameManager manager) : base(manager.gameObject)
         {
             _manager = manager;
@@ -49,6 +52,8 @@ namespace MarblesAndMonsters.States.GameStates
 
     public class Playing : GameState
     {
+        public override Type Type { get => typeof(Playing); }
+
         public Playing(GameManager manager) : base(manager.gameObject)
         {
             _manager = manager;
@@ -72,6 +77,8 @@ namespace MarblesAndMonsters.States.GameStates
 
     public class Paused : GameState
     {
+        public override Type Type { get => typeof(Paused); }
+
         public Paused(GameManager manager) : base(manager.gameObject)
         {
             _manager = manager;
@@ -84,6 +91,8 @@ namespace MarblesAndMonsters.States.GameStates
 
     public class Victory : GameState
     {
+        public override Type Type { get => typeof(Victory); }
+
         public Victory(GameManager manager) : base(manager.gameObject)
         {
             _manager = manager;
@@ -97,6 +106,8 @@ namespace MarblesAndMonsters.States.GameStates
 
     public class Defeat : GameState
     {
+        public override Type Type { get => typeof(Defeat); }
+
         public Defeat(GameManager manager) : base(manager.gameObject)
         {
             _manager = manager;
@@ -111,6 +122,8 @@ namespace MarblesAndMonsters.States.GameStates
 
     public class END : GameState
     {
+        public override Type Type { get => typeof(END); }
+
         public END(GameManager manager) : base(manager.gameObject)
         {
             _manager = manager;

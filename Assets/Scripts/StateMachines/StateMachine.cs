@@ -1,29 +1,25 @@
-﻿using System;
+using FiniteStateMachine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-
-namespace FiniteStateMachine
+namespace MarblesAndMonsters.States
 {
-    public class GameStateMachine: MonoBehaviour
+    public class StateMachine : MonoBehaviour
     {
-        private GameState currentState;
-        private Dictionary<Type, GameState> availableStates;
+        protected BaseState currentState;
+        protected Dictionary<Type, BaseState> availableStates;
 
         public event EventHandler OnStateChange;
 
-        public GameState CurrentState { get => currentState; set => currentState = value; }
+        public virtual BaseState CurrentState { get => currentState; private set => currentState = value; }
 
-        //public void Initialize(GameState startingState)
-        //{
-        //    currentState = startingState;
-        //    startingState.Enter();
-        //}
+        public float LinearSpeed = 2.0f;
 
-        public void SetStates(Dictionary<Type, GameState> states)
+        public virtual void SetStates(Dictionary<Type, BaseState> states)
         {
-            availableStates = states;
+            availableStates = states;    
         }
 
         public void SwitchToNewState(Type nextState)
@@ -35,14 +31,14 @@ namespace FiniteStateMachine
                     CurrentState.Exit();
                     Debug.Log(string.Format("{0}: state transition {0} -> {1}", name, CurrentState.ToString(), nextState.ToString()));
                 }
-                
+
                 CurrentState = availableStates[nextState];
                 CurrentState.Enter();
                 OnStateChange?.Invoke(this, EventArgs.Empty);
             }
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (CurrentState == null)
             {
@@ -50,7 +46,8 @@ namespace FiniteStateMachine
                 if (availableStates != null)
                 {
                     SwitchToNewState(availableStates.Keys.First());
-                } else
+                }
+                else
                 {
                     Debug.LogWarning("no available states!");
                 }
@@ -66,7 +63,7 @@ namespace FiniteStateMachine
             }
         }
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             if (CurrentState != null)
             {
