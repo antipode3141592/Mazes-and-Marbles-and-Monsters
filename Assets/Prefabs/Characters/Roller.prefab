@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 7874845947719492022}
   - component: {fileID: 7890975193990014343}
   - component: {fileID: 7047923513357405875}
+  - component: {fileID: 2327154836826107058}
   m_Layer: 11
   m_Name: Roller
   m_TagString: Marble
@@ -56,12 +57,9 @@ MonoBehaviour:
   healEffect: {fileID: 0}
   invincibilityEffect: {fileID: 0}
   fireEffect: {fileID: 0}
-  myRigidbody: {fileID: 0}
-  meleeCollider: {fileID: 0}
-  rangedCollider: {fileID: 0}
+  myRigidbody: {fileID: 7163243478368862871}
   ForceMultiplier: 1
-  ProjectileRestPeriod: 1
-  TouchAttackRestPeriod: 1
+  Combat: {fileID: 2327154836826107058}
   isDying: 0
 --- !u!212 &6109434669344386958
 SpriteRenderer:
@@ -274,7 +272,7 @@ MonoBehaviour:
   - {x: -0.5020404, y: 0.36941385, z: 0}
   m_ShapePathHash: 830742019
   m_Mesh: {fileID: 0}
-  m_InstanceId: 172584
+  m_InstanceId: 273502
 --- !u!82 &7047923513357405875
 AudioSource:
   m_ObjectHideFlags: 0
@@ -372,3 +370,50 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2327154836826107058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4832113540386924202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf6bf4d97e6d8e949a5ca29b1b030dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeCollider: {fileID: 0}
+  rangedCollider: {fileID: 0}
+  MeleeAttackRestPeriod: 1
+  MeleeAttackIsAvailable: 1
+  ProjectileRestPeriod: 1
+  RangedAttackIsAvailable: 1
+  projectilePrefab: {fileID: 0}
+  targetDetectFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  aimingFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0

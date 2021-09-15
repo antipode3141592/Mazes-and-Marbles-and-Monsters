@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7962701096921306332}
   - component: {fileID: 1022811285960876781}
   - component: {fileID: 2130481463042564401}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: EntangleProjectile
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -114,11 +114,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413f843fde98c6046a679c41775e3e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entanglePrefab: {fileID: 8835059570872667135, guid: 38f17f33ed48b1144a67316396efd851,
-    type: 3}
   Caster: {fileID: 0}
   EffectDuration: 3
   Rigidbody2D: {fileID: 1022811285960876781}
+  entanglePrefab: {fileID: 8835059570872667135, guid: 38f17f33ed48b1144a67316396efd851,
+    type: 3}
 --- !u!50 &1022811285960876781
 Rigidbody2D:
   serializedVersion: 4

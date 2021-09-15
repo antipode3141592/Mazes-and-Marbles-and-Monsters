@@ -20,7 +20,7 @@ namespace MarblesAndMonsters.States.CharacterStates
 
         public override Type LogicUpdate()
         {
-            return typeof(Hunting);
+            return typeof(Roaming);
         }
     }
 }

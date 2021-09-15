@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using MarblesAndMonsters.Menus;
-using MarblesAndMonsters;
 using FiniteStateMachine;
 
 namespace MarblesAndMonsters.States.GameStates
@@ -60,7 +56,7 @@ namespace MarblesAndMonsters.States.GameStates
         }
         public override void Enter()
         {
-            MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
+            //MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
             Time.timeScale = 1.0f;
         }
         public override void HandleInput()

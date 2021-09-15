@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 2626821578083694157}
   - component: {fileID: 2626821578083694154}
   - component: {fileID: 8347004472980754765}
-  - component: {fileID: 847608114787040653}
   - component: {fileID: 6014678518830894473}
   - component: {fileID: 8042973779161212819}
   - component: {fileID: 6486380821672526513}
   - component: {fileID: 6617150097688686585}
+  - component: {fileID: 2966787025187037476}
   m_Layer: 11
   m_Name: Marble
   m_TagString: Marble
@@ -143,21 +143,10 @@ MonoBehaviour:
   healEffect: {fileID: 0}
   invincibilityEffect: {fileID: 0}
   fireEffect: {fileID: 0}
+  myRigidbody: {fileID: 2626821578083694157}
+  ForceMultiplier: 1
+  Combat: {fileID: 2966787025187037476}
   isDying: 0
---- !u!114 &847608114787040653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2626821578083694134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dfc084c56f6f5449947cfc56d091772, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moving: 1
-  _forceMultiplier: 9.81
 --- !u!114 &6014678518830894473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,8 +161,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats: {fileID: 11400000, guid: 7fde14390a1a7324cb88c914846c0674, type: 2}
   isAsleep: 0
+  isBoardMovable: 1
   DamageImmunities: 
-  Movements: []
 --- !u!95 &8042973779161212819
 Animator:
   serializedVersion: 3
@@ -323,4 +312,51 @@ MonoBehaviour:
   - {x: -0.248963, y: 0.096463785, z: 0}
   m_ShapePathHash: 217203677
   m_Mesh: {fileID: 0}
-  m_InstanceId: 64890
+  m_InstanceId: 273428
+--- !u!114 &2966787025187037476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2626821578083694134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf6bf4d97e6d8e949a5ca29b1b030dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeCollider: {fileID: 0}
+  rangedCollider: {fileID: 0}
+  MeleeAttackRestPeriod: 1
+  MeleeAttackIsAvailable: 1
+  ProjectileRestPeriod: 1
+  RangedAttackIsAvailable: 1
+  projectilePrefab: {fileID: 0}
+  targetDetectFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  aimingFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0

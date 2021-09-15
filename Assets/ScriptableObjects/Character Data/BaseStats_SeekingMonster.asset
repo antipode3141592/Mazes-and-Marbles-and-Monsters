@@ -13,12 +13,16 @@ MonoBehaviour:
   m_Name: BaseStats_SeekingMonster
   m_EditorClassIdentifier: 
   MaxHealth: 5
-  Strength: 1
   Armor: 1
   DamageImmunities: 
   RespawnFlag: 0
+  RespawnPeriod: 0
+  MeleeAttack: {fileID: 11400000, guid: 2fe5294411407244982b38d35bfba892, type: 2}
+  RangedAttack: {fileID: 0}
+  ReachAttack: {fileID: 0}
   ClipHit: {fileID: 8300000, guid: 7e8fa89919521d84b8180dc811d7c545, type: 3}
   ClipHeal: {fileID: 0}
   ClipDeathNormal: {fileID: 0}
   ClipDeathFall: {fileID: 0}
   ClipDeathFire: {fileID: 0}
+  DefaultMaterial: {fileID: 2100000, guid: c4fc3a97526b9894a8172951f4130f43, type: 2}

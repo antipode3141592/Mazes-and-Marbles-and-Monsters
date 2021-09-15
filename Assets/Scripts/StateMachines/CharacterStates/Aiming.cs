@@ -6,60 +6,91 @@ using System.Collections.Generic;
 
 namespace MarblesAndMonsters.States.CharacterStates
 {
+    /// <summary>
+    /// Aiming characters stand and wait for a clear shot to fire their projectile, moving to the Shooting state.
+    /// 
+    /// Character stop moving while Aiming (but can still be moved by collisions)
+    /// 
+    /// </summary>
     public class Aiming : CharacterState
     {
 
         public override Type Type { get => typeof(Aiming); }
 
-        protected Vector2? roamDirection; //nullable destination vector
+        //protected Transform Target;
+        protected int shotsFired;
+        protected int maxShotsFired = 3;
+
         protected Seeker seeker;
         protected Path path;
-        ContactFilter2D contactFilter2D;
-        protected List<Collider2D> colliders;
+        protected List<RaycastHit2D> hits;
+        protected AiMover aiMover;
 
         public Aiming(CharacterControl character) : base(character)
         {
-            colliders = new List<Collider2D>();
             seeker = character.gameObject.GetComponent<Seeker>();
-            //seeker.pathCallback += OnPathComplete;
-            contactFilter2D.layerMask = LayerMask.NameToLayer("Player");    //testing the player layer
-            contactFilter2D.useTriggers = false;    //but not the Player's triggers
+            hits = new List<RaycastHit2D>();
+            aiMover = character.gameObject.GetComponent<AiMover>();
+            timeToStateChange = 10f;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override Type LogicUpdate()
         {
-            if (_character.rangedCollider.OverlapCollider(contactFilter2D, colliders) > 0)
+            timeToStateChangeTimer -= Time.deltaTime;
+            
+            if (_character.Combat.RangedAttackIsAvailable)
             {
-                //if (_character.RangedAttackIsAvailable)
-                //{
-                //    Vector2 origin = _gameObject.transform.position;
-                //    Vector2 direction = (Player.Instance.transform.position - _gameObject.transform.position).normalized;
-                //    float distance = (Player.Instance.transform.position - _gameObject.transform.position).magnitude;
-                //    List<RaycastHit2D> hits = new List<RaycastHit2D>();
-                //    //contact filter limits to NPC and Wall layers
-                //    int results = Physics2D.Raycast(origin, direction, contactFilter, hits, distance);
-                //    //if any results, do not fire, as something is in the way
-                //    if (results > 0)
-                //    {
-                //        //Debug.Log(string.Format("{0} senses the player but does not have line of sight", name));
-                //    }
-                //    else
-                //    {
-                //        //fire!
-                //        _character.RangedAttackIsAvailable = false;
-                //        //StartCoroutine(FireProjectile(0.33f, direction));
-                //        //StartCoroutine(ProjectileCooldown());
-                //    }
-                //}
-                return typeof(Hunting); //
+                //first, check to make sure target is in range
+                if (TargetInRangedRange())
+                {
+                    var tagCheck = collisionCheckResults.Find(x => x.CompareTag("Player"));
+                    if (tagCheck == null)
+                        return typeof(Aiming);
+                    aiMover.TargetTransform = tagCheck.transform;
+                    Debug.Log($"{_gameObject.name} is targetting {tagCheck.transform.name}");
+                    Vector2 origin = _transform.position;
+                    Vector2 direction = (tagCheck.transform.position - _transform.position);
+                    float distance = direction.magnitude;
+                    //contact filter limits to NPC and Wall layers
+                    int results = Physics2D.Raycast(origin, direction.normalized, _character.Combat.aimingFilter, hits, distance);
+                    if (results <= 1)
+                    {
+                        //hits[0].
+                        _character.Combat.RangedAttack(direction.normalized);
+                        shotsFired++;
+                        timeToStateChangeTimer = timeToStateChange;  //reset the idle counter, because we shot at something
+                        //so the maximum time in state ~= maxShortsFired * timeToStateChange
+                        if (shotsFired >= maxShotsFired)
+                        {
+                            return typeof(Hunting);
+                        }
+                    }
+                } 
             }
-
+            // if time to state change has elapsed, go to roaming state
+            if (timeToStateChangeTimer <= 0f)
+            {
+                return typeof(Roaming);
+            }
+            //if all else fails, just keep aiming
             return typeof(Aiming);
         }
 
         public override void Enter()
         {
             base.Enter();
+            shotsFired = 0;
+            aiMover.Stop();
+            timeToStateChangeTimer = timeToStateChange;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
         }
     }
 }

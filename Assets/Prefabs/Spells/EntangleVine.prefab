@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7300563675515489215}
   - component: {fileID: 7167495865540493901}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EntangleVine
   m_TagString: Untagged
   m_Icon: {fileID: 0}

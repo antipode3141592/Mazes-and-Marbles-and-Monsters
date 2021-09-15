@@ -5,8 +5,6 @@ using UnityEngine;
 namespace MarblesAndMonsters.Items
 {
 
-    public enum KeyType { Red, Blue, Green, Purple, Skeleton }
-
     public class KeyItem : MonoBehaviour
     {
         public KeyStats KeyStats;

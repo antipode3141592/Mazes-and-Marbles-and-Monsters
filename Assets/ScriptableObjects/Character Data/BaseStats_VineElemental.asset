@@ -17,8 +17,8 @@ MonoBehaviour:
   DamageImmunities: 
   RespawnFlag: 0
   RespawnPeriod: 0
-  TouchAttack: {fileID: 11400000, guid: 2fe5294411407244982b38d35bfba892, type: 2}
-  RangedAttack: {fileID: 0}
+  MeleeAttack: {fileID: 11400000, guid: ea9835d61fd82d74bbfe045a62f01fae, type: 2}
+  RangedAttack: {fileID: 11400000, guid: ce97de19e8ec30548afb34bd5c8fbe1b, type: 2}
   ReachAttack: {fileID: 0}
   ClipHit: {fileID: 0}
   ClipHeal: {fileID: 0}

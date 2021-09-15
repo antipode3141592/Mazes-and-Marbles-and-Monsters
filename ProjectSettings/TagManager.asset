@@ -11,6 +11,7 @@ TagManager:
   - Monster
   - Pickup
   - OffScreenPoint
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - PC
   - NPC
   - Items
-  - 
+  - Projectiles
   - 
   - 
   - 

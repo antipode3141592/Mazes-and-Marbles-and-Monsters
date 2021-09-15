@@ -14,40 +14,51 @@ namespace MarblesAndMonsters.States.CharacterStates
         protected Vector2? roamDestination; //nullable destination vector
         protected Seeker seeker;
         protected Path path;
-        ContactFilter2D contactFilter2D;
-        protected List<Collider2D> colliders;
+        protected AiMover aiMover;
+        protected int AttackCounter;
+        protected int MinimumAttackCount = 1;
 
         public Hunting(CharacterControl character) : base(character)
         {
-            colliders = new List<Collider2D>();
+            //colliders = new List<Collider2D>();
             seeker = character.gameObject.GetComponent<Seeker>();
-            contactFilter2D.layerMask = LayerMask.NameToLayer("Player");    //testing the player layer
-            contactFilter2D.useTriggers = false;    //but not the Player's triggers
+            aiMover = character.gameObject.GetComponent<AiMover>();
+            timeToStateChange = 10f;
         }
 
         public override Type LogicUpdate()
         {
-            if (_character.rangedCollider.OverlapCollider(contactFilter2D, colliders) > 0)
+            timeToStateChangeTimer -= Time.deltaTime;
+            if (_character.Combat.MeleeAttackIsAvailable && TargetInMeleeRange())
             {
-                return typeof(Aiming); //
-            } else
-            {
-                if (!roamDestination.HasValue)
+                //damage all damagables within the melee attack range
+                foreach (Collider2D collider in collisionCheckResults)
                 {
-                    roamDestination = Player.Instance.transform.position;
-                    if (roamDestination.HasValue)
+                    if (collider.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
                     {
-                        seeker.StartPath(_transform.position, roamDestination.Value, OnPathComplete);
+                        _character.Combat.MeleeAttack(damagable);
+                        AttackCounter++;
                     }
                 }
+            }
+            else if (AttackCounter >= MinimumAttackCount && _character.Combat.RangedAttackIsAvailable && TargetInRangedRange())
+            {
+                return typeof(Aiming); //
+            }
+            if (timeToStateChangeTimer <= 0f)
+            {
+                aiMover.TargetTransform = null;
+                return typeof(Idle);    //if hunting for more than 10 seconds, take a rest
             }
             return typeof(Hunting);
         }
 
-        public void OnPathComplete(Path p)
+        public override void Enter()
         {
-            Debug.Log("Hunting Path Complete!");
-            roamDestination = null;
+            base.Enter();
+            AttackCounter = 0;
+            aiMover.StartNewPath(MovementMode.Follow);
+            timeToStateChangeTimer = timeToStateChange;
         }
     }
 }

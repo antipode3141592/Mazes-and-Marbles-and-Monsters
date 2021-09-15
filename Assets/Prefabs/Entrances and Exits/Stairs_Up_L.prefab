@@ -43,6 +43,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stairs_Up_L
       objectReference: {fileID: 0}
+    - target: {fileID: 5196659619175788737, guid: 4129d419fd67489498b87a0382262df6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 5196659619175788740, guid: 4129d419fd67489498b87a0382262df6,
         type: 3}
       propertyPath: m_Sprite

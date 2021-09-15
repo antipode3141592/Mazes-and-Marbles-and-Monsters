@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1537434581188572169}
   - component: {fileID: 8033061730288465647}
   - component: {fileID: 6663435459585313977}
+  - component: {fileID: 8656972855578846700}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -136,12 +137,9 @@ MonoBehaviour:
   healEffect: {fileID: 3735710819123007440}
   invincibilityEffect: {fileID: 7064711046569503975}
   fireEffect: {fileID: 0}
-  myRigidbody: {fileID: 0}
-  meleeCollider: {fileID: 0}
-  rangedCollider: {fileID: 0}
+  myRigidbody: {fileID: 1236707307626652086}
   ForceMultiplier: 1
-  ProjectileRestPeriod: 1
-  TouchAttackRestPeriod: 1
+  Combat: {fileID: 8656972855578846700}
   isDying: 0
   treasureEffect: {fileID: 4097187610937647480}
   addMaxHealthEffect: {fileID: 3735710819123007440}
@@ -295,6 +293,53 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8656972855578846700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236707307626652074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf6bf4d97e6d8e949a5ca29b1b030dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeCollider: {fileID: 0}
+  rangedCollider: {fileID: 0}
+  MeleeAttackRestPeriod: 1
+  MeleeAttackIsAvailable: 1
+  ProjectileRestPeriod: 1
+  RangedAttackIsAvailable: 1
+  projectilePrefab: {fileID: 0}
+  targetDetectFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  aimingFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
 --- !u!1001 &1082727070800917097
 PrefabInstance:
   m_ObjectHideFlags: 0

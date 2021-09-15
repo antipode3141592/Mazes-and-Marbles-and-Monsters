@@ -1,7 +1,7 @@
 ﻿using FiniteStateMachine;
 using MarblesAndMonsters.States.GameStates;
 using LevelManagement;
-using LevelManagement.Data;
+using LevelManagement.DataPersistence;
 using MarblesAndMonsters.Characters;
 using MarblesAndMonsters.Items;
 using MarblesAndMonsters.Menus;
@@ -12,12 +12,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using MarblesAndMonsters.Spells;
-using MarblesAndMonsters.States;
+using Zenject;
 
 namespace MarblesAndMonsters
 {
-    public enum DeathType { Falling, Fire, Poison , Damage, Push }
-
     //persistent singleton class for controlling most of the game actions
     //  Dependencies:
     //      MenuManager singleton instance for menu functions
@@ -54,19 +52,23 @@ namespace MarblesAndMonsters
 
         //state machine stuff
         protected StateMachine stateMachine;
-        public START state_start;
-        public PopulateLevel state_populateLevel;
-        public Playing state_playing;
-        public Paused state_paused;
-        public Victory state_victory;
-        public Defeat state_defeat;
-        public END state_end;
+        //public START state_start;
+        //public PopulateLevel state_populateLevel;
+        //public Playing state_playing;
+        //public Paused state_paused;
+        //public Victory state_victory;
+        //public Defeat state_defeat;
+        //public END state_end;
 
         public BaseState CurrentState => stateMachine.CurrentState;
 
-        private LevelManager levelLoader;
+        
         [SerializeField]
         private Tilemap spawnPointTileMap;
+
+        protected LevelManager _levelManager;
+        protected DataManager _dataManager;
+        protected MenuManager _menuManager;
 
         //singleton stuff
         private static GameManager _instance;
@@ -80,6 +82,14 @@ namespace MarblesAndMonsters
 
         public float DefaultInvincibilityTime => defaultInvincibilityTime;
         #endregion
+
+        [Inject]
+        public void Init(DataManager dataManager, MenuManager menuManager, LevelManager levelManager)
+        {
+            _dataManager = dataManager;
+            _menuManager = menuManager;
+            _levelManager = levelManager;
+        }
 
         #region Unity Overrides
 
@@ -110,22 +120,6 @@ namespace MarblesAndMonsters
             stateMachine.SetStates(states);
         }
 
-        private void Start()
-        {
-            levelLoader = FindObjectOfType<LevelManager>();
-        }
-
-        //public void Update()
-        //{
-        //    gameStateMachine.CurrentState.HandleInput();
-        //    gameStateMachine.CurrentState.LogicUpdate();
-        //}
-
-        //public void FixedUpdate()
-        //{
-        //    gameStateMachine.CurrentState.PhysicsUpdate();   
-        //}
-
         private void OnDestroy()
         {
             if (_instance == this)
@@ -135,21 +129,18 @@ namespace MarblesAndMonsters
         }
         #endregion
 
-        //public void ResetStateMachine()
-        //{
-        //    gameStateMachine.ChangeState(state_start);
-        //}
-
         public void UnpauseGame()
         {
             stateMachine.SwitchToNewState(typeof(Playing));
-            MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
+            //MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
+            _menuManager.OpenMenu(MenuTypes.GameMenu);
         }
 
         public void PauseGame()
         {
             stateMachine.SwitchToNewState(typeof(Paused));
-            MenuManager.Instance.OpenMenu(MenuTypes.PauseMenu);
+            //MenuManager.Instance.OpenMenu(MenuTypes.PauseMenu);
+            _menuManager.OpenMenu(MenuTypes.PauseMenu);
         }
         
         /// <summary>
@@ -227,10 +218,10 @@ namespace MarblesAndMonsters
 
         public void LevelLose()
         {
-            if (DataManager.Instance != null)
+            if (_dataManager != null)
             {
-                DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;
-                DataManager.Instance.Save();
+                _dataManager.PlayerTotalDeathCount = Player.Instance.DeathCount;
+                _dataManager.Save();
             }
             stateMachine.SwitchToNewState(typeof(Defeat));
         }
@@ -240,7 +231,7 @@ namespace MarblesAndMonsters
             //TransitionFader.PlayTransition(endTransition);
             //yield return new WaitForSeconds(0.5f);
             //TransitionFader.PlayTransition(transitionPrefab);
-            levelLoader.LoadLevel(string.Empty);
+            _levelManager.LoadLevel(string.Empty);
             //float fadeDelay = endTransition != null ? endTransition.Delay + endTransition.FadeOnDuration : 0f;
             yield return null;
         }
@@ -250,7 +241,7 @@ namespace MarblesAndMonsters
             //TransitionFader.PlayTransition(endTransition);
             //yield return new WaitForSeconds(0.5f);
             //TransitionFader.PlayTransition(transitionPrefab);
-            levelLoader.LoadLevel(levelId);
+            _levelManager.LoadLevel(levelId);
             //float fadeDelay = endTransition != null ? endTransition.Delay + endTransition.FadeOnDuration : 0f;
             yield return null;
             
@@ -268,26 +259,26 @@ namespace MarblesAndMonsters
         {
             try
             {
-                if (DataManager.Instance != null)
+                if (_dataManager != null)
                 {
                     if (Player.Instance != null)
                     {
-                        DataManager.Instance.PlayerMaxHealth = Player.Instance.MySheet.MaxHealth;
-                        DataManager.Instance.PlayerCurrentHealth = Player.Instance.MySheet.CurrentHealth;
-                        DataManager.Instance.PlayerTotalDeathCount = Player.Instance.DeathCount;
-                        DataManager.Instance.PlayerScrollCount = Player.Instance.TreasureCount;
-                        if (DataManager.Instance.CheckPointLevelId != string.Empty)
+                        _dataManager.PlayerMaxHealth = Player.Instance.MySheet.MaxHealth;
+                        _dataManager.PlayerCurrentHealth = Player.Instance.MySheet.CurrentHealth;
+                        _dataManager.PlayerTotalDeathCount = Player.Instance.DeathCount;
+                        _dataManager.PlayerScrollCount = Player.Instance.TreasureCount;
+                        if (_dataManager.CheckPointLevelId != string.Empty)
                         {
-                            DataManager.Instance.UpdateLevelSaves(new LevelSaveData(DataManager.Instance.CheckPointLevelId,
-                                DataManager.Instance.SavedLocation, 0, true));
+                            _dataManager.UpdateLevelSaves(new LevelSaveData(_dataManager.CheckPointLevelId,
+                                _dataManager.SavedLocation, 0, true));
                         }
                         else
                         {
-                            if (LevelManager.Instance != null)
+                            if (_levelManager != null)
                             {
-                                string levelId = LevelManager.Instance.GetCurrentLevelId();
-                                DataManager.Instance.UpdateLevelSaves(new LevelSaveData(levelId,
-                                    LevelManager.Instance.GetLevelSpecsById(levelId).Location, 0, true));
+                                string levelId = _levelManager.GetCurrentLevelId();
+                                _dataManager.UpdateLevelSaves(new LevelSaveData(levelId,
+                                    _levelManager.GetLevelSpecsById(levelId).Location, 0, true));
                             } else
                             {
                                 throw new Exception("No LevelManager found for GetCurrentLevelId");
@@ -298,15 +289,15 @@ namespace MarblesAndMonsters
                         {
                             if (spell.Value.IsUnlocked)
                             {
-                                DataManager.Instance.UnlockedSpells.Add(new SpellData(spell.Value.SpellName, spell.Value.SpellStats, spell.Value.IsQuickSlotAssigned, spell.Value.QuickSlot));
+                                _dataManager.UnlockedSpells.Add(new SpellData(spell.Value.SpellName, spell.Value.SpellStats, spell.Value.IsQuickSlotAssigned, spell.Value.QuickSlot));
                             }
                         }
                         //store collected keys
                         foreach (var key in Player.Instance.KeyChain)
                         {
-                            DataManager.Instance.CollectedKeys.Add(key);
+                            _dataManager.CollectedKeys.Add(key);
                         }
-                        DataManager.Instance.Save();
+                        _dataManager.Save();
                     }
                     else
                     {
@@ -405,7 +396,7 @@ namespace MarblesAndMonsters
                 {
                     if (character.gameObject.activeInHierarchy && character.MySheet.IsBoardMovable)
                     {
-                        BoardMovement.Move(character.myRigidbody, Input_Acceleration, character.ForceMultiplier);
+                        BoardMovement.Move(character.MyRigidbody, Input_Acceleration, character.ForceMultiplier);
                     }
                 }
             }
