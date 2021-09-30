@@ -10,8 +10,7 @@ namespace MarblesAndMonsters.Menus
     {
         public void OnResumePressed()
         {
-            GameManager.Instance.UnpauseGame();
-            //base.OnBackPressed();   //return to GameMenu
+            _gameManager.UnpauseGame();
         }
 
         public void OnRestartPressed() {
@@ -21,18 +20,15 @@ namespace MarblesAndMonsters.Menus
 
         public void OnMainMenuPressed()
         {
-            LevelManager.LoadMainMenuLevel();
-            //MainMenu.Open();
-            MenuManager.Instance.OpenMenu(MenuTypes.MainMenu);
+            _levelManager.LoadMainMenuLevel();
+            _menuManager.OpenMenu(MenuTypes.MainMenu);
         }
 
         public void ResetData()
         {
-            //TODO should confirm first
-            DataManager.Instance.Clear();
-            //update UI
-            //UpdateCurrentGameStats();
+            _dataManager.Clear();
         }
+
         public override void OnBackPressed()
         {
             Application.Quit();

@@ -23,7 +23,7 @@ namespace MarblesAndMonsters.Menus
 
         public void OnClosePopupClicked()
         {
-            MenuManager.Instance.CloseMenu();
+            _menuManager.CloseMenu();
         }
 
         public void OnPlayClicked()

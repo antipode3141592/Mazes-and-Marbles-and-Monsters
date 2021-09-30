@@ -7,18 +7,9 @@ namespace MarblesAndMonsters.Menus
 {
     public class WinMenu : Menu<WinMenu>
     {
-        private LevelManager levelLoader;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            levelLoader = GameObject.FindObjectOfType<LevelManager>();
-        }
-
         public void OnNextLevelPressed()
         {
             base.OnBackPressed(); //return to GameMenu
-            //levelLoader.LoadNextLevel();
         }
 
         //restarting the level means killing the PC and resetting all items/monsters/obstacles
@@ -30,9 +21,8 @@ namespace MarblesAndMonsters.Menus
 
         public void OnMainMenuPressed()
         {
-            LevelManager.LoadMainMenuLevel();
-            //MainMenu.Open();
-            MenuManager.Instance.OpenMenu(MenuTypes.MainMenu);
+            _levelManager.LoadMainMenuLevel();
+            _menuManager.OpenMenu(MenuTypes.MainMenu);
         }
 
         public override void OnBackPressed()

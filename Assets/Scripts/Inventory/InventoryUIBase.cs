@@ -10,6 +10,11 @@ namespace MarblesAndMonsters.Menus.Components
         [SerializeField]
         protected List<Image> contents;  //UI images of objects, defined in editor
 
+        public void Awake()
+        {
+            Clear();
+        }
+
         public virtual void UpdateUI(List<Sprite> itemIcons)
         {
             if (itemIcons == null)

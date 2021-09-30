@@ -34,34 +34,11 @@ namespace LevelManagement.DataPersistence
 
         public List<KeyItem> CollectedKeys { get { return saveData.CollectedKeys; } set { saveData.CollectedKeys = value; } }
 
-        private static DataManager _instance;
-        public static DataManager Instance
-        {
-            get { return _instance;  }
-        }
-
         private void Awake()
         {
-            if (_instance != null)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                _instance = this;
-                DontDestroyOnLoad(gameObject);
-                saveData = new SaveData();
-                jsonSaver = new JSONSaver();
-            }
+            saveData = new SaveData();
+            jsonSaver = new JSONSaver();
             Load();
-        }
-
-        private void OnDestroy()
-        {
-            if (_instance == this)
-            {
-                _instance = null;
-            }
         }
 
         public void Save()

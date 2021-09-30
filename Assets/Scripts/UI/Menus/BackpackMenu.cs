@@ -25,9 +25,8 @@ namespace MarblesAndMonsters.Menus
         private List<MagicStaffSlot> currentStaffSlots;
         private List<MagicStaffSlot> newStaffSlots;
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
             spellBook = new List<UISpellIconTemplate>(GetComponentsInChildren<UISpellIconTemplate>());
             GraphicRaycaster = GetComponent<GraphicRaycaster>();
         }

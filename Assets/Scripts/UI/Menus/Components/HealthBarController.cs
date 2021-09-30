@@ -45,12 +45,17 @@ namespace MarblesAndMonsters.Menus.Components
             HeartAnimators.Add(heart.GetComponent<Animator>());
         }
 
+        private void RemoveHeart()
+        {
+
+        }
+
         public void UpdateHealth()
         {
-            Debug.Log("UpdateHealth() called");
+            //Debug.Log("UpdateHealth() called");
             if ((Player.Instance != null) && (Player.Instance.MySheet != null))
             {
-                Debug.Log(string.Format("Hearts.Count = {0}, HeartAnimators = {1}, PlayerMaxHealth = {2}", Hearts.Count, HeartAnimators.Count, Player.Instance.MySheet.MaxHealth));
+                //Debug.Log(string.Format("Hearts.Count = {0}, HeartAnimators = {1}, PlayerMaxHealth = {2}", Hearts.Count, HeartAnimators.Count, Player.Instance.MySheet.MaxHealth));
                 if (Hearts.Count < Player.Instance.MySheet.MaxHealth)
                 {
                     int diff = Player.Instance.MySheet.MaxHealth - Hearts.Count;

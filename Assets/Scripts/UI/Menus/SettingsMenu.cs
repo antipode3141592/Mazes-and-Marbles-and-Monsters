@@ -16,14 +16,6 @@ namespace MarblesAndMonsters.Menus
         [SerializeField]
         private Slider _MusicVolumeSlider;
 
-        //private DataManager _dataManager;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            //_dataManager = Object.FindObjectOfType<DataManager>();
-        }
-
         private void Start()
         {
             LoadData();
@@ -35,7 +27,7 @@ namespace MarblesAndMonsters.Menus
             //{
             //    _dataManager.MasterVolume = volume;
             //}
-            DataManager.Instance.MasterVolume = volume;
+            _dataManager.MasterVolume = volume;
         }
 
         public void OnSFXVolumeChanged(float volume)
@@ -44,7 +36,7 @@ namespace MarblesAndMonsters.Menus
             //{
             //    _dataManager.SFXVolume = volume;
             //}
-            DataManager.Instance.SFXVolume = volume;
+            _dataManager.SFXVolume = volume;
         }
 
         public void OnMusicVolumeChanged(float volume)
@@ -53,14 +45,14 @@ namespace MarblesAndMonsters.Menus
             //{
             //    _dataManager.MusicVolume = volume;
             //}
-            DataManager.Instance.MusicVolume = volume;
+            _dataManager.MusicVolume = volume;
         }
 
         
         public override void OnBackPressed()
         {
             //_dataManager.Save();
-            DataManager.Instance.Save();
+            _dataManager.Save();
             base.OnBackPressed();
         }
 
@@ -73,10 +65,10 @@ namespace MarblesAndMonsters.Menus
             }
             else
             {
-                DataManager.Instance.Load();
-                _masterVolumeSlider.value = DataManager.Instance.MasterVolume;
-                _SFXVolumeSlider.value = DataManager.Instance.SFXVolume;
-                _MusicVolumeSlider.value = DataManager.Instance.MusicVolume;
+                _dataManager.Load();
+                _masterVolumeSlider.value = _dataManager.MasterVolume;
+                _SFXVolumeSlider.value = _dataManager.SFXVolume;
+                _MusicVolumeSlider.value = _dataManager.MusicVolume;
             }
         }
     }

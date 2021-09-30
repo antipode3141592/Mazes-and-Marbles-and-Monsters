@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MarblesAndMonsters
 {
-    public class CombatControls : MonoBehaviour
+    public class CombatController : MonoBehaviour
     {
         //attack stuff
         [SerializeField]

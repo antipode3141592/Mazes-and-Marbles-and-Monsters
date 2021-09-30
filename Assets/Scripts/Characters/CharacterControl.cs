@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
 namespace MarblesAndMonsters.Characters
 {
-
-    
     //Controller for characters
     //  Executes actions based on the attached character sheet (Unity component)
     //  Core Loop:
@@ -48,7 +44,7 @@ namespace MarblesAndMonsters.Characters
         protected int aTriggerDeathByDamage;
 
         //combat controls
-        public CombatControls Combat;
+        public CombatController Combat;
 
         //sound control
         protected AudioSource audioSource;
@@ -61,15 +57,18 @@ namespace MarblesAndMonsters.Characters
 
         public CharacterSheet MySheet => mySheet; //read-only accessor for accessing stats directly (for hp, attack/def values, etc)
 
-        //protected GameManager _gameManager;
+        protected GameManager _gameManager;
         #endregion
 
         //#region Dependency Injection
         //[Inject]
-        //public void Init(GameManager gameManager)
+        ////public void Construct(GameManager gameManager)
+        ////{
+        ////    _gameManager = gameManager;
+        ////}
+
+        //public class Factory : PlaceholderFactory<CharacterControl>
         //{
-        //    _gameManager = gameManager;
-        //    _qux = qux;
         //}
         //#endregion
 
@@ -78,13 +77,16 @@ namespace MarblesAndMonsters.Characters
         {
             //cache some components
             mySheet = GetComponent<CharacterSheet>();
-            Combat = GetComponent<CombatControls>();
-            //myColliders = new List<Collider2D>(GetComponents<Collider2D>());
+            Combat = GetComponent<CombatController>();
             MyRigidbody = GetComponent<Rigidbody2D>();
             mySpriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
             audioSource = GetComponent<AudioSource>();
 
+            _gameManager = FindObjectOfType<GameManager>();
+
+            //cache hashes for animation strings
+            //TODO move animations to sub controller
             aFloatSpeed = Animator.StringToHash("Speed");
             aFloatLookX = Animator.StringToHash("Look X");
             aFloatLookY = Animator.StringToHash("Look Y");
@@ -98,18 +100,14 @@ namespace MarblesAndMonsters.Characters
             ResetHealth();
             isDying = false;
             //comment: subscribe!
-            //MySheet.OnBurning += FireOnHandler;
-            //MySheet.OnBurningEnd += FireOffHandler;
             MySheet.OnInvincible += InvincibileOnHandler;
             MySheet.OnInvincibleEnd += InvincibileOffHandler;
-            //MySheet.OnLevitating += LevitateOnHandler;
-            //MySheet.OnLevitatingEnd += LevitateOffHandler;
         }
 
         protected virtual void Start()
         {
             //_gameManager.StoreCharacter(this);
-            if (GameManager.Instance.StoreCharacter(this))
+            if (_gameManager.StoreCharacter(this))
             {
                 //Debug.Log(String.Format("{0} has been added to Characters on GameController", this.gameObject.name));
             }
@@ -184,7 +182,7 @@ namespace MarblesAndMonsters.Characters
                     {
                         hitEffect.Play();   //particles
                         animator.SetTrigger(aTriggerDamageNormal);
-                        ApplyInvincible(GameManager.Instance.DefaultInvincibilityTime);
+                        ApplyInvincible(_gameManager.DefaultInvincibilityTime);
                     }
                 }
                 //
@@ -220,37 +218,6 @@ namespace MarblesAndMonsters.Characters
                 invincibilityEffect.Stop();
             }
         }
-
-        //internal virtual void ApplyFire()
-        //{
-        //    //add 
-        //}
-
-        //void FireOnHandler(object sender, EventArgs e)
-        //{
-        //    if (fireEffect)
-        //    {
-        //        fireEffect.Play();
-        //    }
-        //}
-
-        //void FireOffHandler(object sender, EventArgs e)
-        //{
-        //    if (fireEffect)
-        //    {
-        //        fireEffect.Stop();
-        //    }
-        //}
-
-        //internal virtual void ApplyPoison()
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-
-        //internal virtual void ApplyIce()
-        //{
-        //    throw new System.NotImplementedException();
-        //}
 
         public void ApplyImpulse(Vector2 force)
         {
@@ -355,7 +322,7 @@ namespace MarblesAndMonsters.Characters
         //  helps to determine 
         protected virtual void SetLookDirection()
         {
-            Vector2 input_acceleration = GameManager.Instance.Input_Acceleration;
+            Vector2 input_acceleration = _gameManager.Input_Acceleration;
             if (!Mathf.Approximately(input_acceleration.x, 0.0f) || !Mathf.Approximately(input_acceleration.y, 0.0f))
             {
                 lookDirection = input_acceleration;

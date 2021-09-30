@@ -6,6 +6,12 @@ namespace MarblesAndMonsters.Objects
     {
         [SerializeField]
         protected string GoToLevelId = string.Empty;
+        protected GameManager _gameManager;
+
+        private void Awake()
+        {
+            _gameManager = FindObjectOfType<GameManager>();
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -13,7 +19,7 @@ namespace MarblesAndMonsters.Objects
             {
                 if (other.gameObject.CompareTag("Player"))
                 {
-                    GameManager.Instance.LevelWin(GoToLevelId);
+                    _gameManager.LevelWin(GoToLevelId);
                 }
             }
         }

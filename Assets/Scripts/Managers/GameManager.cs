@@ -1,17 +1,17 @@
 ﻿using FiniteStateMachine;
-using MarblesAndMonsters.States.GameStates;
 using LevelManagement;
 using LevelManagement.DataPersistence;
 using MarblesAndMonsters.Characters;
 using MarblesAndMonsters.Items;
 using MarblesAndMonsters.Menus;
+using MarblesAndMonsters.Spells;
+using MarblesAndMonsters.States.GameStates;
 using MarblesAndMonsters.Tiles;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using MarblesAndMonsters.Spells;
 using Zenject;
 
 namespace MarblesAndMonsters
@@ -52,13 +52,6 @@ namespace MarblesAndMonsters
 
         //state machine stuff
         protected StateMachine stateMachine;
-        //public START state_start;
-        //public PopulateLevel state_populateLevel;
-        //public Playing state_playing;
-        //public Paused state_paused;
-        //public Victory state_victory;
-        //public Defeat state_defeat;
-        //public END state_end;
 
         public BaseState CurrentState => stateMachine.CurrentState;
 
@@ -70,17 +63,11 @@ namespace MarblesAndMonsters
         protected DataManager _dataManager;
         protected MenuManager _menuManager;
 
-        //singleton stuff
-        private static GameManager _instance;
-
-        public static GameManager Instance
-        {
-            get { return _instance; }
-        }
-
         public float DefaultEffectTime => defaultEffectTime;
 
         public float DefaultInvincibilityTime => defaultInvincibilityTime;
+
+        public bool ShouldBeginLevel = false;
         #endregion
 
         [Inject]
@@ -95,16 +82,6 @@ namespace MarblesAndMonsters
 
         private void Awake()
         {
-            //that singleton pattern
-            if (_instance != null)
-            {
-                Destroy(this.gameObject);
-            }
-            else
-            {
-                _instance = this;
-            }
-
             stateMachine = GetComponent<StateMachine>();
             var states = new Dictionary<Type, BaseState>()
             {
@@ -113,33 +90,23 @@ namespace MarblesAndMonsters
                 {typeof(Playing), new Playing(manager: this) },
                 {typeof(Paused), new Paused(manager: this) },
                 {typeof(Victory), new Victory(manager: this) },
-                {typeof(Defeat), new Defeat(manager: this) },
+                {typeof(Defeat), new Defeat(manager: this, menuManager: _menuManager) },
                 {typeof(END), new END(manager: this) }
             };
             Debug.Log($"{name} is storing the following states:  {states.Keys.ToString()}");
             stateMachine.SetStates(states);
-        }
-
-        private void OnDestroy()
-        {
-            if (_instance == this)
-            {
-                _instance = null;
-            }
         }
         #endregion
 
         public void UnpauseGame()
         {
             stateMachine.SwitchToNewState(typeof(Playing));
-            //MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
             _menuManager.OpenMenu(MenuTypes.GameMenu);
         }
 
         public void PauseGame()
         {
             stateMachine.SwitchToNewState(typeof(Paused));
-            //MenuManager.Instance.OpenMenu(MenuTypes.PauseMenu);
             _menuManager.OpenMenu(MenuTypes.PauseMenu);
         }
         
@@ -183,6 +150,7 @@ namespace MarblesAndMonsters
             }
             foreach (SpawnPoint spawnPoint in spawnPoints)
             {
+                spawnPoint.isAvailable = false;
                 spawnPoint.Reset();
             }
             foreach (KeyItem keyItem in keyItems)
@@ -196,6 +164,10 @@ namespace MarblesAndMonsters
             foreach(SpellEffectBase spellEffect in spellEffects.FindAll(x => x != null))
             {
                 spellEffect.EndEffect();
+            }
+            foreach(Projectile projectile in FindObjectsOfType<Projectile>())
+            {
+                Destroy(projectile, 0.01f);
             }
             //Destroy(Player.Instance);
         }
@@ -254,7 +226,7 @@ namespace MarblesAndMonsters
         }
         #endregion
 
-
+        //TODO move this to a subcontroller
         public void SaveGameData()
         {
             try
@@ -341,10 +313,8 @@ namespace MarblesAndMonsters
             {
                 //StartCoroutine(spawnPoint.Spawn(0.0f));
                 //some spawnPoints begin in an unavailable state (and made available by some trigger)
-                if (spawnPoint.isAvailable)
-                {
-                    spawnPoint.SpawnCharacter();
-                }
+                spawnPoint.isAvailable = true;
+                spawnPoint.SpawnCharacter();
             }
             foreach (InventoryItem item in inventoryItems)
             {

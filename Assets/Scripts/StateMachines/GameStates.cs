@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using FiniteStateMachine;
+using MarblesAndMonsters.Menus;
 
 namespace MarblesAndMonsters.States.GameStates
 {
@@ -19,7 +20,12 @@ namespace MarblesAndMonsters.States.GameStates
 
         public override Type LogicUpdate()
         {
-            return typeof(PopulateLevel);
+            if (_manager.ShouldBeginLevel)
+            {
+                _manager.ShouldBeginLevel = false;
+                return typeof(PopulateLevel);
+            }
+            return typeof(START);
         }
     }
 
@@ -102,16 +108,24 @@ namespace MarblesAndMonsters.States.GameStates
 
     public class Defeat : GameState
     {
+        MenuManager _menuManager;
         public override Type Type { get => typeof(Defeat); }
 
-        public Defeat(GameManager manager) : base(manager.gameObject)
+        public Defeat(GameManager manager, MenuManager menuManager) : base(manager.gameObject)
         {
             _manager = manager;
+            _menuManager = menuManager;
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            _manager.ResetAll();
+            _menuManager.OpenMenu(MenuTypes.DefeatMenu);
         }
 
         public override Type LogicUpdate()
         {
-            _manager.ResetAll();
             return typeof(START);
         }
     }

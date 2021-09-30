@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using LevelManagement;
+using Zenject;
 
 namespace MarblesAndMonsters.Menus
 {
@@ -8,6 +9,14 @@ namespace MarblesAndMonsters.Menus
     {
         [SerializeField]
         private ScreenFader _screenFader;
+
+        MenuManager _menuManager;
+
+        [Inject]
+        public void Init(MenuManager menuManager)
+        {
+            _menuManager = menuManager;
+        }
 
         [SerializeField]
         private float delay = 1f;
@@ -29,13 +38,10 @@ namespace MarblesAndMonsters.Menus
 
         private IEnumerator FadeAndLoadRoutine()
         {
-            
-            yield return new WaitForSeconds(delay);
+            _menuManager.OpenMenu(MenuTypes.MainMenu);
             _screenFader.FadeOff();
-            LevelManager.LoadMainMenuLevel();
             //wait for fade
             yield return new WaitForSeconds(_screenFader.FadeOffDuration);
-
             //remove the splash screen object
             Object.Destroy(gameObject);
         }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4899340778992095411}
   - component: {fileID: 7993686714806335017}
   m_Layer: 5
-  m_Name: QuickAccess
+  m_Name: SpellStaff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

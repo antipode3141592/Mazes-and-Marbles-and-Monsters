@@ -11,20 +11,30 @@ namespace MarblesAndMonsters.Menus
     /// </summary>
     public class Location : MonoBehaviour
     {
-        private LevelManager levelLoader;
+        
         [SerializeField] private string locationId;
         private Sprite sprite;
         [SerializeField] private Sprite occupiedSprite;
         [SerializeField] private Sprite availableSprite;
         [SerializeField] private Sprite completeSprite;
 
+        protected LevelManager _levelManager;
+        protected DataManager _dataManager;
+        protected MenuManager _menuManager;
+
+        protected MapPopupMenu _popupMenu;
+
         //upon awake, grab the levelloader reference
         //  preload location summary data
         //  update sprite
         private void Awake()
         {
-            levelLoader = FindObjectOfType<LevelManager>();
+            _menuManager = FindObjectOfType<MenuManager>();
+            _levelManager = FindObjectOfType<LevelManager>();
+            _dataManager = FindObjectOfType<DataManager>();
+            _popupMenu = FindObjectOfType<MapPopupMenu>(true);
             sprite = GetComponent<Sprite>();
+            
         }
 
         /// <summary>
@@ -38,12 +48,12 @@ namespace MarblesAndMonsters.Menus
         private void OpenLocationPopup()
         {
             //open map menu
-            if (MenuManager.Instance != null)
+            if (_menuManager != null)
             {
-                MenuManager.Instance.OpenMenu(MenuTypes.MapPopupMenu);
-                MapPopupMenu.Instance.locationId.text = locationId;
-                MapPopupMenu.Instance.PlayButton.onClick.AddListener(LoadFirstLevel);
-                MapPopupMenu.Instance.ResetButton.onClick.AddListener(ResetLocation);
+                _menuManager.OpenMenu(MenuTypes.MapPopupMenu);
+                _popupMenu.locationId.text = locationId;
+                _popupMenu.PlayButton.onClick.AddListener(LoadFirstLevel);
+                _popupMenu.ResetButton.onClick.AddListener(ResetLocation);
             }
             
             //levelLoader.LoadLevel(levelLoader.GetFirstLevelInLocation(locationName).Id);
@@ -51,9 +61,9 @@ namespace MarblesAndMonsters.Menus
 
         private void LoadFirstLevel()
         {
-            LevelSpecs firstLevelSpecs = levelLoader.GetFirstLevelInLocation(locationId);
+            LevelSpecs firstLevelSpecs = _levelManager.GetFirstLevelInLocation(locationId);
             ////if 
-            levelLoader.LoadLevel(firstLevelSpecs.Id);
+            _levelManager.LoadLevel(firstLevelSpecs.Id);
         }
 
         private void ResetLocation()
@@ -63,10 +73,10 @@ namespace MarblesAndMonsters.Menus
 
         public bool GetLocationSummary()
         {
-            if (DataManager.Instance != null)
+            if (_dataManager != null)
             {
                 //get a list of all completed locations from this location
-                List<LevelSaveData> levels = DataManager.Instance.LevelSaves.FindAll(x => x.LocationId == locationId && x.Completed == true);
+                List<LevelSaveData> levels = _dataManager.LevelSaves.FindAll(x => x.LocationId == locationId && x.Completed == true);
                 //count completed levels
                 int completedLevels = levels.Count;
                 //count total non-hidden levels (sortorder >= 0)

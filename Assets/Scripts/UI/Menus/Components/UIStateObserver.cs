@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using FiniteStateMachine;
 using TMPro;
+using UnityEngine;
 
 public class UIStateObserver : MonoBehaviour
 {
@@ -29,6 +26,5 @@ public class UIStateObserver : MonoBehaviour
     public void UpdateText(object sender, UITextUpdate e)
     {
         text.SetText(e.Message, true);
-        //text.text = e.Message;
     }
 }

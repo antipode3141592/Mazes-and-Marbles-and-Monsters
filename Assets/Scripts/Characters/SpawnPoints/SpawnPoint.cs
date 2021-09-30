@@ -1,9 +1,9 @@
-﻿using System.Collections;
+﻿using MarblesAndMonsters.States.GameStates;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
-//  an object pooler attached to a transform
-//      Spawns characters in queue at specified interval
 namespace MarblesAndMonsters.Characters
 {
     public class SpawnPoint: MonoBehaviour
@@ -28,14 +28,13 @@ namespace MarblesAndMonsters.Characters
         [SerializeField]
         protected float spawnAnimationDelay;
 
-        protected Collider2D spawningZoneCollider;  //trigger area where the character will spawn
-                                                    //will only allow a spawn while the spawning zone is clear
+        GameManager _gameManager;
 
         #region Unity Scripts
 
         protected virtual void Awake()
         {
-            spawningZoneCollider = gameObject.GetComponent<Collider2D>();
+            _gameManager = FindObjectOfType<GameManager>(true);
             characters = new List<CharacterControl>();
             animator = GetComponent<Animator>();
             spawnTriggerHash = Animator.StringToHash("Spawn");
@@ -60,25 +59,17 @@ namespace MarblesAndMonsters.Characters
 
         public virtual void RemoteTriggerSpawn(float spawnDelay)
         {
-            //if (GameManager.Instance != null)
-            //{
-            //    if (GameManager.Instance.CurrentState is FiniteStateMachine.States.GameStates.PopulateLevel
-            //        || GameManager.Instance.CurrentState is FiniteStateMachine.States.GameStates.Playing)
-            //    {
-                    //Debug.Log(string.Format("Current State: {0}, RemoteTriggerSpawn({1}) called", 
-                        //GameManager.Instance.CurrentState.ToString(), spawnDelay));
-                    StartCoroutine(Spawn(spawnDelay));
-            //    } else
-            //    {
-            //        //Debug.Log(string.Format("Current State: {0}, respawn not permissable", GameManager.Instance.CurrentState.ToString()));
-            //    }
-            //}
+            StartCoroutine(Spawn(spawnDelay));
         }
 
         public virtual IEnumerator Spawn(float spawnDelay)
         {
             yield return new WaitForSeconds(spawnDelay);
-            SpawnCharacter();
+            //if 
+            //if (_gameManager.CurrentState.GetType().is
+            //{
+                SpawnCharacter();
+            //}
         }
 
         /// <summary>
@@ -88,11 +79,14 @@ namespace MarblesAndMonsters.Characters
         /// <param name="offsetY"></param>
         public virtual void SpawnCharacter()
         {
-            if (animator)
+            if (isAvailable)
             {
-                animator.SetTrigger(spawnTriggerHash);
+                if (animator)
+                {
+                    animator.SetTrigger(spawnTriggerHash);
+                }
+                StartCoroutine(SpawnAnimation());
             }
-            StartCoroutine(SpawnAnimation());
         }
 
         /// <summary>

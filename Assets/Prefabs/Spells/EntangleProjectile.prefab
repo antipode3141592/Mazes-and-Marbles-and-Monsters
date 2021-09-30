@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Caster: {fileID: 0}
-  EffectDuration: 3
+  ProjectileStats: {fileID: 11400000, guid: 763dfacbf7b6b5a4ebe4be2f3da0db30, type: 2}
   Rigidbody2D: {fileID: 1022811285960876781}
   entanglePrefab: {fileID: 8835059570872667135, guid: 38f17f33ed48b1144a67316396efd851,
     type: 3}

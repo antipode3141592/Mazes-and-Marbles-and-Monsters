@@ -1,76 +1,39 @@
 ﻿using UnityEngine;
 using MarblesAndMonsters.Menus;
-
-//code based on the course content at https://www.udemy.com/course/level-management-in-unity/ , which was super helpeul and highly recommended
-//  Class Name:  Menu
-//  Interacts with:  MenuManager
-//  Purpose:  Menu type for all Menu objects
-//      a)  Menus are singletons
-//      b)  Menu is an abstract class
+using MarblesAndMonsters;
+using LevelManagement.DataPersistence;
+using Zenject;
 
 namespace LevelManagement.Menus
 {
     public abstract class Menu<T>: Menu where T : Menu<T>
     {
-        private static T _instance;
+        protected MenuManager _menuManager;
+        protected GameManager _gameManager;
+        protected DataManager _dataManager;
+        protected LevelManager _levelManager;
 
-        public static T Instance
+        [Inject]
+        public void Init(MenuManager menuManager, GameManager gameManager, DataManager dataManager, LevelManager levelManager)
         {
-            get { return _instance; }
+            _menuManager = menuManager;
+            _gameManager = gameManager;
+            _dataManager = dataManager;
+            _levelManager = levelManager;
         }
 
-
-        // if instance doesn't exist, create it and set to Don't Destroy On Load 
-        //  (else destroy the attached gameObject)
-        protected virtual void Awake()
+        /// <summary>
+        /// St
+        /// </summary>
+        public virtual void OnBackPressed()
         {
-            if (_instance != null)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                _instance = (T)this;
-                //DontDestroyOnLoad(gameObject);
-            }
+            _menuManager.CloseMenu();
         }
-
-        protected virtual void OnDestroy()
-        {
-            if (_instance == this)
-            {
-                _instance = null;
-            }
-        }
-
-        //public static void Open()
-        //{
-        //    if (MenuManager.Instance != null)
-        //    {
-        //        if (Instance != null)
-        //        {
-        //            MenuManager.Instance.OpenMenu(Instance);
-        //        }
-        //        else
-        //        {
-        //            Debug.Log(string.Format("Menu open error, no menu instance available"));
-        //        }
-        //    } 
-        //    else
-        //    {
-        //        Debug.Log("Could not find MenuManager Instance");
-        //    }
-        //}
     }
 
     [RequireComponent(typeof(Canvas))]
     public abstract class Menu : MonoBehaviour
     {
-        public virtual void OnBackPressed()
-        {
-            MenuManager.Instance.CloseMenu();
-        }
+        
     }
-
-
 }

@@ -21,20 +21,6 @@ namespace MarblesAndMonsters
         [SerializeField]
         private float onTime = 2.0f;
 
-
-
-        // Start is called before the first frame update
-        void Awake()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other != null)
@@ -43,14 +29,11 @@ namespace MarblesAndMonsters
                 if (targetObject.TryGetComponent<Gate>(out Gate gate))
                 {
                     //do something with gate object?
-
                     if (targetObject.activeInHierarchy) 
                     {
                         targetObject.SetActive(!targetObject.activeSelf);
                         StartCoroutine(MomentaryOff());
-                        //targetObject.SetActive(false); 
                     }
-                    //else { targetObject.SetActive(true); }
                 }
             }
         }

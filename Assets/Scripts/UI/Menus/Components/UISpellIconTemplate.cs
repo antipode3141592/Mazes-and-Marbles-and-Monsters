@@ -19,6 +19,8 @@ namespace MarblesAndMonsters.Menus
         public GraphicRaycaster graphicRaycaster;
         private List<RaycastResult> raycastResults;
 
+        protected BackpackMenu _backpackMenu;
+
         Vector2 pos;
 
         private void Awake()
@@ -27,6 +29,7 @@ namespace MarblesAndMonsters.Menus
             raycastResults = new List<RaycastResult>();
             graphicRaycaster = GetComponentInParent<GraphicRaycaster>();
             MagicStaffController = FindObjectOfType<MagicStaffController>();
+            _backpackMenu = FindObjectOfType<BackpackMenu>(true);
             //DragIcon = FindObjectOfType<DragIcon>(true).GetComponent<Image>();
             //DragIcon.enabled = false;
         }
@@ -36,9 +39,9 @@ namespace MarblesAndMonsters.Menus
             if (IsUnlocked)
             {
                 SelectedBackground.color = Color.green;
-                if (BackpackMenu.Instance)
+                if (_backpackMenu)
                 {
-                    BackpackMenu.Instance.SpellDescription.text = SpellStats.Description;
+                    _backpackMenu.SpellDescription.text = SpellStats.Description;
                 }
             }
         }

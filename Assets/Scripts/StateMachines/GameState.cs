@@ -1,7 +1,4 @@
-﻿//based on the pattern at based on https://www.raywenderlich.com/6034380-state-pattern-using-unity
-using MarblesAndMonsters;
-using MarblesAndMonsters.States;
-using System;
+﻿using MarblesAndMonsters;
 using UnityEngine;
 
 namespace FiniteStateMachine

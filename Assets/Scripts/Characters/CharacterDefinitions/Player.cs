@@ -27,7 +27,7 @@ namespace MarblesAndMonsters.Characters
         public event EventHandler OnPlayerDeath;
         public event EventHandler OnDamaged;
 
-        private CameraManager cameraManager;
+        private CameraManager _cameraManager;
 
         private int deathCount = 0;
         private int treasureCount = 0;
@@ -43,6 +43,10 @@ namespace MarblesAndMonsters.Characters
         public List<InventorySlot> Inventory => inventory;//read only accessor shorthand
 
         public List<KeyItem> KeyChain => keyChain;
+
+        protected MenuManager _menuManager;
+        protected DataManager _dataManager;
+        protected GameMenu _gameMenu;
 
         //singleton stuff
         private static Player _instance;
@@ -71,11 +75,16 @@ namespace MarblesAndMonsters.Characters
                 _instance = (Player)this;
                 //DontDestroyOnLoad(gameObject);
             }
-            cameraManager = FindObjectOfType<CameraManager>();
+            _cameraManager = FindObjectOfType<CameraManager>();
             globalLight = FindObjectOfType<GlobalLight>();
             playerTorch = FindObjectOfType<PlayerTorch>();
             inventory = new List<InventorySlot>();
             keyChain = new List<KeyItem>();
+
+            _menuManager = FindObjectOfType<MenuManager>();
+            _dataManager = FindObjectOfType<DataManager>();
+            _gameMenu = FindObjectOfType<GameMenu>(true);   //grab inactive
+
             base.Awake();
         }
 
@@ -83,15 +92,15 @@ namespace MarblesAndMonsters.Characters
         {
             base.Start();  //store character in game manager
             FollowPlayer?.Invoke(this, new TransformEventArgs(transform));
-            cameraManager.FollowObject(transform);
-            if (DataManager.Instance != null)
+            _cameraManager.FollowObject(transform);
+            if (_dataManager != null)
             {
-                deathCount = DataManager.Instance.PlayerTotalDeathCount > 0 ? DataManager.Instance.PlayerTotalDeathCount : 0;
-                treasureCount = DataManager.Instance.PlayerScrollCount > 0 ? DataManager.Instance.PlayerScrollCount : 0;
-                mySheet.MaxHealth = DataManager.Instance.PlayerMaxHealth > 3 ? DataManager.Instance.PlayerMaxHealth : mySheet.baseStats.MaxHealth;
+                deathCount = _dataManager.PlayerTotalDeathCount > 0 ? _dataManager.PlayerTotalDeathCount : 0;
+                treasureCount = _dataManager.PlayerScrollCount > 0 ? _dataManager.PlayerScrollCount : 0;
+                mySheet.MaxHealth = _dataManager.PlayerMaxHealth > 3 ? _dataManager.PlayerMaxHealth : mySheet.baseStats.MaxHealth;
                 mySheet.CurrentHealth = mySheet.MaxHealth;
                 //unlock spells
-                foreach(var spell in DataManager.Instance.UnlockedSpells)
+                foreach(var spell in _dataManager.UnlockedSpells)
                 {
                     //Debug.Log(string.Format("Unlock Spell from Datamanager:  {0}, {1}, {2}", spell.SpellStats.SpellName, spell.IsAssigned, spell.QuickSlot));
                     MySheet.Spells[spell.SpellName].SpellStats = spell.SpellStats;
@@ -100,7 +109,7 @@ namespace MarblesAndMonsters.Characters
                     MySheet.Spells[spell.SpellName].QuickSlot = spell.QuickSlot;
                 }
                 //TODO: add inventory and keychain initializers
-                foreach (var key in DataManager.Instance.CollectedKeys)
+                foreach (var key in _dataManager.CollectedKeys)
                 {
                     //Debug.Log(string.Format("Collected Key = {0}", key.name));
                     keyChain.Add(key);
@@ -113,10 +122,10 @@ namespace MarblesAndMonsters.Characters
                 mySheet.MaxHealth = 3;
             }
             AdjustLight();
-            if (GameMenu.Instance != null)
+            if (_gameMenu != null)
             {
-                GameMenu.Instance.RefreshUI();
-                GameMenu.Instance.quickAccessController.AssignAllSpellSlots();
+                _gameMenu.RefreshUI();
+                _gameMenu.quickAccessController.AssignAllSpellSlots();
                 UpdateKeyChainUI();
             }
         }
@@ -155,7 +164,7 @@ namespace MarblesAndMonsters.Characters
                 addMaxHealthEffect.Play();
             }
             //
-            GameMenu.Instance.healthBarController.UpdateHealth();
+            _gameMenu.healthBarController.UpdateHealth();
         }
 
         /// <summary>
@@ -176,7 +185,7 @@ namespace MarblesAndMonsters.Characters
                 {
                     mySheet.CurrentHealth += healAmount;
                 }
-                GameMenu.Instance.healthBarController.UpdateHealth();
+                _gameMenu.healthBarController.UpdateHealth();
                 return true;
             }
             return false;
@@ -186,13 +195,13 @@ namespace MarblesAndMonsters.Characters
         {
             treasureCount += value;
             //treasureEffect.Play();
-            GameMenu.Instance.treasureUI.UpdateTreasureCount();
+            _gameMenu.treasureUI.UpdateTreasureCount();
         }
 
         public void RemoveTreasure(int value)
         {
             treasureCount -= value;
-            GameMenu.Instance.treasureUI.UpdateTreasureCount();
+            _gameMenu.treasureUI.UpdateTreasureCount();
         }
 
         /// <summary>
@@ -225,9 +234,9 @@ namespace MarblesAndMonsters.Characters
                 MySheet.Spells[stats.SpellName].IsQuickSlotAssigned = true;
                 MySheet.Spells[stats.SpellName].QuickSlot = i;
                     
-                if (GameMenu.Instance)
+                if (_gameMenu)
                 {
-                    GameMenu.Instance.quickAccessController.AssignQuickAccess(i, stats);
+                    _gameMenu.quickAccessController.AssignQuickAccess(i, stats);
                 }
                 break;
             }
@@ -244,7 +253,7 @@ namespace MarblesAndMonsters.Characters
             keyChain.Clear();
             Debug.Log("Player:  Removed all items from inventory!");
             UpdateKeyChainUI();
-            //GameMenu.Instance.quickAccessController.ClearAll();
+            //_gameMenu.quickAccessController.ClearAll();
         }
 
         public void AddToKeyChain(KeyItem keyToAdd)
@@ -263,7 +272,7 @@ namespace MarblesAndMonsters.Characters
 
         private void UpdateKeyChainUI()
         {
-            GameMenu.Instance.keychainUI.UpdateUI(keyChain.Select(x => x.KeyStats.InventoryIcon).ToList());
+            _gameMenu.keychainUI.UpdateUI(keyChain.Select(x => x.KeyStats.InventoryIcon).ToList());
         }
 
         protected override void PreDeathAnimation()
@@ -271,9 +280,9 @@ namespace MarblesAndMonsters.Characters
             base.PreDeathAnimation();
             deathCount++;
             OnPlayerDeath?.Invoke(this, EventArgs.Empty);
-            if (GameMenu.Instance)
+            if (_gameMenu)
             {
-                GameMenu.Instance.quickAccessController.ClearAll();
+                _gameMenu.quickAccessController.ClearAll();
             }
         }
 
@@ -281,14 +290,14 @@ namespace MarblesAndMonsters.Characters
         {
             ResetInventoryItems();
             yield return new WaitForSeconds(0.5833f);  //death animations are 7 frames, current fps is 12
-            GameManager.Instance.LevelLose();
+            _gameManager.LevelLose();
         }
 
         public override void TakeDamage(int damageAmount, DamageType damageType)
         {
             base.TakeDamage(damageAmount, damageType);
             animator.SetTrigger(aTriggerDamageNormal);
-            GameMenu.Instance.healthBarController.UpdateHealth();
+            _gameMenu.healthBarController.UpdateHealth();
         }
 
         public void TakeDamage(int amount, DamageType damageType, Vector2 attackVector)

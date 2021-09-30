@@ -34,14 +34,6 @@ namespace MarblesAndMonsters.Menus
         [SerializeField]
         private GameObject resumeButton;
 
-        private LevelManager levelLoader;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            levelLoader = GameObject.FindObjectOfType<LevelManager>();
-            
-        }
         protected void Start()
         {
             UpdateCurrentGameStats();
@@ -49,17 +41,17 @@ namespace MarblesAndMonsters.Menus
 
         public void UpdateCurrentGameStats()
         {
-            if (DataManager.Instance != null && JSONSaver.CheckSaveFile())
+            if (_dataManager != null && JSONSaver.CheckSaveFile())
             {
                 currentGameGroup.SetActive(true);
                 resumeButton.SetActive(true);
                
-                scrollCount.text = "Scrolls Collected: " + DataManager.Instance.PlayerScrollCount;
+                scrollCount.text = "Scrolls Collected: " + _dataManager.PlayerScrollCount;
                 currentLevel.text = string.Format("Current Level: {0} - {1}",
-                    DataManager.Instance.SavedLocation, 
-                    DataManager.Instance.CheckPointLevelId);
-                playerHealth.text = "Health: " + DataManager.Instance.PlayerMaxHealth;
-                deathCount.text = "Deaths: " + DataManager.Instance.PlayerTotalDeathCount;
+                    _dataManager.SavedLocation, 
+                    _dataManager.CheckPointLevelId);
+                playerHealth.text = "Health: " + _dataManager.PlayerMaxHealth;
+                deathCount.text = "Deaths: " + _dataManager.PlayerTotalDeathCount;
             }
             else
             {
@@ -70,18 +62,18 @@ namespace MarblesAndMonsters.Menus
 
         public void SaveData()
         {
-            if (DataManager.Instance != null)
+            if (_dataManager != null)
             {
-                DataManager.Instance.Save();
+                _dataManager.Save();
             }
         }
 
         public void ResetData()
         {
             //TODO should confirm first
-            if (DataManager.Instance != null)
+            if (_dataManager != null)
             {
-                DataManager.Instance.Clear();
+                _dataManager.Clear();
             }
             //update UI
             UpdateCurrentGameStats();
@@ -95,9 +87,10 @@ namespace MarblesAndMonsters.Menus
         private IEnumerator OnResumePressedRoutine()
         {
             //TransitionFader.PlayTransition(startTransitionPrefab);
-            if (DataManager.Instance != null)
+            if (_dataManager != null)
             {
-                levelLoader.LoadLevel(DataManager.Instance.CheckPointLevelId);
+                _levelManager.LoadLevel(_dataManager.CheckPointLevelId);
+                _menuManager.OpenMenu(MenuTypes.GameMenu);
                 yield return new WaitForSeconds(_playDelay);
             }
         }
@@ -114,7 +107,8 @@ namespace MarblesAndMonsters.Menus
             //load first level
             //levelLoader.LoadLevel(0);  //load first level in the level list
             //levelLoader.LoadNextLevel();
-            levelLoader.LoadLevel(levelLoader.GetFirstLevel().Id);
+            _levelManager.LoadLevel(_levelManager.GetFirstLevel().Id);
+            _menuManager.OpenMenu(MenuTypes.GameMenu);
             yield return new WaitForSeconds(_playDelay);
             //base.OnBackPressed();
         }
@@ -122,13 +116,13 @@ namespace MarblesAndMonsters.Menus
         public void OnSettingsPressed()
         {
             //SettingsMenu.Open();
-            MenuManager.Instance.OpenMenu(MenuTypes.SettingsMenu);
+            _menuManager.OpenMenu(MenuTypes.SettingsMenu);
         }
 
         public void OnCreditsPressed()
         {
             //CreditsMenu.Open();
-            MenuManager.Instance.OpenMenu(MenuTypes.CreditsMenu);
+            _menuManager.OpenMenu(MenuTypes.CreditsMenu);
         }
 
         public override void OnBackPressed()

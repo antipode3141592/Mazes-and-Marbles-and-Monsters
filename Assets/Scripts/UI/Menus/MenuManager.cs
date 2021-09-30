@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
-//code based on the course content at https://www.udemy.com/course/level-management-in-unity/ , which was super helpeful and highly recommended
 //  Class Name:  MenuManager
 //  Interacts with:  Menu
 //  Purpose:  A UI controller with 
@@ -14,38 +14,37 @@ namespace MarblesAndMonsters.Menus
 
     public class MenuManager : MonoBehaviour
     {
+        [SerializeField] bool ShowSplashScreen;
+
+        private SplashScreen splashScreen;
         private Dictionary<MenuTypes, Menu> menuCollection = new Dictionary<MenuTypes, Menu>();
         private Stack<Menu> _menuStack = new Stack<Menu>();
 
-        private static MenuManager _instance;
+        GameManager _gameManager;
 
-        public static MenuManager Instance
+        [Inject]
+        public void Init(GameManager gameManager)
         {
-            get { return _instance; }
+            _gameManager = gameManager;
         }
 
         private void Awake()
         {
-            if (_instance != null)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                _instance = this;
-                DontDestroyOnLoad(gameObject);
-                //the true flag is to include inactive objects
-                menuCollection.Add(MenuTypes.MainMenu, FindObjectOfType<MainMenu>(true));
-                menuCollection.Add(MenuTypes.GameMenu, FindObjectOfType<GameMenu>(true));
-                menuCollection.Add(MenuTypes.SettingsMenu, FindObjectOfType<SettingsMenu>(true));
-                menuCollection.Add(MenuTypes.CreditsMenu, FindObjectOfType<CreditsMenu>(true));
-                menuCollection.Add(MenuTypes.PauseMenu, FindObjectOfType<PauseMenu>(true));
-                menuCollection.Add(MenuTypes.WinMenu, FindObjectOfType<WinMenu>(true));
-                menuCollection.Add(MenuTypes.DefeatMenu, FindObjectOfType<DefeatMenu>(true));
-                menuCollection.Add(MenuTypes.MapMenu, FindObjectOfType<MapMenu>(true));
-                menuCollection.Add(MenuTypes.MapPopupMenu, FindObjectOfType<MapPopupMenu>(true));
-                menuCollection.Add(MenuTypes.BackpackMenu, FindObjectOfType<BackpackMenu>(true));
-            }
+            //the true flag is to include inactive objects
+            splashScreen = FindObjectOfType<SplashScreen>(true);
+            menuCollection.Add(MenuTypes.MainMenu, FindObjectOfType<MainMenu>(true));            
+            menuCollection.Add(MenuTypes.CreditsMenu, FindObjectOfType<CreditsMenu>(true));
+
+            menuCollection.Add(MenuTypes.GameMenu, FindObjectOfType<GameMenu>(true));
+            menuCollection.Add(MenuTypes.BackpackMenu, FindObjectOfType<BackpackMenu>(true));
+            menuCollection.Add(MenuTypes.PauseMenu, FindObjectOfType<PauseMenu>(true));
+            menuCollection.Add(MenuTypes.SettingsMenu, FindObjectOfType<SettingsMenu>(true));
+            
+            menuCollection.Add(MenuTypes.WinMenu, FindObjectOfType<WinMenu>(true));
+            menuCollection.Add(MenuTypes.DefeatMenu, FindObjectOfType<DefeatMenu>(true));
+            menuCollection.Add(MenuTypes.MapMenu, FindObjectOfType<MapMenu>(true));
+            menuCollection.Add(MenuTypes.MapPopupMenu, FindObjectOfType<MapPopupMenu>(true));
+            
         }
 
         private void Start()
@@ -53,51 +52,28 @@ namespace MarblesAndMonsters.Menus
             InitializeMenus();
         }
 
-        private void OnDestroy()
-        {
-            if (_instance == this)
-            {
-                _instance = null;
-            }
-        }
-
+        /// <summary>
+        /// If MenuManager is in the only active scene, load 
+        /// </summary>
         private void InitializeMenus()
         {
-            if (SceneManager.GetActiveScene().buildIndex <= 1)
+            if (SceneManager.sceneCount == 1)
             {
-                Debug.Log(string.Format("Active Scene Index: {0}", SceneManager.GetActiveScene().buildIndex));
-                OpenMenu(MenuTypes.MainMenu);
-            }
-            else if (SceneManager.GetActiveScene().buildIndex == 2)
-            {
-                OpenMenu(MenuTypes.MapMenu);
+                if (ShowSplashScreen)
+                {
+                    splashScreen.gameObject.SetActive(true);
+                    ShowSplashScreen = false;
+                }
+                else
+                {
+                    OpenMenu(MenuTypes.MainMenu);
+                }
             }
             else
             {
                 OpenMenu(MenuTypes.GameMenu);
+                _gameManager.ShouldBeginLevel = true;
             }
-        }
-        
-        public void OpenMenu(Menu menuInstance)
-        {
-            if (menuInstance == null)
-            {
-                Debug.LogWarning("menuInstance is null in MenuManager");
-                return;
-            }
-            Debug.Log(string.Format("Opening Menu: {0}", menuInstance.name));
-            //if menus exist in stack, deactivate everything
-            if (_menuStack.Count > 0)
-            {
-                foreach(Menu menu in _menuStack)
-                {
-                    Debug.Log(string.Format("Deactivating Menu in Stack: {0}", menu.name));
-                    menu.gameObject.SetActive(false);
-                }
-            }
-            menuInstance.gameObject.SetActive(true);
-            _menuStack.Push(menuInstance);
-            Debug.Log(string.Format("After push to stack, there are {0} menus in _menuStack", _menuStack.Count));
         }
 
         public void OpenMenu(MenuTypes menuType)

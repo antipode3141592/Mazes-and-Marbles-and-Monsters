@@ -45,10 +45,10 @@ namespace MarblesAndMonsters.Menus.Components
 
         public void AssignAllSpellSlots()
         {
+            ClearAll();
             //check quickslots
             if (Player.Instance != null)
             {
-                ClearAll();
                 foreach (var spelldata in Player.Instance.MySheet.Spells)
                 {
                     if (spelldata.Value.IsQuickSlotAssigned)

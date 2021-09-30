@@ -1,13 +1,12 @@
 ﻿using LevelManagement.DataPersistence;
 using LevelManagement.Levels;
+using MarblesAndMonsters;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
-
-//code based on the course content at https://www.udemy.com/course/level-management-in-unity/ , which was super helpeful and highly recommended
 
 namespace LevelManagement
 {
@@ -22,35 +21,35 @@ namespace LevelManagement
         private Dictionary<string, LevelSpecs> levelSpecsById = new Dictionary<string, LevelSpecs>(); // key is string Id
 
         protected DataManager _dataManager;
+        protected GameManager _gameManager;
+
+        protected string _currentLevelName = string.Empty;   //default to empty
 
         [Inject]
-        public void Init(DataManager dataManager)
+        public void Init(DataManager dataManager, GameManager gameManager)
         {
             _dataManager = dataManager;
-        }
-
-
-        private static LevelManager _instance;
-        public static LevelManager Instance
-        {
-            get { return _instance; }
+            _gameManager = gameManager;
         }
 
         protected void Awake()
         {
-            if (_instance != null)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                //build dictionary with key equal to Id field in LevelSpecs
-                //levelSpecsById = new Dictionary<string, LevelSpecs>();
-                foreach (LevelSpecs level in levelList.Levels)
+            //build dictionary with key equal to Id field in LevelSpecs
+            //levelSpecsById = new Dictionary<string, LevelSpecs>();
+            foreach (LevelSpecs level in levelList.Levels)
                 {
                     levelSpecsById.Add(level.Id, level);
                 }
-                Debug.Log(string.Format("Level Dictionary has {0} key-value pairs", levelSpecsById.Count));
+            Debug.Log(string.Format("Level Dictionary has {0} key-value pairs", levelSpecsById.Count));
+        }
+
+        private void Start()
+        {
+            //if there are two scenes open OnStart, it's a debug/playtest situation where the 
+            // scene level is all ready loaded, so we need to trigger start of level manually here
+            if (SceneManager.sceneCount == 2)
+            {
+                _gameManager.ShouldBeginLevel = true;
             }
         }
 
@@ -101,24 +100,43 @@ namespace LevelManagement
         /// <returns></returns>
         private IEnumerator LoadLevelAsync(string sceneName)
         {
-            //SceneManager
-            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             while (!asyncOperation.isDone)
             {
                 yield return null; //yield this frame
             }
-            //if (GameManager.Instance != null)
-            //{
-            //    GameManager.Instance.ResetStateMachine();
-            //}
+            if (_currentLevelName != string.Empty)
+            {
+                AsyncOperation asyncOperation2 = SceneManager.UnloadSceneAsync(_currentLevelName);
+                while (!asyncOperation2.isDone)
+                {
+                    yield return null; //yield this frame
+                }
+            }
+            _gameManager.ShouldBeginLevel = true;
+            _currentLevelName = sceneName;
         }
 
-        public static void LoadMainMenuLevel()
+        public void LoadMainMenuLevel()
         {
             //LoadLevel(mainMenuIndex);
-            SceneManager.LoadScene(mainMenuIndex);
+            StartCoroutine(LoadManagers());
+            
         }
 
+        IEnumerator LoadManagers()
+        {
+            //AsyncOperation async = SceneManager.LoadSceneAsync(1);
+            //while (!async.isDone)
+            //{
+            //    yield return null;
+            //}
+            AsyncOperation async2 = SceneManager.LoadSceneAsync(mainMenuIndex, LoadSceneMode.Additive);
+            while (!async2.isDone)
+            {
+                yield return null;
+            }
+        }
 
         /// <summary>
         /// Return LevelSpecs for a given ID given by string id
