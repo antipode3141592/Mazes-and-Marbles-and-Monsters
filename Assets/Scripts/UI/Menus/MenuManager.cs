@@ -14,7 +14,7 @@ namespace MarblesAndMonsters.Menus
 
     public class MenuManager : MonoBehaviour
     {
-        [SerializeField] bool ShowSplashScreen;
+        bool ShowSplashScreen;
 
         private SplashScreen splashScreen;
         private Dictionary<MenuTypes, Menu> menuCollection = new Dictionary<MenuTypes, Menu>();
@@ -30,6 +30,7 @@ namespace MarblesAndMonsters.Menus
 
         private void Awake()
         {
+            ShowSplashScreen = true;
             //the true flag is to include inactive objects
             splashScreen = FindObjectOfType<SplashScreen>(true);
             menuCollection.Add(MenuTypes.MainMenu, FindObjectOfType<MainMenu>(true));            

@@ -14,7 +14,7 @@ namespace LevelManagement
     //
     public class LevelManager : MonoBehaviour
     {
-        private static readonly int mainMenuIndex = 1;   //splash screen is build index 0
+        private static readonly int managerSceneIndex = 0;   //splash screen is build index 0
         [SerializeField] private LevelList levelList;    //scriptable object with all accessible levels
         [SerializeField] private TransitionFader levelLoadTransition;
 
@@ -131,7 +131,7 @@ namespace LevelManagement
             //{
             //    yield return null;
             //}
-            AsyncOperation async2 = SceneManager.LoadSceneAsync(mainMenuIndex, LoadSceneMode.Additive);
+            AsyncOperation async2 = SceneManager.LoadSceneAsync(managerSceneIndex, LoadSceneMode.Single);
             while (!async2.isDone)
             {
                 yield return null;

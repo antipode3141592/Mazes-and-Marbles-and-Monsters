@@ -11,11 +11,9 @@ namespace MarblesAndMonsters
     public class CameraManager : MonoBehaviour
     {
         private CinemachineVirtualCamera followCamera;
-        private List<GameObject> rootGameObjects;
 
         private void Awake()
         {
-            rootGameObjects = new List<GameObject>();
             followCamera = FindObjectOfType<CinemachineVirtualCamera>();
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
@@ -23,29 +21,6 @@ namespace MarblesAndMonsters
         private void OnSceneLoaded(Scene scene, LoadSceneMode loadMoad)
         {
             Debug.Log($"{gameObject.name} processing the SceneLoaded event for the scene {scene.name}");
-            //if (scene.name != "Managers")
-            //{
-            //    scene.GetRootGameObjects(rootGameObjects);
-            //    foreach (var obj in rootGameObjects)
-            //    {
-            //        if (TryGetComponent<CinemachineVirtualCamera>(out CinemachineVirtualCamera vcam))
-            //        {
-            //            followCamera = vcam;
-            //        }
-            //    }
-            //}
-        }
-
-        void Start()
-        {
-            //FollowObject(Player.Instance.gameObject.transform);
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
 
         private void OnDisable()
@@ -65,11 +40,6 @@ namespace MarblesAndMonsters
                 //
                 followCamera.Follow = followTransform;
             }
-        }
-
-        private void OnDestroy()
-        {
-            
         }
     }
 }

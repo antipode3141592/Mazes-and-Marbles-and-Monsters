@@ -55,10 +55,6 @@ namespace MarblesAndMonsters
 
         public BaseState CurrentState => stateMachine.CurrentState;
 
-        
-        [SerializeField]
-        private Tilemap spawnPointTileMap;
-
         protected LevelManager _levelManager;
         protected DataManager _dataManager;
         protected MenuManager _menuManager;
@@ -210,6 +206,7 @@ namespace MarblesAndMonsters
 
         private IEnumerator WinRoutine(string levelId)
         {
+
             //TransitionFader.PlayTransition(endTransition);
             //yield return new WaitForSeconds(0.5f);
             //TransitionFader.PlayTransition(transitionPrefab);

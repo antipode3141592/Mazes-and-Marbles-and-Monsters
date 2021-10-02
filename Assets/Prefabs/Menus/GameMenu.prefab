@@ -1312,6 +1312,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Backpack
       objectReference: {fileID: 0}
+    - target: {fileID: 7400682857728396484, guid: cccd99f7281754942b0f5867d93bcdf9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9077038014498739973, guid: cccd99f7281754942b0f5867d93bcdf9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1481,6 +1486,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: QuickAccess
+      objectReference: {fileID: 0}
+    - target: {fileID: 3981973228910855161, guid: ee93ac6a57db62c44a5213c7e5a90b75,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5121557565711218771, guid: ee93ac6a57db62c44a5213c7e5a90b75,
         type: 3}
@@ -1746,6 +1756,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ScrollCounter
+      objectReference: {fileID: 0}
+    - target: {fileID: 4768654383277466865, guid: f3f7512547f8f604dbbe887ce0c7aa43,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3f7512547f8f604dbbe887ce0c7aa43, type: 3}

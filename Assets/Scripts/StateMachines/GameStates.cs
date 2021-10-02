@@ -100,9 +100,15 @@ namespace MarblesAndMonsters.States.GameStates
             _manager = manager;
         }
 
+        public override void Enter()
+        {
+            base.Enter();
+            _manager.ResetAll();
+        }
+
         public override Type LogicUpdate()
         {
-            return typeof(END);
+            return typeof(START);
         }
     }
 
