@@ -12,5 +12,6 @@ public class ManagersInstaller : MonoInstaller
         Container.Bind<DataManager>().FromComponentInHierarchy().AsSingle();
         Container.Bind<LevelManager>().FromComponentInHierarchy().AsSingle();
         Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<CharacterManager>().FromComponentInHierarchy().AsSingle();
     }
 }

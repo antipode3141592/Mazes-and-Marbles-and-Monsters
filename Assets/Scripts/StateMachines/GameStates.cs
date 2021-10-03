@@ -32,16 +32,20 @@ namespace MarblesAndMonsters.States.GameStates
     public class PopulateLevel : GameState
     {
         public override Type Type { get => typeof(PopulateLevel); }
-        public PopulateLevel(GameManager manager) : base(manager.gameObject)
+
+        CharacterManager _characterManager;
+
+        public PopulateLevel(GameManager manager, CharacterManager characterManager) : base(manager.gameObject)
         {
             _manager = manager;
+            _characterManager = characterManager;
         }
 
         public override Type LogicUpdate()
         {
-            if (_manager.InitializeReferences() > 0)
+            if (_characterManager.InitializeReferences() > 0)
             {
-                _manager.SpawnAll();
+                _characterManager.SpawnAll();
                 return typeof(Playing);
             }
             else
@@ -56,9 +60,13 @@ namespace MarblesAndMonsters.States.GameStates
     {
         public override Type Type { get => typeof(Playing); }
 
-        public Playing(GameManager manager) : base(manager.gameObject)
+        CharacterManager _characterManager;
+
+        public Playing(GameManager manager, CharacterManager characterManager) : base(manager.gameObject)
         {
             _manager = manager;
+            _characterManager = characterManager;
+            
         }
         public override void Enter()
         {
@@ -68,12 +76,12 @@ namespace MarblesAndMonsters.States.GameStates
         public override void HandleInput()
         {
             //grab acceleration input
-            _manager.Input_Acceleration = (Vector2)Input.acceleration;
+            _characterManager.Input_Acceleration = (Vector2)Input.acceleration;
         }
 
         public override void PhysicsUpdate()
         {
-            _manager.MoveAll();  //characters should only move during play
+            _characterManager.MoveAll();  //characters should only move during play
         }
     }
 
@@ -95,15 +103,18 @@ namespace MarblesAndMonsters.States.GameStates
     {
         public override Type Type { get => typeof(Victory); }
 
-        public Victory(GameManager manager) : base(manager.gameObject)
+        CharacterManager _characterManager;
+
+        public Victory(GameManager manager, CharacterManager characterManager) : base(manager.gameObject)
         {
             _manager = manager;
+            _characterManager = characterManager;
         }
 
         public override void Enter()
         {
             base.Enter();
-            _manager.ResetAll();
+            _characterManager.ResetAll();
         }
 
         public override Type LogicUpdate()
@@ -115,18 +126,21 @@ namespace MarblesAndMonsters.States.GameStates
     public class Defeat : GameState
     {
         MenuManager _menuManager;
+        CharacterManager _characterManager;
+
         public override Type Type { get => typeof(Defeat); }
 
-        public Defeat(GameManager manager, MenuManager menuManager) : base(manager.gameObject)
+        public Defeat(GameManager manager, MenuManager menuManager, CharacterManager characterManager) : base(manager.gameObject)
         {
             _manager = manager;
             _menuManager = menuManager;
+            _characterManager = characterManager;
         }
 
         public override void Enter()
         {
             base.Enter();
-            _manager.ResetAll();
+            _characterManager.ResetAll();
             _menuManager.OpenMenu(MenuTypes.DefeatMenu);
         }
 

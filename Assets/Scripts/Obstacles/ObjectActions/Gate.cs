@@ -30,6 +30,14 @@ namespace MarblesAndMonsters.Tiles
             return true;
         }
 
+        private IEnumerator CloseAnimation()
+        {
+            animator.SetBool(aIsLocked, true);
+            yield return new WaitForSeconds(0.5f);
+
+            foreach (var collider in collider2Ds) { collider.enabled = true; }
+        }
+
         public bool Unlock(KeyType testKey)
         {
             if (gateData.requiredKey == testKey || testKey == KeyType.Skeleton)
@@ -77,12 +85,6 @@ namespace MarblesAndMonsters.Tiles
             foreach(var collider in collider2Ds) { collider.enabled = false; }
         }
 
-        private IEnumerator CloseAnimation()
-        {
-            animator.SetBool(aIsLocked, true);
-            yield return new WaitForSeconds(0.5f);
-
-            foreach (var collider in collider2Ds) { collider.enabled = true; }
-        }
+        
     }
 }

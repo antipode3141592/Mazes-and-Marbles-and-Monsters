@@ -31,6 +31,9 @@ namespace MarblesAndMonsters.Characters
 
         public float ForceMultiplier = 1.0f;
 
+        [SerializeField]
+        private float defaultInvincibilityTime = 1.0f;
+
         //animation control
         protected Animator animator;
         protected float _speed;
@@ -58,6 +61,7 @@ namespace MarblesAndMonsters.Characters
         public CharacterSheet MySheet => mySheet; //read-only accessor for accessing stats directly (for hp, attack/def values, etc)
 
         protected GameManager _gameManager;
+        protected CharacterManager _characterManager;
         #endregion
 
         //#region Dependency Injection
@@ -84,6 +88,7 @@ namespace MarblesAndMonsters.Characters
             audioSource = GetComponent<AudioSource>();
 
             _gameManager = FindObjectOfType<GameManager>();
+            _characterManager = FindObjectOfType<CharacterManager>();
 
             //cache hashes for animation strings
             //TODO move animations to sub controller
@@ -107,7 +112,7 @@ namespace MarblesAndMonsters.Characters
         protected virtual void Start()
         {
             //_gameManager.StoreCharacter(this);
-            if (_gameManager.StoreCharacter(this))
+            if (_characterManager.StoreCharacter(this))
             {
                 //Debug.Log(String.Format("{0} has been added to Characters on GameController", this.gameObject.name));
             }
@@ -182,7 +187,7 @@ namespace MarblesAndMonsters.Characters
                     {
                         hitEffect.Play();   //particles
                         animator.SetTrigger(aTriggerDamageNormal);
-                        ApplyInvincible(_gameManager.DefaultInvincibilityTime);
+                        ApplyInvincible(defaultInvincibilityTime);
                     }
                 }
                 //
@@ -322,7 +327,7 @@ namespace MarblesAndMonsters.Characters
         //  helps to determine 
         protected virtual void SetLookDirection()
         {
-            Vector2 input_acceleration = _gameManager.Input_Acceleration;
+            Vector2 input_acceleration = _characterManager.Input_Acceleration;
             if (!Mathf.Approximately(input_acceleration.x, 0.0f) || !Mathf.Approximately(input_acceleration.y, 0.0f))
             {
                 lookDirection = input_acceleration;

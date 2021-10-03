@@ -11,6 +11,7 @@ namespace MarblesAndMonsters.Menus.Components
     {
         public Button ItemImage;
         public Image BackgroundImage;
+        public Image SlotImage;
         public Image CooldownGuage;
         public Image DurationGuage;
         public SpellName storedSpellName;
@@ -26,14 +27,21 @@ namespace MarblesAndMonsters.Menus.Components
             ItemImage.image.sprite = spellStats.InventoryIcon;
             ItemImage.image.color = Color.white;
             BackgroundImage.color = Color.green;
+            SlotImage.color = Color.white;
             ItemImage.onClick.AddListener(Player.Instance.MySheet.Spells[spellStats.SpellName].Cast);
             storedSpellName = spellStats.SpellName;
-            Player.Instance.MySheet.Spells[storedSpellName].OnCooldownStart += CooldownStartHandler;
-            Player.Instance.MySheet.Spells[storedSpellName].OnCooldownEnd += CooldownEndHandler;
-            Player.Instance.MySheet.Spells[storedSpellName].CooldownTimer += CooldownHandler;
-            Player.Instance.MySheet.Spells[storedSpellName].DurationTimer += DurationHandler;
-            Player.Instance.MySheet.Spells[storedSpellName].OnDurationStart += DurationStartHandler;
-            Player.Instance.MySheet.Spells[storedSpellName].OnDurationEnd += DurationEndHandler;
+            if (Player.Instance != null)
+            {
+                Player.Instance.MySheet.Spells[storedSpellName].OnCooldownStart += CooldownStartHandler;
+                Player.Instance.MySheet.Spells[storedSpellName].OnCooldownEnd += CooldownEndHandler;
+                Player.Instance.MySheet.Spells[storedSpellName].CooldownTimer += CooldownHandler;
+                Player.Instance.MySheet.Spells[storedSpellName].DurationTimer += DurationHandler;
+                Player.Instance.MySheet.Spells[storedSpellName].OnDurationStart += DurationStartHandler;
+                Player.Instance.MySheet.Spells[storedSpellName].OnDurationEnd += DurationEndHandler;
+            } else
+            {
+                Debug.LogWarning("No Player instance found when attempting to assign slot");
+            }
         }
 
         public void UnassignSlot()
@@ -41,13 +49,23 @@ namespace MarblesAndMonsters.Menus.Components
             ItemImage.image.sprite = null;
             ItemImage.image.color = Color.clear;
             BackgroundImage.color = Color.clear;
+            SlotImage.color = Color.clear;
+            //CooldownGuage.color = Color.clear;
+            //DurationGuage.color = Color.clear;
             ItemImage.onClick.RemoveAllListeners();
-            Player.Instance.MySheet.Spells[storedSpellName].OnCooldownStart -= CooldownStartHandler;
-            Player.Instance.MySheet.Spells[storedSpellName].OnCooldownEnd -= CooldownEndHandler;
-            Player.Instance.MySheet.Spells[storedSpellName].CooldownTimer -= CooldownHandler;
-            Player.Instance.MySheet.Spells[storedSpellName].DurationTimer -= DurationHandler;
-            Player.Instance.MySheet.Spells[storedSpellName].OnDurationStart -= DurationStartHandler;
-            Player.Instance.MySheet.Spells[storedSpellName].OnDurationEnd -= DurationEndHandler;
+            if (Player.Instance != null)
+            {
+                Player.Instance.MySheet.Spells[storedSpellName].OnCooldownStart -= CooldownStartHandler;
+                Player.Instance.MySheet.Spells[storedSpellName].OnCooldownEnd -= CooldownEndHandler;
+                Player.Instance.MySheet.Spells[storedSpellName].CooldownTimer -= CooldownHandler;
+                Player.Instance.MySheet.Spells[storedSpellName].DurationTimer -= DurationHandler;
+                Player.Instance.MySheet.Spells[storedSpellName].OnDurationStart -= DurationStartHandler;
+                Player.Instance.MySheet.Spells[storedSpellName].OnDurationEnd -= DurationEndHandler;
+            }
+            else
+            {
+                Debug.LogWarning("No Player instance found when unassigning slot");
+            }
         }
 
         public void CooldownStartHandler(object sender, EventArgs e)
