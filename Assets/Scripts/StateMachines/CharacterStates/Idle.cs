@@ -14,7 +14,7 @@ namespace MarblesAndMonsters.States.CharacterStates
 
         public Idle(CharacterControl character) : base(character) 
         {
-            timeToStateChange = 3f; //spend 3 seconds Idle before beginning roam behavior.
+            timeToStateChange = 5f; //spend 3 seconds Idle before beginning roam behavior.
         }
         
         public override Type LogicUpdate()
@@ -25,12 +25,6 @@ namespace MarblesAndMonsters.States.CharacterStates
                 return typeof(Roaming);
             }
             return typeof(Idle);
-        }
-
-        public override void Enter()
-        {
-            base.Enter();
-            _character.MySheet.IsBoardMovable = false;
         }
     }
 }

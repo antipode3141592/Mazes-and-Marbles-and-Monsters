@@ -16,6 +16,4 @@ MonoBehaviour:
   currentDamageModifier: 0
   damageType: 1
   displayName: Ranged Entanglement Attack
-  projectileSpeed: 5
-  projectilePrefab: {fileID: 7962701096921306332, guid: 0b354cd9d7f19a746bc9cd7d390d146c,
-    type: 3}
+  cooldown: 1

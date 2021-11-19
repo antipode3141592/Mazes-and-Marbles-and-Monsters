@@ -2,7 +2,7 @@
 
 namespace MarblesAndMonsters.Actions
 {
-    public class ReachAttack : Attack
+    public class ReachAttack : AttackStats
     {
         
     }

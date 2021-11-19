@@ -13,13 +13,8 @@ namespace MarblesAndMonsters.States.CharacterStates
     {
         public override Type Type { get => typeof(Dying); }
 
-        protected Vector2? roamDirection; //nullable destination vector
-        protected Seeker seeker;
-        protected Path path;
-
         public Dying(CharacterControl character) : base(character)
         {
-            seeker = character.gameObject.GetComponent<Seeker>();
         }
 
         public override Type LogicUpdate()

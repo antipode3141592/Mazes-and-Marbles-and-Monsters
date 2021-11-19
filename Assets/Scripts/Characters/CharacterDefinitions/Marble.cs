@@ -10,12 +10,13 @@ namespace MarblesAndMonsters.Characters
     /// </summary>
     public class Marble : CharacterControl
     {
+        private MeleeController meleeController;
         protected override void Awake()
         {
             base.Awake();
-
+            meleeController = GetComponent<MeleeController>();
         }
-        //mables apply a touch attack to everything they collide with
+        //mables apply a touch attack to everything they collide with, no need for state controller or cooldowns
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -24,7 +25,7 @@ namespace MarblesAndMonsters.Characters
 
             if (collision.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
             {
-                Combat.MeleeAttack(damagable);
+                meleeController.DealDamageTo(damagable);
             }
         }
 
@@ -32,7 +33,7 @@ namespace MarblesAndMonsters.Characters
         {
             if (collision.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
             {
-                Combat.MeleeAttack(damagable);
+                meleeController.DealDamageTo(damagable);
             }
         }
 

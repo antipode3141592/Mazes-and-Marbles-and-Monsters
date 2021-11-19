@@ -7,47 +7,38 @@ using Pathfinding;
 
 namespace MarblesAndMonsters.States.CharacterStates
 {
+    /// <summary>
+    /// OnEnter: If there is a target in Ranged range, lock onto that character
+    /// Update: 
+    /// </summary>
     public class Hunting : CharacterState
     {
         public override Type Type { get => typeof(Hunting); }
 
         protected Vector2? roamDestination; //nullable destination vector
-        protected Seeker seeker;
-        protected Path path;
         protected AiMover aiMover;
+        protected MeleeController meleeController;
         protected int AttackCounter;
         protected int MinimumAttackCount = 1;
 
         public Hunting(CharacterControl character) : base(character)
         {
-            //colliders = new List<Collider2D>();
-            seeker = character.gameObject.GetComponent<Seeker>();
             aiMover = character.gameObject.GetComponent<AiMover>();
+            meleeController = character.gameObject.GetComponent<MeleeController>();
             timeToStateChange = 10f;
         }
 
         public override Type LogicUpdate()
         {
             timeToStateChangeTimer -= Time.deltaTime;
-            if (_character.Combat.MeleeAttackIsAvailable && TargetInMeleeRange())
+
+            //if Melee Attack is successful, increment Attack Counter
+            if (meleeController.TryAttack() > 0)
             {
-                //damage all damagables within the melee attack range
-                foreach (Collider2D collider in collisionCheckResults)
-                {
-                    if (collider.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
-                    {
-                        _character.Combat.MeleeAttack(damagable);
-                        AttackCounter++;
-                    }
-                }
-            }
-            else if (AttackCounter >= MinimumAttackCount && _character.Combat.RangedAttackIsAvailable && TargetInRangedRange())
-            {
-                return typeof(Aiming); //
+                AttackCounter++;
             }
             if (timeToStateChangeTimer <= 0f)
             {
-                aiMover.TargetTransform = null;
                 return typeof(Idle);    //if hunting for more than 10 seconds, take a rest
             }
             return typeof(Hunting);

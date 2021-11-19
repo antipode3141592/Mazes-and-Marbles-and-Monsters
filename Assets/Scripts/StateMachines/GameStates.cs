@@ -101,11 +101,12 @@ namespace MarblesAndMonsters.States.GameStates
 
     public class Victory : GameState
     {
+        CharacterManager _characterManager;
+        MenuManager _menuManager;
+
         public override Type Type { get => typeof(Victory); }
 
-        CharacterManager _characterManager;
-
-        public Victory(GameManager manager, CharacterManager characterManager) : base(manager.gameObject)
+        public Victory(GameManager manager, MenuManager menuManager, CharacterManager characterManager) : base(manager.gameObject)
         {
             _manager = manager;
             _characterManager = characterManager;
@@ -115,6 +116,7 @@ namespace MarblesAndMonsters.States.GameStates
         {
             base.Enter();
             _characterManager.ResetAll();
+            _menuManager.OpenMenu(MenuTypes.WinMenu);
         }
 
         public override Type LogicUpdate()

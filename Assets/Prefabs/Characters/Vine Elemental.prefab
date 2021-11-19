@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4995651374173321985}
   - component: {fileID: 4995651374173321987}
   - component: {fileID: 4995651374173321986}
-  - component: {fileID: 6495602164187309031}
   - component: {fileID: 5785475850333301656}
   - component: {fileID: 3221089896382995474}
   - component: {fileID: 1936389513536938060}
@@ -23,6 +22,8 @@ GameObject:
   - component: {fileID: 4995651374173322041}
   - component: {fileID: 4995651374173321998}
   - component: {fileID: 4995651374173321999}
+  - component: {fileID: 2457610384734671295}
+  - component: {fileID: 866519102187684518}
   m_Layer: 11
   m_Name: Vine Elemental
   m_TagString: Monster
@@ -64,7 +65,7 @@ MonoBehaviour:
   fireEffect: {fileID: 0}
   MyRigidbody: {fileID: 0}
   ForceMultiplier: 1
-  Combat: {fileID: 6495602164187309031}
+  defaultInvincibilityTime: 1
   isDying: 0
 --- !u!114 &4995651374173321986
 MonoBehaviour:
@@ -82,52 +83,6 @@ MonoBehaviour:
   isAsleep: 0
   isBoardMovable: 0
   DamageImmunities: 
---- !u!114 &6495602164187309031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4995651374173322040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf6bf4d97e6d8e949a5ca29b1b030dd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meleeCollider: {fileID: 1147819808995451384}
-  rangedCollider: {fileID: 4995651374173322041}
-  MeleeAttackRestPeriod: 1
-  MeleeAttackIsAvailable: 1
-  ProjectileRestPeriod: 1
-  RangedAttackIsAvailable: 1
-  targetDetectFilter:
-    useTriggers: 0
-    useLayerMask: 1
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 1024
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
-  aimingFilter:
-    useTriggers: 0
-    useLayerMask: 1
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 2560
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
 --- !u!114 &5785475850333301656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +115,7 @@ MonoBehaviour:
   nextWaypointDistance: 0.75
   currentWaypoint: 0
   reachedEndOfPath: 0
-  IsControlling: 0
+  IsControlling: 1
 --- !u!114 &1936389513536938060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,6 +402,94 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2457610384734671295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4995651374173322040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e728abd37249dd409de2ba8f8fb5c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackAvailable: 1
+  AttackStats: {fileID: 11400000, guid: ea9835d61fd82d74bbfe045a62f01fae, type: 2}
+  _attackCollider: {fileID: 1147819808995451384}
+  _detectionFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  _lineOfSightFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+--- !u!114 &866519102187684518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4995651374173322040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a6c67eb7bb05a44bbde3df7d755d889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackAvailable: 1
+  AttackStats: {fileID: 11400000, guid: ce97de19e8ec30548afb34bd5c8fbe1b, type: 2}
+  _attackCollider: {fileID: 4995651374173322041}
+  _detectionFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 3072
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  _lineOfSightFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 3584
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  CurrentTarget: {fileID: 0}
+  projectileStats: {fileID: 11400000, guid: 763dfacbf7b6b5a4ebe4be2f3da0db30, type: 2}
 --- !u!1001 &92639043298801190
 PrefabInstance:
   m_ObjectHideFlags: 0

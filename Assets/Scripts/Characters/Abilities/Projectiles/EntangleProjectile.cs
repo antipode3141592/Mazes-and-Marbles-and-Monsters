@@ -14,11 +14,12 @@ namespace MarblesAndMonsters.Spells
 
         internal override bool CollisionFunction(Collider2D collision)
         {
-            if (!collision.isTrigger && collision.gameObject != Caster.gameObject)
+            if (!collision.isTrigger && collision.gameObject != Caster)
             {
                 Debug.Log(string.Format("{0} has struck {1}", name, collision.name));
                 var _entangleObject = Instantiate<EntangleObject>(entanglePrefab, transform.position, Quaternion.identity);
-                _entangleObject.SetCaster(Caster);
+                _entangleObject.tag = tag;
+                _entangleObject.SetCaster(gameObject.GetComponent<CharacterControl>());
                 _entangleObject.SetDeathTime(ProjectileStats.EffectDuration);
                 return true;
             }

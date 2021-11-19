@@ -118,8 +118,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterPrefab: {fileID: 4171957815178582534, guid: 4c244a436570df94192f7c29b1cdcdce,
     type: 3}
-  charactersToSpawn: 1
+  simultaneousCharacters: 1
+  spawnOffset: {x: 0, y: 0}
   isAvailable: 0
+  spawnAnimationDelay: 0
   triggerCollider: {fileID: 6663458367592304587}
 --- !u!58 &6663458367592304587
 CircleCollider2D:
@@ -756,7 +758,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 10000
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -815,7 +817,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 17
+    type: 10
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -1021,7 +1023,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 720
+      scalar: 5000
       minScalar: 10
       maxCurve:
         serializedVersion: 2

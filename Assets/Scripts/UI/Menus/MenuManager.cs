@@ -30,7 +30,15 @@ namespace MarblesAndMonsters.Menus
 
         private void Awake()
         {
-            ShowSplashScreen = true;
+            
+            if (PlayerPrefs.GetInt("ShowSplash",1) == 1)
+            {
+                ShowSplashScreen = true;
+            } 
+            else 
+            { 
+                ShowSplashScreen = false; 
+            }
             //the true flag is to include inactive objects
             splashScreen = FindObjectOfType<SplashScreen>(true);
             menuCollection.Add(MenuTypes.MainMenu, FindObjectOfType<MainMenu>(true));            
@@ -58,12 +66,13 @@ namespace MarblesAndMonsters.Menus
         /// </summary>
         private void InitializeMenus()
         {
-            if (SceneManager.sceneCount == 1)
+            if (SceneManager.sceneCount == 2)
             {
                 if (ShowSplashScreen)
                 {
                     splashScreen.gameObject.SetActive(true);
                     ShowSplashScreen = false;
+                    PlayerPrefs.SetInt("ShowSplash", 0);
                 }
                 else
                 {

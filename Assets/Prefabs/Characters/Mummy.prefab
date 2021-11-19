@@ -16,13 +16,14 @@ GameObject:
   - component: {fileID: 5383108190408824824}
   - component: {fileID: 4171957815178582534}
   - component: {fileID: 6712585708218962869}
-  - component: {fileID: 3868264112989869817}
   - component: {fileID: 7774725849334288606}
   - component: {fileID: 974670354963722726}
   - component: {fileID: 7607154481445827772}
   - component: {fileID: 5041244169876710567}
   - component: {fileID: 362238843259538060}
   - component: {fileID: 6374589758187542170}
+  - component: {fileID: 9060467555258216408}
+  - component: {fileID: 8425360469187557844}
   m_Layer: 11
   m_Name: Mummy
   m_TagString: Monster
@@ -186,7 +187,7 @@ MonoBehaviour:
   fireEffect: {fileID: 0}
   MyRigidbody: {fileID: 1685750014967127568}
   ForceMultiplier: 1
-  Combat: {fileID: 3868264112989869817}
+  defaultInvincibilityTime: 1
   isDying: 0
 --- !u!114 &6712585708218962869
 MonoBehaviour:
@@ -204,52 +205,6 @@ MonoBehaviour:
   isAsleep: 0
   isBoardMovable: 1
   DamageImmunities: 
---- !u!114 &3868264112989869817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1685750014967127573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf6bf4d97e6d8e949a5ca29b1b030dd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meleeCollider: {fileID: 1836887869019381290}
-  rangedCollider: {fileID: 5383108190408824824}
-  MeleeAttackRestPeriod: 1
-  MeleeAttackIsAvailable: 1
-  ProjectileRestPeriod: 1
-  RangedAttackIsAvailable: 0
-  targetDetectFilter:
-    useTriggers: 0
-    useLayerMask: 1
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 1024
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
-  aimingFilter:
-    useTriggers: 0
-    useLayerMask: 1
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 2560
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
 --- !u!95 &7774725849334288606
 Animator:
   serializedVersion: 3
@@ -294,7 +249,7 @@ MonoBehaviour:
   - {x: -0.15625, y: 0.21875, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 37860
+  m_InstanceId: 40684
 --- !u!114 &7607154481445827772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,6 +333,145 @@ MonoBehaviour:
   bezierTangentLength: 0.4
   offset: 0.2
   factor: 0.1
+--- !u!82 &9060467555258216408
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685750014967127573}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &8425360469187557844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685750014967127573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e728abd37249dd409de2ba8f8fb5c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackAvailable: 1
+  AttackStats: {fileID: 11400000, guid: 2fe5294411407244982b38d35bfba892, type: 2}
+  _attackCollider: {fileID: 1836887869019381290}
+  _detectionFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 3072
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  _lineOfSightFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 3584
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
 --- !u!1001 &1399402214501059231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -475,6 +569,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StateDisplay
+      objectReference: {fileID: 0}
+    - target: {fileID: 6800117921860189494, guid: e58d4d4d1e52ef847b95bc00abba2210,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6800117921860189495, guid: e58d4d4d1e52ef847b95bc00abba2210,
         type: 3}

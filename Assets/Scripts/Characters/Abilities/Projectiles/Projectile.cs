@@ -7,9 +7,9 @@ namespace MarblesAndMonsters
 {
     public abstract class Projectile : MonoBehaviour
     {
-        public CharacterControl Caster;
         public ProjectileStats ProjectileStats;
         public Rigidbody2D Rigidbody2D;
+        public GameObject Caster;
 
         protected void Awake()
         {

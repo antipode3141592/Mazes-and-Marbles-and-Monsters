@@ -69,9 +69,13 @@ namespace MarblesAndMonsters.Characters
         public float RespawnPeriod => respawnPeriod;
         //accessors
         public int Armor { get { return armor; } set { armor = value; } }
+        
         public int CurrentHealth { 
             get { return currentHealth; } 
-            set { currentHealth = Mathf.Clamp(value,0,maxHealth); } 
+            set { 
+                currentHealth = Mathf.Clamp(value,0,maxHealth);
+                Debug.Log($"{gameObject.name} has health: {currentHealth}");
+            } 
         }
 
         public int MaxHealth { get { return maxHealth; } set { maxHealth = value; } }

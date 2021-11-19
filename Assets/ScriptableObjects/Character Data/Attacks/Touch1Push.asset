@@ -16,3 +16,4 @@ MonoBehaviour:
   currentDamageModifier: 0
   damageType: 2
   displayName: 
+  cooldown: 1

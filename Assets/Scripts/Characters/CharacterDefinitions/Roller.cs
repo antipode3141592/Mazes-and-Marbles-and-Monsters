@@ -7,13 +7,20 @@ namespace MarblesAndMonsters.Characters
     /// </summary>
     public class Roller : CharacterControl
     {
+        private MeleeController meleeController;
+        protected override void Awake()
+        {
+            base.Awake();
+            meleeController = GetComponent<MeleeController>();
+        }
+
         //rollers only apply touch attack damage when their triggers are entered 
         //(so they may be safely touched on the side, which is much less squish-inducing)
         private void OnTriggerStay2D(Collider2D other)
         {
             if(other.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
             {
-                Combat.MeleeAttack(damagable);
+                meleeController.DealDamageTo(damagable);
             }
         }
 
@@ -21,7 +28,7 @@ namespace MarblesAndMonsters.Characters
         {
             if (collision.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
             {
-                Combat.MeleeAttack(damagable);
+                meleeController.DealDamageTo(damagable);
             }
         }
 

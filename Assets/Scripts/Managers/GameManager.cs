@@ -2,16 +2,12 @@
 using LevelManagement;
 using LevelManagement.DataPersistence;
 using MarblesAndMonsters.Characters;
-using MarblesAndMonsters.Items;
 using MarblesAndMonsters.Menus;
-using MarblesAndMonsters.Spells;
 using MarblesAndMonsters.States.GameStates;
-using MarblesAndMonsters.Tiles;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using Zenject;
 
 namespace MarblesAndMonsters
@@ -29,11 +25,6 @@ namespace MarblesAndMonsters
         [SerializeField]
         private TransitionFader endTransition;
 
-        //for tracking playtime
-        private TimeSpan sessionTimeElapsed;
-        private DateTime startTime;
-        private DateTime endTime;
-
         //state machine stuff
         protected StateMachine stateMachine;
 
@@ -43,6 +34,7 @@ namespace MarblesAndMonsters
         protected DataManager _dataManager;
         protected MenuManager _menuManager;
         protected CharacterManager _characterManager;
+
 
         public bool ShouldBeginLevel = false;
         #endregion
@@ -67,7 +59,7 @@ namespace MarblesAndMonsters
                 {typeof(PopulateLevel), new PopulateLevel(manager: this, characterManager: _characterManager) },
                 {typeof(Playing), new Playing(manager: this, characterManager: _characterManager) },
                 {typeof(Paused), new Paused(manager: this) },
-                {typeof(Victory), new Victory(manager: this, characterManager: _characterManager) },
+                {typeof(Victory), new Victory(manager: this, menuManager: _menuManager, characterManager: _characterManager) },
                 {typeof(Defeat), new Defeat(manager: this, menuManager: _menuManager, characterManager: _characterManager) },
                 {typeof(END), new END(manager: this) }
             };
@@ -208,20 +200,5 @@ namespace MarblesAndMonsters
             }
             
         }
-
-
-        #region Time Tracking
-        public void UpdateSessionTime()
-        {
-            endTime = DateTime.Now;
-            sessionTimeElapsed += endTime - startTime;
-            startTime = DateTime.Now;   //update 
-        }
-
-        public void StartSessionTime()
-        {
-            startTime = DateTime.Now;
-        }
-        #endregion
     }
 }

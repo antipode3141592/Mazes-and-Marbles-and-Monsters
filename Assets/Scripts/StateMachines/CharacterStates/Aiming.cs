@@ -21,16 +21,15 @@ namespace MarblesAndMonsters.States.CharacterStates
         protected int shotsFired;
         protected int maxShotsFired = 3;
 
-        protected Seeker seeker;
-        protected Path path;
         protected List<RaycastHit2D> hits;
         protected AiMover aiMover;
+        protected RangedController rangedController;
 
         public Aiming(CharacterControl character) : base(character)
         {
-            seeker = character.gameObject.GetComponent<Seeker>();
             hits = new List<RaycastHit2D>();
             aiMover = character.gameObject.GetComponent<AiMover>();
+            rangedController = character.gameObject.GetComponent<RangedController>();
             timeToStateChange = 10f;
         }
 
@@ -42,35 +41,17 @@ namespace MarblesAndMonsters.States.CharacterStates
         {
             timeToStateChangeTimer -= Time.deltaTime;
             
-            if (_character.Combat.RangedAttackIsAvailable)
+            if(rangedController.TryAttack() > 0)
             {
-                //first, check to make sure target is in range
-                if (TargetInRangedRange())
-                {
-                    var tagCheck = collisionCheckResults.Find(x => x.CompareTag("Player"));
-                    if (tagCheck == null)
-                        return typeof(Aiming);
-                    aiMover.TargetTransform = tagCheck.transform;
-                    Debug.Log($"{_gameObject.name} is targetting {tagCheck.transform.name}");
-                    Vector2 origin = _transform.position;
-                    Vector2 direction = (tagCheck.transform.position - _transform.position);
-                    float distance = direction.magnitude;
-                    //contact filter limits to NPC and Wall layers
-                    int results = Physics2D.Raycast(origin, direction.normalized, _character.Combat.aimingFilter, hits, distance);
-                    if (results <= 1)
-                    {
-                        //hits[0].
-                        _character.Combat.RangedAttack(direction.normalized);
-                        shotsFired++;
-                        timeToStateChangeTimer = timeToStateChange;  //reset the idle counter, because we shot at something
-                        //so the maximum time in state ~= maxShortsFired * timeToStateChange
-                        if (shotsFired >= maxShotsFired)
-                        {
-                            return typeof(Hunting);
-                        }
-                    }
-                } 
+                aiMover.TargetTransform = rangedController.CurrentTarget;
+                shotsFired++;
             }
+
+            if (shotsFired >= maxShotsFired)
+            {
+                return typeof(Hunting);
+            }
+
             // if time to state change has elapsed, go to roaming state
             if (timeToStateChangeTimer <= 0f)
             {
@@ -86,11 +67,6 @@ namespace MarblesAndMonsters.States.CharacterStates
             shotsFired = 0;
             aiMover.Stop();
             timeToStateChangeTimer = timeToStateChange;
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
         }
     }
 }

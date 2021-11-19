@@ -21,17 +21,7 @@ namespace MarblesAndMonsters
         private List<Gate> gates;
         private List<SpellEffectBase> spellEffects;
 
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        public List<CharacterControl> Characters => characters;
 
         /// <summary>
         /// cache references to all spawnpoints, inventory items, gates, and keys

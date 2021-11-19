@@ -46,9 +46,6 @@ namespace MarblesAndMonsters.Characters
         protected int aTriggerFalling;
         protected int aTriggerDeathByDamage;
 
-        //combat controls
-        public CombatController Combat;
-
         //sound control
         protected AudioSource audioSource;
 
@@ -81,7 +78,6 @@ namespace MarblesAndMonsters.Characters
         {
             //cache some components
             mySheet = GetComponent<CharacterSheet>();
-            Combat = GetComponent<CombatController>();
             MyRigidbody = GetComponent<Rigidbody2D>();
             mySpriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();

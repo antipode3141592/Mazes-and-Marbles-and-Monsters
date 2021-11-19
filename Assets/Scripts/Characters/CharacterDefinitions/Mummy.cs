@@ -16,8 +16,8 @@ namespace MarblesAndMonsters.Characters
             stateMachine = GetComponent<StateMachine>();
             var states = new Dictionary<Type, BaseState>()
             {
-                {typeof(Idle_Mummy), new Idle_Mummy(character: this) },
-                {typeof(Hunting_Mummy), new Hunting_Mummy(character: this) },
+                {typeof(Idle), new Idle(character: this) },
+                {typeof(Hunting), new Hunting(character: this) },
                 {typeof(Dying), new Dying(character: this) }
             };
             Debug.Log($"{name} is storing the following states:  {states.Keys.ToString()}");
