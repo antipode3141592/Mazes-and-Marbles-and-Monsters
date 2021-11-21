@@ -3,6 +3,7 @@ using System;
 using MarblesAndMonsters.Characters;
 using Pathfinding;
 using System.Collections.Generic;
+using FiniteStateMachine;
 
 namespace MarblesAndMonsters.States.CharacterStates
 {
@@ -12,61 +13,38 @@ namespace MarblesAndMonsters.States.CharacterStates
     /// Character stop moving while Aiming (but can still be moved by collisions)
     /// 
     /// </summary>
-    public class Aiming : CharacterState
+    public class Aiming : IState
     {
+        protected IMover _mover;
+        protected RangedController _rangedController;
+        public float TimeWithClearLineOfSight;
 
-        public override Type Type { get => typeof(Aiming); }
-
-        //protected Transform Target;
-        protected int shotsFired;
-        protected int maxShotsFired = 3;
-
-        protected List<RaycastHit2D> hits;
-        protected AiMover aiMover;
-        protected RangedController rangedController;
-
-        public Aiming(CharacterControl character) : base(character)
+        public Aiming(IMover mover, RangedController rangedController)
         {
-            hits = new List<RaycastHit2D>();
-            aiMover = character.gameObject.GetComponent<AiMover>();
-            rangedController = character.gameObject.GetComponent<RangedController>();
-            timeToStateChange = 10f;
+            _mover = mover;
+            _rangedController = rangedController;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override Type LogicUpdate()
-        {
-            timeToStateChangeTimer -= Time.deltaTime;
-            
-            if(rangedController.TryAttack() > 0)
+        public void Tick()
+        {   
+            if (_rangedController.HasLineOfSight(_rangedController.CurrentTarget, out Vector2 direction))
             {
-                aiMover.TargetTransform = rangedController.CurrentTarget;
-                shotsFired++;
-            }
-
-            if (shotsFired >= maxShotsFired)
+                TimeWithClearLineOfSight += Time.deltaTime;
+            } else
             {
-                return typeof(Hunting);
+                TimeWithClearLineOfSight = 0f;
             }
-
-            // if time to state change has elapsed, go to roaming state
-            if (timeToStateChangeTimer <= 0f)
-            {
-                return typeof(Roaming);
-            }
-            //if all else fails, just keep aiming
-            return typeof(Aiming);
         }
 
-        public override void Enter()
+        public void OnEnter()
         {
-            base.Enter();
-            shotsFired = 0;
-            aiMover.Stop();
-            timeToStateChangeTimer = timeToStateChange;
+            _mover.Stop();
+            TimeWithClearLineOfSight = 0f;
+        }
+
+        public void OnExit()
+        {
+
         }
     }
 }

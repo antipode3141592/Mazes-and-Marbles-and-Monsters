@@ -9,19 +9,23 @@ namespace MarblesAndMonsters.Characters
 {
     public class SeekingMonster : CharacterControl
     {
-        private StateMachine stateMachine;
+        private CharacterStateMachine _stateMachine;
         protected override void Awake()
         {
             base.Awake();
-            stateMachine = GetComponent<StateMachine>();
-            var states = new Dictionary<Type, BaseState>()
-            {
-                {typeof(Idle), new Idle(character: this) },
-                {typeof(Hunting), new Hunting(character: this) },
-                {typeof(Dying), new Dying(character: this) }
-            };
-            Debug.Log($"{name} is storing the following states:  {states.Keys.ToString()}");
-            stateMachine.SetStates(states);
+            _stateMachine = new CharacterStateMachine();
+            IMover mover = GetComponent<IMover>();
+            MeleeController meleeController = GetComponent<MeleeController>();
+            RangedController rangedController = GetComponent<RangedController>();
+
+            Idle idle = new Idle(mover);
+            Hunting hunting = new Hunting(mover, meleeController, rangedController);
+            Dying dying = new Dying(mover);
+
+            _stateMachine.SetState(idle);
+
+            void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
+            void AtAny(IState to, Func<bool> condition) => _stateMachine.AddAnyTransition(to, condition);
         }
 
         //for Mummy's, their look direction is their directional vector

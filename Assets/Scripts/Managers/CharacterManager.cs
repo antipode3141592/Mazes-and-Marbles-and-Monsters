@@ -122,7 +122,7 @@ namespace MarblesAndMonsters
         }
 
         //return true if a character was added
-        internal bool StoreCharacter(Characters.CharacterControl character)
+        internal bool StoreCharacter(CharacterControl character)
         {
             if (characters == null) { StoreCharacters(); }
             if (characters.Contains(character)) { return false; }
@@ -137,21 +137,13 @@ namespace MarblesAndMonsters
         //move all characters
         public void MoveAll()
         {
-            try
+            foreach (CharacterControl character in characters.FindAll(x => x != null))
             {
-                foreach (CharacterControl character in characters.FindAll(x => x != null))
+                if (character.gameObject.activeInHierarchy && character.MySheet.IsBoardMovable)
                 {
-                    if (character.gameObject.activeInHierarchy && character.MySheet.IsBoardMovable)
-                    {
-                        BoardMovement.Move(character.MyRigidbody, Input_Acceleration, character.ForceMultiplier);
-                    }
+                    BoardMovement.Move(character.MyRigidbody, Input_Acceleration, character.ForceMultiplier);
                 }
             }
-            catch (Exception ex)
-            {
-                Debug.LogWarning(ex.Message);
-            }
-
         }
     }
 }

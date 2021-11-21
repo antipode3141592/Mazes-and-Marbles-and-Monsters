@@ -131,25 +131,8 @@ namespace MarblesAndMonsters
             _collisionCheckResults.Clear();
             if (_attackCollider.OverlapCollider(_detectionFilter, _collisionCheckResults) > 0)
             {
-                Debug.Log($"{gameObject.name} has found {_collisionCheckResults.Count} objects in collider");
                 enemyTransform = FindNearestTransformWithLineOfSight(_collisionCheckResults, transform);
             }
-                //    {
-                //        var tagCheck = collisionCheckResults.Find(x => x.CompareTag("Player"));
-                //        if (tagCheck == null)
-                //            return typeof(Aiming);
-                //        aiMover.TargetTransform = tagCheck.transform;
-                //        Debug.Log($"{_gameObject.name} is targetting {tagCheck.transform.name}");
-                //        Vector2 origin = _transform.position;
-                //        Vector2 direction = (tagCheck.transform.position - _transform.position);
-                //        float distance = direction.magnitude;
-                //        //contact filter limits to NPC and Wall layers
-                //        int results = Physics2D.Raycast(origin, direction.normalized, _character.Combat.aimingFilter, hits, distance);
-                //        if (results <= 1)
-                //        {
-                //            //hits[0].
-                //            _character.Combat.RangedAttack(direction.normalized);
-                //            shotsFired++;
             if (enemyTransform != null)
             {
                 return true;
@@ -165,12 +148,6 @@ namespace MarblesAndMonsters
             float distance = direction.magnitude;
             _hits.Clear();
             int results = Physics2D.Raycast(origin, direction.normalized, _lineOfSightFilter, _hits, distance);
-            //Debug.Log($"there are {results}  hits");
-            //foreach (RaycastHit2D hit in _hits)
-            //{
-            //    Debug.Log($"{hit.transform.name} is along the raycast line");
-
-            //}
             if (results <= 2)   //self and target
             {
                 return true;

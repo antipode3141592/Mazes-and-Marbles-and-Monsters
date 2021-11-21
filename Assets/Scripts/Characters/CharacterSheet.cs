@@ -6,23 +6,6 @@ using LevelManagement.DataPersistence;
 
 namespace MarblesAndMonsters.Characters
 {
-    //  Data Model for the Character Stats and Behaviors
-    //  Characters have stats that define their behavior
-    //      Health (integer amount of damage they can take before dying)
-    //      Armor (integer amount of damage reduction every time they are struck)
-    //      Attacks (integer damage value and type of damage effect, combined in Attack class)
-    //      Moves (
-    //  Dependencies:
-    //      CharacterBaseStats - each type of character has a corresponding scriptable object containing the base stats
-
-    public class CharacterStateEventArgs: EventArgs
-    {
-        public string Message { get; set; }
-        CharacterStateEventArgs(string message)
-        {
-            Message = message;
-        }
-    }
 
     public class CharacterSheet: MonoBehaviour
     {
@@ -129,7 +112,6 @@ namespace MarblesAndMonsters.Characters
                 }
             } 
         }
-
         public bool IsBoardMovable 
         { 
             get => isBoardMovable;
@@ -148,14 +130,11 @@ namespace MarblesAndMonsters.Characters
         public List<DamageType> DamageImmunities;
 
         //read-only accessors
-        //public List<Movement> Movements;
         public Dictionary<SpellName,Spell> Spells;
 
         #region Unity Functions
         private void Awake()
         {
-            //grab attached Movement Components
-            //Movements = new List<Movement>(GetComponents<Movement>());
             Spells = new Dictionary<SpellName,Spell>();
             DamageImmunities = new List<DamageType>();
             foreach (Spell _spell in GetComponentsInChildren<Spell>())

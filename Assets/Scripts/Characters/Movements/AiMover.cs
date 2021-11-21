@@ -7,13 +7,12 @@ using Random = UnityEngine.Random;
 
 namespace MarblesAndMonsters
 {
-    public enum MovementMode { None, Roam, LeftHandRule, Follow}
 
     /// <summary>
     /// For position based movement, powered by Aron Granberg's Pathfinding asset
     /// 
     /// </summary>
-    public class AiMover : MonoBehaviour, IMove
+    public class AiMover : MonoBehaviour, IMover
     {
         protected Vector2? currentDestination; //nullable destination vector
 
@@ -55,16 +54,6 @@ namespace MarblesAndMonsters
             seeker.pathCallback -= OnPathCalculationComplete;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            //if there isn't a path defined or mover is not controlling, don't do anything
-            if (path != null && IsControlling)
-            {
-                Move();
-            }
-        }
-
         public void Move()
         {
             if (path == null)
@@ -94,7 +83,8 @@ namespace MarblesAndMonsters
                         // You can use this to trigger some special code if your game requires that.
                         reachedEndOfPath = true;
                         path = null;
-                        StartNewPath(Mode);
+                        //StartNewPath(Mode);
+                        SetTarget(TargetTransform);
                         return;
                     }
                 }
@@ -121,12 +111,7 @@ namespace MarblesAndMonsters
             IsControlling = false;
         }
 
-
         #endregion
-        public void StartMoving()
-        {
-
-        }
 
         protected void SetNewDestination(Vector2? destination = null)
         {
@@ -147,7 +132,18 @@ namespace MarblesAndMonsters
             }
         }
 
-
+        public void SetTarget(Transform target)
+        {
+            if (target == null)
+            {
+                TargetTransform = null;
+                SetNewDestination(GetRandomNearbyTarget());
+            } else
+            {
+                TargetTransform = target;
+                SetNewDestination(target.position);
+            }
+        }
 
         public void StartNewPath(MovementMode mode)
         {
