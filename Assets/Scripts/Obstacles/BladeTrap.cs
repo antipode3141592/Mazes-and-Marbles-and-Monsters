@@ -45,7 +45,10 @@ namespace MarblesAndMonsters.Objects
         private IEnumerator SpringTrap(Collider2D other)
         {
             yield return new WaitForSeconds(attackDelay);
-            other.attachedRigidbody.AddForce(explosiveForce * (Vector2)(other.transform.position - transform.position).normalized, ForceMode2D.Impulse);
+            if (other != null)
+            { 
+                other.attachedRigidbody.AddForce(explosiveForce * (Vector2)(other.transform.position - transform.position).normalized, ForceMode2D.Impulse); 
+            }
             StartCoroutine(TrapReset());
         }
 

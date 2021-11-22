@@ -22,8 +22,6 @@ namespace MarblesAndMonsters.Characters
             Idle idle = new Idle(mover);
             Roaming roaming = new Roaming(mover, rangedController);
             Hunting hunting = new Hunting(mover, meleeController, rangedController);
-            Aiming aiming = new Aiming(mover, rangedController);
-            Shooting shooting = new Shooting(mover, rangedController);
             Dying dying = new Dying(mover);
 
             //transitions

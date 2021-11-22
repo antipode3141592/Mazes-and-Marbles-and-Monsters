@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2235542616435823016}
   - component: {fileID: 4871333497825440570}
   - component: {fileID: 7962701096921306332}
-  - component: {fileID: 1022811285960876781}
   - component: {fileID: 2130481463042564401}
+  - component: {fileID: 86226125218151330}
   m_Layer: 13
   m_Name: EntangleProjectile
   m_TagString: Monster
@@ -114,12 +114,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413f843fde98c6046a679c41775e3e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Caster: {fileID: 0}
   ProjectileStats: {fileID: 11400000, guid: 763dfacbf7b6b5a4ebe4be2f3da0db30, type: 2}
-  Rigidbody2D: {fileID: 1022811285960876781}
+  Caster: {fileID: 0}
   entanglePrefab: {fileID: 8835059570872667135, guid: 38f17f33ed48b1144a67316396efd851,
     type: 3}
---- !u!50 &1022811285960876781
+--- !u!58 &2130481463042564401
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7667799673373064828}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.125
+--- !u!50 &86226125218151330
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -140,19 +155,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &2130481463042564401
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7667799673373064828}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.125

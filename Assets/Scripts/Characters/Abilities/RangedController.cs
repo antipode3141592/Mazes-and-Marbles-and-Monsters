@@ -46,9 +46,9 @@ namespace MarblesAndMonsters
             GameObject _projectileGameObject = Instantiate(projectileStats.projectilePrefab, transform.position, Quaternion.identity);
             Projectile projectile = _projectileGameObject.GetComponent<Projectile>();
             projectile.Caster = gameObject;
-            //yield return new WaitForSeconds(attackDelay);
+
             yield return null;
-            projectile.Rigidbody2D.velocity = speed * direction;
+            projectile.SetDirection(direction);
         }
     }
 

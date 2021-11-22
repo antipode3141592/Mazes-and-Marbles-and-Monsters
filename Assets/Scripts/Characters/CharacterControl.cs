@@ -61,18 +61,6 @@ namespace MarblesAndMonsters.Characters
         protected CharacterManager _characterManager;
         #endregion
 
-        //#region Dependency Injection
-        //[Inject]
-        ////public void Construct(GameManager gameManager)
-        ////{
-        ////    _gameManager = gameManager;
-        ////}
-
-        //public class Factory : PlaceholderFactory<CharacterControl>
-        //{
-        //}
-        //#endregion
-
         #region Unity Scripts
         protected virtual void Awake()
         {
