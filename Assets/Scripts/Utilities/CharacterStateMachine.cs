@@ -45,6 +45,7 @@ namespace FiniteStateMachine
             if (_currentTransitions == null)
                 _currentTransitions = EmptyTransitions;
             OnStateChange?.Invoke(this, new UITextUpdate(_currentState.ToString()));
+            Debug.Log($"Now entering {_currentState.ToString()} state");
             _currentState.OnEnter();
             TimeInState = 0f;
         }

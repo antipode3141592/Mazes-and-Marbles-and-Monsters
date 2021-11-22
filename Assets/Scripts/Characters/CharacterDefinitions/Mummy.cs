@@ -30,10 +30,10 @@ namespace MarblesAndMonsters.Characters
 
             _stateMachine.SetState(idle);
 
-            void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
+            void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
             void AtAny(IState to, Func<bool> condition) => _stateMachine.AddAnyTransition(to, condition);
 
-            
+
 
         }
 

@@ -109,6 +109,7 @@ namespace MarblesAndMonsters.States.GameStates
         public Victory(GameManager manager, MenuManager menuManager, CharacterManager characterManager) : base(manager.gameObject)
         {
             _manager = manager;
+            _menuManager = menuManager;
             _characterManager = characterManager;
         }
 

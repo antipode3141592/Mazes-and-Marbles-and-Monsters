@@ -31,18 +31,23 @@ namespace MarblesAndMonsters.Characters
             Shooting shooting = new Shooting(mover, rangedController);
             Dying dying = new Dying(mover);
 
-            At(to: roaming, from:idle, condition: TimeElapsed(5f));
-            At(to: idle, from: roaming, TimeElapsed(10f));
-            At(to: idle, from: hunting, TimeElapsed(10f));
-            At(to: aiming, from: roaming, EnemyInLineOfSight());
-            At(to: shooting, from: aiming, HasClearShot(minAimTime: 0.15f));
-            At(to: hunting, from: shooting, ShotsFired(maxShots: 3));
-            At(to: roaming, from: aiming, TimeElapsed(5f));
+            At(from: idle, to: roaming, condition: TimeElapsed(3f));
+
+            At(from: roaming, to: idle, TimeElapsed(30f));
+            At(from: roaming, to: aiming, EnemyInLineOfSight());
+            
+            At(from: aiming, to: shooting, HasClearShot(minAimTime: 0.33f));
+            At(from: aiming, to: roaming, TimeElapsed(5f));
+
+            At(from: shooting, to: hunting, ShotsFired(maxShots: 3));
+
+            At(from: hunting, to: idle, TimeElapsed(10f));
+            
             AtAny(dying, IsDying());
 
             _stateMachine.SetState(idle);
 
-            void At(IState to, IState from, Func<bool> condition) => _stateMachine.AddTransition(to, from, condition);
+            void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
             void AtAny(IState to, Func<bool> condition) => _stateMachine.AddAnyTransition(to, condition);
 
             

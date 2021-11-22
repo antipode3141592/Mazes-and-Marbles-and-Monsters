@@ -25,9 +25,10 @@ namespace MarblesAndMonsters
                     }
                 } else
                 {
-                    if (CurrentTarget != null && HasLineOfSight(CurrentTarget, out Vector2 direction))
+                    if (HasLineOfSight(CurrentTarget, out Vector2 direction))
                     {
-                        StartCoroutine(FireProjectile(0.1f, direction, projectileStats.Speed));
+                        AttackAvailable = false;
+                        StartCoroutine(FireProjectile(0.1f, direction.normalized, projectileStats.Speed));
                         StartCoroutine(AttackCooldown(AttackStats.Cooldown));
                         return 1;
                     }
@@ -41,14 +42,12 @@ namespace MarblesAndMonsters
 
         IEnumerator FireProjectile(float attackDelay, Vector2 direction, float speed)
         {
-            Debug.Log($"Fire at {(speed * direction).ToString()}");
             //start attack animation
-
-            //yield return new WaitForSeconds(attackDelay);
-            yield return null;
             GameObject _projectileGameObject = Instantiate(projectileStats.projectilePrefab, transform.position, Quaternion.identity);
             Projectile projectile = _projectileGameObject.GetComponent<Projectile>();
             projectile.Caster = gameObject;
+            //yield return new WaitForSeconds(attackDelay);
+            yield return null;
             projectile.Rigidbody2D.velocity = speed * direction;
         }
     }

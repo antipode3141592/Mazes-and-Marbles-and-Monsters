@@ -269,7 +269,10 @@ namespace MarblesAndMonsters.Characters
             else
             {
                 isDying = true;
-                MyRigidbody.velocity = Vector2.zero;
+                if (MyRigidbody.isKinematic)
+                {
+                    MyRigidbody.velocity = Vector2.zero;
+                }
                 PreDeathAnimation();
                 switch (deathType)
                 {

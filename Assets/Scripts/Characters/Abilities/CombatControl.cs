@@ -97,7 +97,7 @@ namespace MarblesAndMonsters
             {
                 foreach (Collider2D collider in _collisionCheckResults)
                 {
-                    if (collider.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
+                    if (!collider.gameObject.CompareTag(tag) && collider.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
                     {
                         damagables.Add(damagable);
                     }
@@ -192,7 +192,7 @@ namespace MarblesAndMonsters
 
                         }
                     }
-                    Debug.Log($"{resultsList[i].name} has tag {resultsList[i].tag} and is {currentDistance} units away");
+                    //Debug.Log($"{resultsList[i].name} has tag {resultsList[i].tag} and is {currentDistance} units away");
                 }
             }
             if (smallestIndex >= 0)
