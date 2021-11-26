@@ -60,6 +60,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -424,6 +425,19 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Stairs_Down_wTorches_5: -8444954439869246222
+      Stairs_Down_wTorches_4: -3452248150174799626
+      Stairs_Down_wTorches_9: 7173081366528661370
+      Stairs_Down_wTorches_1: -7523786722682602230
+      Stairs_Down_wTorches_0: -7745354739226846691
+      Stairs_Down_wTorches_3: -1704212800089032560
+      Stairs_Down_wTorches_8: 6858187674663124696
+      Stairs_Down_wTorches_10: -7452871368149536246
+      Stairs_Down_wTorches_2: -9137308713980947389
+      Stairs_Down_wTorches_7: 4635070814462436459
+      Stairs_Down_wTorches_6: -7178070280278813119
+      Stairs_Down_wTorches_11: -8242687531679484468
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

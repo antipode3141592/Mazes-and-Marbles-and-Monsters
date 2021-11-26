@@ -324,6 +324,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -1657,6 +1658,52 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Expanded Pit_17: 4858964982551379785
+      Expanded Pit_33: 6455837847504123694
+      Expanded Pit_20: 7147440090242554211
+      Expanded Pit_35: -8575572958710521412
+      Expanded Pit_1: 5065542260693547428
+      Expanded Pit_19: 2804030418455404687
+      Expanded Pit_5: -6143957980052305402
+      Expanded Pit_18: -4731568827614729480
+      Expanded Pit_48: 2067661442463412937
+      Expanded Pit_49: -547803466686988642
+      Expanded Pit_2: -1171324756432738539
+      Expanded Pit_13: -1988459159233142291
+      Expanded Pit_8: 2391866171843667203
+      Expanded Pit_11: -2515775132508872645
+      Expanded Pit_12: 7876771836488542451
+      Expanded Pit_34: -5702402425151259855
+      Expanded Pit_36: 5817586823299168202
+      Expanded Pit_15: 5475578255081983756
+      Expanded Pit_31: -1189658729983005809
+      Expanded Pit_40: 4480581920048209413
+      Expanded Pit_29: 4917848897175220238
+      Expanded Pit_32: -131181345293513344
+      Expanded Pit_30: -1679645275552754278
+      Expanded Pit_4: -402839178168340757
+      Expanded Pit_7: -2890930533534308976
+      Expanded Pit_24: 8948280348406757629
+      Expanded Pit_39: 8235815826631788734
+      Expanded Pit_3: -3422359696348702574
+      Expanded Pit_28: 8589675401431423547
+      Expanded Pit_23: 6128641855928352852
+      Expanded Pit_27: -7510281435764340672
+      Expanded Pit_37: -1549571496461287809
+      Expanded Pit_6: 3164639433452409274
+      Expanded Pit_9: 2456088244367361179
+      Expanded Pit_16: 1977269666563095378
+      Expanded Pit_25: -3419162358929644411
+      Expanded Pit_22: 7450839396006923900
+      Expanded Pit_26: -6076776628078801686
+      Expanded Pit_59: 3256441720037081954
+      Expanded Pit_0: -6107635473285601548
+      Expanded Pit_10: 5626263325228922058
+      Expanded Pit_21: -4861389949711716123
+      Expanded Pit_38: 4687803118358405225
+      Expanded Pit_58: 8070738876593002935
+      Expanded Pit_14: -6465191456745068169
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

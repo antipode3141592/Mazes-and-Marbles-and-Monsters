@@ -14,9 +14,8 @@ namespace MarblesAndMonsters
         public int TryAttack();
         public bool GetDamagablesInRange(out List<IDamagable> damagables);
 
-        public bool GetNearestEnemy(out Transform enemyTransform);
+        public bool FindNearestEnemyInLineOfSight(out GameObject enemyInLineOfSight);
 
-        public bool GetNearestEnemyWithLineOfSight(out Transform enemyTransform);
         public IEnumerator AttackCooldown(float restPeriod);
     }
 

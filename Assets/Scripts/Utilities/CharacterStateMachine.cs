@@ -22,6 +22,7 @@ namespace FiniteStateMachine
         private static List<Transition> EmptyTransitions = new List<Transition>(capacity: 0);
 
         public float TimeInState = 0f;
+        public Transform CurrentTarget;
 
         public void Tick()
         {
@@ -45,7 +46,7 @@ namespace FiniteStateMachine
             if (_currentTransitions == null)
                 _currentTransitions = EmptyTransitions;
             OnStateChange?.Invoke(this, new UITextUpdate(_currentState.ToString()));
-            Debug.Log($"Now entering {_currentState.ToString()} state");
+            Debug.Log($"Now entering {_currentState} state");
             _currentState.OnEnter();
             TimeInState = 0f;
         }

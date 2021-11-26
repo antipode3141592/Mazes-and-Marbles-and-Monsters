@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace MarblesAndMonsters.Characters
 {
+    [RequireComponent(typeof(MeleeController))]
     public class Mummy : CharacterControl
     {
         private CharacterStateMachine _stateMachine;
@@ -16,15 +17,18 @@ namespace MarblesAndMonsters.Characters
             _stateMachine = new CharacterStateMachine();
 
             IMover mover = GetComponent<IMover>();
-            RangedController rangedController = GetComponent<RangedController>();
             MeleeController meleeController = GetComponent<MeleeController>();
 
             Idle idle = new Idle(mover);
-            Roaming roaming = new Roaming(mover, rangedController);
-            Hunting hunting = new Hunting(mover, meleeController, rangedController);
+            Hunting hunting = new Hunting(mover, meleeController, _stateMachine);
             Dying dying = new Dying(mover);
 
             //transitions
+
+            At(from: idle, to: hunting, EnemyInLineOfSight());
+            At(from: hunting, to: idle, TimeElapsed(30f));
+
+            AtAny(dying, IsDying());
 
             _stateMachine.SetState(idle);
 
@@ -32,7 +36,17 @@ namespace MarblesAndMonsters.Characters
             void AtAny(IState to, Func<bool> condition) => _stateMachine.AddAnyTransition(to, condition);
 
 
-
+            Func<bool> IsDying() => () => isDying == true;
+            Func<bool> EnemyInLineOfSight() => () =>
+            {
+                if (meleeController.FindNearestEnemyInLineOfSight(out var gameObject))
+                {
+                    _stateMachine.CurrentTarget = gameObject.transform;
+                    return true;
+                }
+                return false;
+            };
+            Func<bool> TimeElapsed(float time) => () => _stateMachine.TimeInState >= time;
         }
 
         //for Mummy's, their look direction is their directional vector

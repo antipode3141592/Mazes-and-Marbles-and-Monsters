@@ -168,6 +168,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -177,8 +178,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -1288,6 +1289,55 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Mummy_Walk_WW_5: -9077708472257629305
+      Mummy_Walk_SW_0: 2217716180624604384
+      Mummy_Walk_NN_1: -3018327131836156664
+      Mummy_Walk_SS_3: -2409497288474746674
+      Mummy_Walk_SS_2: -1790960916618886951
+      Mummy_8: -4010149390630252848
+      Mummy_Walk_WW_2: -79913318453803813
+      Mummy_Walk_NN_4: 2517973080013163230
+      Mummy_6: -3969991945466811590
+      Mummy_Walk_WW_3: -5518169323593960347
+      Mummy_Walk_WW_1: 6547943370603240469
+      Mummy_Walk_SS_0: 2269774590620358131
+      Mummy_Walk_NN_2: -5170970562374670063
+      Mummy_Walk_NN_3: 6628644952385907113
+      Mummy_Walk_NN_7: 1418722776741406089
+      Mummy_Walk_EE_4: -2757197355900434453
+      Mummy_Walk_WW_0: 7301939077581686594
+      Mummy_13: -2367462005987519629
+      Mummy_Walk_SS_1: 5686606374109690887
+      Mummy_Walk_SW_5: 2489337813825786675
+      Mummy_Walk_EE_1: 7281315108213429887
+      Mummy_Walk_EE_2: 2515327116670352081
+      Mummy_Walk_SW_2: -7042349150553442398
+      Mummy_Walk_SW_3: -915884356049695404
+      Mummy_Walk_EE_0: 9220238985273558307
+      Mummy_Walk_EE_5: 1004332487483009297
+      Mummy_Walk_SS_4: 6677763522120759985
+      Mummy_Walk_SS_5: 5854876779586311449
+      Mummy_Walk_EE_3: -6990065093112873033
+      Mummy_Spawning_1: -1963984874012732681
+      Mummy_Walk_WW_7: 2317516112781582624
+      Mummy_Walk_SW_4: 9207355007279626397
+      Mummy_Walk_WW_4: 8431381737485018097
+      Mummy_Walk_SS_6: 4167388983863128302
+      Mummy_Spawning_0: -5840307614221572364
+      Mummy_Walk_SW_1: 5400851626385056314
+      Mummy_Spawning_2: 5541588330747164503
+      Mummy_15: -7509901397592465551
+      Mummy_Walk_EE_7: 973084104976237198
+      Mummy_Walk_EE_6: 3055030045226074797
+      Mummy_Walk_WW_6: 1613321934942184280
+      Mummy_Walk_NN_5: -7555039879145631592
+      Mummy_Walk_NN_0: 1275030733479473009
+      Mummy_Walk_NN_6: 1517120680525532208
+      Mummy_Walk_SS_7: -5196278221489292723
+      Mummy_Walk_SW_6: -5074913296690151003
+      Mummy_Walk_SW_7: -3097942829259863875
+      Mummy_10: 636093719140567805
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

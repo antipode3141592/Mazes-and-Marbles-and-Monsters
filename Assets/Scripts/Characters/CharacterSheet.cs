@@ -122,6 +122,8 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
+        public bool IsStealth => isStealth;
+
         public float SleepTimeCounter { get => sleepTimeCounter; set => sleepTimeCounter = value; }
         public float PoisonTimeCounter { get => poisonTimeCounter; set => poisonTimeCounter = value; }
         public float FireTimeCounter { get => burnTimeCounter; set => burnTimeCounter = value; }

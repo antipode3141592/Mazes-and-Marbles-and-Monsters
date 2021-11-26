@@ -24,11 +24,11 @@ namespace MarblesAndMonsters.States.CharacterStates
         public void Tick()
         {
             _mover.Move();
-            if (_rangedController.GetNearestEnemyWithLineOfSight(out Transform _transform))
-            {
-                _rangedController.CurrentTarget = _transform;
-                _mover.SetTarget(_transform);
-            } 
+            //if (_rangedController.GetNearestEnemyWithLineOfSight(out Transform _transform))
+            //{
+            //    _rangedController.CurrentTarget = _transform;
+            //    _mover.SetTarget(_transform);
+            //} 
         }
 
         public void OnEnter()

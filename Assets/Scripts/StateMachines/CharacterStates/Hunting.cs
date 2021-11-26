@@ -14,12 +14,13 @@ namespace MarblesAndMonsters.States.CharacterStates
         protected MeleeController _meleeController;
         protected RangedController _rangedController;
         protected int AttackCounter;
+        protected CharacterStateMachine _characterStateMachine;
 
-        public Hunting(IMover mover, MeleeController meleeController, RangedController rangedController)
+        public Hunting(IMover mover, MeleeController meleeController, CharacterStateMachine characterStateMachine)
         {
             _mover = mover;
             _meleeController = meleeController;
-            _rangedController = rangedController;
+            _characterStateMachine = characterStateMachine; 
         }
 
         public void Tick()
@@ -34,7 +35,7 @@ namespace MarblesAndMonsters.States.CharacterStates
         public void OnEnter()
         {
             AttackCounter = 0;
-            _mover.SetTarget(_rangedController.CurrentTarget);
+            _mover.SetTarget(_characterStateMachine.CurrentTarget);
         }
 
         public void OnExit()

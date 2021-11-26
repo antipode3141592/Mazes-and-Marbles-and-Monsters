@@ -174,6 +174,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -1616,6 +1617,57 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Forest Tiles_0: 7057792302925323048
+      Forest Tiles_10: -5890803963182447946
+      Forest Tiles_20: -1653544169342539171
+      Forest Tiles_21: -5584509853722711297
+      Forest Tiles_4: -1046699672118113251
+      Forest Tiles_7: -3185094580449507618
+      Forest Tiles_14: 1916907300788838082
+      Forest Tiles_48: -1526771105051495990
+      Forest Tiles_24: 6740670060881482632
+      Forest Tiles_25: 5617744143398490736
+      Forest Tiles_47: -5381569575663963420
+      Forest Tiles_1: 2695538080372471965
+      Forest Tiles_23: 154094851176859327
+      Forest Tiles_2: -5399174961864294867
+      Forest Tiles_45: 5505312807877999647
+      Forest Tiles_16: -1652310314817473575
+      Forest Tiles_32: -7737571041225872327
+      Forest Tiles_29: 4946131680978661179
+      Forest Tiles_38: -4024808631289088789
+      Forest Tiles_18: 60762280426501915
+      Forest Tiles_6: 4157151597810676558
+      Forest Tiles_35: 2274262910170906983
+      Forest Tiles_37: -55320909565087610
+      Forest Tiles_28: 5959532783668751305
+      Forest Tiles_44: 5454461835070136437
+      Forest Tiles_15: 943962126609101125
+      Forest Tiles_13: -7515827223056945363
+      Forest Tiles_36: -844981808390985844
+      Forest Tiles_33: -6474064629184624629
+      Forest Tiles_27: 8706911662717086618
+      Forest Tiles_40: -6532703580260168457
+      Forest Tiles_8: 7552108481738252387
+      Forest Tiles_9: -3418388929013986166
+      Forest Tiles_12: 6409164498126609866
+      Forest Tiles_34: 2695047318872628707
+      Forest Tiles_17: -2390774940050147990
+      Forest Tiles_26: 8414036738495113845
+      Forest Tiles_30: 9015523818139325192
+      Forest Tiles_22: 454615002620795720
+      Forest Tiles_5: -1962249299359788715
+      Forest Tiles_19: -2266819035789933985
+      Forest Tiles_11: 4791662705923163784
+      Forest Tiles_46: -4544351829960085013
+      Forest Tiles_43: 5751227281215346202
+      Forest Tiles_31: -252674158847195620
+      Forest Tiles_41: 2080201821362369281
+      Forest Tiles_42: 8205527153669454756
+      Forest Tiles_39: -5922078025873229668
+      Forest Tiles_49: 5516447094294019826
+      Forest Tiles_3: -2956155374582943910
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

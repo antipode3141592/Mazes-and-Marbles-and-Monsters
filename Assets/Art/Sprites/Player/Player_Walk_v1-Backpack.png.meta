@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -336,6 +337,15 @@ TextureImporter:
       name: staff
     - texture: {fileID: 2800000, guid: b13161a45ab9bcd4daa5c9cc00e9a5d5, type: 3}
       name: torso
+    nameFileIdTable:
+      Player_Walk_v1-Backpack_4: -8153845400521428591
+      Player_Walk_v1-Backpack_1: -3506266026393759914
+      Player_Walk_v1-Backpack_5: -3261824833761975465
+      Player_Walk_v1-Backpack_3: 5270128153509992575
+      Player_Walk_v1-Backpack_6: -3350014583218082144
+      Player_Walk_v1-Backpack_7: 6519182125189901546
+      Player_Walk_v1-Backpack_0: -5996443607555317267
+      Player_Walk_v1-Backpack_2: 799963911097360308
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -49,17 +49,12 @@ namespace MarblesAndMonsters
             _characterManager = FindObjectOfType<CharacterManager>();
         }
 
-        protected virtual void Start()
-        {
-
-        }
-
         public bool FindEnemies(out List<GameObject> enemies)
         {
             enemies = new List<GameObject>();
             foreach (var character in _characterManager.Characters)
             {
-                if (character.CompareTag(EnemyTag()))
+                if (character.isActiveAndEnabled && !character.MySheet.IsStealth && character.CompareTag(EnemyTag()))
                 {
                     enemies.Add(character.gameObject);
                 }
@@ -67,6 +62,24 @@ namespace MarblesAndMonsters
             if (enemies.Count>0) {
                 return true;
             }
+            return false;
+        }
+
+        public bool FindNearestEnemyInLineOfSight(out GameObject enemyInLineOfSight)
+        {
+            if (FindEnemies(out _enemies))
+            {
+                var SortedByDistance = _enemies.OrderBy(x => x.transform.position - transform.position);
+                foreach (var a in SortedByDistance)
+                {
+                    if (HasLineOfSight(a.transform, out var direction))
+                    {
+                        enemyInLineOfSight = a;
+                        return true;
+                    }
+                }
+            }
+            enemyInLineOfSight = null;
             return false;
         }
 
@@ -110,36 +123,6 @@ namespace MarblesAndMonsters
             return false;
         }
 
-        public virtual bool GetNearestEnemy(out Transform enemyTransform)
-        {
-            enemyTransform = null;
-            _collisionCheckResults.Clear();
-            if (_attackCollider.OverlapCollider(_detectionFilter, _collisionCheckResults) > 0)
-            {
-                enemyTransform = FindNearestCollision(_collisionCheckResults, origin:transform);
-                //List<Transform> transforms = _collisionCheckResults.Find(x => x.transform)
-                //enemyTransform = FindNearestCollision(resultsList: );
-                return true;
-            }
-
-                return false;
-        }
-
-        public virtual bool GetNearestEnemyWithLineOfSight(out Transform enemyTransform)
-        {
-            enemyTransform = null;
-            _collisionCheckResults.Clear();
-            if (_attackCollider.OverlapCollider(_detectionFilter, _collisionCheckResults) > 0)
-            {
-                enemyTransform = FindNearestTransformWithLineOfSight(_collisionCheckResults, transform);
-            }
-            if (enemyTransform != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
         public bool HasLineOfSight(Transform target, out Vector2 direction)
         {
 
@@ -153,55 +136,6 @@ namespace MarblesAndMonsters
                 return true;
             }
             return false;
-        }
-
-        protected Transform FindNearestCollision(List<Collider2D> resultsList, Transform origin)
-        {
-            //there's definitely a better way to implement this
-            float smallestDistance = 10000f;
-            int smallestIndex = 0;
-            for (int i = 0; i < resultsList.Count; i++)
-            {
-                float currentDistance = (resultsList[i].transform.position - origin.position).magnitude;
-                if (currentDistance < smallestDistance)
-                {
-                    smallestDistance = currentDistance;
-                    smallestIndex = i;
-                }
-            }
-            return resultsList[smallestIndex].transform;
-        }
-
-        protected Transform FindNearestTransformWithLineOfSight(List<Collider2D> resultsList, Transform origin)
-        {
-            //there's definitely a better way to implement this
-            float smallestDistance = 10000f;
-            int smallestIndex = -1;
-            for (int i = 0; i < resultsList.Count; i++)
-            {
-                
-                if (resultsList[i].CompareTag(EnemyTag()))
-                {
-                    float currentDistance = (resultsList[i].transform.position - origin.position).magnitude;
-                    if (currentDistance < smallestDistance)
-                    {
-                        if (HasLineOfSight(resultsList[i].transform, out Vector2 direction))
-                        {
-                            smallestDistance = currentDistance;
-                            smallestIndex = i;
-
-                        }
-                    }
-                    //Debug.Log($"{resultsList[i].name} has tag {resultsList[i].tag} and is {currentDistance} units away");
-                }
-            }
-            if (smallestIndex >= 0)
-            {
-                return resultsList[smallestIndex].transform;
-            } else
-            {
-                return null;
-            }
         }
     }
 

@@ -1,21 +1,18 @@
 using FiniteStateMachine;
+using MarblesAndMonsters.Characters;
 using TMPro;
 using UnityEngine;
 
 public class UIStateObserver : MonoBehaviour
 {
-    private StateMachine stateMachine;
+    private CharacterStateMachine stateMachine;
     [SerializeField]
     private TextMeshProUGUI text;
 
     private void Awake()
     {
-        stateMachine = GetComponentInParent<StateMachine>();
-        //text = GetComponent<TextMeshProUGUI>();
-        if (stateMachine)
-        {
-            stateMachine.OnStateChange += UpdateText;
-        }
+        //var character = GetComponentInParent<CharacterControl>();
+        stateMachine.OnStateChange += UpdateText;
     }
 
     private void OnDestroy()

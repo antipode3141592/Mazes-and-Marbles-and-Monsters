@@ -19,7 +19,7 @@ namespace MarblesAndMonsters.Characters
             RangedController rangedController = GetComponent<RangedController>();
 
             Idle idle = new Idle(mover);
-            Hunting hunting = new Hunting(mover, meleeController, rangedController);
+            Hunting hunting = new Hunting(mover, meleeController, _stateMachine);
             Dying dying = new Dying(mover);
 
             _stateMachine.SetState(idle);

@@ -45,6 +45,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -54,8 +55,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -304,6 +305,14 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Spawn_Marble2_EE_2: 6889817801885446773
+      Spawn_Marble2_EE_1: -2381346506220028670
+      Spawn_Marble2_EE_4: 1243219050216347592
+      Spawn_Marble2_EE_0: 4202328195324997754
+      Spawn_Marble2_EE_3: -8173267584843901796
+      Spawn_Marble2_EE_6: -8555710212004246679
+      Spawn_Marble2_EE_5: 5196839039759356382
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

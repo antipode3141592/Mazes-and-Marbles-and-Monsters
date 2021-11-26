@@ -18,11 +18,13 @@ namespace MarblesAndMonsters.States.CharacterStates
         protected IMover _mover;
         protected RangedController _rangedController;
         public float TimeWithClearLineOfSight;
+        public CharacterStateMachine _characterStateMachine;
 
-        public Aiming(IMover mover, RangedController rangedController)
+        public Aiming(IMover mover, RangedController rangedController, CharacterStateMachine characterStateMachine)
         {
             _mover = mover;
             _rangedController = rangedController;
+            _characterStateMachine = characterStateMachine;
         }
 
         public void Tick()
@@ -39,6 +41,7 @@ namespace MarblesAndMonsters.States.CharacterStates
         public void OnEnter()
         {
             _mover.Stop();
+            _rangedController.CurrentTarget = _characterStateMachine.CurrentTarget;
             TimeWithClearLineOfSight = 0f;
         }
 

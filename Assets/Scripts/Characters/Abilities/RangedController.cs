@@ -18,9 +18,9 @@ namespace MarblesAndMonsters
                 if (CurrentTarget == null)
                 {
                     Debug.Log("No Target");
-                    if (GetNearestEnemyWithLineOfSight(out Transform enemy))
+                    if (FindNearestEnemyInLineOfSight(out var enemy))
                     {
-                        CurrentTarget = enemy;
+                        CurrentTarget = enemy.transform;
                         Debug.Log($"{CurrentTarget.name} is current target");
                     }
                 } else

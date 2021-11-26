@@ -210,6 +210,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -219,8 +220,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -1636,6 +1637,69 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      AnimationSheet_Player1_15: -5202628579384217409
+      AnimationSheet_Player1_43: 9026511552061077026
+      AnimationSheet_Player1_16: 1737986069294257731
+      AnimationSheet_Player1_5: -7882248373047552252
+      AnimationSheet_Player1_34: -5377976320411230443
+      AnimationSheet_Player1_23: -8672902021949294592
+      AnimationSheet_Player1_47: -8424619273742680511
+      AnimationSheet_Player1_20: 2280956230123689266
+      AnimationSheet_Player1_28: -1682987460487557885
+      AnimationSheet_Player1_1: -3624947832564362230
+      AnimationSheet_Player1_6: 1488066325057742076
+      AnimationSheet_Player1_27: 5394172568729892753
+      AnimationSheet_Player1_49: 5207339145965590529
+      AnimationSheet_Player1_14: 3242277700230684598
+      AnimationSheet_Player1_55: 2401795277836988424
+      AnimationSheet_Player1_52: 3099269487482864723
+      AnimationSheet_Player1_50: -2173013729716815357
+      AnimationSheet_Player1_61: 7524422585107248765
+      AnimationSheet_Player1_36: 6855575041964347958
+      AnimationSheet_Player1_45: -1473467991906901697
+      AnimationSheet_Player1_41: -3962060076034118639
+      AnimationSheet_Player1_25: 2300980872439182693
+      AnimationSheet_Player1_33: 8308764627686675536
+      AnimationSheet_Player1_13: -4281229016175181543
+      AnimationSheet_Player1_35: -8009046995983640314
+      AnimationSheet_Player1_8: 8300115486142560727
+      AnimationSheet_Player1_17: -2329417852988892440
+      AnimationSheet_Player1_48: 5617227110869826291
+      AnimationSheet_Player1_60: 4978335596676161869
+      AnimationSheet_Player1_30: 475392488454646241
+      AnimationSheet_Player1_7: -7362239544051150224
+      AnimationSheet_Player1_38: 7293806199498199740
+      AnimationSheet_Player1_51: 3855198857942168546
+      AnimationSheet_Player1_32: -1271730321182652631
+      AnimationSheet_Player1_11: -1218981326350514205
+      AnimationSheet_Player1_10: -4747772318488553324
+      AnimationSheet_Player1_18: 3810427011993187054
+      AnimationSheet_Player1_59: 7806372595228949320
+      AnimationSheet_Player1_42: 6849976431857534106
+      AnimationSheet_Player1_3: 9155575009656356414
+      AnimationSheet_Player1_19: 7582371138833107119
+      AnimationSheet_Player1_26: -5537546842336932184
+      AnimationSheet_Player1_46: 3638757400642425723
+      AnimationSheet_Player1_2: 8485866701498731873
+      AnimationSheet_Player1_56: 4906727477902152613
+      AnimationSheet_Player1_21: 352935201453290472
+      AnimationSheet_Player1_54: -4718933871217067650
+      AnimationSheet_Player1_58: -5571046234582270628
+      AnimationSheet_Player1_53: -4897856948980520141
+      AnimationSheet_Player1_57: -6993345853987275488
+      AnimationSheet_Player1_9: -1733226154741402906
+      AnimationSheet_Player1_24: -5034154945392283530
+      AnimationSheet_Player1_37: -8337516868261019700
+      AnimationSheet_Player1_4: 8753643001027852575
+      AnimationSheet_Player1_40: 5618675014833203787
+      AnimationSheet_Player1_22: -3965294700655158342
+      AnimationSheet_Player1_29: -660425363942911308
+      AnimationSheet_Player1_44: 4732462394785455213
+      AnimationSheet_Player1_31: -6164242846347981705
+      AnimationSheet_Player1_12: -542394993096575153
+      AnimationSheet_Player1_0: -304033540865114302
+      AnimationSheet_Player1_39: -6515841782680748608
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
