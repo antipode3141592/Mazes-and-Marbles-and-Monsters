@@ -36,11 +36,5 @@ namespace MarblesAndMonsters.Characters
                 meleeController.DealDamageTo(damagable);
             }
         }
-
-        protected override IEnumerator DeathAnimation(DeathType deathType)
-        {
-            yield return new WaitForSeconds(0.5f);  //death animations are 6 frames, current fps is 12
-            Destroy(gameObject);
-        }
     }
 }

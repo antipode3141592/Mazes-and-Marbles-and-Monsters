@@ -1,0 +1,165 @@
+﻿using MarblesAndMonsters.Characters;
+using MarblesAndMonsters.Events;
+using System;
+using System.Collections;
+using UnityEngine;
+
+namespace MarblesAndMonsters
+{
+    [RequireComponent(typeof(Animator))]
+    public class AnimatorController: MonoBehaviour
+    {
+        protected Animator _animator;
+        protected Rigidbody2D _rigidbody;
+        protected SpriteRenderer _spriteRenderer;
+        protected AudioSource _audioSource;
+        protected CharacterSheet _characterSheet;
+        protected CharacterControl _characterControl;
+        
+
+        protected CharacterManager _characterManager;
+        protected float _speed;
+        protected Material _defaultMaterial;
+
+        protected Vector2 lookDirection = new Vector2(1, 0); //default look right
+        //for storing animator string hashes
+        protected int aFloatSpeed;
+        protected int aFloatLookX;
+        protected int aFloatLookY;
+        protected int aTriggerDamageNormal;
+        protected int aTriggerFalling;
+        protected int aTriggerDeathByDamage;
+
+        public event EventHandler<DeathEventArgs> OnDeathAnimationComplete;
+        
+
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+            _rigidbody = GetComponent<Rigidbody2D>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _audioSource = GetComponent<AudioSource>();
+            _characterSheet = GetComponent<CharacterSheet>();
+            _characterControl = GetComponent<CharacterControl>();
+
+
+            _characterManager = FindObjectOfType<CharacterManager>();
+
+            _defaultMaterial = _spriteRenderer.material;
+
+            //cache hashes for animation strings
+            aFloatSpeed = Animator.StringToHash("Speed");
+            aFloatLookX = Animator.StringToHash("Look X");
+            aFloatLookY = Animator.StringToHash("Look Y");
+            aTriggerDamageNormal = Animator.StringToHash("DamageNormal");
+            aTriggerFalling = Animator.StringToHash("Falling");
+            aTriggerDeathByDamage = Animator.StringToHash("DeathByDamage");
+        }
+
+        private void Start()
+        {
+            _characterControl.OnDying += OnDying;
+            _characterControl.OnDamage += OnDamage;
+        }
+
+        private void Update()
+        {
+            //grab acceleration input
+            SetLookDirection();
+            _animator.SetFloat(aFloatSpeed, _rigidbody.velocity.magnitude);
+        }
+
+        private void OnDestroy()
+        {
+            _characterControl.OnDying -= OnDying;
+            _characterControl.OnDamage -= OnDamage;
+        }
+
+
+        //set the look direction based on the accerometer input
+        //  look direction is independent of movement calculations in FixedUpdate
+        //  helps to determine 
+        protected virtual void SetLookDirection()
+        {
+            Vector2 input_acceleration = _characterManager.Input_Acceleration;
+            if (!Mathf.Approximately(input_acceleration.x, 0.0f) || !Mathf.Approximately(input_acceleration.y, 0.0f))
+            {
+                lookDirection = input_acceleration;
+                lookDirection.Normalize();
+            }
+
+            _animator.SetFloat(aFloatLookX, lookDirection.x);
+            _animator.SetFloat(aFloatLookY, lookDirection.y);
+        }
+
+        public virtual void SetAnimationSpeed(float targetSpeed)
+        {
+            _animator.speed = targetSpeed;
+        }
+
+        public virtual void UpdateSpriteMaterial(Material material)
+        {
+            _spriteRenderer.material = material;
+        }
+
+        public virtual Material GetCurrentMaterial()
+        {
+            return _spriteRenderer.material;
+        }
+
+        public virtual void ResetMaterial()
+        {
+            _spriteRenderer.material = _defaultMaterial;
+        }
+
+        public virtual void SetBodyType(RigidbodyType2D rigidbodyType2D)
+        {
+            _rigidbody.bodyType = rigidbodyType2D;
+        }
+
+        public void OnDamage(object sender, DamageEventArgs e)
+        {
+            switch (e.DamageType)
+            {
+                case DamageType.Normal:
+                    _animator.SetTrigger(aTriggerDamageNormal);
+                    break;
+                default:
+                    Debug.LogWarning("Unhandled damage type enum!", this);
+                    break;
+            }
+        }
+
+        public void OnDying(object sender, DeathEventArgs e)
+        {
+            switch (e.DeathType)
+            {
+                case DeathType.Falling:
+                    _animator.SetTrigger(aTriggerFalling);
+                    _audioSource.clip = _characterSheet.baseStats.ClipDeathFall;
+                    _audioSource.Play();
+                    break;
+                case DeathType.Damage:
+                    _animator.SetTrigger(aTriggerDeathByDamage);
+                    break;
+                case DeathType.Fire:
+                    break;
+                case DeathType.Poison:
+                    break;
+                default:
+                    Debug.LogWarning("Unhandled deathtype enum!");
+                    break;
+            }
+            StartCoroutine(AnimationDelay(delay: 0.5f, deathType: e.DeathType));
+            
+        }
+
+        protected virtual IEnumerator AnimationDelay(float delay, DeathType deathType)
+        {
+            
+            yield return new WaitForSeconds(delay);
+            OnDeathAnimationComplete?.Invoke(this, new DeathEventArgs(deathType));
+            Destroy(gameObject);
+        }
+    }
+}

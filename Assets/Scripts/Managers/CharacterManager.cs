@@ -13,7 +13,6 @@ namespace MarblesAndMonsters
         public Vector2 Input_Acceleration { get; set; }
 
         //references to various game objects
-        private List<CharacterControl> characters;
         private List<InventoryItem> inventoryItems;
         private List<SpellPickupBase> spellPickups;
         private List<KeyItem> keyItems;
@@ -21,7 +20,7 @@ namespace MarblesAndMonsters
         private List<Gate> gates;
         private List<SpellEffectBase> spellEffects;
 
-        public List<CharacterControl> Characters => characters;
+        public List<CharacterControl> Characters;
 
         /// <summary>
         /// cache references to all spawnpoints, inventory items, gates, and keys
@@ -106,14 +105,14 @@ namespace MarblesAndMonsters
 
         internal int StoreCharacters()
         {
-            characters = new List<CharacterControl>(FindObjectsOfType<CharacterControl>());
+            Characters = new List<CharacterControl>(FindObjectsOfType<CharacterControl>());
 
             string charlist = "";
-            foreach (var character in characters) { charlist += $"{character.gameObject.name}, "; }
+            foreach (var character in Characters) { charlist += $"{character.gameObject.name}, "; }
             //Debug.Log(String.Format("there are {0} characters : {1}", characters.Count,charlist));
-            if (characters.Count > 0)
+            if (Characters.Count > 0)
             {
-                return characters.Count;
+                return Characters.Count;
             }
             else
             {
@@ -124,11 +123,11 @@ namespace MarblesAndMonsters
         //return true if a character was added
         internal bool StoreCharacter(CharacterControl character)
         {
-            if (characters == null) { StoreCharacters(); }
-            if (characters.Contains(character)) { return false; }
+            if (Characters == null) { StoreCharacters(); }
+            if (Characters.Contains(character)) { return false; }
             else
             {
-                characters.Add(character);
+                Characters.Add(character);
                 return true;
             }
         }
@@ -137,7 +136,7 @@ namespace MarblesAndMonsters
         //move all characters
         public void MoveAll()
         {
-            foreach (CharacterControl character in characters.FindAll(x => x != null))
+            foreach (CharacterControl character in Characters.FindAll(x => x != null))
             {
                 if (character.gameObject.activeInHierarchy && character.MySheet.IsBoardMovable)
                 {

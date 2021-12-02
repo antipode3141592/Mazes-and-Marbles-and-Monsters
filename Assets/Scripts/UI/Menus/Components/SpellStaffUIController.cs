@@ -7,12 +7,12 @@ namespace MarblesAndMonsters.Menus.Components
 {
 
 
-    public class QuickAccessController : MonoBehaviour
+    public class SpellStaffUIController : MonoBehaviour
     {
         [SerializeField]
         protected List<QuickAccessSlot> quickSlot;
 
-        public static int QuickSlotMax = 2; //start with 2 quickslots, some items may change this
+        public static int QuickSlotMax = 2;
 
         /// <summary>
         /// 
@@ -20,12 +20,16 @@ namespace MarblesAndMonsters.Menus.Components
         /// <param name="slot">index of quickslot to be assigned</param>
         /// <param name="item">reference to item</param>
         /// <returns></returns>
-        public void AssignQuickAccess(int slot, SpellStats spellStats)
+        public void AssignSpellSlot(int slot, SpellStats spellStats)
         {
+            if (!quickSlot[slot].isActiveAndEnabled)
+            {
+                quickSlot[slot].gameObject.SetActive(true);
+            }
             quickSlot[slot].AssignSlot(spellStats);
         }
 
-        public void UnassignQuickAccess(int slot)
+        public void UnassignSpellSlot(int slot)
         {
             quickSlot[slot].UnassignSlot();
         }
@@ -38,10 +42,10 @@ namespace MarblesAndMonsters.Menus.Components
             }
         }
 
-        protected void OnEnable()
-        {
-            AssignAllSpellSlots();
-        }
+        //protected void OnEnable()
+        //{
+        //    AssignAllSpellSlots();
+        //}
 
         public void AssignAllSpellSlots()
         {
@@ -53,7 +57,7 @@ namespace MarblesAndMonsters.Menus.Components
                 {
                     if (spelldata.Value.IsQuickSlotAssigned)
                     {
-                        AssignQuickAccess(spelldata.Value.QuickSlot, spelldata.Value.SpellStats);
+                        AssignSpellSlot(spelldata.Value.QuickSlot, spelldata.Value.SpellStats);
                     }
                 }
             }

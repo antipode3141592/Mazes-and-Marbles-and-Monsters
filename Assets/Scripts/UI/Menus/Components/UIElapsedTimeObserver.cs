@@ -15,14 +15,15 @@ namespace MarblesAndMonsters.Menus.Components
         private void Awake()
         {
             _timeTracker = FindObjectOfType<TimeTracker>();
-        }
-
-        private void OnEnable()
-        {
             _timeTracker.IngameTimeEvent += OnTimerChange;
         }
 
-        private void OnDisable()
+        private void Start()
+        {
+            ingameTimerText.text = "";
+        }
+
+        private void OnDestroy()
         {
             _timeTracker.IngameTimeEvent -= OnTimerChange;
         }

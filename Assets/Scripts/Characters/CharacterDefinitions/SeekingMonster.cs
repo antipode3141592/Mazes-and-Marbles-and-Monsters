@@ -17,29 +17,16 @@ namespace MarblesAndMonsters.Characters
             IMover mover = GetComponent<IMover>();
             MeleeController meleeController = GetComponent<MeleeController>();
             RangedController rangedController = GetComponent<RangedController>();
+            AnimatorController animatorController = GetComponent<AnimatorController>();
 
             Idle idle = new Idle(mover);
             Hunting hunting = new Hunting(mover, meleeController, _stateMachine);
-            Dying dying = new Dying(mover);
+            Dying dying = new Dying(mover, animatorController);
 
             _stateMachine.SetState(idle);
 
-            void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
-            void AtAny(IState to, Func<bool> condition) => _stateMachine.AddAnyTransition(to, condition);
-        }
-
-        //for Mummy's, their look direction is their directional vector
-        protected override void SetLookDirection()
-        {
-            Vector2 direction = MyRigidbody.velocity;
-            if (!Mathf.Approximately(direction.x, 0.0f) || !Mathf.Approximately(direction.y, 0.0f))
-            {
-                lookDirection = direction;
-                lookDirection.Normalize();
-            }
-
-            animator.SetFloat(aFloatLookX, lookDirection.x);
-            animator.SetFloat(aFloatLookY, lookDirection.y);
+            //void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
+            //void AtAny(IState to, Func<bool> condition) => _stateMachine.AddAnyTransition(to, condition);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace MarblesAndMonsters.Menus
         public ScrollCounterController treasureUI;
         public InventoryUIController inventoryUI;
         public KeyChainUIController keychainUI;
-        public QuickAccessController quickAccessController;
+        public SpellStaffUIController quickAccessController;
         public BackpackController backpackController;
 
         //[SerializeField]
@@ -23,7 +23,7 @@ namespace MarblesAndMonsters.Menus
             treasureUI = FindObjectOfType<ScrollCounterController>();
             inventoryUI = FindObjectOfType<InventoryUIController>();
             keychainUI = FindObjectOfType<KeyChainUIController>();
-            quickAccessController = FindObjectOfType<QuickAccessController>();
+            quickAccessController = FindObjectOfType<SpellStaffUIController>();
             backpackController = FindObjectOfType<BackpackController>(true); //include inactive
         }
 

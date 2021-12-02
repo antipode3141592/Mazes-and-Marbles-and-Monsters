@@ -52,7 +52,7 @@ namespace MarblesAndMonsters
         public bool FindEnemies(out List<GameObject> enemies)
         {
             enemies = new List<GameObject>();
-            foreach (var character in _characterManager.Characters)
+            foreach (var character in _characterManager.Characters.FindAll(x => x != null))
             {
                 if (character.isActiveAndEnabled && !character.MySheet.IsStealth && character.CompareTag(EnemyTag()))
                 {

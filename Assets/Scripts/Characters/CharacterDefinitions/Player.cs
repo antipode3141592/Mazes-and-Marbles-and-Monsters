@@ -142,9 +142,17 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            _gameManager.LevelLose();
+        }
+
+
         //cleanup for static instance
         protected virtual void OnDestroy()
         {
+            
             if (_instance == this)
             {
                 _instance = null;
@@ -222,7 +230,7 @@ namespace MarblesAndMonsters.Characters
         /// <param name="stats"></param>
         public void AddtoActiveSpells(SpellStats stats)
         {
-            for (int i = 0; i < QuickAccessController.QuickSlotMax; i++)
+            for (int i = 0; i < SpellStaffUIController.QuickSlotMax; i++)
             {
                 //if any spell is assigned to slot i, skip
                 if (MySheet.Spells.Any(x => x.Value.QuickSlot == i && x.Value.IsQuickSlotAssigned))
@@ -236,7 +244,7 @@ namespace MarblesAndMonsters.Characters
                     
                 if (_gameMenu)
                 {
-                    _gameMenu.quickAccessController.AssignQuickAccess(i, stats);
+                    _gameMenu.quickAccessController.AssignSpellSlot(i, stats);
                 }
                 break;
             }
@@ -279,6 +287,7 @@ namespace MarblesAndMonsters.Characters
         {
             base.PreDeathAnimation();
             deathCount++;
+            ResetInventoryItems();
             OnPlayerDeath?.Invoke(this, EventArgs.Empty);
             if (_gameMenu)
             {
@@ -286,17 +295,9 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
-        protected override IEnumerator DeathAnimation(DeathType deathType)
-        {
-            ResetInventoryItems();
-            yield return new WaitForSeconds(0.5833f);  //death animations are 7 frames, current fps is 12
-            _gameManager.LevelLose();
-        }
-
         public override void TakeDamage(int damageAmount, DamageType damageType)
         {
             base.TakeDamage(damageAmount, damageType);
-            animator.SetTrigger(aTriggerDamageNormal);
             _gameMenu.healthBarController.UpdateHealth();
         }
 
@@ -311,19 +312,6 @@ namespace MarblesAndMonsters.Characters
         {
             audioSource.clip = MySheet.baseStats.ClipHit;
             audioSource.Play();
-        }
-
-        protected override void SetLookDirection()
-        {
-            Vector2 direction = MyRigidbody.velocity;
-            if (!Mathf.Approximately(direction.x, 0.0f) || !Mathf.Approximately(direction.y, 0.0f))
-            {
-                lookDirection = direction;
-                lookDirection.Normalize();
-            }
-
-            animator.SetFloat(aFloatLookX, lookDirection.x);
-            animator.SetFloat(aFloatLookY, lookDirection.y);
         }
     }
 }

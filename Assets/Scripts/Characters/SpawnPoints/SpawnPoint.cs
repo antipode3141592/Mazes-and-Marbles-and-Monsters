@@ -110,7 +110,7 @@ namespace MarblesAndMonsters.Characters
         /// <param name="character"></param>
         protected virtual void AfterSpawn(CharacterControl character)
         {
-            Debug.Log(string.Format("{0} has been spawned!", character.name));
+            Debug.Log(string.Format("{0} has been spawned!", character.name), gameObject);
         }
 
         /// <summary>

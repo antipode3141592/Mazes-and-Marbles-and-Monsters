@@ -25,13 +25,14 @@ namespace MarblesAndMonsters.Characters
             IMover mover = GetComponent<IMover>();
             RangedController rangedController = GetComponent<RangedController>();
             MeleeController meleeController = GetComponent<MeleeController>();
+            AnimatorController animatorController = GetComponent<AnimatorController>();
 
             Idle idle = new Idle(mover);
             Roaming roaming = new Roaming(mover, rangedController);
             Hunting hunting = new Hunting(mover, meleeController, _stateMachine);
             Aiming aiming = new Aiming(mover, rangedController, _stateMachine);
             Shooting shooting = new Shooting(mover, rangedController);
-            Dying dying = new Dying(mover);
+            Dying dying = new Dying(mover, animatorController);
 
             At(from: idle, to: roaming, condition: TimeElapsed(3f));
 
@@ -51,8 +52,6 @@ namespace MarblesAndMonsters.Characters
 
             void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
             void AtAny(IState to, Func<bool> condition) => _stateMachine.AddAnyTransition(to, condition);
-
-
 
             Func<bool> IsDying() => () => isDying == true;
             Func<bool> EnemyInLineOfSight() => () =>

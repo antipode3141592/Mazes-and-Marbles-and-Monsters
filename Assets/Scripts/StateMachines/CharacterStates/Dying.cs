@@ -13,14 +13,19 @@ namespace MarblesAndMonsters.States.CharacterStates
     public class Dying : IState
     {
         IMover _mover;
-        public Dying(IMover mover) 
+        AnimatorController _animatorController;
+        CharacterManager _characterManager;
+        CharacterControl _characterControl;
+
+        public Dying(IMover mover, AnimatorController animatorController) 
         {
             _mover = mover;
+            _animatorController = animatorController;
         }
 
         public void OnEnter()
         {
-            
+            _mover.Stop();
         }
 
         public void OnExit()

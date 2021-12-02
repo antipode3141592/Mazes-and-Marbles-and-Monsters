@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1685750014967127568}
   - component: {fileID: 1685750014967127569}
   - component: {fileID: 1836887869019381290}
-  - component: {fileID: 5383108190408824824}
   - component: {fileID: 4171957815178582534}
   - component: {fileID: 6712585708218962869}
   - component: {fileID: 7774725849334288606}
@@ -23,7 +22,8 @@ GameObject:
   - component: {fileID: 362238843259538060}
   - component: {fileID: 6374589758187542170}
   - component: {fileID: 9060467555258216408}
-  - component: {fileID: 8425360469187557844}
+  - component: {fileID: 6259089368879187232}
+  - component: {fileID: 1323062970345470950}
   m_Layer: 11
   m_Name: Mummy
   m_TagString: Monster
@@ -41,6 +41,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3587979251372763072}
   - {fileID: 8438543037086985453}
@@ -59,6 +60,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -153,22 +155,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.6
---- !u!58 &5383108190408824824
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1685750014967127573}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 5
 --- !u!114 &4171957815178582534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +193,7 @@ MonoBehaviour:
   DamageImmunities: 
 --- !u!95 &7774725849334288606
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -220,6 +206,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -237,6 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShadowGroup: 0
+  m_ComponentVersion: 1
   m_HasRenderer: 1
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
@@ -249,7 +237,7 @@ MonoBehaviour:
   - {x: -0.15625, y: 0.21875, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 40684
+  m_InstanceId: 44154
 --- !u!114 &7607154481445827772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,7 +417,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8425360469187557844
+--- !u!114 &6259089368879187232
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -438,7 +426,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1685750014967127573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e728abd37249dd409de2ba8f8fb5c60, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e77676897ec56241828a021457adffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AttackAvailable: 1
@@ -453,7 +441,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 3072
+      m_Bits: 1024
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
@@ -472,6 +460,18 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+--- !u!114 &1323062970345470950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685750014967127573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 842f18ab7236aa34bb4f184c79f532b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1399402214501059231
 PrefabInstance:
   m_ObjectHideFlags: 0

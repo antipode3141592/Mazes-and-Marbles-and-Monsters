@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6087339824030579653}
   - component: {fileID: 1894771144058990907}
-  - component: {fileID: 912836509809699323}
+  - component: {fileID: 966514982786366837}
+  - component: {fileID: 5461061519039870510}
   m_Layer: 8
   m_Name: VineElementalSpawnPoint
   m_TagString: SpawnPoint
@@ -28,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -43,6 +45,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -83,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &912836509809699323
+--- !u!114 &966514982786366837
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,7 +95,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 2002946642886588611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a779f4436deda8a469144b3816cc547d, type: 3}
+  m_Script: {fileID: 11500000, guid: f457d6d0dd62196408715ac933216d20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectilePrefab: {fileID: 7962701096921306332, guid: 0b354cd9d7f19a746bc9cd7d390d146c,
+    type: 3}
+--- !u!114 &5461061519039870510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002946642886588611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7345cef4cce43574da7b1fa04bcb67a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterPrefab: {fileID: 4995651374173321987, guid: 673ddb599eba60e4fba43963e768ff78,
@@ -101,3 +118,5 @@ MonoBehaviour:
   spawnOffset: {x: 0, y: 0}
   isAvailable: 1
   spawnAnimationDelay: 0
+  _projectilePooler: {fileID: 966514982786366837}
+  _triggerCollider: {fileID: 0}

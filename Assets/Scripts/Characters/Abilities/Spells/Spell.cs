@@ -7,20 +7,6 @@ using UnityEngine;
 
 namespace MarblesAndMonsters
 {
-    /// <summary>
-    /// The spell types
-    /// </summary>
-
-
-    public class SpellEventArgs : EventArgs
-    {
-        public SpellStats SpellStats;
-
-        public SpellEventArgs(SpellStats spellStats)
-        {
-            SpellStats = spellStats;
-        }
-    }
 
     /// <summary>
     /// Spells are objects that must be attached to an object with a CharacterControl.
@@ -32,6 +18,7 @@ namespace MarblesAndMonsters
     {
         protected Rigidbody2D _rigidbody;
         protected CharacterControl _characterControl;
+        protected AnimatorController _animatorController;
         public SpellStats SpellStats;
         public ParticleSystem ParticleEffect;
 
@@ -86,6 +73,7 @@ namespace MarblesAndMonsters
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             _characterControl = GetComponentInParent<CharacterControl>();
+            _animatorController = GetComponent<AnimatorController>();
         }
 
         protected virtual void OnEnable()

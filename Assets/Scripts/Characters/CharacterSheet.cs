@@ -57,7 +57,7 @@ namespace MarblesAndMonsters.Characters
             get { return currentHealth; } 
             set { 
                 currentHealth = Mathf.Clamp(value,0,maxHealth);
-                Debug.Log($"{gameObject.name} has health: {currentHealth}");
+                //Debug.Log($"{gameObject.name} has health: {currentHealth}");
             } 
         }
 
