@@ -62,7 +62,6 @@ namespace MarblesAndMonsters
             }
             foreach (SpawnPoint spawnPoint in spawnPoints)
             {
-                spawnPoint.isAvailable = false;
                 spawnPoint.Reset();
             }
             foreach (KeyItem keyItem in keyItems)
@@ -88,14 +87,13 @@ namespace MarblesAndMonsters
         {
             foreach (SpawnPoint spawnPoint in spawnPoints)
             {
-                //StartCoroutine(spawnPoint.Spawn(0.0f));
-                //some spawnPoints begin in an unavailable state (and made available by some trigger)
-                spawnPoint.isAvailable = true;
-                spawnPoint.SpawnCharacter();
+                if (spawnPoint.isAvailable)
+                { 
+                    spawnPoint.SpawnCharacter(); 
+                }
             }
             foreach (InventoryItem item in inventoryItems)
             {
-                //item.Reset();
                 if (!item.isActiveAndEnabled) { item.gameObject.SetActive(true); }
             }
 

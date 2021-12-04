@@ -20,7 +20,7 @@ namespace MarblesAndMonsters.Characters
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Player"))
+            if (collision.CompareTag("Player") && !collision.isTrigger)
             {
                 animator.SetTrigger("Open");
                 triggerCollider.enabled = false;

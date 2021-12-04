@@ -11,11 +11,13 @@ namespace MarblesAndMonsters.Menus
         private ScreenFader _screenFader;
 
         MenuManager _menuManager;
+        LevelManager _levelManager;
 
         [Inject]
-        public void Init(MenuManager menuManager)
+        public void Init(MenuManager menuManager, LevelManager levelManager)
         {
             _menuManager = menuManager;
+            _levelManager = levelManager;
         }
 
         [SerializeField]
@@ -38,12 +40,12 @@ namespace MarblesAndMonsters.Menus
 
         private IEnumerator FadeAndLoadRoutine()
         {
-            _menuManager.OpenMenu(MenuTypes.MainMenu);
+            //_menuManager.OpenMenu(MenuTypes.MainMenu);
             _screenFader.FadeOff();
             //wait for fade
             yield return new WaitForSeconds(_screenFader.FadeOffDuration);
             //remove the splash screen object
-            Object.Destroy(gameObject);
+            _levelManager.LoadMainMenuLevel();
         }
     }
 }

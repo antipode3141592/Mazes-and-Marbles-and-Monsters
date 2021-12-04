@@ -16,6 +16,8 @@ namespace LevelManagement.Levels
         [SerializeField] private List<LevelSpecs> levels;
         [SerializeField] private string mapId;
         [SerializeField] private string firstLevelId;
+        [SerializeField] public int managerSceneIndex = 0;   //splash screen is build index 0
+        [SerializeField] public int lightingSceneIndex = 1;   //splash screen is build index 0
         #endregion
 
         public List<LevelSpecs> Levels => levels;

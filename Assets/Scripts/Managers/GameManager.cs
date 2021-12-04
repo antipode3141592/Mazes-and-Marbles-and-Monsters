@@ -53,17 +53,18 @@ namespace MarblesAndMonsters
         private void Awake()
         {
             stateMachine = GetComponent<StateMachine>();
+            var timeTracker = FindObjectOfType<TimeTracker>();
             var states = new Dictionary<Type, BaseState>()
             {
                 {typeof(START), new START(manager: this) },
                 {typeof(PopulateLevel), new PopulateLevel(manager: this, characterManager: _characterManager) },
-                {typeof(Playing), new Playing(manager: this, characterManager: _characterManager) },
-                {typeof(Paused), new Paused(manager: this) },
+                {typeof(Playing), new Playing(manager: this, characterManager: _characterManager, timeTracker) },
+                {typeof(Paused), new Paused(manager: this, timeTracker) },
                 {typeof(Victory), new Victory(manager: this, menuManager: _menuManager, characterManager: _characterManager) },
                 {typeof(Defeat), new Defeat(manager: this, menuManager: _menuManager, characterManager: _characterManager) },
                 {typeof(END), new END(manager: this) }
             };
-            Debug.Log($"{name} is storing the following states:  {states.Keys.ToString()}");
+            Debug.Log($"{name} is storing the following states:  {states.Keys}");
             stateMachine.SetStates(states);
         }
         #endregion

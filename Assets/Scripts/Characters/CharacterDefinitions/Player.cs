@@ -1,5 +1,6 @@
 ﻿using Cinemachine;
 using LevelManagement.DataPersistence;
+using MarblesAndMonsters.Events;
 using MarblesAndMonsters.Items;
 using MarblesAndMonsters.Lighting;
 using MarblesAndMonsters.Menus;
@@ -142,12 +143,6 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-            _gameManager.LevelLose();
-        }
-
 
         //cleanup for static instance
         protected virtual void OnDestroy()
@@ -288,11 +283,17 @@ namespace MarblesAndMonsters.Characters
             base.PreDeathAnimation();
             deathCount++;
             ResetInventoryItems();
+            
             OnPlayerDeath?.Invoke(this, EventArgs.Empty);
             if (_gameMenu)
             {
                 _gameMenu.quickAccessController.ClearAll();
             }
+        }
+
+        public override void OnDeathAnimationCompleted(object sender, DeathEventArgs deathEventArgs)
+        {
+            _gameManager.LevelLose();
         }
 
         public override void TakeDamage(int damageAmount, DamageType damageType)

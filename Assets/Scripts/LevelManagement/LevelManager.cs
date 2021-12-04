@@ -14,8 +14,6 @@ namespace LevelManagement
     //
     public class LevelManager : MonoBehaviour
     {
-        private static readonly int managerSceneIndex = 0;   //splash screen is build index 0
-        private static readonly int lightingSceneIndex = 1;   //splash screen is build index 0
         [SerializeField] private LevelList levelList;    //scriptable object with all accessible levels
         [SerializeField] private TransitionFader levelLoadTransition;
 
@@ -46,11 +44,16 @@ namespace LevelManagement
 
         private void Start()
         {
-            //if there are two scenes open OnStart, it's a debug/playtest situation where the 
+
+
+            //if there are three scenes open OnStart, it's a debug/playtest situation where the 
             // scene level is all ready loaded, so we need to trigger start of level manually here
             if (SceneManager.sceneCount == 3)
             {
                 _gameManager.ShouldBeginLevel = true;
+            } else
+            {
+                LoadMainMenuLevel();
             }
         }
 
@@ -120,25 +123,31 @@ namespace LevelManagement
 
         public void LoadMainMenuLevel()
         {
-            //LoadLevel(mainMenuIndex);
-            StartCoroutine(LoadManagers());
-            
+            StartCoroutine(LoadManagers());   
         }
 
         IEnumerator LoadManagers()
         {
-            //AsyncOperation async = SceneManager.LoadSceneAsync(1);
-            //while (!async.isDone)
-            //{
-            //    yield return null;
-            //}
-            AsyncOperation async = SceneManager.LoadSceneAsync(managerSceneIndex, LoadSceneMode.Single);
-            AsyncOperation async2 = SceneManager.LoadSceneAsync(lightingSceneIndex, LoadSceneMode.Additive);
-            while (!async.isDone && !async2.isDone)
+            if (SceneManager.sceneCount == 1 && SceneManager.GetActiveScene().buildIndex == levelList.managerSceneIndex)
             {
-                yield return null;
+                AsyncOperation async = SceneManager.LoadSceneAsync(levelList.lightingSceneIndex, LoadSceneMode.Additive);
+                while (!async.isDone)
+                {
+                    yield return null;
+                }
+            } else
+            {
+                AsyncOperation async2 = SceneManager.LoadSceneAsync(levelList.managerSceneIndex, LoadSceneMode.Single);
+                AsyncOperation async3 = SceneManager.LoadSceneAsync(levelList.lightingSceneIndex, LoadSceneMode.Additive);
+                while (!async2.isDone && !async3.isDone)
+                {
+                    yield return null;
+                }
             }
+            
         }
+
+
 
         /// <summary>
         /// Return LevelSpecs for a given ID given by string id

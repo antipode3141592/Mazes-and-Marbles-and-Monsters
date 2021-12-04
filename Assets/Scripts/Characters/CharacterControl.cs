@@ -79,6 +79,7 @@ namespace MarblesAndMonsters.Characters
             //comment: subscribe!
             MySheet.OnInvincible += InvincibileOnHandler;
             MySheet.OnInvincibleEnd += InvincibileOffHandler;
+            animatorController.OnDeathAnimationComplete += OnDeathAnimationCompleted;
         }
 
         protected virtual void Start()
@@ -107,6 +108,7 @@ namespace MarblesAndMonsters.Characters
             //MySheet.OnBurningEnd -= FireOffHandler;
             MySheet.OnInvincible -= InvincibileOnHandler;
             MySheet.OnInvincibleEnd -= InvincibileOffHandler;
+            animatorController.OnDeathAnimationComplete -= OnDeathAnimationCompleted;
             //if this character is the respawning type, start the spawn coroutine
             if (mySheet.RespawnFlag)
             {
@@ -255,7 +257,11 @@ namespace MarblesAndMonsters.Characters
 
         }
 
-        
+        public virtual void OnDeathAnimationCompleted(object sender, DeathEventArgs deathEventArgs)
+        {
+
+        }
+
         #endregion
     }
 }

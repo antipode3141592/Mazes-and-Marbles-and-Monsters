@@ -7,7 +7,7 @@ using UnityEngine;
 namespace MarblesAndMonsters
 {
     [RequireComponent(typeof(Animator))]
-    public class AnimatorController: MonoBehaviour
+    public class AnimatorController : MonoBehaviour
     {
         protected Animator _animator;
         protected Rigidbody2D _rigidbody;
@@ -15,7 +15,7 @@ namespace MarblesAndMonsters
         protected AudioSource _audioSource;
         protected CharacterSheet _characterSheet;
         protected CharacterControl _characterControl;
-        
+
 
         protected CharacterManager _characterManager;
         protected float _speed;
@@ -31,7 +31,7 @@ namespace MarblesAndMonsters
         protected int aTriggerDeathByDamage;
 
         public event EventHandler<DeathEventArgs> OnDeathAnimationComplete;
-        
+
 
         private void Awake()
         {
@@ -75,19 +75,9 @@ namespace MarblesAndMonsters
             _characterControl.OnDamage -= OnDamage;
         }
 
-
-        //set the look direction based on the accerometer input
-        //  look direction is independent of movement calculations in FixedUpdate
-        //  helps to determine 
         protected virtual void SetLookDirection()
         {
-            Vector2 input_acceleration = _characterManager.Input_Acceleration;
-            if (!Mathf.Approximately(input_acceleration.x, 0.0f) || !Mathf.Approximately(input_acceleration.y, 0.0f))
-            {
-                lookDirection = input_acceleration;
-                lookDirection.Normalize();
-            }
-
+            lookDirection = _rigidbody.velocity.normalized;
             _animator.SetFloat(aFloatLookX, lookDirection.x);
             _animator.SetFloat(aFloatLookY, lookDirection.y);
         }
@@ -151,15 +141,21 @@ namespace MarblesAndMonsters
                     break;
             }
             StartCoroutine(AnimationDelay(delay: 0.5f, deathType: e.DeathType));
-            
+
         }
 
         protected virtual IEnumerator AnimationDelay(float delay, DeathType deathType)
         {
-            
+
             yield return new WaitForSeconds(delay);
+            AfterDeathAnimation();
             OnDeathAnimationComplete?.Invoke(this, new DeathEventArgs(deathType));
             Destroy(gameObject);
+        }
+
+        protected virtual void AfterDeathAnimation()
+        {
+
         }
     }
 }

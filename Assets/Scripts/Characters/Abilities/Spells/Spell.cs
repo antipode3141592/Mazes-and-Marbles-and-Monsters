@@ -73,7 +73,7 @@ namespace MarblesAndMonsters
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             _characterControl = GetComponentInParent<CharacterControl>();
-            _animatorController = GetComponent<AnimatorController>();
+            _animatorController = GetComponentInParent<AnimatorController>();
         }
 
         protected virtual void OnEnable()
