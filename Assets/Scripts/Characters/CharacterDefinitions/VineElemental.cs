@@ -34,7 +34,7 @@ namespace MarblesAndMonsters.Characters
             Shooting shooting = new Shooting(mover, rangedController);
             Dying dying = new Dying(mover, animatorController);
 
-            At(from: idle, to: roaming, condition: TimeElapsed(3f));
+            At(from: idle, to: roaming, condition: TimeElapsed(1f));
 
             At(from: roaming, to: idle, TimeElapsed(30f));
             At(from: roaming, to: aiming, EnemyInLineOfSight());

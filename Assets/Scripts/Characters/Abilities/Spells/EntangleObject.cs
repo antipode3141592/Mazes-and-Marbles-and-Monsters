@@ -40,7 +40,7 @@ namespace MarblesAndMonsters.Spells
 
         private void OnTriggerStay2D(Collider2D collision)
         {
-            if (!collision.isTrigger && gameObject != _caster)
+            if (!collision.isTrigger && !collision.gameObject.Equals(Caster))
             {
                
                 GameObject character = collision.gameObject;
@@ -48,7 +48,7 @@ namespace MarblesAndMonsters.Spells
 
                 if (!entangledCharacters.ContainsKey(character) && animatorController)
                 {
-                    Debug.Log($"{character.name} is entangled!");
+                    Debug.Log($"{Caster.name}'s spell has entangled {character.name}!");
                     animatorController.SetBodyType(RigidbodyType2D.Static);
                     //generate a Vine.  vines have this object's transform as a parent, so when it is destroyed, all vines are destroyed
                     Instantiate(VinePrefab, character.transform.position, Quaternion.identity, transform);

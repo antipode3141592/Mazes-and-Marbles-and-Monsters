@@ -15,12 +15,11 @@ namespace MarblesAndMonsters.Projectiles
 
         internal override void CollisionFunction(Collision2D collision)
         {
-            
-                Debug.Log(string.Format("{0} has struck {1}", name, collision.gameObject.name));
-                var _entangleObject = Instantiate<EntangleObject>(entanglePrefab, transform.position, Quaternion.identity);
-                _entangleObject.tag = Caster.tag;
-                _entangleObject.SetCaster(Caster);
-                _entangleObject.SetDeathTime(ProjectileStats.EffectDuration);
+            Debug.Log(string.Format("{0} has struck {1}", name, collision.gameObject.name));
+            var _entangleObject = Instantiate<EntangleObject>(entanglePrefab, transform.position, Quaternion.identity);
+            _entangleObject.tag = Caster.tag;
+            _entangleObject.Caster = Caster; ;
+            _entangleObject.SetDeathTime(ProjectileStats.EffectDuration);
         }
     }
 }

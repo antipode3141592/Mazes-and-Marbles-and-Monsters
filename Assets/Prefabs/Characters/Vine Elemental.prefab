@@ -127,7 +127,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 4294967295
     useGraphRaycasting: 0
-  traversableTags: -1
+  traversableTags: -3
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: 1
@@ -436,6 +436,7 @@ MonoBehaviour:
     maxNormalAngle: 0
   CurrentTarget: {fileID: 0}
   projectileStats: {fileID: 11400000, guid: 763dfacbf7b6b5a4ebe4be2f3da0db30, type: 2}
+  ProjectilePooler: {fileID: 0}
 --- !u!114 &7699617189250761245
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -58,6 +58,7 @@ namespace MarblesAndMonsters
             //Projectile projectile = _projectileGameObject.GetComponent<Projectile>();
             //projectile.Caster = gameObject;
             proj.Caster = gameObject;
+            proj.tag = gameObject.tag;
 
             yield return new WaitForSeconds(attackDelay);
             proj.SetDirection(direction);
