@@ -14,9 +14,7 @@ namespace MarblesAndMonsters.Menus
 
     public class MenuManager : MonoBehaviour
     {
-        bool ShowSplashScreen;
 
-        private SplashScreen splashScreen;
         private Dictionary<MenuTypes, Menu> menuCollection = new Dictionary<MenuTypes, Menu>();
         private Stack<Menu> _menuStack = new Stack<Menu>();
 
@@ -30,9 +28,6 @@ namespace MarblesAndMonsters.Menus
 
         private void Awake()
         {
-            ShowSplashScreen = true;
-            //the true flag is to include inactive objects
-            splashScreen = FindObjectOfType<SplashScreen>(true);
             menuCollection.Add(MenuTypes.MainMenu, FindObjectOfType<MainMenu>(true));            
             menuCollection.Add(MenuTypes.CreditsMenu, FindObjectOfType<CreditsMenu>(true));
 
@@ -58,17 +53,9 @@ namespace MarblesAndMonsters.Menus
         /// </summary>
         private void InitializeMenus()
         {
-            if (SceneManager.sceneCount == 1)
+            if (SceneManager.sceneCount == 2)
             {
-                if (ShowSplashScreen)
-                {
-                    splashScreen.gameObject.SetActive(true);
-                    ShowSplashScreen = false;
-                }
-                else
-                {
-                    OpenMenu(MenuTypes.MainMenu);
-                }
+                OpenMenu(MenuTypes.MainMenu);
             }
             else
             {
@@ -79,20 +66,20 @@ namespace MarblesAndMonsters.Menus
 
         public void OpenMenu(MenuTypes menuType)
         {
-            Debug.Log(string.Format("Opening Menu of Type: {0}", menuType.ToString()));
+            Debug.Log($"Opening Menu of Type: {menuType}");
             //if menus exist in stack, deactivate everything in stack
             if (_menuStack.Count > 0)
             {
                 foreach (Menu menu in _menuStack)
                 {
-                    Debug.Log(string.Format("Deactivating Menu in Stack: {0}", menu.name));
+                    Debug.Log($"Deactivating Menu in Stack: {menu.name}");
                     menu.gameObject.SetActive(false);
                 }
             }
             var _menu = menuCollection[menuType];
             _menu.gameObject.SetActive(true);
             _menuStack.Push(_menu);
-            Debug.Log(string.Format("After push to stack, there are {0} menus in _menuStack", _menuStack.Count));
+            Debug.Log($"After push to stack, there are {_menuStack.Count} menus in _menuStack");
         }
 
         //close the top of the menu stack
@@ -100,7 +87,7 @@ namespace MarblesAndMonsters.Menus
         {
             if (_menuStack.Count == 0)
             {
-                Debug.LogWarning("no menu to close, menu stack is empty");
+                Debug.LogWarning("no menu to close, menu stack is empty!");
                 return;
             }
             Menu topMenu = _menuStack.Pop();

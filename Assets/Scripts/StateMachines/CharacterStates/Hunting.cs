@@ -4,61 +4,43 @@ using UnityEngine;
 using System;
 using MarblesAndMonsters.Characters;
 using Pathfinding;
+using FiniteStateMachine;
 
 namespace MarblesAndMonsters.States.CharacterStates
 {
-    public class Hunting : CharacterState
+    public class Hunting : IState
     {
-        public override Type Type { get => typeof(Hunting); }
-
-        protected Vector2? roamDestination; //nullable destination vector
-        protected Seeker seeker;
-        protected Path path;
-        protected AiMover aiMover;
+        protected IMover _mover;
+        protected MeleeController _meleeController;
+        protected RangedController _rangedController;
         protected int AttackCounter;
-        protected int MinimumAttackCount = 1;
+        protected CharacterStateMachine _characterStateMachine;
 
-        public Hunting(CharacterControl character) : base(character)
+        public Hunting(IMover mover, MeleeController meleeController, CharacterStateMachine characterStateMachine)
         {
-            //colliders = new List<Collider2D>();
-            seeker = character.gameObject.GetComponent<Seeker>();
-            aiMover = character.gameObject.GetComponent<AiMover>();
-            timeToStateChange = 10f;
+            _mover = mover;
+            _meleeController = meleeController;
+            _characterStateMachine = characterStateMachine; 
         }
 
-        public override Type LogicUpdate()
+        public void Tick()
         {
-            timeToStateChangeTimer -= Time.deltaTime;
-            if (_character.Combat.MeleeAttackIsAvailable && TargetInMeleeRange())
+            _mover.Move();
+            if (_meleeController.TryAttack() > 0)
             {
-                //damage all damagables within the melee attack range
-                foreach (Collider2D collider in collisionCheckResults)
-                {
-                    if (collider.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
-                    {
-                        _character.Combat.MeleeAttack(damagable);
-                        AttackCounter++;
-                    }
-                }
+                AttackCounter++;
             }
-            else if (AttackCounter >= MinimumAttackCount && _character.Combat.RangedAttackIsAvailable && TargetInRangedRange())
-            {
-                return typeof(Aiming); //
-            }
-            if (timeToStateChangeTimer <= 0f)
-            {
-                aiMover.TargetTransform = null;
-                return typeof(Idle);    //if hunting for more than 10 seconds, take a rest
-            }
-            return typeof(Hunting);
         }
 
-        public override void Enter()
+        public void OnEnter()
         {
-            base.Enter();
             AttackCounter = 0;
-            aiMover.StartNewPath(MovementMode.Follow);
-            timeToStateChangeTimer = timeToStateChange;
+            _mover.SetTarget(_characterStateMachine.CurrentTarget);
+        }
+
+        public void OnExit()
+        {
+
         }
     }
 }

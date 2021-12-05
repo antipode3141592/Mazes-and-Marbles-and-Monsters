@@ -16,39 +16,43 @@ namespace MarblesAndMonsters.Spells
     {
         public GameObject VinePrefab;   //the vine object that enwraps entangled characters
         public CircleCollider2D CircleCollider2D;
-        protected List<CharacterControl> entangledCharacters;
+        protected Dictionary<GameObject, AnimatorController> entangledCharacters;
 
         protected override void Awake()
         {
             base.Awake();
             CircleCollider2D = GetComponent<CircleCollider2D>();
-            entangledCharacters = new List<CharacterControl>();
+            entangledCharacters = new Dictionary<GameObject, AnimatorController>();
         }
 
         public override void EndEffect()
         {
             CircleCollider2D.enabled = false;
-            foreach (CharacterControl character in entangledCharacters.FindAll(x => x != null))
+            foreach (var character in entangledCharacters)
             {
-                character.SetAnimationSpeed(1.0f);
-                character.SetBodyType(RigidbodyType2D.Dynamic);
+                if (character.Value)
+                {
+                    character.Value.SetBodyType(RigidbodyType2D.Dynamic);
+                }
             }
             base.EndEffect();
         }
 
         private void OnTriggerStay2D(Collider2D collision)
         {
-            if (!collision.isTrigger)
+            if (!collision.isTrigger && !collision.gameObject.Equals(Caster))
             {
-                CharacterControl character = collision.GetComponent<CharacterControl>();
-                if (character && character != _caster && !entangledCharacters.Contains(character))
+               
+                GameObject character = collision.gameObject;
+                AnimatorController animatorController = character.GetComponent<AnimatorController>();
+
+                if (!entangledCharacters.ContainsKey(character) && animatorController)
                 {
-                    Debug.Log(string.Format("{0} is entangled!", character.name));
-                    character.SetAnimationSpeed(0.0f);
-                    character.SetBodyType(RigidbodyType2D.Static);
+                    Debug.Log($"{Caster.name}'s spell has entangled {character.name}!");
+                    animatorController.SetBodyType(RigidbodyType2D.Static);
                     //generate a Vine.  vines have this object's transform as a parent, so when it is destroyed, all vines are destroyed
                     Instantiate(VinePrefab, character.transform.position, Quaternion.identity, transform);
-                    entangledCharacters.Add(character);
+                    entangledCharacters.Add(character, animatorController);
                 }
             }
         }

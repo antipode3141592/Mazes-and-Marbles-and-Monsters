@@ -1,6 +1,5 @@
-﻿using System.Collections;
+﻿using MarblesAndMonsters.Characters;
 using UnityEngine;
-using MarblesAndMonsters.Characters;
 using UnityEngine.Tilemaps;
 
 namespace MarblesAndMonsters.Objects
@@ -13,19 +12,23 @@ namespace MarblesAndMonsters.Objects
 
         protected void Awake()
         {
-            if (tileMap == null) {
+            if (tileMap == null)
+            {
                 tileMap = gameObject.GetComponent<Tilemap>();
             }
             if (tilemapCollider == null)
+            {
                 tilemapCollider = GetComponent<TilemapCollider2D>();
             }
+        }
+
 
         //if the 
         private void OnTriggerStay2D(Collider2D other)
         {
             if (tilemapCollider.OverlapPoint(other.transform.position))
             {
-                Characters.CharacterControl character = other.GetComponent<Characters.CharacterControl>();
+                CharacterControl character = other.GetComponent<CharacterControl>();
                 if (character != null)
                 {
 
@@ -33,14 +36,8 @@ namespace MarblesAndMonsters.Objects
                     //var tilemapPosition = tileMap.WorldToCell(position);
                     character.ApplyFalling(other.transform.position);
                 }
-            }
-        }
 
-        //utility script to apply an offset to an input vector3int 
-        static public Vector3 CenteredTilemapPosition(Vector3Int tilemapPosition)
-        {
-            Vector3 offset = new Vector3(0.5f, 0.5f);
-            return (Vector3)tilemapPosition + offset;
+            }
         }
     }
 }

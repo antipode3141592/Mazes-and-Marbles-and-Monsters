@@ -12,6 +12,7 @@ TagManager:
   - Pickup
   - OffScreenPoint
   - SpawnPoint
+  - Relic
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Pits
   - Floor
   - Walls
   - PC

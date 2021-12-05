@@ -2,6 +2,7 @@
 using LevelManagement.Menus;
 using MarblesAndMonsters.Characters;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MarblesAndMonsters.Menus
 {
@@ -12,12 +13,12 @@ namespace MarblesAndMonsters.Menus
             base.OnBackPressed(); //return to GameMenu
         }
 
-        //restarting the level means killing the PC and resetting all items/monsters/obstacles
-        public void OnRestartPressed() 
-        {
-            base.OnBackPressed();   //returns to the GameMenu
-            Player.Instance.CharacterDeath(DeathType.Damage);
-        }
+        ////restarting the level means killing the PC and resetting all items/monsters/obstacles
+        //public void OnRestartPressed() 
+        //{
+        //    base.OnBackPressed();   //returns to the GameMenu
+        //    Player.Instance.CharacterDeath(DeathType.Damage);
+        //}
 
         public void OnMainMenuPressed()
         {

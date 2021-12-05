@@ -13,7 +13,6 @@ namespace MarblesAndMonsters
         public Vector2 Input_Acceleration { get; set; }
 
         //references to various game objects
-        private List<CharacterControl> characters;
         private List<InventoryItem> inventoryItems;
         private List<SpellPickupBase> spellPickups;
         private List<KeyItem> keyItems;
@@ -21,17 +20,7 @@ namespace MarblesAndMonsters
         private List<Gate> gates;
         private List<SpellEffectBase> spellEffects;
 
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        public List<CharacterControl> Characters;
 
         /// <summary>
         /// cache references to all spawnpoints, inventory items, gates, and keys
@@ -73,7 +62,6 @@ namespace MarblesAndMonsters
             }
             foreach (SpawnPoint spawnPoint in spawnPoints)
             {
-                spawnPoint.isAvailable = false;
                 spawnPoint.Reset();
             }
             foreach (KeyItem keyItem in keyItems)
@@ -99,14 +87,13 @@ namespace MarblesAndMonsters
         {
             foreach (SpawnPoint spawnPoint in spawnPoints)
             {
-                //StartCoroutine(spawnPoint.Spawn(0.0f));
-                //some spawnPoints begin in an unavailable state (and made available by some trigger)
-                spawnPoint.isAvailable = true;
-                spawnPoint.SpawnCharacter();
+                if (spawnPoint.isAvailable)
+                { 
+                    spawnPoint.SpawnCharacter(); 
+                }
             }
             foreach (InventoryItem item in inventoryItems)
             {
-                //item.Reset();
                 if (!item.isActiveAndEnabled) { item.gameObject.SetActive(true); }
             }
 
@@ -116,14 +103,14 @@ namespace MarblesAndMonsters
 
         internal int StoreCharacters()
         {
-            characters = new List<CharacterControl>(FindObjectsOfType<CharacterControl>());
+            Characters = new List<CharacterControl>(FindObjectsOfType<CharacterControl>());
 
             string charlist = "";
-            foreach (var character in characters) { charlist += $"{character.gameObject.name}, "; }
+            foreach (var character in Characters) { charlist += $"{character.gameObject.name}, "; }
             //Debug.Log(String.Format("there are {0} characters : {1}", characters.Count,charlist));
-            if (characters.Count > 0)
+            if (Characters.Count > 0)
             {
-                return characters.Count;
+                return Characters.Count;
             }
             else
             {
@@ -132,13 +119,13 @@ namespace MarblesAndMonsters
         }
 
         //return true if a character was added
-        internal bool StoreCharacter(Characters.CharacterControl character)
+        internal bool StoreCharacter(CharacterControl character)
         {
-            if (characters == null) { StoreCharacters(); }
-            if (characters.Contains(character)) { return false; }
+            if (Characters == null) { StoreCharacters(); }
+            if (Characters.Contains(character)) { return false; }
             else
             {
-                characters.Add(character);
+                Characters.Add(character);
                 return true;
             }
         }
@@ -147,21 +134,13 @@ namespace MarblesAndMonsters
         //move all characters
         public void MoveAll()
         {
-            try
+            foreach (CharacterControl character in Characters.FindAll(x => x != null))
             {
-                foreach (CharacterControl character in characters.FindAll(x => x != null))
+                if (character.gameObject.activeInHierarchy && character.MySheet.IsBoardMovable)
                 {
-                    if (character.gameObject.activeInHierarchy && character.MySheet.IsBoardMovable)
-                    {
-                        BoardMovement.Move(character.MyRigidbody, Input_Acceleration, character.ForceMultiplier);
-                    }
+                    BoardMovement.Move(character.MyRigidbody, Input_Acceleration, character.ForceMultiplier);
                 }
             }
-            catch (Exception ex)
-            {
-                Debug.LogWarning(ex.Message);
-            }
-
         }
     }
 }

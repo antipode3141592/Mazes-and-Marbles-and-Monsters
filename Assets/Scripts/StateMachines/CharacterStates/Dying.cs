@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using MarblesAndMonsters.Characters;
 using Pathfinding;
+using FiniteStateMachine;
 
 namespace MarblesAndMonsters.States.CharacterStates
 {
@@ -9,22 +10,32 @@ namespace MarblesAndMonsters.States.CharacterStates
     /// Can enter a Dying state at any time
     /// While Dying, Character is mostly uninteractible
     /// </summary>
-    public class Dying : CharacterState
+    public class Dying : IState
     {
-        public override Type Type { get => typeof(Dying); }
+        IMover _mover;
+        AnimatorController _animatorController;
+        CharacterManager _characterManager;
+        CharacterControl _characterControl;
 
-        protected Vector2? roamDirection; //nullable destination vector
-        protected Seeker seeker;
-        protected Path path;
-
-        public Dying(CharacterControl character) : base(character)
+        public Dying(IMover mover, AnimatorController animatorController) 
         {
-            seeker = character.gameObject.GetComponent<Seeker>();
+            _mover = mover;
+            _animatorController = animatorController;
         }
 
-        public override Type LogicUpdate()
+        public void OnEnter()
         {
-            return typeof(Dying);
+            _mover.Stop();
+        }
+
+        public void OnExit()
+        {
+            
+        }
+
+        public void Tick()
+        {
+            
         }
     }
 }

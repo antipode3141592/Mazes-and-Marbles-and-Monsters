@@ -1,4 +1,6 @@
 using MarblesAndMonsters.Characters;
+using MarblesAndMonsters.Pooling;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -7,21 +9,37 @@ namespace MarblesAndMonsters
 {
     public abstract class Projectile : MonoBehaviour
     {
-        public CharacterControl Caster;
         public ProjectileStats ProjectileStats;
-        public Rigidbody2D Rigidbody2D;
+        public GameObject Caster;
+        public Vector2 Direction = new Vector2(0f, 0f);
+        public ProjectilePooler Pooler;
+        Rigidbody2D rigidBody;
 
-        protected void Awake()
+        private void Awake()
         {
-            Rigidbody2D = GetComponent<Rigidbody2D>();
+            rigidBody = GetComponent<Rigidbody2D>();
         }
 
-        void OnTriggerEnter2D(Collider2D collision)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (CollisionFunction(collision))
-                Destroy(gameObject);
+            if (collision.gameObject != Caster)
+            {
+                CollisionFunction(collision);
+                Pooler.Release(this);
+            }
         }
 
-        internal abstract bool CollisionFunction(Collider2D collision);
+        private void Update()
+        {
+            rigidBody.MovePosition(rigidBody.position + Direction * Time.deltaTime * ProjectileStats.Speed);
+            //transform.Translate((Vector3)Direction * Time.deltaTime * ProjectileStats.Speed);
+        }
+
+        internal abstract void CollisionFunction(Collision2D collision);
+
+        internal void SetDirection(Vector2 direction)
+        {
+            Direction = direction;
+        }
     }
 }

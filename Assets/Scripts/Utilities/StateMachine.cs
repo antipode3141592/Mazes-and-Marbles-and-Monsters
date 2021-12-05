@@ -48,7 +48,7 @@ namespace FiniteStateMachine
                 }
                 else
                 {
-                    Debug.LogWarning("no available states!");
+                    Debug.LogWarning("no available states!", this.gameObject);
                 }
             }
             else

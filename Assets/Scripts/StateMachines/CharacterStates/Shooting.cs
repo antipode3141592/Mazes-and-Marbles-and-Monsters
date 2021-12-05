@@ -2,25 +2,38 @@ using UnityEngine;
 using System;
 using MarblesAndMonsters.Characters;
 using Pathfinding;
+using FiniteStateMachine;
 
 namespace MarblesAndMonsters.States.CharacterStates
 {
-    public class Shooting : CharacterState
+    public class Shooting : IState
     {
-        public override Type Type { get => typeof(Shooting); }
+        public int ShotsFired = 0;
+        protected RangedController _rangedController;
+        protected IMover _mover;
 
-        protected Vector2? roamDirection; //nullable destination vector
-        protected Seeker seeker;
-        protected Path path;
-
-        public Shooting(CharacterControl character) : base(character)
+        public Shooting(IMover mover, RangedController rangedController)
         {
-            seeker = character.gameObject.GetComponent<Seeker>();
+            _mover = mover;
+            _rangedController = rangedController;
         }
 
-        public override Type LogicUpdate()
+        public void OnEnter()
         {
-            return typeof(Roaming);
+            ShotsFired = 0;
+            _mover.Stop();
+        }
+
+        public void OnExit()
+        {
+        }
+
+        public void Tick()
+        {
+            if (_rangedController.TryAttack() > 0)
+            {
+                ShotsFired++;
+            }
         }
     }
 }

@@ -9,16 +9,11 @@ namespace MarblesAndMonsters.Spells
     {
         public Animator Animator;
 
-        protected CharacterControl _caster;
+        public GameObject Caster;
 
         protected virtual void Awake()
         {
             Animator = GetComponent<Animator>();
-        }
-
-        internal virtual void SetCaster(CharacterControl characterControl)
-        {
-            _caster = characterControl;
         }
 
         /// <summary>

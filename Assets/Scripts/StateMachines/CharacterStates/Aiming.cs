@@ -3,6 +3,7 @@ using System;
 using MarblesAndMonsters.Characters;
 using Pathfinding;
 using System.Collections.Generic;
+using FiniteStateMachine;
 
 namespace MarblesAndMonsters.States.CharacterStates
 {
@@ -12,85 +13,41 @@ namespace MarblesAndMonsters.States.CharacterStates
     /// Character stop moving while Aiming (but can still be moved by collisions)
     /// 
     /// </summary>
-    public class Aiming : CharacterState
+    public class Aiming : IState
     {
+        protected IMover _mover;
+        protected RangedController _rangedController;
+        public float TimeWithClearLineOfSight;
+        public CharacterStateMachine _characterStateMachine;
 
-        public override Type Type { get => typeof(Aiming); }
-
-        //protected Transform Target;
-        protected int shotsFired;
-        protected int maxShotsFired = 3;
-
-        protected Seeker seeker;
-        protected Path path;
-        protected List<RaycastHit2D> hits;
-        protected AiMover aiMover;
-
-        public Aiming(CharacterControl character) : base(character)
+        public Aiming(IMover mover, RangedController rangedController, CharacterStateMachine characterStateMachine)
         {
-            seeker = character.gameObject.GetComponent<Seeker>();
-            hits = new List<RaycastHit2D>();
-            aiMover = character.gameObject.GetComponent<AiMover>();
-            timeToStateChange = 10f;
+            _mover = mover;
+            _rangedController = rangedController;
+            _characterStateMachine = characterStateMachine;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override Type LogicUpdate()
-        {
-            timeToStateChangeTimer -= Time.deltaTime;
-            
-            if (_character.Combat.RangedAttackIsAvailable)
+        public void Tick()
+        {   
+            if (_rangedController.HasLineOfSight(_rangedController.CurrentTarget, out Vector2 direction))
             {
-                //first, check to make sure target is in range
-                if (TargetInRangedRange())
-                {
-                    var tagCheck = collisionCheckResults.Find(x => x.CompareTag("Player"));
-                    if (tagCheck == null)
-                        return typeof(Aiming);
-                    aiMover.TargetTransform = tagCheck.transform;
-                    Debug.Log($"{_gameObject.name} is targetting {tagCheck.transform.name}");
-                    Vector2 origin = _transform.position;
-                    Vector2 direction = (tagCheck.transform.position - _transform.position);
-                    float distance = direction.magnitude;
-                    //contact filter limits to NPC and Wall layers
-                    int results = Physics2D.Raycast(origin, direction.normalized, _character.Combat.aimingFilter, hits, distance);
-                    if (results <= 1)
-                    {
-                        //hits[0].
-                        _character.Combat.RangedAttack(direction.normalized);
-                        shotsFired++;
-                        timeToStateChangeTimer = timeToStateChange;  //reset the idle counter, because we shot at something
-                        //so the maximum time in state ~= maxShortsFired * timeToStateChange
-                        if (shotsFired >= maxShotsFired)
-                        {
-                            return typeof(Hunting);
-                        }
-                    }
-                } 
-            }
-            // if time to state change has elapsed, go to roaming state
-            if (timeToStateChangeTimer <= 0f)
+                TimeWithClearLineOfSight += Time.deltaTime;
+            } else
             {
-                return typeof(Roaming);
+                TimeWithClearLineOfSight = 0f;
             }
-            //if all else fails, just keep aiming
-            return typeof(Aiming);
         }
 
-        public override void Enter()
+        public void OnEnter()
         {
-            base.Enter();
-            shotsFired = 0;
-            aiMover.Stop();
-            timeToStateChangeTimer = timeToStateChange;
+            _mover.Stop();
+            _rangedController.CurrentTarget = _characterStateMachine.CurrentTarget;
+            TimeWithClearLineOfSight = 0f;
         }
 
-        public override void Exit()
+        public void OnExit()
         {
-            base.Exit();
+
         }
     }
 }

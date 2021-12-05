@@ -16,26 +16,19 @@ namespace MarblesAndMonsters.Spells
         public override void SpellStartHandler(object sender, EventArgs e)
         {
             base.SpellStartHandler(sender, e);
-            if (_characterControl)
-            {
-                _characterControl.SetAnimationSpeed(0.0f);
-                _characterControl.SetBodyType(RigidbodyType2D.Static);
-                _characterControl.MySheet.DamageImmunities.Add(DamageType.All);
-                _characterControl.UpdateSpriteMaterial(characterMaterial);
-
-            }
+            _animatorController.SetAnimationSpeed(0f);
+            _animatorController.SetBodyType(RigidbodyType2D.Static);
+            _characterControl.MySheet.DamageImmunities.Add(DamageType.All);
+            _animatorController.UpdateSpriteMaterial(characterMaterial);
         }
 
         public override void SpellEndHandler(object sender, EventArgs e)
         {
             base.SpellEndHandler(sender, e);
-            if (_characterControl)
-            {
-                _characterControl.SetAnimationSpeed(1.0f);
-                _characterControl.SetBodyType(RigidbodyType2D.Dynamic);
-                _characterControl.MySheet.DamageImmunities.Remove(DamageType.All);
-                _characterControl.ResetMaterial(); //return to previous material
-            }
+            _animatorController.SetAnimationSpeed(1f);
+            _animatorController.SetBodyType(RigidbodyType2D.Dynamic);
+            _characterControl.MySheet.DamageImmunities.Remove(DamageType.All);
+            _animatorController.ResetMaterial(); //return to previous material
         }
     }
 }

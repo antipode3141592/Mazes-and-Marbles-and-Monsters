@@ -168,6 +168,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -718,6 +719,29 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Dungeon_Destructible_27: 4272531043393418208
+      Dungeon_Destructible_1: -6768996211862587959
+      Dungeon_Destructible_15: 8049899193913152069
+      Dungeon_Destructible_22: 2205313733602082240
+      Dungeon_Destructible_33: 3582163102458245048
+      Dungeon_Destructible_37: -1132942003296077050
+      Dungeon_Destructible_9: 8206952363014087144
+      Dungeon_Destructible_26: -7611531978362892959
+      Dungeon_Destructible_41: -8363746377628817248
+      Dungeon_Destructible_0: 4889900786006975811
+      Dungeon_Destructible_19: -6087796993386674811
+      Dungeon_Destructible_8: -6844578755965154199
+      Dungeon_Destructible_3: 3714937169720179409
+      Dungeon_Destructible_4: 5554328341556361942
+      Dungeon_Destructible_7: -7073847977660772515
+      Dungeon_Destructible_11: 6111813477466194671
+      Dungeon_Destructible_5: -5239930347866383711
+      Dungeon_Destructible_23: 9163799281972179453
+      Dungeon_Destructible_16: -3534517676648227806
+      Dungeon_Destructible_18: 7569514380910926958
+      Dungeon_Destructible_20: 2167671429123047649
+      Dungeon_Destructible_24: -9057891959610870023
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

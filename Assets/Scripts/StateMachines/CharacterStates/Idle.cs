@@ -3,34 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MarblesAndMonsters.Characters;
+using FiniteStateMachine;
 
 namespace MarblesAndMonsters.States.CharacterStates
 {
-    public class Idle : CharacterState
+    public class Idle : IState
     {
-        //protected List<Collider2D> colliders;
-
-        public override Type Type { get => typeof(Idle); } 
-
-        public Idle(CharacterControl character) : base(character) 
+        IMover _mover;
+        public Idle(IMover mover)
         {
-            timeToStateChange = 3f; //spend 3 seconds Idle before beginning roam behavior.
-        }
-        
-        public override Type LogicUpdate()
-        {
-            timeToStateChangeTimer -= Time.deltaTime;
-            if (timeToStateChangeTimer <= 0f)
-            {
-                return typeof(Roaming);
-            }
-            return typeof(Idle);
+            _mover = mover;
         }
 
-        public override void Enter()
+        public void Tick()
         {
-            base.Enter();
-            _character.MySheet.IsBoardMovable = false;
+            
+        }
+
+        public void OnEnter()
+        {
+            _mover.Stop();
+        }
+
+        public void OnExit()
+        {
+            
         }
     }
 }

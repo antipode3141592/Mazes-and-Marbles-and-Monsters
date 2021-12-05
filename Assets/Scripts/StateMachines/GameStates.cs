@@ -61,17 +61,19 @@ namespace MarblesAndMonsters.States.GameStates
         public override Type Type { get => typeof(Playing); }
 
         CharacterManager _characterManager;
+        TimeTracker _timeTracker;
 
-        public Playing(GameManager manager, CharacterManager characterManager) : base(manager.gameObject)
+        public Playing(GameManager manager, CharacterManager characterManager, TimeTracker timeTracker) : base(manager.gameObject)
         {
             _manager = manager;
             _characterManager = characterManager;
-            
+            _timeTracker = timeTracker;
         }
         public override void Enter()
         {
             //MenuManager.Instance.OpenMenu(MenuTypes.GameMenu);
             Time.timeScale = 1.0f;
+            _timeTracker.StartSessionTime();
         }
         public override void HandleInput()
         {
@@ -89,9 +91,12 @@ namespace MarblesAndMonsters.States.GameStates
     {
         public override Type Type { get => typeof(Paused); }
 
-        public Paused(GameManager manager) : base(manager.gameObject)
+        TimeTracker _timeTracker;
+
+        public Paused(GameManager manager, TimeTracker timeTracker) : base(manager.gameObject)
         {
             _manager = manager;
+            _timeTracker = timeTracker;
         }
         public override void Enter()
         {
@@ -101,13 +106,15 @@ namespace MarblesAndMonsters.States.GameStates
 
     public class Victory : GameState
     {
+        CharacterManager _characterManager;
+        MenuManager _menuManager;
+
         public override Type Type { get => typeof(Victory); }
 
-        CharacterManager _characterManager;
-
-        public Victory(GameManager manager, CharacterManager characterManager) : base(manager.gameObject)
+        public Victory(GameManager manager, MenuManager menuManager, CharacterManager characterManager) : base(manager.gameObject)
         {
             _manager = manager;
+            _menuManager = menuManager;
             _characterManager = characterManager;
         }
 
@@ -115,6 +122,7 @@ namespace MarblesAndMonsters.States.GameStates
         {
             base.Enter();
             _characterManager.ResetAll();
+            _menuManager.OpenMenu(MenuTypes.WinMenu);
         }
 
         public override Type LogicUpdate()

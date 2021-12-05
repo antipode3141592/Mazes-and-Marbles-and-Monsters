@@ -1,28 +1,25 @@
 using MarblesAndMonsters.Characters;
+using MarblesAndMonsters.Spells;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MarblesAndMonsters.Spells
+namespace MarblesAndMonsters.Projectiles
 {
     /// <summary>
-    /// Projectile that creates an EntangleObject when it reaches its target or apply 
+    /// Projectile that creates an EntangleObject when it reaches its target or apply Mar
     /// </summary>
     public class EntangleProjectile : Projectile
     {
         public EntangleObject entanglePrefab;
 
-        internal override bool CollisionFunction(Collider2D collision)
+        internal override void CollisionFunction(Collision2D collision)
         {
-            if (!collision.isTrigger && collision.gameObject != Caster.gameObject)
-            {
-                Debug.Log(string.Format("{0} has struck {1}", name, collision.name));
-                var _entangleObject = Instantiate<EntangleObject>(entanglePrefab, transform.position, Quaternion.identity);
-                _entangleObject.SetCaster(Caster);
-                _entangleObject.SetDeathTime(ProjectileStats.EffectDuration);
-                return true;
-            }
-            return false;
+            Debug.Log(string.Format("{0} has struck {1}", name, collision.gameObject.name));
+            var _entangleObject = Instantiate<EntangleObject>(entanglePrefab, transform.position, Quaternion.identity);
+            _entangleObject.tag = Caster.tag;
+            _entangleObject.Caster = Caster; ;
+            _entangleObject.SetDeathTime(ProjectileStats.EffectDuration);
         }
     }
 }

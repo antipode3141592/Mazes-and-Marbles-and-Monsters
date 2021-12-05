@@ -13,6 +13,7 @@ namespace MarblesAndMonsters.Tiles
         private Animator animator;
         private List<Collider2D> collider2Ds;
         private AudioSource audioSource;
+        private CharacterManager _characterManager;
 
         private int aIsLocked;
 
@@ -22,6 +23,7 @@ namespace MarblesAndMonsters.Tiles
             collider2Ds = new List<Collider2D>(GetComponents<Collider2D>());
             audioSource = GetComponent<AudioSource>();
             aIsLocked = Animator.StringToHash("isLocked");
+            _characterManager = FindObjectOfType<CharacterManager>();
         }
 
         public bool Lock()
@@ -46,7 +48,23 @@ namespace MarblesAndMonsters.Tiles
             }
             return false;
         }
+        
+        public void UnlockTest()
+        {
+            foreach (var keyTest in Player.Instance.KeyChain)
+            {
+                if (Unlock(keyTest.KeyStats.KeyType))
+                {
+                    //play gate opening sound
 
+                    //remove key from player inventory
+                    Player.Instance.RemoveKeyFromKeyChain(keyTest);
+                    //start unlock animator
+                    StartCoroutine(OpenAnimation());
+                    break;
+                }
+            }
+        }
 
         /// <summary>
         /// If the Player (and only the player) enters the trigger area, test each key in their keychain 
@@ -56,23 +74,9 @@ namespace MarblesAndMonsters.Tiles
         private void OnTriggerEnter2D(Collider2D other)
         {
             //only a Player can open the gate
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("Player") && !other.isTrigger)
             {
-                //play key insertion sound
-                foreach (var keyTest in Player.Instance.KeyChain)
-                {
-
-                    if (Unlock(keyTest.KeyStats.KeyType))
-                    {
-                        //play gate opening sound
-
-                        //remove key from player inventory
-                        Player.Instance.RemoveKeyFromKeyChain(keyTest);
-
-                        //start unlock animator
-                        StartCoroutine(OpenAnimation());
-                    }
-                }
+                UnlockTest();
             }
         }
 

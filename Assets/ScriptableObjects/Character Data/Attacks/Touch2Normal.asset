@@ -16,3 +16,4 @@ MonoBehaviour:
   currentDamageModifier: 0
   damageType: 1
   displayName: Touch Attack +2
+  cooldown: 1

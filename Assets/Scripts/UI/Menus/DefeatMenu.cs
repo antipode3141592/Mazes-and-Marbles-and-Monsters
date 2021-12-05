@@ -2,12 +2,12 @@ using LevelManagement;
 using LevelManagement.Menus;
 using MarblesAndMonsters.Characters;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MarblesAndMonsters.Menus
 {
     public class DefeatMenu : Menu<DefeatMenu>
     {
-        //restarting the level means killing the PC and resetting all items/monsters/obstacles
         public void OnRestartPressed()
         {
             _gameManager.ShouldBeginLevel = true;

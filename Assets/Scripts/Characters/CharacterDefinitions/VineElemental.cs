@@ -8,25 +8,70 @@ using UnityEngine;
 
 namespace MarblesAndMonsters.Characters
 {
+    [RequireComponent(typeof(RangedController))]
+    [RequireComponent(typeof(MeleeController))]
     public class VineElemental : CharacterControl
     {
-        private StateMachine stateMachine;
+        protected CharacterStateMachine _stateMachine;
         protected float VisibilityDistance;
+
+        public CharacterStateMachine StateMachine => _stateMachine;
 
         protected override void Awake()
         {
             base.Awake();
-            stateMachine = GetComponent<StateMachine>();
-            var states = new Dictionary<Type, BaseState>()
+            _stateMachine = new CharacterStateMachine();
+
+            IMover mover = GetComponent<IMover>();
+            RangedController rangedController = GetComponent<RangedController>();
+            MeleeController meleeController = GetComponent<MeleeController>();
+            AnimatorController animatorController = GetComponent<AnimatorController>();
+
+            Idle idle = new Idle(mover);
+            Roaming roaming = new Roaming(mover, rangedController);
+            Hunting hunting = new Hunting(mover, meleeController, _stateMachine);
+            Aiming aiming = new Aiming(mover, rangedController, _stateMachine);
+            Shooting shooting = new Shooting(mover, rangedController);
+            Dying dying = new Dying(mover, animatorController);
+
+            At(from: idle, to: roaming, condition: TimeElapsed(1f));
+
+            At(from: roaming, to: idle, TimeElapsed(30f));
+            At(from: roaming, to: aiming, EnemyInLineOfSight());
+
+            At(from: aiming, to: shooting, HasClearShot(minAimTime: 0.33f));
+            At(from: aiming, to: roaming, TimeElapsed(5f));
+
+            At(from: shooting, to: hunting, ShotsFired(maxShots: 3));
+
+            At(from: hunting, to: idle, TimeElapsed(10f));
+
+            AtAny(dying, IsDying());
+
+            _stateMachine.SetState(idle);
+
+            void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
+            void AtAny(IState to, Func<bool> condition) => _stateMachine.AddAnyTransition(to, condition);
+
+            Func<bool> IsDying() => () => isDying == true;
+            Func<bool> EnemyInLineOfSight() => () =>
             {
-                {typeof(Idle), new Idle(character: this) },
-                {typeof(Roaming), new Roaming(character: this) },
-                {typeof(Hunting), new Hunting(character: this) },
-                {typeof(Aiming), new Aiming(character: this) },
-                {typeof(Dying), new Dying(character: this) }
+                if(rangedController.FindNearestEnemyInLineOfSight(out var gameObject))
+                {
+                    _stateMachine.CurrentTarget = gameObject.transform;
+                    return true;
+                }
+                return false;
             };
-            Debug.Log($"{name} is storing the following states:  {states.Keys.ToString()}");
-            stateMachine.SetStates(states);
+            Func<bool> HasClearShot(float minAimTime) => () => aiming.TimeWithClearLineOfSight >= minAimTime;
+            Func<bool> TimeElapsed(float time) => () => _stateMachine.TimeInState >= time;
+            Func<bool> ShotsFired(int maxShots) => () => shooting.ShotsFired >= maxShots;
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            _stateMachine.Tick();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -34,18 +79,5 @@ namespace MarblesAndMonsters.Characters
             audioSource.clip = MySheet.baseStats.ClipHit;
             audioSource.Play(); //no matter what is struck, play the hit sound
         }
-
-        //protected override void SetLookDirection()
-        //{
-        //    Vector2 direction = MyRigidbody.velocity;
-        //    if (!Mathf.Approximately(direction.x, 0.0f) || !Mathf.Approximately(direction.y, 0.0f))
-        //    {
-        //        lookDirection = direction;
-        //        lookDirection.Normalize();
-        //    }
-
-        //    animator.SetFloat(aFloatLookX, lookDirection.x);
-        //    animator.SetFloat(aFloatLookY, lookDirection.y);
-        //}
     }
 }

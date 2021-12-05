@@ -135,6 +135,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -763,6 +764,27 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      DungeonWalls_0: 2769879866626181565
+      DungeonWalls_9: -8562602084793013603
+      DungeonWalls_4: 1336723536110363143
+      StoneFloor04: -198201496676963745
+      DungeonWalls_11: -8081656891425713883
+      StoneFloor03: 2819428699401860279
+      DungeonWalls_5: -1503772209339186592
+      DungeonWalls_1: 1073642910374663417
+      DungeonWalls_13: 6163348810696642488
+      StoneFloor01: -8975275942417109717
+      StoneFloor02: 2223568702498792095
+      DungeonWalls_14: -4809289547518532321
+      DungeonWalls_6: 5678991613340039632
+      DungeonWalls_10: -5606439159164892204
+      DungeonWalls_2: -1241094506025368258
+      DungeonWalls_7: 4066455113041035832
+      DungeonWalls_12: -5406134316716006152
+      DungeonWalls_3: -2122830317182695682
+      DungeonWalls_8: -1891867382102973539
+      DungeonWalls_15: -3135570783578046416
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

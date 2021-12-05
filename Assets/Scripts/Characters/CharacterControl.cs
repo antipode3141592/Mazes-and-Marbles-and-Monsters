@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarblesAndMonsters.Events;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -19,6 +20,9 @@ namespace MarblesAndMonsters.Characters
         public ParticleSystem invincibilityEffect;
         public ParticleSystem fireEffect;
 
+        public EventHandler<DeathEventArgs> OnDying;
+        public EventHandler<DamageEventArgs> OnDamage;
+
         //rigidbody 
         public Rigidbody2D MyRigidbody;
 
@@ -34,20 +38,8 @@ namespace MarblesAndMonsters.Characters
         [SerializeField]
         private float defaultInvincibilityTime = 1.0f;
 
-        //animation control
-        protected Animator animator;
-        protected float _speed;
-        protected Vector2 lookDirection = new Vector2(1,0); //default look right
-        //for storing animator string hashes
-        protected int aFloatSpeed;
-        protected int aFloatLookX;
-        protected int aFloatLookY;
-        protected int aTriggerDamageNormal;
-        protected int aTriggerFalling;
-        protected int aTriggerDeathByDamage;
-
-        //combat controls
-        public CombatController Combat;
+        protected AnimatorController animatorController;
+        
 
         //sound control
         protected AudioSource audioSource;
@@ -64,40 +56,20 @@ namespace MarblesAndMonsters.Characters
         protected CharacterManager _characterManager;
         #endregion
 
-        //#region Dependency Injection
-        //[Inject]
-        ////public void Construct(GameManager gameManager)
-        ////{
-        ////    _gameManager = gameManager;
-        ////}
-
-        //public class Factory : PlaceholderFactory<CharacterControl>
-        //{
-        //}
-        //#endregion
-
         #region Unity Scripts
         protected virtual void Awake()
         {
             //cache some components
             mySheet = GetComponent<CharacterSheet>();
-            Combat = GetComponent<CombatController>();
             MyRigidbody = GetComponent<Rigidbody2D>();
             mySpriteRenderer = GetComponent<SpriteRenderer>();
-            animator = GetComponent<Animator>();
+            animatorController = GetComponent<AnimatorController>();
             audioSource = GetComponent<AudioSource>();
 
             _gameManager = FindObjectOfType<GameManager>();
             _characterManager = FindObjectOfType<CharacterManager>();
 
-            //cache hashes for animation strings
-            //TODO move animations to sub controller
-            aFloatSpeed = Animator.StringToHash("Speed");
-            aFloatLookX = Animator.StringToHash("Look X");
-            aFloatLookY = Animator.StringToHash("Look Y");
-            aTriggerDamageNormal = Animator.StringToHash("DamageNormal");
-            aTriggerFalling = Animator.StringToHash("Falling");
-            aTriggerDeathByDamage = Animator.StringToHash("DeathByDamage");   
+
         }
 
         protected virtual void OnEnable()
@@ -107,6 +79,7 @@ namespace MarblesAndMonsters.Characters
             //comment: subscribe!
             MySheet.OnInvincible += InvincibileOnHandler;
             MySheet.OnInvincibleEnd += InvincibileOffHandler;
+            animatorController.OnDeathAnimationComplete += OnDeathAnimationCompleted;
         }
 
         protected virtual void Start()
@@ -125,9 +98,8 @@ namespace MarblesAndMonsters.Characters
             {
                 CharacterDeath(DeathType.Damage);
             }
-            //grab acceleration input
-            SetLookDirection();
-            animator.SetFloat(aFloatSpeed, MyRigidbody.velocity.magnitude);
+            
+            
         }
 
         protected virtual void OnDisable()
@@ -136,6 +108,7 @@ namespace MarblesAndMonsters.Characters
             //MySheet.OnBurningEnd -= FireOffHandler;
             MySheet.OnInvincible -= InvincibileOnHandler;
             MySheet.OnInvincibleEnd -= InvincibileOffHandler;
+            animatorController.OnDeathAnimationComplete -= OnDeathAnimationCompleted;
             //if this character is the respawning type, start the spawn coroutine
             if (mySheet.RespawnFlag)
             {
@@ -150,50 +123,44 @@ namespace MarblesAndMonsters.Characters
         #region Damage and Powers
         public virtual void TakeDamage(int damageAmount, DamageType damageType)
         {
-            try
+            //check for invincibility
+            if (mySheet.IsInvincible || mySheet.DamageImmunities.Contains(DamageType.All))
             {
-                //check for invincibility
-                if (mySheet.IsInvincible || mySheet.DamageImmunities.Contains(DamageType.All))
+                //Debug.Log(string.Format("{0} is invincible!", gameObject.name));
+            }
+            //check immunity to damage type
+            else if (mySheet.DamageImmunities.Contains(damageType))
+            {
+                //Debug.Log(string.Format("{0} is immune to {1} and takes no damage!", gameObject.name, damageType));
+            }
+            //check damage > armor
+            else if (damageAmount <= mySheet.Armor)
+            {
+                //Debug.Log(string.Format("{0}'s armor absorbs all damage!", gameObject.name));
+            }
+            else
+            {
+                //take that damage!
+                //adjust current health
+                mySheet.CurrentHealth -= (damageAmount - mySheet.Armor);
+                //set state for unique damage types
+                //if (damageType == DamageType.Fire) { ApplyFire(); }
+                //if (damageType == DamageType.Poison) { ApplyPoison(); }
+                //if (damageType == DamageType.Ice) { ApplyIce(); }
+
+                //check for death, if still alive, play particle effect and hit animation
+                if (mySheet.CurrentHealth <= 0)
                 {
-                    //Debug.Log(string.Format("{0} is invincible!", gameObject.name));
-                }
-                //check immunity to damage type
-                else if (mySheet.DamageImmunities.Contains(damageType))
-                {
-                    //Debug.Log(string.Format("{0} is immune to {1} and takes no damage!", gameObject.name, damageType));
-                }
-                //check damage > armor
-                else if (damageAmount <= mySheet.Armor)
-                {
-                    //Debug.Log(string.Format("{0}'s armor absorbs all damage!", gameObject.name));
+                    //Debug.Log("Death trigger from TakeDamage()");
+                    CharacterDeath(DeathType.Damage);
                 }
                 else
                 {
-                    //take that damage!
-                    //adjust current health
-                    mySheet.CurrentHealth -= (damageAmount - mySheet.Armor);
-                    //set state for unique damage types
-                    //if (damageType == DamageType.Fire) { ApplyFire(); }
-                    //if (damageType == DamageType.Poison) { ApplyPoison(); }
-                    //if (damageType == DamageType.Ice) { ApplyIce(); }
-
-                    //check for death, if still alive, play particle effect and hit animation
-                    if (mySheet.CurrentHealth <= 0)
-                    {
-                        //Debug.Log("Death trigger from TakeDamage()");
-                        CharacterDeath(DeathType.Damage);
-                    }
-                    else
-                    {
-                        hitEffect.Play();   //particles
-                        animator.SetTrigger(aTriggerDamageNormal);
-                        ApplyInvincible(defaultInvincibilityTime);
-                    }
+                    hitEffect.Play();   //particles
+                    OnDamage?.Invoke(this, new DamageEventArgs(damageType));
+                    //animator.SetTrigger(aTriggerDamageNormal);
+                    ApplyInvincible(defaultInvincibilityTime);
                 }
-                //
-            }catch(Exception ex)
-            {
-                Debug.LogException(ex);
             }
         }
 
@@ -238,7 +205,8 @@ namespace MarblesAndMonsters.Characters
         {
             if (!isDying && !MySheet.IsLevitating)
             {
-                MyRigidbody.MovePosition(position);
+
+                MyRigidbody.isKinematic = false;
                 CharacterDeath(DeathType.Falling);
             }
         }
@@ -261,7 +229,6 @@ namespace MarblesAndMonsters.Characters
         private void ResetHealth()
         {
             mySheet.CurrentHealth = mySheet.MaxHealth;
-            //Debug.Log(string.Format("{0} - Current Health: {1}, Max Health: {2}", this.gameObject.name, mySheet.CurrentHealth, mySheet.MaxHealth));
         }
 
         public virtual void CharacterDeath(DeathType deathType)
@@ -270,31 +237,16 @@ namespace MarblesAndMonsters.Characters
             {
                 return; 
             }
-            else
+            
+            isDying = true;
+
+            if (MyRigidbody.isKinematic)
             {
-                isDying = true;
                 MyRigidbody.velocity = Vector2.zero;
-                PreDeathAnimation();
-                switch (deathType)
-                {
-                    case DeathType.Falling:
-                        animator.SetTrigger(aTriggerFalling);
-                        audioSource.clip = MySheet.baseStats.ClipDeathFall;
-                        audioSource.Play();
-                        break;
-                    case DeathType.Damage:
-                        animator.SetTrigger(aTriggerDeathByDamage);
-                        break;
-                    case DeathType.Fire:
-                        break;
-                    case DeathType.Poison:
-                        break;
-                    default:
-                        Debug.LogError("Unhandled deathtype enum!");
-                        break;
-                }
-                StartCoroutine(DeathAnimation(deathType));
             }
+            PreDeathAnimation();
+            OnDying?.Invoke(this, new DeathEventArgs(deathType));
+            _characterManager.Characters.Remove(this);
         }
 
         /// <summary>
@@ -305,63 +257,11 @@ namespace MarblesAndMonsters.Characters
 
         }
 
-        //plays the death animation at a specific location
-        //  common usage:  freeze position of character directly over pit before death animation
-        public virtual void CharacterDeath(DeathType deathType, Vector2 position, Quaternion rotation)
+        public virtual void OnDeathAnimationCompleted(object sender, DeathEventArgs deathEventArgs)
         {
-            //set position and rotation to the inputs
-            CharacterDeath(deathType);
+
         }
 
-        protected virtual IEnumerator DeathAnimation(DeathType deathType)
-        {
-            yield return new WaitForSeconds(0.5f);  //death animations are 8 frames, current fps is 12
-            Destroy(this);
-        }
-        #endregion
-
-        #region Animation Stuff
-
-        //set the look direction based on the accerometer input
-        //  look direction is independent of movement calculations in FixedUpdate
-        //  helps to determine 
-        protected virtual void SetLookDirection()
-        {
-            Vector2 input_acceleration = _characterManager.Input_Acceleration;
-            if (!Mathf.Approximately(input_acceleration.x, 0.0f) || !Mathf.Approximately(input_acceleration.y, 0.0f))
-            {
-                lookDirection = input_acceleration;
-                lookDirection.Normalize();
-            }
-
-            animator.SetFloat(aFloatLookX, lookDirection.x);
-            animator.SetFloat(aFloatLookY, lookDirection.y);
-        }
-
-        public virtual void UpdateSpriteMaterial(Material material)
-        {
-            mySpriteRenderer.material = material;
-        }
-
-        public virtual Material GetCurrentMaterial()
-        {
-            return mySpriteRenderer.material;
-        }
-
-        public virtual void ResetMaterial()
-        {
-            mySpriteRenderer.material = MySheet.DefaultMaterial;
-        }
-
-        public virtual void SetAnimationSpeed(float targetSpeed)
-        {
-            animator.speed = targetSpeed;
-        }
-
-        public virtual void SetBodyType(RigidbodyType2D rigidbodyType2D)
-        {
-            MyRigidbody.bodyType = rigidbodyType2D;
-        }
         #endregion
     }
 }

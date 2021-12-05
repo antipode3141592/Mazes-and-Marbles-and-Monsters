@@ -5,37 +5,40 @@ using MarblesAndMonsters.Characters;
 using System;
 using Pathfinding;
 using Random = UnityEngine.Random;
+using FiniteStateMachine;
 
 namespace MarblesAndMonsters.States.CharacterStates
 {
-    public class Roaming : CharacterState
+    public class Roaming : IState
     {
-        public override Type Type { get => typeof(Roaming); }
+        public IMover _mover;
+        protected RangedController _rangedController;
 
-        public AiMover aiMover;
 
-        
-
-        public Roaming(CharacterControl character) : base(character)
+        public Roaming(IMover mover, RangedController rangedController)
         {
-            aiMover = character.gameObject.GetComponent<AiMover>();
-            
+            _mover = mover;
+            _rangedController = rangedController;
         }
 
-        public override Type LogicUpdate()
+        public void Tick()
         {
-
-            if (TargetInRangedRange())
-            {
-                return typeof(Aiming);
-            } 
-            return typeof(Roaming);
+            _mover.Move();
+            //if (_rangedController.GetNearestEnemyWithLineOfSight(out Transform _transform))
+            //{
+            //    _rangedController.CurrentTarget = _transform;
+            //    _mover.SetTarget(_transform);
+            //} 
         }
 
-        public override void Enter()
+        public void OnEnter()
         {
-            base.Enter();
-            aiMover.StartNewPath(MovementMode.Roam);
+            _mover.SetTarget(null);
+        }
+
+        public void OnExit()
+        {
+
         }
     }
 }

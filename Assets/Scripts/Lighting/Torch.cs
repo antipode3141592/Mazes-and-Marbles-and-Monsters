@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 namespace MarblesAndMonsters.Objects
 {
@@ -13,14 +13,14 @@ namespace MarblesAndMonsters.Objects
         [SerializeField]
         private float unlitIntensity = 0.2f;
 
-        private Light2D lightObject;
+        private UnityEngine.Rendering.Universal.Light2D lightObject;
         private Animator animationController;
         private int aInitialState;
         private int aLight;
 
         private void Awake()
         {
-            lightObject = gameObject.GetComponent<Light2D>();
+            lightObject = gameObject.GetComponent<UnityEngine.Rendering.Universal.Light2D>();
             animationController = gameObject.GetComponent<Animator>();
             aInitialState = Animator.StringToHash("initialState");
             aLight = Animator.StringToHash("Light");
