@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using FiniteStateMachine;
 using MarblesAndMonsters.Menus;
 
@@ -75,11 +76,17 @@ namespace MarblesAndMonsters.States.GameStates
             Time.timeScale = 1.0f;
             _timeTracker.StartSessionTime();
         }
-        public override void HandleInput()
-        {
-            //grab acceleration input
-            _characterManager.Input_Acceleration = (Vector2)Input.acceleration;
-        }
+        //public override void HandleInput()
+        //{
+        //    //grab acceleration input
+        //    _characterManager.Input_Acceleration = (Vector2)Input.acceleration;
+        //    //_characterManager.Input_Acceleration = 
+        //}
+
+        //public void OnBoardTilt(InputValue input)
+        //{
+        //    _characterManager.Input_Acceleration = input.
+        //}
 
         public override void PhysicsUpdate()
         {

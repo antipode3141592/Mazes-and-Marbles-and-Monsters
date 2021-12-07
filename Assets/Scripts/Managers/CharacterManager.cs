@@ -5,6 +5,7 @@ using MarblesAndMonsters.Tiles;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace MarblesAndMonsters
 {
@@ -100,6 +101,11 @@ namespace MarblesAndMonsters
         }
 
         #region Character Management
+
+        public void SetBoardTilt(InputValue inputValue)
+        {
+            Input_Acceleration = inputValue.Get<Vector2>();
+        }
 
         internal int StoreCharacters()
         {

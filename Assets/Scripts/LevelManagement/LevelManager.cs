@@ -44,13 +44,16 @@ namespace LevelManagement
 
         private void Start()
         {
-
+            Debug.Log($"LevelManager Start() => Scene Count = {SceneManager.sceneCount}", gameObject);
 
             //if there are three scenes open OnStart, it's a debug/playtest situation where the 
             // scene level is all ready loaded, so we need to trigger start of level manually here
             if (SceneManager.sceneCount == 3)
             {
                 _gameManager.ShouldBeginLevel = true;
+            } else if (SceneManager.sceneCount == 2)
+            {
+                
             } else
             {
                 LoadMainMenuLevel();
