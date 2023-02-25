@@ -77,6 +77,13 @@ namespace MarblesAndMonsters
 
         protected virtual void SetLookDirection()
         {
+            //Vector2 moveDirection = _rigidbody.velocity;
+            //if (moveDirection != Vector2.zero)
+            //{
+            //    float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+            //    transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            //}
+            //transform.rotation = Quaternion.LookRotation(Vector3.forward, _rigidbody.velocity);
             lookDirection = _rigidbody.velocity.normalized;
             _animator.SetFloat(aFloatLookX, lookDirection.x);
             _animator.SetFloat(aFloatLookY, lookDirection.y);

@@ -10,9 +10,9 @@ public class GameStatsViewer : MonoBehaviour
     public Text InGameTimer;
     public Text TotalTimer;
 
-    DataManager _dataManager;
+    IDataManager _dataManager;
 
-    private void Awake()
+    void Awake()
     {
         _dataManager = FindObjectOfType<DataManager>();
     }

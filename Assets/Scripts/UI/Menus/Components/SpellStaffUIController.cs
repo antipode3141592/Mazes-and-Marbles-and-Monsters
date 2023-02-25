@@ -20,7 +20,7 @@ namespace MarblesAndMonsters.Menus.Components
         /// <param name="slot">index of quickslot to be assigned</param>
         /// <param name="item">reference to item</param>
         /// <returns></returns>
-        public void AssignSpellSlot(int slot, SpellStats spellStats)
+        public void AssignSpellSlot(int slot, SpellStatsBase spellStats)
         {
             if (!quickSlot[slot].isActiveAndEnabled)
             {

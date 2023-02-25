@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 6617150097688686585}
   - component: {fileID: 1322416117956969968}
   - component: {fileID: 2846328228336741253}
+  - component: {fileID: 9150575693929081851}
   m_Layer: 11
   m_Name: Marble
   m_TagString: Marble
@@ -168,7 +169,7 @@ MonoBehaviour:
   DamageImmunities: 
 --- !u!95 &8042973779161212819
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -185,7 +186,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!82 &6486380821672526513
 AudioSource:
   m_ObjectHideFlags: 0
@@ -317,7 +318,7 @@ MonoBehaviour:
   - {x: -0.248963, y: 0.096463785, z: 0}
   m_ShapePathHash: 217203677
   m_Mesh: {fileID: 0}
-  m_InstanceId: 76770
+  m_InstanceId: 86448
 --- !u!114 &1322416117956969968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,3 +374,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842f18ab7236aa34bb4f184c79f532b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9150575693929081851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2626821578083694134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6090da511f8374135a15dd8655adcd44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recordingInterval: 0.5
+  _mode: 1
+  _globalClockKey: Enemies
+  _rewindable: 1
+  _recordingDuration: 5

@@ -15,7 +15,7 @@ namespace MarblesAndMonsters.Menus
         //protected BackpackController backpackController;
         public MagicStaffController MagicStaffController;
         public bool IsUnlocked;
-        public SpellStats SpellStats;
+        public SpellStatsBase SpellStats;
         public GraphicRaycaster graphicRaycaster;
         private List<RaycastResult> raycastResults;
 

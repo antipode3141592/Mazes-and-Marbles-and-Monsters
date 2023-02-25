@@ -1,12 +1,9 @@
-﻿using Cinemachine;
-using LevelManagement.DataPersistence;
+﻿using LevelManagement.DataPersistence;
 using MarblesAndMonsters.Events;
 using MarblesAndMonsters.Items;
-using MarblesAndMonsters.Lighting;
 using MarblesAndMonsters.Menus;
 using MarblesAndMonsters.Menus.Components;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -45,8 +42,8 @@ namespace MarblesAndMonsters.Characters
 
         public List<KeyItem> KeyChain => keyChain;
 
-        protected MenuManager _menuManager;
-        protected DataManager _dataManager;
+        protected IMenuManager _menuManager;
+        protected IDataManager _dataManager;
         protected GameMenu _gameMenu;
 
         //singleton stuff
@@ -223,7 +220,7 @@ namespace MarblesAndMonsters.Characters
         ///     If 
         /// </summary>
         /// <param name="stats"></param>
-        public void AddtoActiveSpells(SpellStats stats)
+        public void AddtoActiveSpells(SpellStatsBase stats)
         {
             for (int i = 0; i < SpellStaffUIController.QuickSlotMax; i++)
             {

@@ -1,7 +1,3 @@
-using UnityEngine;
-using System;
-using MarblesAndMonsters.Characters;
-using Pathfinding;
 using FiniteStateMachine;
 
 namespace MarblesAndMonsters.States.CharacterStates
@@ -14,8 +10,6 @@ namespace MarblesAndMonsters.States.CharacterStates
     {
         IMover _mover;
         AnimatorController _animatorController;
-        CharacterManager _characterManager;
-        CharacterControl _characterControl;
 
         public Dying(IMover mover, AnimatorController animatorController) 
         {

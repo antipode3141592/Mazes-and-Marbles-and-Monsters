@@ -4,54 +4,43 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-//  Class Name:  MenuManager
-//  Interacts with:  Menu
-//  Purpose:  A UI controller with 
-//  
-
 namespace MarblesAndMonsters.Menus
 {
-
-    public class MenuManager : MonoBehaviour
+    public class MenuManager : MonoBehaviour, IMenuManager
     {
+        IGameManager _gameManager;
 
-        private Dictionary<MenuTypes, Menu> menuCollection = new Dictionary<MenuTypes, Menu>();
-        private Stack<Menu> _menuStack = new Stack<Menu>();
-
-        GameManager _gameManager;
+        Dictionary<MenuTypes, Menu> menuCollection = new Dictionary<MenuTypes, Menu>();
+        Stack<Menu> _menuStack = new Stack<Menu>();
 
         [Inject]
-        public void Init(GameManager gameManager)
+        public void Init(IGameManager gameManager)
         {
             _gameManager = gameManager;
         }
 
-        private void Awake()
+        void Awake()
         {
-            menuCollection.Add(MenuTypes.MainMenu, FindObjectOfType<MainMenu>(true));            
+            menuCollection.Add(MenuTypes.MainMenu, FindObjectOfType<MainMenu>(true));
             menuCollection.Add(MenuTypes.CreditsMenu, FindObjectOfType<CreditsMenu>(true));
 
             menuCollection.Add(MenuTypes.GameMenu, FindObjectOfType<GameMenu>(true));
             menuCollection.Add(MenuTypes.BackpackMenu, FindObjectOfType<BackpackMenu>(true));
             menuCollection.Add(MenuTypes.PauseMenu, FindObjectOfType<PauseMenu>(true));
             menuCollection.Add(MenuTypes.SettingsMenu, FindObjectOfType<SettingsMenu>(true));
-            
+
             menuCollection.Add(MenuTypes.WinMenu, FindObjectOfType<WinMenu>(true));
             menuCollection.Add(MenuTypes.DefeatMenu, FindObjectOfType<DefeatMenu>(true));
             menuCollection.Add(MenuTypes.MapMenu, FindObjectOfType<MapMenu>(true));
             menuCollection.Add(MenuTypes.MapPopupMenu, FindObjectOfType<MapPopupMenu>(true));
-            
         }
 
-        private void Start()
+        void Start()
         {
             InitializeMenus();
         }
 
-        /// <summary>
-        /// If MenuManager is in the only active scene, load 
-        /// </summary>
-        private void InitializeMenus()
+        void InitializeMenus()
         {
             if (SceneManager.sceneCount == 2)
             {
@@ -66,39 +55,40 @@ namespace MarblesAndMonsters.Menus
 
         public void OpenMenu(MenuTypes menuType)
         {
-            Debug.Log($"Opening Menu of Type: {menuType}");
-            //if menus exist in stack, deactivate everything in stack
+            if (Debug.isDebugBuild)
+                Debug.Log($"Opening Menu of Type: {menuType}");
             if (_menuStack.Count > 0)
             {
                 foreach (Menu menu in _menuStack)
                 {
-                    Debug.Log($"Deactivating Menu in Stack: {menu.name}");
+                    if (Debug.isDebugBuild)
+                        Debug.Log($"Deactivating Menu in Stack: {menu.name}");
                     menu.gameObject.SetActive(false);
                 }
             }
             var _menu = menuCollection[menuType];
             _menu.gameObject.SetActive(true);
             _menuStack.Push(_menu);
-            Debug.Log($"After push to stack, there are {_menuStack.Count} menus in _menuStack");
+            if (Debug.isDebugBuild)
+                Debug.Log($"After push to stack, there are {_menuStack.Count} menus in _menuStack");
         }
 
-        //close the top of the menu stack
         public void CloseMenu()
         {
             if (_menuStack.Count == 0)
             {
-                Debug.LogWarning("no menu to close, menu stack is empty!");
+                if (Debug.isDebugBuild)
+                    Debug.LogWarning("no menu to close, menu stack is empty!");
                 return;
             }
             Menu topMenu = _menuStack.Pop();
             topMenu.gameObject.SetActive(false);
-            //if menustack is not empty
             if (_menuStack.Count > 0)
             {
                 Menu nextMenu = _menuStack.Peek();
                 nextMenu.gameObject.SetActive(true);
             }
-            
+
         }
     }
 }

@@ -8,27 +8,27 @@ namespace MarblesAndMonsters.Menus
     public class SplashScreen : MonoBehaviour
     {
         [SerializeField]
-        private ScreenFader _screenFader;
+        ScreenFader _screenFader;
 
-        MenuManager _menuManager;
-        LevelManager _levelManager;
+        IMenuManager _menuManager;
+        ILevelManager _levelManager;
 
         [Inject]
-        public void Init(MenuManager menuManager, LevelManager levelManager)
+        public void Init(IMenuManager menuManager, ILevelManager levelManager)
         {
             _menuManager = menuManager;
             _levelManager = levelManager;
         }
 
         [SerializeField]
-        private float delay = 1f;
+        float delay = 1f;
 
-        private void Awake()
+        void Awake()
         {
             _screenFader = GetComponent<ScreenFader>();
         }
 
-        private void Start()
+        void Start()
         {
             _screenFader.FadeOn();
         }
@@ -38,9 +38,8 @@ namespace MarblesAndMonsters.Menus
             StartCoroutine(FadeAndLoadRoutine());
         }
 
-        private IEnumerator FadeAndLoadRoutine()
+        IEnumerator FadeAndLoadRoutine()
         {
-            //_menuManager.OpenMenu(MenuTypes.MainMenu);
             _screenFader.FadeOff();
             //wait for fade
             yield return new WaitForSeconds(_screenFader.FadeOffDuration);

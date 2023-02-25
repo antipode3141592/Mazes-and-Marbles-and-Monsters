@@ -10,22 +10,20 @@ using Zenject;
 
 namespace LevelManagement
 {
-
-    //
-    public class LevelManager : MonoBehaviour
+    public class LevelManager : MonoBehaviour, ILevelManager
     {
-        [SerializeField] private LevelList levelList;    //scriptable object with all accessible levels
-        [SerializeField] private TransitionFader levelLoadTransition;
+        [SerializeField] LevelList levelList;    //scriptable object with all accessible levels
+        [SerializeField] TransitionFader levelLoadTransition;
 
-        private Dictionary<string, LevelSpecs> levelSpecsById = new Dictionary<string, LevelSpecs>(); // key is string Id
+        Dictionary<string, LevelSpecs> levelSpecsById = new Dictionary<string, LevelSpecs>(); // key is string Id
 
-        protected DataManager _dataManager;
-        protected GameManager _gameManager;
+        protected IDataManager _dataManager;
+        protected IGameManager _gameManager;
 
         protected string _currentLevelName = string.Empty;   //default to empty
 
         [Inject]
-        public void Init(DataManager dataManager, GameManager gameManager)
+        public void Init(IDataManager dataManager, IGameManager gameManager)
         {
             _dataManager = dataManager;
             _gameManager = gameManager;
@@ -36,13 +34,13 @@ namespace LevelManagement
             //build dictionary with key equal to Id field in LevelSpecs
             //levelSpecsById = new Dictionary<string, LevelSpecs>();
             foreach (LevelSpecs level in levelList.Levels)
-                {
-                    levelSpecsById.Add(level.Id, level);
-                }
+            {
+                levelSpecsById.Add(level.Id, level);
+            }
             Debug.Log(string.Format("Level Dictionary has {0} key-value pairs", levelSpecsById.Count));
         }
 
-        private void Start()
+        void Start()
         {
             Debug.Log($"LevelManager Start() => Scene Count = {SceneManager.sceneCount}", gameObject);
 
@@ -51,10 +49,12 @@ namespace LevelManagement
             if (SceneManager.sceneCount == 3)
             {
                 _gameManager.ShouldBeginLevel = true;
-            } else if (SceneManager.sceneCount == 2)
+            }
+            else if (SceneManager.sceneCount == 2)
             {
-                
-            } else
+
+            }
+            else
             {
                 LoadMainMenuLevel();
             }
@@ -64,7 +64,7 @@ namespace LevelManagement
         /// Load a specific scene by levelId
         /// </summary>
         public void LoadLevel(string levelId)
-        
+
         {
             Debug.Log(string.Format("LoadLevel(string {0})", levelId));
             if (levelId == string.Empty)
@@ -74,7 +74,8 @@ namespace LevelManagement
                 {
                     Debug.Log(string.Format("CheckPointLevelId: {0}", _dataManager.CheckPointLevelId));
                     levelId = GetNextLevelSpecs(_dataManager.CheckPointLevelId).Id;
-                } else
+                }
+                else
                 {
                     Debug.Log("checkpointlevelid is empty, using GetCurrentLevelId()");
                     levelId = GetNextLevelSpecs(GetCurrentLevelId()).Id;
@@ -86,11 +87,11 @@ namespace LevelManagement
                 if (_dataManager != null)
                 {
                     //update saved level id
-                    _dataManager.CheckPointLevelId = GetLevelSpecsById(levelId).Id;    
+                    _dataManager.CheckPointLevelId = GetLevelSpecsById(levelId).Id;
                     _dataManager.SavedLocation = GetLevelSpecsById(levelId).Location;
                     _dataManager.Save();
                 }
-                
+
                 StartCoroutine(LoadLevelAsync(GetLevelSpecsById(levelId).SceneName));
             }
             else
@@ -105,7 +106,7 @@ namespace LevelManagement
         /// </summary>
         /// <param name="sceneName"></param>
         /// <returns></returns>
-        private IEnumerator LoadLevelAsync(string sceneName)
+        IEnumerator LoadLevelAsync(string sceneName)
         {
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             while (!asyncOperation.isDone)
@@ -126,7 +127,7 @@ namespace LevelManagement
 
         public void LoadMainMenuLevel()
         {
-            StartCoroutine(LoadManagers());   
+            StartCoroutine(LoadManagers());
         }
 
         IEnumerator LoadManagers()
@@ -138,7 +139,8 @@ namespace LevelManagement
                 {
                     yield return null;
                 }
-            } else
+            }
+            else
             {
                 AsyncOperation async2 = SceneManager.LoadSceneAsync(levelList.managerSceneIndex, LoadSceneMode.Single);
                 AsyncOperation async3 = SceneManager.LoadSceneAsync(levelList.lightingSceneIndex, LoadSceneMode.Additive);
@@ -147,10 +149,8 @@ namespace LevelManagement
                     yield return null;
                 }
             }
-            
+
         }
-
-
 
         /// <summary>
         /// Return LevelSpecs for a given ID given by string id
@@ -168,7 +168,8 @@ namespace LevelManagement
             }
         }
 
-        public string GetCurrentLevelId() {
+        public string GetCurrentLevelId()
+        {
             var currentScene = SceneManager.GetActiveScene();
             var retval = levelSpecsById.Where(x => x.Value.SceneName == currentScene.path).FirstOrDefault();
             return retval.Key;

@@ -1,24 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
+using Rewired;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Zenject;
 
 namespace MarblesAndMonsters
 {
-    public class InputManager : MonoBehaviour
+    public class InputManager : MonoBehaviour, IInputManager
     {
-        CharacterManager _characterManager;
+        ICharacterManager _characterManager;
+
+        Player player;
+        readonly int playerId = 0;
+        [SerializeField] string horizontalAxisName;
+        [SerializeField] string verticalAxisName;
 
         [Inject]
-        public void Init(CharacterManager characterManager)
+        public void Init(ICharacterManager characterManager)
         {
             _characterManager = characterManager;
         }
 
-        public void OnBoardTilt(InputValue inputValue)
+        void Awake()
         {
-            _characterManager.Input_Acceleration = inputValue.Get<Vector2>();
+            player = ReInput.players.GetPlayer(playerId);
+        }
+
+        public void MeasureBoardTilt()
+        {
+            _characterManager.Input_Acceleration = player.GetAxis2D(horizontalAxisName, verticalAxisName);
         }
 
     }

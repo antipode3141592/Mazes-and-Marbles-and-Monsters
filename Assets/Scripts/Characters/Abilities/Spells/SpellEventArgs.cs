@@ -10,9 +10,9 @@ namespace MarblesAndMonsters
 
     public class SpellEventArgs : EventArgs
     {
-        public SpellStats SpellStats;
+        public SpellStatsBase SpellStats;
 
-        public SpellEventArgs(SpellStats spellStats)
+        public SpellEventArgs(SpellStatsBase spellStats)
         {
             SpellStats = spellStats;
         }

@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using MarblesAndMonsters.Characters;
 using LevelManagement.DataPersistence;
+using MarblesAndMonsters.Characters;
+using System.Collections;
+using UnityEngine;
 
 namespace MarblesAndMonsters.Spells
 {
@@ -13,11 +12,11 @@ namespace MarblesAndMonsters.Spells
         protected AudioSource audioSource;
         protected int aTriggerPickup;
 
-        protected SpellStats _oldStats;
+        protected SpellStatsBase _oldStats;
 
         //[SerializeField]
         //protected Sprite InventoryIcon;
-        public SpellStats Stats;
+        public SpellStatsBase Stats;
 
         protected void Awake()
         {

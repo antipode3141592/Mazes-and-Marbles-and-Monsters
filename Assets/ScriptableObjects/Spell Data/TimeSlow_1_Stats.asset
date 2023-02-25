@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6455d85acd474ce47a3c0cb93fd400bd, type: 3}
+  m_Name: TimeSlow_1_Stats
+  m_EditorClassIdentifier: 
+  id: ts_1
+  Stackable: 0
+  InventoryIcon: {fileID: 21300000, guid: 32fd9b70f9f60bb4ca6029fa64f89dc5, type: 3}
+  ClipPickup: {fileID: 0}
+  SpellName: 2
+  Description: Slow the flow of time for everything aside from the caster.
+  PublicName: Slow Time
+  Duration: 3
+  CooldownDuration: 15
+  intensity: 0.25

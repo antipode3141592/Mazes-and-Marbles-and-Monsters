@@ -6,28 +6,25 @@ using UnityEngine;
 
 namespace MarblesAndMonsters.Menus
 {
-    /// <summary>
-    /// Clickable Gameobject that represents a location on the map
-    /// </summary>
     public class Location : MonoBehaviour
     {
         
-        [SerializeField] private string locationId;
-        private Sprite sprite;
-        [SerializeField] private Sprite occupiedSprite;
-        [SerializeField] private Sprite availableSprite;
-        [SerializeField] private Sprite completeSprite;
+        [SerializeField] string locationId;
+        Sprite sprite;
+        [SerializeField] Sprite occupiedSprite;
+        [SerializeField] Sprite availableSprite;
+        [SerializeField] Sprite completeSprite;
 
-        protected LevelManager _levelManager;
-        protected DataManager _dataManager;
-        protected MenuManager _menuManager;
+        protected ILevelManager _levelManager;
+        protected IDataManager _dataManager;
+        protected IMenuManager _menuManager;
 
         protected MapPopupMenu _popupMenu;
 
         //upon awake, grab the levelloader reference
         //  preload location summary data
         //  update sprite
-        private void Awake()
+        void Awake()
         {
             _menuManager = FindObjectOfType<MenuManager>();
             _levelManager = FindObjectOfType<LevelManager>();
@@ -37,17 +34,13 @@ namespace MarblesAndMonsters.Menus
             
         }
 
-        /// <summary>
-        /// Event from clicking on the collider
-        /// </summary>
-        private void OnMouseDown()
+        void OnMouseDown()
         {
             OpenLocationPopup();
         }
 
-        private void OpenLocationPopup()
+        void OpenLocationPopup()
         {
-            //open map menu
             if (_menuManager != null)
             {
                 _menuManager.OpenMenu(MenuTypes.MapPopupMenu);
@@ -59,14 +52,13 @@ namespace MarblesAndMonsters.Menus
             //levelLoader.LoadLevel(levelLoader.GetFirstLevelInLocation(locationName).Id);
         }
 
-        private void LoadFirstLevel()
+        void LoadFirstLevel()
         {
             LevelSpecs firstLevelSpecs = _levelManager.GetFirstLevelInLocation(locationId);
-            ////if 
             _levelManager.LoadLevel(firstLevelSpecs.Id);
         }
 
-        private void ResetLocation()
+        void ResetLocation()
         {
 
         }

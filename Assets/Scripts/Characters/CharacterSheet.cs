@@ -132,7 +132,7 @@ namespace MarblesAndMonsters.Characters
         public List<DamageType> DamageImmunities;
 
         //read-only accessors
-        public Dictionary<SpellName,Spell> Spells;
+        public Dictionary<SpellName, Spell> Spells;
 
         #region Unity Functions
         private void Awake()

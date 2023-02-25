@@ -28,13 +28,18 @@ namespace MarblesAndMonsters.Characters
         [SerializeField]
         protected float spawnAnimationDelay;
 
-        GameManager _gameManager;
+        IGameManager _gameManager;
+
+        [Inject]
+        public void Init(IGameManager gameManager)
+        {
+            _gameManager = gameManager;
+        }
 
         #region Unity Scripts
 
         protected virtual void Awake()
         {
-            _gameManager = FindObjectOfType<GameManager>(true);
             characters = new List<CharacterControl>();
             animator = GetComponent<Animator>();
             spawnTriggerHash = Animator.StringToHash("Spawn");

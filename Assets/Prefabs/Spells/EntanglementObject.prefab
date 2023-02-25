@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7168040535287122254}
   - component: {fileID: 8835059570872667135}
   - component: {fileID: 4322811453019497101}
+  - component: {fileID: -6864617127236490067}
   m_Layer: 11
   m_Name: EntanglementObject
   m_TagString: Monster
@@ -117,12 +118,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animator: {fileID: 0}
+  Caster: {fileID: 0}
   VinePrefab: {fileID: 4631688286060881718, guid: 8fa218f8fcb852c4b9ee85a2ebeb4e5b,
     type: 3}
   CircleCollider2D: {fileID: 7168040535287122254}
 --- !u!95 &4322811453019497101
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -139,4 +141,21 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &-6864617127236490067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6356883871636546936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6090da511f8374135a15dd8655adcd44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recordingInterval: 0.5
+  _mode: 1
+  _globalClockKey: Enemies
+  _rewindable: 1
+  _recordingDuration: 5

@@ -10,11 +10,11 @@ namespace LevelManagement.DataPersistence
     public class SpellData
     {
         public SpellName SpellName;
-        public SpellStats SpellStats;
+        public SpellStatsBase SpellStats;
         public bool IsAssigned;
         public int QuickSlot;
 
-        public SpellData(SpellName spellName, SpellStats spellStats, bool isAssigned = false, int quickSlot = -1)
+        public SpellData(SpellName spellName, SpellStatsBase spellStats, bool isAssigned = false, int quickSlot = -1)
         {
             SpellName = spellName;
             SpellStats = spellStats;

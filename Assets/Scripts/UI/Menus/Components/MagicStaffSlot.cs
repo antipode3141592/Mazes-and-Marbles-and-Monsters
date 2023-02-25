@@ -13,7 +13,7 @@ namespace MarblesAndMonsters.Menus.Components
         public Image DragIcon;
         public int QuickSlot;
         public bool IsUnlocked;
-        public SpellStats SpellStats;
+        public SpellStatsBase SpellStats;
         private List<RaycastResult> raycastResults;
         private GraphicRaycaster graphicRaycaster;
         private List<MagicStaffSlot> otherSlots;
@@ -27,7 +27,7 @@ namespace MarblesAndMonsters.Menus.Components
             DragIcon.enabled = false;
         }
 
-        public void AssignSlot(SpellStats newStats)
+        public void AssignSlot(SpellStatsBase newStats)
         {
             if (IsUnlocked)
             {
@@ -51,7 +51,7 @@ namespace MarblesAndMonsters.Menus.Components
             }
         }
 
-        public void _AssignSlot(SpellStats newStats)
+        public void _AssignSlot(SpellStatsBase newStats)
         {
             SpellIcon.sprite = newStats.InventoryIcon;
             SpellIcon.color = Color.white;

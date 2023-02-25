@@ -1,4 +1,5 @@
-﻿using FiniteStateMachine;
+﻿using Chronos;
+using FiniteStateMachine;
 using LevelManagement;
 using LevelManagement.DataPersistence;
 using MarblesAndMonsters.Characters;
@@ -17,35 +18,37 @@ namespace MarblesAndMonsters
     //      MenuManager singleton instance for menu functions
     //      DataManager singleton instance for saving/loading persistent data
     //      Player singleton instance
-    public class GameManager : MonoBehaviour
+    public class GameManager : MonoBehaviour, IGameManager
     {
         #region Properties
         [SerializeField]
         private TransitionFader startTransition;
         [SerializeField]
         private TransitionFader endTransition;
+        [SerializeField] Clock _rootClock; 
 
         //state machine stuff
         protected StateMachine stateMachine;
 
         public BaseState CurrentState => stateMachine.CurrentState;
 
-        protected LevelManager _levelManager;
-        protected DataManager _dataManager;
-        protected MenuManager _menuManager;
-        protected CharacterManager _characterManager;
+        protected ILevelManager _levelManager;
+        protected IDataManager _dataManager;
+        protected IMenuManager _menuManager;
+        protected ICharacterManager _characterManager;
+        protected IInputManager _inputManager;
 
-
-        public bool ShouldBeginLevel = false;
+        public bool ShouldBeginLevel { get; set; } = false;
         #endregion
 
         [Inject]
-        public void Init(DataManager dataManager, MenuManager menuManager, LevelManager levelManager, CharacterManager characterManager)
+        public void Init(IDataManager dataManager, IMenuManager menuManager, ILevelManager levelManager, ICharacterManager characterManager, IInputManager inputManager)
         {
             _dataManager = dataManager;
             _menuManager = menuManager;
             _levelManager = levelManager;
             _characterManager = characterManager;
+            _inputManager = inputManager;
         }
 
         #region Unity Overrides
@@ -58,8 +61,8 @@ namespace MarblesAndMonsters
             {
                 {typeof(START), new START(manager: this) },
                 {typeof(PopulateLevel), new PopulateLevel(manager: this, characterManager: _characterManager) },
-                {typeof(Playing), new Playing(manager: this, characterManager: _characterManager, timeTracker) },
-                {typeof(Paused), new Paused(manager: this, timeTracker) },
+                {typeof(Playing), new Playing(manager: this, inputManager: _inputManager, characterManager: _characterManager, timeTracker, _rootClock) },
+                {typeof(Paused), new Paused(manager: this, timeTracker, _rootClock) },
                 {typeof(Victory), new Victory(manager: this, menuManager: _menuManager, characterManager: _characterManager) },
                 {typeof(Defeat), new Defeat(manager: this, menuManager: _menuManager, characterManager: _characterManager) },
                 {typeof(END), new END(manager: this) }
@@ -80,7 +83,7 @@ namespace MarblesAndMonsters
             stateMachine.SwitchToNewState(typeof(Paused));
             _menuManager.OpenMenu(MenuTypes.PauseMenu);
         }
-              
+
         #region LevelManagement
 
         public void LevelWin()
@@ -126,7 +129,7 @@ namespace MarblesAndMonsters
             _levelManager.LoadLevel(levelId);
             //float fadeDelay = endTransition != null ? endTransition.Delay + endTransition.FadeOnDuration : 0f;
             yield return null;
-            
+
         }
 
         private IEnumerator DefeatRoutine()
@@ -161,7 +164,8 @@ namespace MarblesAndMonsters
                                 string levelId = _levelManager.GetCurrentLevelId();
                                 _dataManager.UpdateLevelSaves(new LevelSaveData(levelId,
                                     _levelManager.GetLevelSpecsById(levelId).Location, 0, true));
-                            } else
+                            }
+                            else
                             {
                                 throw new Exception("No LevelManager found for GetCurrentLevelId");
                             }
@@ -186,12 +190,12 @@ namespace MarblesAndMonsters
                         throw new Exception("No Player Instance found when attempting to save!");
                     }
                 }
-                else 
-                { 
-                    throw new Exception("No DataManager Instance found when attempting to save!"); 
+                else
+                {
+                    throw new Exception("No DataManager Instance found when attempting to save!");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.LogError(string.Format("{0}", ex.Message));
             }
@@ -199,7 +203,7 @@ namespace MarblesAndMonsters
             {
 
             }
-            
+
         }
     }
 }

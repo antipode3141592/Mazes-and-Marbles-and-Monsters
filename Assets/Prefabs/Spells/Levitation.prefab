@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1785747940950654041}
   - component: {fileID: 1175384529286208101}
   - component: {fileID: 139425300663378920}
+  - component: {fileID: 1828638490960389591}
   m_Layer: 11
   m_Name: Levitation
   m_TagString: Untagged
@@ -28,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4956043505336363238}
   m_Father: {fileID: 0}
@@ -69,6 +71,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2
+--- !u!114 &1828638490960389591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7397120972907361703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c364e7a8609b1f94fa72d62049a91de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recordingInterval: 0.5
 --- !u!1001 &1761651128002928288
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76,6 +91,211 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1785747940950654041}
     m_Modifications:
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: ShapeModule.type
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.radial.scalar
+      value: 1.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalX.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalY.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalX.minMaxState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalY.minMaxState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.minMaxState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[1].time
+      value: 0.16023363
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalX.maxCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalX.maxCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalY.maxCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalY.maxCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[1].value
+      value: 0.41373163
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[2].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[0].inSlope
+      value: 2.5820525
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[1].inSlope
+      value: 1.6400926
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[2].inSlope
+      value: 0.6981327
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalX.maxCurve.m_Curve.Array.data[0].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalX.maxCurve.m_Curve.Array.data[1].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalY.maxCurve.m_Curve.Array.data[0].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalY.maxCurve.m_Curve.Array.data[1].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[0].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[0].outSlope
+      value: 2.5820525
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[1].outSlope
+      value: 1.6400926
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[2].outSlope
+      value: 0.6981327
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalX.maxCurve.m_Curve.Array.data[0].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalX.maxCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalY.maxCurve.m_Curve.Array.data[0].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalY.maxCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[2].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalX.maxCurve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalX.maxCurve.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalY.maxCurve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalY.maxCurve.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+        type: 3}
+      propertyPath: VelocityModule.orbitalZ.maxCurve.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
     - target: {fileID: 4152963785822092830, guid: 8f983bb74dc9a2547b3ef757d24c414e,
         type: 3}
       propertyPath: m_Name
@@ -143,15 +363,34 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f983bb74dc9a2547b3ef757d24c414e, type: 3}
---- !u!4 &4956043505336363238 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6680460101468517958, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+--- !u!1 &2436709981236191422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4152963785822092830, guid: 8f983bb74dc9a2547b3ef757d24c414e,
     type: 3}
   m_PrefabInstance: {fileID: 1761651128002928288}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5942087697886971653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2436709981236191422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c364e7a8609b1f94fa72d62049a91de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recordingInterval: 0.5
 --- !u!198 &2974716659741218755 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 3547417400142465379, guid: 8f983bb74dc9a2547b3ef757d24c414e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1761651128002928288}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4956043505336363238 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6680460101468517958, guid: 8f983bb74dc9a2547b3ef757d24c414e,
     type: 3}
   m_PrefabInstance: {fileID: 1761651128002928288}
   m_PrefabAsset: {fileID: 0}

@@ -26,8 +26,7 @@ namespace MarblesAndMonsters.Menus.Components
             }
         }
 
-
-        public void AssignQuickAccess(int slot, SpellStats spellStats)
+        public void AssignQuickAccess(int slot, SpellStatsBase spellStats)
         {
             spellSlots[slot]._AssignSlot(spellStats);
         }

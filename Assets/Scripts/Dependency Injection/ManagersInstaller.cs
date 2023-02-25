@@ -8,10 +8,17 @@ public class ManagersInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.Bind<MenuManager>().FromComponentInHierarchy().AsSingle();
-        Container.Bind<DataManager>().FromComponentInHierarchy().AsSingle();
-        Container.Bind<LevelManager>().FromComponentInHierarchy().AsSingle();
-        Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle();
-        Container.Bind<CharacterManager>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<IMenuManager>().To<MenuManager>()
+            .FromComponentInHierarchy().AsSingle();
+        Container.Bind<IDataManager>().To<DataManager>()
+            .FromComponentInHierarchy().AsSingle();
+        Container.Bind<ILevelManager>().To<LevelManager>()
+            .FromComponentInHierarchy().AsSingle();
+        Container.Bind<IGameManager>().To<GameManager>().
+            FromComponentInHierarchy().AsSingle();
+        Container.Bind<IInputManager>().To<InputManager>()
+            .FromComponentInHierarchy().AsSingle();
+        Container.Bind<ICharacterManager>().To<CharacterManager>()
+            .FromComponentInHierarchy().AsSingle();
     }
 }

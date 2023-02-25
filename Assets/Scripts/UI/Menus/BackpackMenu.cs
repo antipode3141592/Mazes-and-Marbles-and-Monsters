@@ -5,14 +5,14 @@ using MarblesAndMonsters.Characters;
 using UnityEngine.UI;
 using MarblesAndMonsters.Menus.Components;
 using LevelManagement.DataPersistence;
+using Chronos;
 
 namespace MarblesAndMonsters.Menus
 {
-    /// <summary>
-    /// Backpack Menu has 
-    /// </summary>
     public class BackpackMenu : Menu<BackpackMenu>
     {
+        Clock _rootClock;
+
         public Transform QuickAccessTransform;
         public Transform InventoryTransform;
         public Text SpellDescription;
@@ -21,9 +21,19 @@ namespace MarblesAndMonsters.Menus
         public GridLayoutGroup grid;
         public GraphicRaycaster GraphicRaycaster;
 
-        private List<UISpellIconTemplate> spellBook;
-        private List<MagicStaffSlot> currentStaffSlots;
-        private List<MagicStaffSlot> newStaffSlots;
+        List<UISpellIconTemplate> spellBook;
+        List<MagicStaffSlot> currentStaffSlots;
+        List<MagicStaffSlot> newStaffSlots;
+
+        public Clock RootClock
+        {
+            get
+            {
+                if (_rootClock is null)
+                    _rootClock = Timekeeper.instance.Clock("Root");
+                return _rootClock;
+            }
+        }
 
         protected void Awake()
         {
@@ -31,9 +41,8 @@ namespace MarblesAndMonsters.Menus
             GraphicRaycaster = GetComponent<GraphicRaycaster>();
         }
 
-        private void OnEnable()
+        void OnEnable()
         {
-            Time.timeScale = 0.0f;
             if (Player.Instance != null)
             {
                 for (int i = 0; i < spellBook.Count; i++)
@@ -64,7 +73,7 @@ namespace MarblesAndMonsters.Menus
             }
         }
 
-        private void ClearSlot(int i)
+        void ClearSlot(int i)
         {
             spellBook[i].Icon.sprite = null;
             spellBook[i].Icon.color = Color.grey;
@@ -72,10 +81,8 @@ namespace MarblesAndMonsters.Menus
             spellBook[i].IsUnlocked = false;
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
-            Time.timeScale = 1.0f;
-
             //List<SpellName> quickslotSpells = new List<SpellName>();
             // clear quickslots of player's spells
             if (Player.Instance)

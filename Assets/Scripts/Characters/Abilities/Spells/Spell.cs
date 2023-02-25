@@ -19,7 +19,7 @@ namespace MarblesAndMonsters
         protected Rigidbody2D _rigidbody;
         protected CharacterControl _characterControl;
         protected AnimatorController _animatorController;
-        public SpellStats SpellStats;
+        public SpellStatsBase SpellStats;
         public ParticleSystem ParticleEffect;
 
         public SpellName SpellName;

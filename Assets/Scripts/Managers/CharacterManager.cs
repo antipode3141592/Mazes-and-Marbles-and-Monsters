@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 
 namespace MarblesAndMonsters
 {
-    public class CharacterManager : MonoBehaviour
+    public class CharacterManager : MonoBehaviour, ICharacterManager
     {
         public Vector2 Input_Acceleration { get; set; }
 
@@ -50,7 +50,7 @@ namespace MarblesAndMonsters
         /// <summary>
         /// Reset all objects
         /// </summary>
-        internal void ResetAll()
+        public void ResetAll()
         {
             foreach (Gate gate in gates)
             {
@@ -84,13 +84,13 @@ namespace MarblesAndMonsters
             //Destroy(Player.Instance);
         }
 
-        internal void SpawnAll()
+        public void SpawnAll()
         {
             foreach (SpawnPoint spawnPoint in spawnPoints)
             {
                 if (spawnPoint.isAvailable)
-                { 
-                    spawnPoint.SpawnCharacter(); 
+                {
+                    spawnPoint.SpawnCharacter();
                 }
             }
             foreach (InventoryItem item in inventoryItems)

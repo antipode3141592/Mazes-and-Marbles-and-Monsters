@@ -5,7 +5,7 @@ namespace MarblesAndMonsters.Spells
 {
     [CreateAssetMenu(menuName = "Stats/Spell Stats/Force Bubble Spell Stats")]
 
-    public class ForceBubbleSpellStats : SpellStats
+    public class ForceBubbleSpellStats : SpellStatsBase
     {
         //public override void Action()
         //{

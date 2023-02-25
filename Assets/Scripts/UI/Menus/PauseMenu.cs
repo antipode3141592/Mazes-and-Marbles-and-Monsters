@@ -3,13 +3,27 @@ using LevelManagement.Menus;
 using UnityEngine;
 using LevelManagement.DataPersistence;
 using LevelManagement;
+using Chronos;
 
 namespace MarblesAndMonsters.Menus
 {
     public class PauseMenu : Menu<PauseMenu>
     {
+        Clock _rootClock;
+
+        public Clock RootClock
+        {
+            get
+            {
+                if (_rootClock is null)
+                    _rootClock = Timekeeper.instance.Clock("Root");
+                return _rootClock;
+            }
+        }
+
         public void OnResumePressed()
         {
+
             _gameManager.UnpauseGame();
         }
 

@@ -22,7 +22,7 @@ namespace MarblesAndMonsters.Menus.Components
             BackgroundImage.color = Color.clear;
         }
 
-        public void AssignSlot(SpellStats spellStats)
+        public void AssignSlot(SpellStatsBase spellStats)
         {
             ItemImage.image.sprite = spellStats.InventoryIcon;
             ItemImage.image.color = Color.white;

@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 1292767341727567428}
   - component: {fileID: 7699617189250761245}
   - component: {fileID: 1731473931534730487}
+  - component: {fileID: 9129490656373956117}
   m_Layer: 11
   m_Name: Vine Elemental
   m_TagString: Monster
@@ -225,7 +226,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!58 &4995651374173321990
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -276,7 +277,7 @@ CircleCollider2D:
   m_Radius: 5
 --- !u!95 &4995651374173321998
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -293,7 +294,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!82 &4995651374173321999
 AudioSource:
   m_ObjectHideFlags: 0
@@ -492,6 +493,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842f18ab7236aa34bb4f184c79f532b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9129490656373956117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4995651374173322040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6090da511f8374135a15dd8655adcd44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recordingInterval: 0.5
+  _mode: 1
+  _globalClockKey: Enemies
+  _rewindable: 1
+  _recordingDuration: 5
 --- !u!1001 &92639043298801190
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -572,6 +590,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 92639043298801190}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6624395877449743874 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6532341843057444900, guid: bd40524d5b08ef749b9ea1a7f5687f9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 92639043298801190}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2868125023360526331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624395877449743874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c364e7a8609b1f94fa72d62049a91de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recordingInterval: 0.5
 --- !u!198 &6750791986071025541 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 6694248123482046883, guid: bd40524d5b08ef749b9ea1a7f5687f9c,

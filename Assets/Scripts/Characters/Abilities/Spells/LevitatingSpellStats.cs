@@ -8,7 +8,7 @@ using UnityEngine;
 namespace MarblesAndMonsters.Spells
 {
     [CreateAssetMenu(menuName = "Stats/Spell Stats/Levitation Spell Stats")]
-    public class LevitatingSpellStats : SpellStats
+    public class LevitatingSpellStats : SpellStatsBase
     {
         //public override void Action()
         //{

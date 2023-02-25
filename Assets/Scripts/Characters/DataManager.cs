@@ -1,17 +1,15 @@
-﻿using System.Collections;
+﻿using MarblesAndMonsters.Items;
 using System.Collections.Generic;
 using UnityEngine;
-using LevelManagement.Levels;
-using MarblesAndMonsters.Items;
 
 //code based on the course content at https://www.udemy.com/course/level-management-in-unity/ , which was super helpeful and highly recommended
 
 namespace LevelManagement.DataPersistence
 {
-    public class DataManager : MonoBehaviour
+    public class DataManager : MonoBehaviour, IDataManager
     {
-        private SaveData saveData;
-        private JSONSaver jsonSaver;
+        SaveData saveData;
+        JSONSaver jsonSaver;
 
         public float MasterVolume { get { return saveData.masterVolume; } set { saveData.masterVolume = value; } }
         public float SFXVolume { get { return saveData.sfxVolume; } set { saveData.sfxVolume = value; } }
@@ -34,7 +32,7 @@ namespace LevelManagement.DataPersistence
 
         public List<KeyItem> CollectedKeys { get { return saveData.CollectedKeys; } set { saveData.CollectedKeys = value; } }
 
-        private void Awake()
+        void Awake()
         {
             saveData = new SaveData();
             jsonSaver = new JSONSaver();
@@ -59,7 +57,7 @@ namespace LevelManagement.DataPersistence
             {
                 LevelSaves.Add(levelData);
             }
-            
+
         }
 
         public void UpdateLocationSaves(LocationSaveData locationData)

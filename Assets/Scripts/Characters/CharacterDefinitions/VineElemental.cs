@@ -14,6 +14,7 @@ namespace MarblesAndMonsters.Characters
     {
         protected CharacterStateMachine _stateMachine;
         protected float VisibilityDistance;
+        protected Rigidbody2D _rigidbody2D;
 
         public CharacterStateMachine StateMachine => _stateMachine;
 
@@ -22,6 +23,7 @@ namespace MarblesAndMonsters.Characters
             base.Awake();
             _stateMachine = new CharacterStateMachine();
 
+            _rigidbody2D = GetComponent<Rigidbody2D>();
             IMover mover = GetComponent<IMover>();
             RangedController rangedController = GetComponent<RangedController>();
             MeleeController meleeController = GetComponent<MeleeController>();
@@ -71,7 +73,7 @@ namespace MarblesAndMonsters.Characters
         protected override void Update()
         {
             base.Update();
-            _stateMachine.Tick();
+            _stateMachine.Tick();   
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

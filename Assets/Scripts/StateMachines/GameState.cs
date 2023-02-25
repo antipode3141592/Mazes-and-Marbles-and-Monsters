@@ -1,5 +1,4 @@
 ﻿using MarblesAndMonsters;
-using UnityEngine;
 
 namespace FiniteStateMachine
 {
@@ -7,8 +6,8 @@ namespace FiniteStateMachine
     public abstract class GameState : BaseState
     {
         //protected StateMachine stateMachine;
-        protected GameManager _manager;
+        protected IGameManager _manager;
 
-        public GameState(GameObject gameObject) : base(gameObject) { }
+        public GameState() : base() { }
     }
 }
