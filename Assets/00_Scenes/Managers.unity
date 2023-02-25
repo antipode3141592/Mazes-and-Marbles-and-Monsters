@@ -894,8 +894,8 @@ MonoBehaviour:
   m_AssetsPPU: 32
   m_RefResolutionX: 960
   m_RefResolutionY: 540
-  m_CropFrame: 0
-  m_GridSnapping: 0
+  m_CropFrame: 4
+  m_GridSnapping: 1
   m_UpscaleRT: 0
   m_PixelSnapping: 0
   m_CropFrameX: 0
@@ -969,7 +969,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 6.140625
+  orthographic size: 5.625
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1269,6 +1269,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -687.75
       objectReference: {fileID: 0}
+    - target: {fileID: 1047300620080335711, guid: ed9f3d7637eef7746a43b4a37a163750,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 16311
+      objectReference: {fileID: 0}
     - target: {fileID: 1395015422913705589, guid: ed9f3d7637eef7746a43b4a37a163750,
         type: 3}
       propertyPath: rootClock
@@ -1553,6 +1558,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3934150348448515514, guid: ed9f3d7637eef7746a43b4a37a163750,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 16311
       objectReference: {fileID: 0}
     - target: {fileID: 4008552561767288138, guid: ed9f3d7637eef7746a43b4a37a163750,
         type: 3}
