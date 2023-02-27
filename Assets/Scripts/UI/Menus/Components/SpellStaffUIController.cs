@@ -42,10 +42,10 @@ namespace MarblesAndMonsters.Menus.Components
             }
         }
 
-        //protected void OnEnable()
-        //{
-        //    AssignAllSpellSlots();
-        //}
+        protected void OnEnable()
+        {
+            AssignAllSpellSlots();
+        }
 
         public void AssignAllSpellSlots()
         {

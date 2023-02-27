@@ -962,9 +962,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 0.05
     width: 1
-    height: 1
+    height: 0.90000004
   near clip plane: 0.1
   far clip plane: 5000
   field of view: 40
@@ -1187,41 +1187,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4c0f48a8f44d95439d96019df1b51bc, type: 3}
---- !u!1 &2088437105 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5102905827370502769, guid: 0eef71194b2c38048b79a3d853651f20,
-    type: 3}
-  m_PrefabInstance: {fileID: 5102905827036729088}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2088437107 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5102905827370502771, guid: 0eef71194b2c38048b79a3d853651f20,
     type: 3}
   m_PrefabInstance: {fileID: 5102905827036729088}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2088437105}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0144e3ad8a88947298e2dca62625e6ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2088437110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2088437105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0144e3ad8a88947298e2dca62625e6ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _localTimeScale: 1
-  _paused: 0
-  _parentKey: Root
-  _parentBlend: 0
-  _key: Enemies
 --- !u!1001 &2097720655
 PrefabInstance:
   m_ObjectHideFlags: 0

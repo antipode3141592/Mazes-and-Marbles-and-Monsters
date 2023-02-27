@@ -4,8 +4,6 @@ using System;
 namespace LevelManagement.DataPersistence
 {
 
-    public enum SpellName { Levitate, ForceBubble, TimeSlow, Transmute, Entangle, StoneForm, ForcePush, Teleport, GhostForm }
-    
     [Serializable]
     public class SpellData
     {
