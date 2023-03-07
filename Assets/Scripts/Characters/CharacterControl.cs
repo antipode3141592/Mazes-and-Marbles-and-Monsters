@@ -1,4 +1,5 @@
 ﻿using MarblesAndMonsters.Events;
+using MoreMountains.Feedbacks;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace MarblesAndMonsters.Characters
         public ParticleSystem healEffect;   //plays when healing (players use a potion, monster regenerates, etc.)
         public ParticleSystem invincibilityEffect;
         public ParticleSystem fireEffect;
+
+        [SerializeField] protected MMFeedbacks collisionEffects;
 
         public EventHandler<DeathEventArgs> OnDying;
         public EventHandler<DamageEventArgs> OnDamage;
@@ -98,8 +101,6 @@ namespace MarblesAndMonsters.Characters
             {
                 CharacterDeath(DeathType.Damage);
             }
-            
-            
         }
 
         protected virtual void OnDisable()
@@ -206,7 +207,7 @@ namespace MarblesAndMonsters.Characters
             if (!isDying && !MySheet.IsLevitating)
             {
 
-                MyRigidbody.isKinematic = false;
+                
                 CharacterDeath(DeathType.Falling);
             }
         }
@@ -240,10 +241,10 @@ namespace MarblesAndMonsters.Characters
             
             isDying = true;
 
-            if (MyRigidbody.isKinematic)
-            {
-                MyRigidbody.velocity = Vector2.zero;
-            }
+            MyRigidbody.velocity = Vector2.zero;
+            MyRigidbody.isKinematic = false;
+            MyRigidbody.simulated = false;
+            
             PreDeathAnimation();
             OnDying?.Invoke(this, new DeathEventArgs(deathType));
             _characterManager.Characters.Remove(this);
@@ -259,7 +260,7 @@ namespace MarblesAndMonsters.Characters
 
         public virtual void OnDeathAnimationCompleted(object sender, DeathEventArgs deathEventArgs)
         {
-
+            spawnPoint.Reset();
         }
 
         #endregion

@@ -172,6 +172,7 @@ MonoBehaviour:
   healEffect: {fileID: 0}
   invincibilityEffect: {fileID: 7553422123191175844}
   fireEffect: {fileID: 0}
+  collisionEffects: {fileID: 0}
   MyRigidbody: {fileID: 1685750014967127568}
   ForceMultiplier: 1
   defaultInvincibilityTime: 1
@@ -238,7 +239,7 @@ MonoBehaviour:
   - {x: -0.15625, y: 0.21875, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 86030
+  m_InstanceId: 107314
 --- !u!114 &7607154481445827772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,7 +332,8 @@ AudioSource:
   m_GameObject: {fileID: 1685750014967127573}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -3165942800488051908, guid: 7e984f512e89b60468e829489e8883e3,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

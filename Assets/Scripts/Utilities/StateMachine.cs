@@ -54,7 +54,7 @@ namespace FiniteStateMachine
             else
             {
                 CurrentState.HandleInput();
-                Type nextState = CurrentState.LogicUpdate();
+                Type nextState = CurrentState.LogicUpdate(Time.deltaTime);
                 if (nextState != null && nextState != CurrentState?.GetType())
                 {
                     SwitchToNewState(nextState);
@@ -70,7 +70,7 @@ namespace FiniteStateMachine
             }
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
             foreach (var state in availableStates)
             {

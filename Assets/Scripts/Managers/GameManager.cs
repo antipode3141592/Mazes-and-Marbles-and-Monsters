@@ -13,18 +13,11 @@ using Zenject;
 
 namespace MarblesAndMonsters
 {
-    //persistent singleton class for controlling most of the game actions
-    //  Dependencies:
-    //      MenuManager singleton instance for menu functions
-    //      DataManager singleton instance for saving/loading persistent data
-    //      Player singleton instance
     public class GameManager : MonoBehaviour, IGameManager
     {
         #region Properties
-        [SerializeField]
-        private TransitionFader startTransition;
-        [SerializeField]
-        private TransitionFader endTransition;
+        [SerializeField] TransitionFader startTransition;
+        [SerializeField] TransitionFader endTransition;
         [SerializeField] Clock _rootClock; 
 
         //state machine stuff
@@ -37,18 +30,23 @@ namespace MarblesAndMonsters
         protected IMenuManager _menuManager;
         protected ICharacterManager _characterManager;
         protected IInputManager _inputManager;
+        protected ITimeTracker _timeTracker;
+        protected ICameraManager _cameraManager;
 
         public bool ShouldBeginLevel { get; set; } = false;
+        public bool ShouldLoadNextLevel { get; set; } = false;
         #endregion
 
         [Inject]
-        public void Init(IDataManager dataManager, IMenuManager menuManager, ILevelManager levelManager, ICharacterManager characterManager, IInputManager inputManager)
+        public void Init(IDataManager dataManager, IMenuManager menuManager, ILevelManager levelManager, ICharacterManager characterManager, IInputManager inputManager, ITimeTracker timeTracker, ICameraManager cameraManager)
         {
             _dataManager = dataManager;
             _menuManager = menuManager;
             _levelManager = levelManager;
             _characterManager = characterManager;
             _inputManager = inputManager;
+            _timeTracker = timeTracker;
+            _cameraManager = cameraManager;
         }
 
         #region Unity Overrides
@@ -60,11 +58,11 @@ namespace MarblesAndMonsters
             var states = new Dictionary<Type, BaseState>()
             {
                 {typeof(START), new START(manager: this) },
-                {typeof(PopulateLevel), new PopulateLevel(manager: this, characterManager: _characterManager) },
-                {typeof(Playing), new Playing(manager: this, inputManager: _inputManager, characterManager: _characterManager, timeTracker, _rootClock) },
-                {typeof(Paused), new Paused(manager: this, timeTracker, _rootClock) },
-                {typeof(Victory), new Victory(manager: this, menuManager: _menuManager, characterManager: _characterManager) },
-                {typeof(Defeat), new Defeat(manager: this, menuManager: _menuManager, characterManager: _characterManager) },
+                {typeof(PopulateLevel), new PopulateLevel(manager: this, characterManager: _characterManager, timeTracker: _timeTracker, cameraManager: _cameraManager) },
+                {typeof(Playing), new Playing(manager: this, inputManager: _inputManager, characterManager: _characterManager, rootClock: _rootClock) },
+                {typeof(Paused), new Paused(manager: this, timeTracker, rootClock: _rootClock) },
+                {typeof(Victory), new Victory(manager: this, menuManager: _menuManager, characterManager: _characterManager, timeTracker: _timeTracker, rootClock: _rootClock) },
+                {typeof(Defeat), new Defeat(manager: this, menuManager: _menuManager, characterManager: _characterManager, timeTracker: _timeTracker, rootClock: _rootClock) },
                 {typeof(END), new END(manager: this) }
             };
             Debug.Log($"{name} is storing the following states:  {states.Keys}");
@@ -85,14 +83,6 @@ namespace MarblesAndMonsters
         }
 
         #region LevelManagement
-
-        public void LevelWin()
-        {
-            stateMachine.SwitchToNewState(typeof(Victory));
-            SaveGameData();
-            StartCoroutine(WinRoutine());
-        }
-
         public void LevelWin(string goToLevelId)
         {
             stateMachine.SwitchToNewState(typeof(Victory));
@@ -110,31 +100,24 @@ namespace MarblesAndMonsters
             stateMachine.SwitchToNewState(typeof(Defeat));
         }
 
-        private IEnumerator WinRoutine()
-        {
-            //TransitionFader.PlayTransition(endTransition);
-            //yield return new WaitForSeconds(0.5f);
-            //TransitionFader.PlayTransition(transitionPrefab);
-            _levelManager.LoadLevel(string.Empty);
-            //float fadeDelay = endTransition != null ? endTransition.Delay + endTransition.FadeOnDuration : 0f;
-            yield return null;
-        }
 
-        private IEnumerator WinRoutine(string levelId)
+
+        IEnumerator WinRoutine(string levelId)
         {
 
             //TransitionFader.PlayTransition(endTransition);
             //yield return new WaitForSeconds(0.5f);
             //TransitionFader.PlayTransition(transitionPrefab);
+            if (Debug.isDebugBuild)
+                Debug.Log($"WinRoutine({levelId}): awaiting ShouldLoadNextLevel...", this);
+            while (!ShouldLoadNextLevel)
+                yield return null;
+
+            if (Debug.isDebugBuild)
+                Debug.Log($"Load Next Level", this);
             _levelManager.LoadLevel(levelId);
             //float fadeDelay = endTransition != null ? endTransition.Delay + endTransition.FadeOnDuration : 0f;
             yield return null;
-
-        }
-
-        private IEnumerator DefeatRoutine()
-        {
-            yield return null;//delay execution for a frame
 
         }
         #endregion
@@ -142,68 +125,39 @@ namespace MarblesAndMonsters
         //TODO move this to a subcontroller
         public void SaveGameData()
         {
-            try
+            if (_dataManager is null)
+                return;
+            if (Player.Instance is null)
+                return;
+            _dataManager.PlayerMaxHealth = Player.Instance.MySheet.MaxHealth;
+            _dataManager.PlayerCurrentHealth = Player.Instance.MySheet.CurrentHealth;
+            _dataManager.PlayerTotalDeathCount = Player.Instance.DeathCount;
+            _dataManager.PlayerScrollCount = Player.Instance.TreasureCount;
+            if (_dataManager.CheckPointLevelId != string.Empty)
             {
-                if (_dataManager != null)
+                _dataManager.UpdateLevelSaves(new LevelSaveData(_dataManager.CheckPointLevelId,
+                    _dataManager.SavedLocation, 0, true, _timeTracker.LevelTime));
+            }
+            else
+            {
+                if (_levelManager is null)
                 {
-                    if (Player.Instance != null)
-                    {
-                        _dataManager.PlayerMaxHealth = Player.Instance.MySheet.MaxHealth;
-                        _dataManager.PlayerCurrentHealth = Player.Instance.MySheet.CurrentHealth;
-                        _dataManager.PlayerTotalDeathCount = Player.Instance.DeathCount;
-                        _dataManager.PlayerScrollCount = Player.Instance.TreasureCount;
-                        if (_dataManager.CheckPointLevelId != string.Empty)
-                        {
-                            _dataManager.UpdateLevelSaves(new LevelSaveData(_dataManager.CheckPointLevelId,
-                                _dataManager.SavedLocation, 0, true));
-                        }
-                        else
-                        {
-                            if (_levelManager != null)
-                            {
-                                string levelId = _levelManager.GetCurrentLevelId();
-                                _dataManager.UpdateLevelSaves(new LevelSaveData(levelId,
-                                    _levelManager.GetLevelSpecsById(levelId).Location, 0, true));
-                            }
-                            else
-                            {
-                                throw new Exception("No LevelManager found for GetCurrentLevelId");
-                            }
-                        }
-                        //store unlocked spells
-                        foreach (var spell in Player.Instance.MySheet.Spells)
-                        {
-                            if (spell.Value.IsUnlocked)
-                            {
-                                _dataManager.UnlockedSpells.Add(new SpellData(spell.Value.SpellName, spell.Value.SpellStats, spell.Value.IsQuickSlotAssigned, spell.Value.QuickSlot));
-                            }
-                        }
-                        //store collected keys
-                        foreach (var key in Player.Instance.KeyChain)
-                        {
-                            _dataManager.CollectedKeys.Add(key);
-                        }
-                        _dataManager.Save();
-                    }
-                    else
-                    {
-                        throw new Exception("No Player Instance found when attempting to save!");
-                    }
+                    Debug.LogWarning($"No LevelManager, skipping Save");
+                    return;
                 }
-                else
+                string levelId = _levelManager.GetCurrentLevelId();
+                _dataManager.UpdateLevelSaves(new LevelSaveData(levelId,
+                    _levelManager.GetLevelSpecsById(levelId).Location, 0, true, _timeTracker.LevelTime));
+            }
+            //store unlocked spells
+            foreach (var spell in Player.Instance.MySheet.Spells)
+            {
+                if (spell.Value.IsUnlocked)
                 {
-                    throw new Exception("No DataManager Instance found when attempting to save!");
+                    _dataManager.UnlockedSpells.Add(new SpellData(spell.Value.SpellName, spell.Value.SpellStats, spell.Value.IsQuickSlotAssigned, spell.Value.QuickSlot));
                 }
             }
-            catch (Exception ex)
-            {
-                Debug.LogError(string.Format("{0}", ex.Message));
-            }
-            finally
-            {
-
-            }
-
+            _dataManager.Save();
         }
     }
 }

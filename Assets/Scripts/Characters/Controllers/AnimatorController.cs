@@ -29,11 +29,12 @@ namespace MarblesAndMonsters
         protected int aTriggerDamageNormal;
         protected int aTriggerFalling;
         protected int aTriggerDeathByDamage;
+        protected int aIdle;
 
         public event EventHandler<DeathEventArgs> OnDeathAnimationComplete;
 
 
-        private void Awake()
+        void Awake()
         {
             _animator = GetComponent<Animator>();
             _rigidbody = GetComponent<Rigidbody2D>();
@@ -54,22 +55,28 @@ namespace MarblesAndMonsters
             aTriggerDamageNormal = Animator.StringToHash("DamageNormal");
             aTriggerFalling = Animator.StringToHash("Falling");
             aTriggerDeathByDamage = Animator.StringToHash("DeathByDamage");
+            aIdle = Animator.StringToHash("Idle");
         }
 
-        private void Start()
+        void OnEnable()
+        {
+            _animator.Play(aIdle);
+        }
+
+        void Start()
         {
             _characterControl.OnDying += OnDying;
             _characterControl.OnDamage += OnDamage;
         }
 
-        private void Update()
+        void Update()
         {
             //grab acceleration input
             SetLookDirection();
             _animator.SetFloat(aFloatSpeed, _rigidbody.velocity.magnitude);
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
             _characterControl.OnDying -= OnDying;
             _characterControl.OnDamage -= OnDamage;
@@ -147,22 +154,26 @@ namespace MarblesAndMonsters
                     Debug.LogWarning("Unhandled deathtype enum!");
                     break;
             }
-            StartCoroutine(AnimationDelay(delay: 0.5f, deathType: e.DeathType));
+            StartCoroutine(DeathAnimationDelay(delay: 0.5f, deathType: e.DeathType));
 
         }
 
-        protected virtual IEnumerator AnimationDelay(float delay, DeathType deathType)
+        protected virtual IEnumerator DeathAnimationDelay(float delay, DeathType deathType)
         {
 
             yield return new WaitForSeconds(delay);
             AfterDeathAnimation();
             OnDeathAnimationComplete?.Invoke(this, new DeathEventArgs(deathType));
-            Destroy(gameObject);
         }
 
         protected virtual void AfterDeathAnimation()
         {
 
+        }
+
+        public void ResetAnimator()
+        {
+            
         }
     }
 }

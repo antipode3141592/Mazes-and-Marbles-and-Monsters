@@ -1,5 +1,4 @@
-﻿using MarblesAndMonsters.States.GameStates;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -19,7 +18,6 @@ namespace MarblesAndMonsters.Characters
         //private Queue<CharacterSheetController> spawnQueue; //ephemeral 
         protected List<CharacterControl> characters;  //the collection of all instantiated character objects
 
-        private float spawnTimer;
         [SerializeField]
         public bool isAvailable = true;   //true when the SpawnPoint's collider is clear and ready to start a spawn
         
@@ -27,14 +25,6 @@ namespace MarblesAndMonsters.Characters
         protected int spawnTriggerHash;
         [SerializeField]
         protected float spawnAnimationDelay;
-
-        IGameManager _gameManager;
-
-        [Inject]
-        public void Init(IGameManager gameManager)
-        {
-            _gameManager = gameManager;
-        }
 
         #region Unity Scripts
 
@@ -50,7 +40,7 @@ namespace MarblesAndMonsters.Characters
         /// </summary>
         /// <param name="offsetX"></param>
         /// <param name="offsetY"></param>
-        private CharacterControl InstantiateCharacter()
+        CharacterControl InstantiateCharacter()
         {
             CharacterControl character = Instantiate(characterPrefab, transform.position + (Vector3)spawnOffset, Quaternion.identity, null);
             if (character != null)
@@ -123,11 +113,12 @@ namespace MarblesAndMonsters.Characters
         /// </summary>
         public virtual void Reset()
         {
-            foreach (var _char in characters)
+            for (int i = 0; i < characters.Count; i++)
             {
-                if (_char != null)
+                //characters[i].gameObject.SetActive(false);
+                if (characters[i].gameObject is not null)
                 {
-                    Destroy(_char.gameObject, 0.01f);
+                    Destroy(characters[i].gameObject, 0.01f);
                 }
             }
             characters.Clear();

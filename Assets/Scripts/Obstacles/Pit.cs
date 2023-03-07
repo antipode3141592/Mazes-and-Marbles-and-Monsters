@@ -22,9 +22,7 @@ namespace MarblesAndMonsters.Objects
             }
         }
 
-
-        //if the 
-        private void OnTriggerStay2D(Collider2D other)
+        void OnTriggerStay2D(Collider2D other)
         {
             if (tilemapCollider.OverlapPoint(other.transform.position))
             {

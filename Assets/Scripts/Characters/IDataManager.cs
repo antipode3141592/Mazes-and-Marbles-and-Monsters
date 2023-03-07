@@ -11,6 +11,8 @@ namespace LevelManagement.DataPersistence
         public List<LocationSaveData> LocationSaves { get; set; }
         public float MasterVolume { get; set; }
         public float MusicVolume { get; set; }
+        public float AccelerometerSensitivity { get; set; }
+        public float TotalGameTime { get; set; }
         public int PlayerCurrentHealth { get; set; }
         public int PlayerMaxHealth { get; set; }
         public int PlayerScrollCount { get; set; }

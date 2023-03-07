@@ -2,28 +2,31 @@ using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace MarblesAndMonsters
 {
     /// <summary>
     /// Controls the Cinemachine cameras to point at different points of interest as well as follow the player
     /// </summary>
-    public class CameraManager : MonoBehaviour
+    public class CameraManager : MonoBehaviour, ICameraManager
     {
-        private CinemachineVirtualCamera followCamera;
+        IGameManager _gameManager;
 
-        private void Awake()
+
+        [SerializeField] CinemachineVirtualCamera _followCamera;
+
+        void Awake()
         {
-            followCamera = FindObjectOfType<CinemachineVirtualCamera>();
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
-        private void OnSceneLoaded(Scene scene, LoadSceneMode loadMoad)
+        void OnSceneLoaded(Scene scene, LoadSceneMode loadMoad)
         {
             Debug.Log($"{gameObject.name} processing the SceneLoaded event for the scene {scene.name}");
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
@@ -35,11 +38,16 @@ namespace MarblesAndMonsters
 
         public void FollowObject(Transform followTransform)
         {
-            if (followCamera != null)
+            if (_followCamera != null)
             {
                 //
-                followCamera.Follow = followTransform;
+                _followCamera.Follow = followTransform;
             }
+        }
+
+        public void SetFollowCameraPriority(int priority)
+        {
+            _followCamera.Priority = priority;
         }
     }
 }

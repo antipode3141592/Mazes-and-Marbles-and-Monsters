@@ -19,6 +19,6 @@ MonoBehaviour:
   SpellName: 2
   Description: Slow the flow of time for everything aside from the caster.
   PublicName: Slow Time
-  Duration: 3
+  Duration: 5
   CooldownDuration: 15
   intensity: 0.25

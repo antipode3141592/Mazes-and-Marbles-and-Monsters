@@ -9,9 +9,9 @@ namespace MarblesAndMonsters.States.GameStates
         public override Type Type { get => typeof(Paused); }
 
         Clock _rootClock;
-        TimeTracker _timeTracker;
+        ITimeTracker _timeTracker;
 
-        public Paused(IGameManager manager, TimeTracker timeTracker, Clock rootClock) : base()
+        public Paused(IGameManager manager, ITimeTracker timeTracker, Clock rootClock) : base()
         {
             _manager = manager;
             _timeTracker = timeTracker;
@@ -20,6 +20,12 @@ namespace MarblesAndMonsters.States.GameStates
         public override void Enter()
         {
             _rootClock.localTimeScale = 0f;
+            _timeTracker.EndLevelTimer();
+        }
+
+        public override void Exit()
+        {
+            
         }
     }
 }

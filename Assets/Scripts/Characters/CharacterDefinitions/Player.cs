@@ -106,12 +106,12 @@ namespace MarblesAndMonsters.Characters
                     MySheet.Spells[spell.SpellName].IsQuickSlotAssigned = spell.IsAssigned;
                     MySheet.Spells[spell.SpellName].QuickSlot = spell.QuickSlot;
                 }
-                //TODO: add inventory and keychain initializers
-                foreach (var key in _dataManager.CollectedKeys)
-                {
-                    //Debug.Log(string.Format("Collected Key = {0}", key.name));
-                    keyChain.Add(key);
-                }
+
+                //foreach (var key in _dataManager.CollectedKeys)
+                //{
+                //    //Debug.Log(string.Format("Collected Key = {0}", key.name));
+                //    keyChain.Add(key);
+                //}
 
             } else
             {
@@ -236,6 +236,7 @@ namespace MarblesAndMonsters.Characters
                     
                 if (_gameMenu)
                 {
+
                     _gameMenu.quickAccessController.AssignSpellSlot(i, stats);
                 }
                 break;
@@ -272,6 +273,10 @@ namespace MarblesAndMonsters.Characters
 
         private void UpdateKeyChainUI()
         {
+            if (_gameMenu is null)
+                return;
+            if (keyChain is null)
+                return;
             _gameMenu.keychainUI.UpdateUI(keyChain.Select(x => x.KeyStats.InventoryIcon).ToList());
         }
 

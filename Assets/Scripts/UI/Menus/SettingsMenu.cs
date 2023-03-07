@@ -1,5 +1,4 @@
-﻿using LevelManagement.DataPersistence; //include data classes
-using LevelManagement.Menus;
+﻿using LevelManagement.Menus;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,14 +6,10 @@ namespace MarblesAndMonsters.Menus
 {
     public class SettingsMenu : Menu<SettingsMenu>
     {
-        [SerializeField]
-        private Slider _masterVolumeSlider;
-
-        [SerializeField]
-        private Slider _SFXVolumeSlider;
-
-        [SerializeField]
-        private Slider _MusicVolumeSlider;
+        [SerializeField] Slider _masterVolumeSlider;
+        [SerializeField] Slider _SFXVolumeSlider;
+        [SerializeField] Slider _MusicVolumeSlider;
+        [SerializeField] Slider _accelerometerSensitivitySlider;
 
         private void Start()
         {
@@ -23,35 +18,35 @@ namespace MarblesAndMonsters.Menus
 
         public void OnMasterVolumeChanged(float volume)
         {
-            //if (_dataManager != null)
-            //{
-            //    _dataManager.MasterVolume = volume;
-            //}
+            if (_dataManager is null)
+                return;
             _dataManager.MasterVolume = volume;
         }
 
         public void OnSFXVolumeChanged(float volume)
         {
-            //if (_dataManager != null)
-            //{
-            //    _dataManager.SFXVolume = volume;
-            //}
+            if (_dataManager is null)
+                return;
             _dataManager.SFXVolume = volume;
         }
 
         public void OnMusicVolumeChanged(float volume)
         {
-            //if (_dataManager != null)
-            //{
-            //    _dataManager.MusicVolume = volume;
-            //}
+            if (_dataManager is null)
+                return;
             _dataManager.MusicVolume = volume;
+        }
+
+        public void OnAccelerometerSensitivityChanged(float sensitivity)
+        {
+            if (_dataManager is null)
+                return;
+            _dataManager.AccelerometerSensitivity = sensitivity;
         }
 
         
         public override void OnBackPressed()
         {
-            //_dataManager.Save();
             _dataManager.Save();
             base.OnBackPressed();
         }
@@ -59,17 +54,11 @@ namespace MarblesAndMonsters.Menus
         //load volume states from stored SaveData object
         public void LoadData()
         {
-            if (_masterVolumeSlider == null || _SFXVolumeSlider == null || _MusicVolumeSlider == null)
-            {
-                return;
-            }
-            else
-            {
-                _dataManager.Load();
-                _masterVolumeSlider.value = _dataManager.MasterVolume;
-                _SFXVolumeSlider.value = _dataManager.SFXVolume;
-                _MusicVolumeSlider.value = _dataManager.MusicVolume;
-            }
+            _dataManager.Load();
+            _masterVolumeSlider.value = _dataManager.MasterVolume;
+            _SFXVolumeSlider.value = _dataManager.SFXVolume;
+            _MusicVolumeSlider.value = _dataManager.MusicVolume;
+            _accelerometerSensitivitySlider.value = _dataManager.AccelerometerSensitivity;
         }
     }
 }

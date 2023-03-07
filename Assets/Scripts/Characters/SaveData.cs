@@ -13,6 +13,8 @@ namespace LevelManagement.DataPersistence
         public float masterVolume;
         public float sfxVolume;
         public float musicVolume;
+        public float accelerometerSensitivity;
+        public float totalGameTime;
 
         //level data
         public string currentLocation;
@@ -40,6 +42,8 @@ namespace LevelManagement.DataPersistence
             masterVolume = 0f;
             sfxVolume = 0f;
             musicVolume = 0f;
+            accelerometerSensitivity = 1f;
+            totalGameTime = 0f;
             playerMaxHealth = 3; //default max health is 3 hearts
             playerDeathCount = 0;
             playerScrollCount = 0;

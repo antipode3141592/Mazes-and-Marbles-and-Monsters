@@ -20,5 +20,9 @@ public class ManagersInstaller : MonoInstaller
             .FromComponentInHierarchy().AsSingle();
         Container.Bind<ICharacterManager>().To<CharacterManager>()
             .FromComponentInHierarchy().AsSingle();
+        Container.Bind<ITimeTracker>().To<TimeTracker>()
+            .FromComponentInHierarchy().AsSingle();
+        Container.Bind<ICameraManager>().To<CameraManager>()
+            .FromComponentInHierarchy().AsSingle();
     }
 }

@@ -6,9 +6,10 @@ namespace MarblesAndMonsters
     {
         BaseState CurrentState { get; }
         bool ShouldBeginLevel { get; set; }
+        bool ShouldLoadNextLevel { get; set; }
+
 
         void LevelLose();
-        void LevelWin();
         void LevelWin(string goToLevelId);
         void PauseGame();
         void SaveGameData();

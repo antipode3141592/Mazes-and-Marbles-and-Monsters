@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace MarblesAndMonsters.Characters
 {
@@ -21,7 +20,7 @@ namespace MarblesAndMonsters.Characters
         private void OnCollisionEnter2D(Collision2D collision)
         {
             audioSource.clip = MySheet.baseStats.ClipHit;
-            audioSource.Play(); //no matter what is struck, play the hit sound
+            collisionEffects.PlayFeedbacks();
 
             if (collision.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
             {

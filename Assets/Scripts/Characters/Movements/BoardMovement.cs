@@ -13,9 +13,10 @@ namespace MarblesAndMonsters
         /// </summary>
         /// <param name="rb">apply force to Rigidbody2D, proportional to its mass</param>
         /// <param name="direction">Normalized direction of force</param>
-        /// <param name="modifier">scaling value for abilities/effects</param>
-        public static void Move(Rigidbody2D rb, Vector2 direction, float modifier = 1.0f) {
-            rb.AddForce(direction * Acceleration * rb.mass * modifier);
+        /// <param name="characterModifier">scaling value for abilities/effects</param>
+        /// <param name="sensitivity">sensitivity </param>
+        public static void Move(Rigidbody2D rb, Vector2 direction, float characterModifier = 1.0f, float sensitivity = 1.0f) {
+            rb.AddForce(direction * Acceleration * rb.mass * characterModifier * sensitivity);
         }
     }
 }

@@ -64,6 +64,7 @@ MonoBehaviour:
   healEffect: {fileID: 0}
   invincibilityEffect: {fileID: 0}
   fireEffect: {fileID: 0}
+  collisionEffects: {fileID: 0}
   MyRigidbody: {fileID: 0}
   ForceMultiplier: 1
   defaultInvincibilityTime: 1
@@ -304,7 +305,7 @@ AudioSource:
   m_GameObject: {fileID: 4995651374173322040}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -4539714577670950212, guid: e6943347c91643d4e8f15dab2226ab44,
+  OutputAudioMixerGroup: {fileID: -3165942800488051908, guid: 7e984f512e89b60468e829489e8883e3,
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1

@@ -9,25 +9,43 @@ namespace MarblesAndMonsters.States.GameStates
         public override Type Type { get => typeof(PopulateLevel); }
 
         ICharacterManager _characterManager;
+        ITimeTracker _timeTracker;
+        ICameraManager _cameraManager;
 
-        public PopulateLevel(IGameManager manager, ICharacterManager characterManager) : base()
+        float timer = 0f;
+        float timerMax = 2f;
+
+        public PopulateLevel(IGameManager manager, ICharacterManager characterManager, ITimeTracker timeTracker, ICameraManager cameraManager) : base()
         {
             _manager = manager;
             _characterManager = characterManager;
+            _timeTracker = timeTracker;
+            _cameraManager = cameraManager;
         }
 
-        public override Type LogicUpdate()
+        public override void Enter()
         {
-            if (_characterManager.InitializeReferences() > 0)
+            timer = 0f;
+            _characterManager.InitializeReferences();
+            _cameraManager.SetFollowCameraPriority(10);
+            
+        }
+
+        public override Type LogicUpdate(float deltaTime)
+        {
+            timer += deltaTime;
+            if (timer > timerMax)
             {
                 _characterManager.SpawnAll();
                 return typeof(Playing);
             }
-            else
-            {
-                Debug.LogError(string.Format("InitializeReferences returned <= 0"));
-                return typeof(PopulateLevel);
-            }
+            return typeof(PopulateLevel);
+        }
+
+        public override void Exit()
+        {
+            _cameraManager.SetFollowCameraPriority(2000);
+            _timeTracker.StartLevelTimer();
         }
     }
 }

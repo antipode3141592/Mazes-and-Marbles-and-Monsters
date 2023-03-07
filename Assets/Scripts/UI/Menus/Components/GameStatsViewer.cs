@@ -1,7 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using LevelManagement.DataPersistence;
+using MarblesAndMonsters;
+using System;
+using UnityEngine;
 using UnityEngine.UI;
-using LevelManagement.DataPersistence;
+using Zenject;
 
 public class GameStatsViewer : MonoBehaviour
 {
@@ -11,10 +13,13 @@ public class GameStatsViewer : MonoBehaviour
     public Text TotalTimer;
 
     IDataManager _dataManager;
+    ITimeTracker _timeTracker;
 
-    void Awake()
+    [Inject]
+    public void Init(IDataManager dataManager, ITimeTracker timeTracker)
     {
-        _dataManager = FindObjectOfType<DataManager>();
+        _dataManager = dataManager;
+        _timeTracker = timeTracker;
     }
 
     private void OnEnable()
@@ -28,7 +33,7 @@ public class GameStatsViewer : MonoBehaviour
     public void SetGameDataText()
     {
         Attempts.text = $"Total Attempts: {_dataManager.PlayerTotalDeathCount}";
-        InGameTimer.text = $"In Game Time: hh:mm:ss";
-        TotalTimer.text = $"Total Time: hh:mm:ss";
+        InGameTimer.text = $"In Game Time: {TimeSpan.FromSeconds(_timeTracker.LevelTime):mm\\:ss}";
+        TotalTimer.text = $"Total Time: {TimeSpan.FromSeconds(_dataManager.TotalGameTime):mm\\:ss}";
     }
 }

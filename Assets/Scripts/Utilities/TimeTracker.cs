@@ -1,4 +1,3 @@
-using MarblesAndMonsters.Events;
 using System;
 using UnityEngine;
 
@@ -6,54 +5,50 @@ namespace MarblesAndMonsters
 {
 
     /// <summary>
-    /// There are two primary times to track, In Game Time and Session Time.
-    ///     In-Game Time = total elapsed time in levels
-    ///     Session Time = total realworld time 
+    /// Time is tracked as current level time and total game time.
+    ///     Level Time = elapsed time of current level run
+    ///     Game Time = total of all level times
     /// </summary>
-    public class TimeTracker : MonoBehaviour
+    public class TimeTracker : MonoBehaviour, ITimeTracker
     {
-        //for tracking playtime
-        private TimeSpan sessionTimeElapsed;
-        private TimeSpan ingameTimeElapsed;
-        private DateTime startTime;
-        private DateTime levelStartTime;
-        private DateTime endTime;
-        private DateTime ingameEndTime;
+        public event EventHandler<TimeSpan> TotalGameTimeEvent;
+        public event EventHandler<TimeSpan> LevelTimeEvent;
 
-        public event EventHandler<ElapsedTimeEventArgs> SessionTimeEvent;
-        public event EventHandler<ElapsedTimeEventArgs> IngameTimeEvent;
+        bool isPaused;
+        float levelTime;
+        float gameTime;
 
-        public void StartSessionTime()
+        public float LevelTime => levelTime;
+        public float TotalGameTime => gameTime;
+
+        void Update()
         {
-            startTime = DateTime.Now;
+            if (isPaused)
+                return;
+            levelTime += Time.deltaTime;
+            LevelTimeEvent?.Invoke(this, TimeSpan.FromSeconds(levelTime));
         }
 
-        public void StartInGameTime()
+        public void StartLevelTimer()
         {
-            levelStartTime = DateTime.Now;
+            levelTime = 0f;
         }
 
-        public TimeSpan EndSessionTime()
+        public TimeSpan EndLevelTimer()
         {
-            endTime = DateTime.Now;
-            sessionTimeElapsed = endTime - startTime;
-            SessionTimeEvent?.Invoke(this, new ElapsedTimeEventArgs(sessionTimeElapsed));
-            return sessionTimeElapsed;
+            TimeSpan timeSpan = TimeSpan.FromSeconds(levelTime);
+            LevelTimeEvent?.Invoke(this, timeSpan);
+            return timeSpan;
         }
 
-        public TimeSpan EndInGameTime()
+        public void PauseLevelTimer()
         {
-            ingameEndTime = DateTime.Now;
-            ingameTimeElapsed = ingameEndTime - startTime;
-            IngameTimeEvent?.Invoke(this, new ElapsedTimeEventArgs(ingameTimeElapsed));
-            return ingameTimeElapsed;
+            isPaused = true;
         }
 
-        private void Update()
+        public void ResumeLevelTimer()
         {
-            DateTime time = DateTime.Now;
-            IngameTimeEvent?.Invoke(this, new ElapsedTimeEventArgs(time - levelStartTime));
-            SessionTimeEvent?.Invoke(this, new ElapsedTimeEventArgs(time - startTime));
+            isPaused = false;
         }
     }
 }

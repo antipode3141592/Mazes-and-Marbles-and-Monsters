@@ -1,4 +1,5 @@
-﻿using MarblesAndMonsters.Characters;
+﻿using LevelManagement.DataPersistence;
+using MarblesAndMonsters.Characters;
 using MarblesAndMonsters.Items;
 using MarblesAndMonsters.Spells;
 using MarblesAndMonsters.Tiles;
@@ -6,22 +7,30 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 namespace MarblesAndMonsters
 {
     public class CharacterManager : MonoBehaviour, ICharacterManager
     {
-        public Vector2 Input_Acceleration { get; set; }
+        IDataManager _dataManager;
 
         //references to various game objects
-        private List<InventoryItem> inventoryItems;
-        private List<SpellPickupBase> spellPickups;
-        private List<KeyItem> keyItems;
-        private List<SpawnPoint> spawnPoints;
-        private List<Gate> gates;
-        private List<SpellEffectBase> spellEffects;
+        List<InventoryItem> inventoryItems;
+        List<SpellPickupBase> spellPickups;
+        List<KeyItem> keyItems;
+        List<SpawnPoint> spawnPoints;
+        List<Gate> gates;
+        List<SpellEffectBase> spellEffects;
 
         public List<CharacterControl> Characters;
+        public Vector2 Input_Acceleration { get; set; }
+
+        [Inject]
+        public void Init(IDataManager dataManager)
+        {
+            _dataManager = dataManager;
+        }
 
         /// <summary>
         /// cache references to all spawnpoints, inventory items, gates, and keys
@@ -52,6 +61,8 @@ namespace MarblesAndMonsters
         /// </summary>
         public void ResetAll()
         {
+            if (Debug.isDebugBuild)
+                Debug.Log($"Processing CharacterManager.ResetAll()", this);
             foreach (Gate gate in gates)
             {
                 gate.Lock();
@@ -102,11 +113,6 @@ namespace MarblesAndMonsters
 
         #region Character Management
 
-        public void SetBoardTilt(InputValue inputValue)
-        {
-            Input_Acceleration = inputValue.Get<Vector2>();
-        }
-
         internal int StoreCharacters()
         {
             Characters = new List<CharacterControl>(FindObjectsOfType<CharacterControl>());
@@ -144,7 +150,7 @@ namespace MarblesAndMonsters
             {
                 if (character.gameObject.activeInHierarchy && character.MySheet.IsBoardMovable)
                 {
-                    BoardMovement.Move(character.MyRigidbody, Input_Acceleration, character.ForceMultiplier);
+                    BoardMovement.Move(character.MyRigidbody, Input_Acceleration, character.ForceMultiplier, _dataManager.AccelerometerSensitivity);
                 }
             }
         }

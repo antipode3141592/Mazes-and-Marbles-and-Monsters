@@ -26,7 +26,8 @@ namespace MarblesAndMonsters
 
         public void MeasureBoardTilt()
         {
-            _characterManager.Input_Acceleration = player.GetAxis2D(horizontalAxisName, verticalAxisName);
+            //_characterManager.Input_Acceleration = player.GetAxis2D(horizontalAxisName, verticalAxisName);
+            _characterManager.Input_Acceleration = Input.acceleration;
         }
 
     }

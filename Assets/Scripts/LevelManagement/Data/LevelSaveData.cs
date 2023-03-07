@@ -13,13 +13,15 @@ namespace LevelManagement.DataPersistence
         public string LocationId;       //grouping
         public int CollectedScrolls;    //
         public bool Completed;          //
+        public float ElapsedGameTimeInSeconds;
 
-        public LevelSaveData(string id = null, string location = null, int scrolls = 0, bool completed = false) 
+        public LevelSaveData(string id = null, string location = null, int scrolls = 0, bool completed = false, float elapsedGameTimeInSeconds = 0f) 
         {
             LevelId = id;
             LocationId = location;
             CollectedScrolls = scrolls;
             Completed = completed;
+            ElapsedGameTimeInSeconds = elapsedGameTimeInSeconds;
         }
     }
 }

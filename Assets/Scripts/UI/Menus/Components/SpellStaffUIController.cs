@@ -29,11 +29,6 @@ namespace MarblesAndMonsters.Menus.Components
             quickSlot[slot].AssignSlot(spellStats);
         }
 
-        public void UnassignSpellSlot(int slot)
-        {
-            quickSlot[slot].UnassignSlot();
-        }
-
         public void ClearAll()
         {
             for (int i = 0; i < quickSlot.Count; i++)
@@ -47,10 +42,13 @@ namespace MarblesAndMonsters.Menus.Components
             AssignAllSpellSlots();
         }
 
-        public void AssignAllSpellSlots()
+        protected void OnDisable()
         {
             ClearAll();
-            //check quickslots
+        }
+
+        public void AssignAllSpellSlots()
+        {
             if (Player.Instance != null)
             {
                 foreach (var spelldata in Player.Instance.MySheet.Spells)

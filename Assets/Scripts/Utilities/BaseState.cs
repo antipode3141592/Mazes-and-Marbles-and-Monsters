@@ -5,16 +5,7 @@ namespace FiniteStateMachine
 {
     public abstract class BaseState
     {
-        //protected GameObject _gameObject;
-        //protected Transform _transform;
         public abstract Type Type { get ; }
-        
-
-        //public BaseState(GameObject gameObject)
-        //{
-        //    _gameObject = gameObject;
-        //    _transform = gameObject.transform;
-        //}
 
         public BaseState()
         {
@@ -28,7 +19,7 @@ namespace FiniteStateMachine
 
         public virtual void HandleInput() { }
 
-        public virtual Type LogicUpdate() { return null; }
+        public virtual Type LogicUpdate(float deltaTime) { return null; }
 
         public virtual void PhysicsUpdate() { }
 

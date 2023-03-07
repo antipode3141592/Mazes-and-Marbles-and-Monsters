@@ -1,5 +1,6 @@
 ﻿using MarblesAndMonsters.Items;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 //code based on the course content at https://www.udemy.com/course/level-management-in-unity/ , which was super helpeful and highly recommended
@@ -14,6 +15,8 @@ namespace LevelManagement.DataPersistence
         public float MasterVolume { get { return saveData.masterVolume; } set { saveData.masterVolume = value; } }
         public float SFXVolume { get { return saveData.sfxVolume; } set { saveData.sfxVolume = value; } }
         public float MusicVolume { get { return saveData.musicVolume; } set { saveData.musicVolume = value; } }
+        public float AccelerometerSensitivity { get => saveData.accelerometerSensitivity; set => saveData.accelerometerSensitivity = value; }
+        public float TotalGameTime { get => saveData.totalGameTime; set => saveData.totalGameTime = value; }
         public string SavedLocation { get { return saveData.currentLocation; } set { saveData.currentLocation = value; } }
         public string CheckPointLevelId { get { return saveData.checkPointLevelId; } set { saveData.checkPointLevelId = value; } }
 
@@ -31,6 +34,8 @@ namespace LevelManagement.DataPersistence
         public List<SpellData> UnlockedSpells { get { return saveData.UnlockedSpells; } set { saveData.UnlockedSpells = value; } }
 
         public List<KeyItem> CollectedKeys { get { return saveData.CollectedKeys; } set { saveData.CollectedKeys = value; } }
+
+        
 
         void Awake()
         {
@@ -57,7 +62,7 @@ namespace LevelManagement.DataPersistence
             {
                 LevelSaves.Add(levelData);
             }
-
+            TotalGameTime = LevelSaves.Sum(x => x.ElapsedGameTimeInSeconds);
         }
 
         public void UpdateLocationSaves(LocationSaveData locationData)

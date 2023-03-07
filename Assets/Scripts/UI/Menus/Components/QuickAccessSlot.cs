@@ -24,6 +24,8 @@ namespace MarblesAndMonsters.Menus.Components
 
         public void AssignSlot(SpellStatsBase spellStats)
         {
+            if (Debug.isDebugBuild)
+                Debug.Log($"AssignSlot called for {spellStats.PublicName}", this);
             ItemImage.image.sprite = spellStats.InventoryIcon;
             ItemImage.image.color = Color.white;
             BackgroundImage.color = Color.green;
@@ -71,19 +73,22 @@ namespace MarblesAndMonsters.Menus.Components
         public void CooldownStartHandler(object sender, EventArgs e)
         {
             //CooldownGuage.color = Color.red;
-            Debug.Log(string.Format("CooldownStartHandler is handling event from {0}", sender.ToString()));
+            if (Debug.isDebugBuild)
+                Debug.Log(string.Format("CooldownStartHandler is handling event from {0}", sender.ToString()));
         }
 
         public void CooldownEndHandler(object sender, EventArgs e)
         {
             //CooldownGuage.color = Color.green;
-            Debug.Log(string.Format("CooldownEndHandler is handling event from {0}", sender.ToString()));
+            if (Debug.isDebugBuild)
+                Debug.Log(string.Format("CooldownEndHandler is handling event from {0}", sender.ToString()));
             CooldownGuage.rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         }
 
         public void CooldownHandler(object sender, UITimerEventArgs e)
         {
-            //Debug.Log(string.Format("CooldownHandler is handling event from {0} with a value {1:#.##}", sender.ToString(), e.PercentComplete));
+            //if (Debug.isDebugBuild)
+            //    Debug.Log($"CooldownHandler is handling event from {sender} with a value {e.PercentComplete:#.##}", this);
             CooldownGuage.rectTransform.localScale = new Vector3(1.0f, 1.0f-e.PercentComplete, 1.0f);
 
         }
@@ -91,19 +96,22 @@ namespace MarblesAndMonsters.Menus.Components
         public void DurationStartHandler(object sender, EventArgs e)
         {
             //DurationGuage.color = Color.red;
-            Debug.Log(string.Format("CooldownStartHandler is handling event from {0}", sender.ToString()));
+            if (Debug.isDebugBuild)
+                Debug.Log(string.Format("DurationStartHandler is handling event from {0}", sender.ToString()));
         }
 
         public void DurationEndHandler(object sender, EventArgs e)
         {
             //DurationGuage.color = Color.green;
-            Debug.Log(string.Format("CooldownEndHandler is handling event from {0}", sender.ToString()));
+            if (Debug.isDebugBuild)
+                Debug.Log(string.Format("DurationEndHandler is handling event from {0}", sender.ToString()));
             DurationGuage.rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         }
 
         public void DurationHandler(object sender, UITimerEventArgs e)
         {
-            //Debug.Log(string.Format("CooldownHandler is handling event from {0} with a value {1:#.##}", sender.ToString(), e.PercentComplete));
+            //if (Debug.isDebugBuild)
+            //    Debug.Log($"CooldownHandler is handling event from {sender} with a value {e.PercentComplete:#.##}", this);
             DurationGuage.rectTransform.localScale = new Vector3(1.0f, 1.0f-e.PercentComplete, 1.0f);
 
         }

@@ -16,7 +16,7 @@ namespace MarblesAndMonsters.States.GameStates
             _manager = manager;
         }
 
-        public override Type LogicUpdate()
+        public override Type LogicUpdate(float deltaTime)
         {
             if (_manager.ShouldBeginLevel)
             {

@@ -1,8 +1,5 @@
-using LevelManagement;
 using LevelManagement.Menus;
-using MarblesAndMonsters.Characters;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace MarblesAndMonsters.Menus
 {
@@ -12,7 +9,6 @@ namespace MarblesAndMonsters.Menus
         {
             _gameManager.ShouldBeginLevel = true;
             base.OnBackPressed();   //returns to the GameMenu
-            //Player.Instance.CharacterDeath(DeathType.Damage);
         }
 
         public void OnMainMenuPressed()

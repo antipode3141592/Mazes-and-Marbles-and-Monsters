@@ -58,7 +58,7 @@ namespace MarblesAndMonsters.Tiles
                     //play gate opening sound
 
                     //remove key from player inventory
-                    Player.Instance.RemoveKeyFromKeyChain(keyTest);
+                    //Player.Instance.RemoveKeyFromKeyChain(keyTest);
                     //start unlock animator
                     StartCoroutine(OpenAnimation());
                     break;

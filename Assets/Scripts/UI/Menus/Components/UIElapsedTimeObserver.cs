@@ -1,36 +1,33 @@
-﻿using System.Collections;
+﻿using System;
 using UnityEngine;
-using MarblesAndMonsters.Utilities;
-using MarblesAndMonsters.Events;
 using UnityEngine.UI;
 
 namespace MarblesAndMonsters.Menus.Components
 {
     public class UIElapsedTimeObserver : MonoBehaviour
     {
-        private TimeTracker _timeTracker;
-        [SerializeField]
-        private Text ingameTimerText;
+        ITimeTracker _timeTracker;
+        [SerializeField] Text ingameTimerText;
 
-        private void Awake()
+        void Awake()
         {
             _timeTracker = FindObjectOfType<TimeTracker>();
-            _timeTracker.IngameTimeEvent += OnTimerChange;
         }
 
-        private void Start()
+        void Start()
         {
+            _timeTracker.LevelTimeEvent += OnTimerChange;
             ingameTimerText.text = "";
         }
 
         private void OnDestroy()
         {
-            _timeTracker.IngameTimeEvent -= OnTimerChange;
+            _timeTracker.LevelTimeEvent -= OnTimerChange;
         }
 
-        public void OnTimerChange(object sender, ElapsedTimeEventArgs e)
+        public void OnTimerChange(object sender, TimeSpan e)
         {
-            ingameTimerText.text = $"{e.elapsedTime:c}";    //c = Constant format
+            ingameTimerText.text = $"{e:mm\\:ss}";    //c = Constant format
         }
     }
 }

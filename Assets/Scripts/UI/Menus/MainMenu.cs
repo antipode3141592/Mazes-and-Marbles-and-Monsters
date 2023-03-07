@@ -17,22 +17,17 @@ namespace MarblesAndMonsters.Menus
     //      -view credits
     public class MainMenu : Menu<MainMenu>
     {
-        [SerializeField]
-        private float _playDelay = 0.5f;
-        [SerializeField]
-        private TransitionFader startTransitionPrefab;
-        [SerializeField]
-        private Text currentLevel;
-        [SerializeField]
-        private Text playerHealth;
-        [SerializeField]
-        private Text scrollCount;
-        [SerializeField]
-        private Text deathCount;
-        [SerializeField]
-        private GameObject currentGameGroup;
-        [SerializeField]
-        private GameObject resumeButton;
+        [SerializeField] float _playDelay = 0.5f;
+        [SerializeField] TransitionFader startTransitionPrefab;
+        [SerializeField] Text currentLevel;
+        [SerializeField] Text playerHealth;
+        [SerializeField] Text scrollCount;
+        [SerializeField] Text deathCount;
+        [SerializeField] GameObject currentGameGroup;
+
+        [SerializeField] GameObject resumeButton;
+        [SerializeField] GameObject playButton;
+
 
         protected void Start()
         {
