@@ -9,7 +9,7 @@ namespace MarblesAndMonsters.Characters
     /// </summary>
     public class Marble : CharacterControl
     {
-        private MeleeController meleeController;
+        MeleeController meleeController;
         protected override void Awake()
         {
             base.Awake();
@@ -17,10 +17,10 @@ namespace MarblesAndMonsters.Characters
         }
         //mables apply a touch attack to everything they collide with, no need for state controller or cooldowns
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        void OnCollisionEnter2D(Collision2D collision)
         {
-            audioSource.clip = MySheet.baseStats.ClipHit;
-            collisionEffects.PlayFeedbacks();
+            collisionIntensity = Mathf.Clamp01(collision.relativeVelocity.magnitude * 0.1f);   // divide by 10, clamped to [0,1]
+            collisionEffects.PlayFeedbacks(transform.position, collisionIntensity);
 
             if (collision.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
             {
@@ -28,7 +28,7 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
-        private void OnCollisionStay2D(Collision2D collision)
+        void OnCollisionStay2D(Collision2D collision)
         {
             if (collision.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
             {

@@ -7,7 +7,7 @@ namespace MarblesAndMonsters.Characters
     /// </summary>
     public class Roller : CharacterControl
     {
-        private MeleeController meleeController;
+        MeleeController meleeController;
         protected override void Awake()
         {
             base.Awake();
@@ -16,7 +16,7 @@ namespace MarblesAndMonsters.Characters
 
         //rollers only apply touch attack damage when their triggers are entered 
         //(so they may be safely touched on the side, which is much less squish-inducing)
-        private void OnTriggerStay2D(Collider2D other)
+        void OnTriggerStay2D(Collider2D other)
         {
             if(other.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
             {
@@ -24,7 +24,7 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
             {
@@ -32,10 +32,10 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        void OnCollisionEnter2D(Collision2D collision)
         {
-            audioSource.clip = MySheet.baseStats.ClipHit;
-            audioSource.Play(); //no matter what is struck, play the hit sound
+            collisionIntensity = Mathf.Clamp01(collision.relativeVelocity.magnitude * 0.1f);   // divide by 10, clamped to [0,1]
+            collisionEffects.PlayFeedbacks(transform.position, collisionIntensity);
         }
     }
 }

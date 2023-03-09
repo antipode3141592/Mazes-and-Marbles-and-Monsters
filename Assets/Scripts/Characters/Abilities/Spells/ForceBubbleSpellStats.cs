@@ -7,13 +7,6 @@ namespace MarblesAndMonsters.Spells
 
     public class ForceBubbleSpellStats : SpellStatsBase
     {
-        //public override void Action()
-        //{
-        //    base.Action();
-        //    if (Player.Instance != null)
-        //    {
-        //        Player.Instance.MySheet.Actions.Find(x => x.SpellName == AssociatedSpell).Cast();
-        //    }
-        //}
+
     }
 }

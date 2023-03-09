@@ -1,7 +1,6 @@
 ﻿using MarblesAndMonsters.Events;
 using MoreMountains.Feedbacks;
 using System;
-using System.Collections;
 using UnityEngine;
 
 namespace MarblesAndMonsters.Characters
@@ -15,31 +14,25 @@ namespace MarblesAndMonsters.Characters
     public abstract class CharacterControl: MonoBehaviour, IDamagable
     {
         #region Properties
-        //particle effects
-        public ParticleSystem hitEffect;    //plays when stuck/attacked/damaged
-        public ParticleSystem healEffect;   //plays when healing (players use a potion, monster regenerates, etc.)
-        public ParticleSystem invincibilityEffect;
-        public ParticleSystem fireEffect;
 
+        // More Mountains Feel Feedback Systems
         [SerializeField] protected MMFeedbacks collisionEffects;
+        [SerializeField] protected MMFeedbacks hitEffects;
+        [SerializeField] protected MMFeedbacks invincibilityEffects;
+        [SerializeField] protected MMFeedbacks healEffects;
+        protected float collisionIntensity = 1f;
 
         public EventHandler<DeathEventArgs> OnDying;
         public EventHandler<DamageEventArgs> OnDamage;
 
         //rigidbody 
         public Rigidbody2D MyRigidbody;
-
         protected CharacterSheet mySheet;
         protected SpriteRenderer mySpriteRenderer;
 
-        //input storage
-        protected float input_horizontal;
-        protected float input_vertical;
-
         public float ForceMultiplier = 1.0f;
 
-        [SerializeField]
-        private float defaultInvincibilityTime = 1.0f;
+        [SerializeField] float defaultInvincibilityTime = 1.0f;
 
         protected AnimatorController animatorController;
         
@@ -67,12 +60,9 @@ namespace MarblesAndMonsters.Characters
             MyRigidbody = GetComponent<Rigidbody2D>();
             mySpriteRenderer = GetComponent<SpriteRenderer>();
             animatorController = GetComponent<AnimatorController>();
-            audioSource = GetComponent<AudioSource>();
 
             _gameManager = FindObjectOfType<GameManager>();
             _characterManager = FindObjectOfType<CharacterManager>();
-
-
         }
 
         protected virtual void OnEnable()
@@ -157,7 +147,7 @@ namespace MarblesAndMonsters.Characters
                 }
                 else
                 {
-                    hitEffect.Play();   //particles
+                    hitEffects.PlayFeedbacks();
                     OnDamage?.Invoke(this, new DamageEventArgs(damageType));
                     //animator.SetTrigger(aTriggerDamageNormal);
                     ApplyInvincible(defaultInvincibilityTime);
@@ -178,18 +168,12 @@ namespace MarblesAndMonsters.Characters
 
         void InvincibileOnHandler(object sender, EventArgs e)
         {
-            if (invincibilityEffect)
-            {
-                invincibilityEffect.Play();
-            }
+            invincibilityEffects.PlayFeedbacks();
         }
 
         void InvincibileOffHandler(object sender, EventArgs e)
         {
-            if (invincibilityEffect)
-            {
-                invincibilityEffect.Stop();
-            }
+            invincibilityEffects.StopFeedbacks();
         }
 
         public void ApplyImpulse(Vector2 force)
@@ -214,6 +198,7 @@ namespace MarblesAndMonsters.Characters
 
         public virtual bool HealDamage(int healAmount)
         {
+            healEffects.PlayFeedbacks();
             return false;
         }
 

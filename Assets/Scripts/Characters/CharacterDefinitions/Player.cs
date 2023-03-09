@@ -313,8 +313,8 @@ namespace MarblesAndMonsters.Characters
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            audioSource.clip = MySheet.baseStats.ClipHit;
-            audioSource.Play();
+            collisionIntensity = Mathf.Clamp01(collision.relativeVelocity.magnitude * 0.1f);   // divide by 10, clamped to [0,1]
+            collisionEffects.PlayFeedbacks(transform.position, collisionIntensity);
         }
     }
 }

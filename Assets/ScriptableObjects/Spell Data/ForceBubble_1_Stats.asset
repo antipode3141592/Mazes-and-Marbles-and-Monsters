@@ -15,7 +15,7 @@ MonoBehaviour:
   id: fb_1
   Stackable: 0
   InventoryIcon: {fileID: 21300000, guid: 6a9dd1e7fa432e348a1d051f4a3913a1, type: 3}
-  ClipPickup: {fileID: 0}
+  ClipPickup: {fileID: 8300000, guid: 195b89925783d7a46a9dac80d9e62312, type: 3}
   SpellName: 1
   Description: Create an impervious bubble around the caster.
   PublicName: Force Field

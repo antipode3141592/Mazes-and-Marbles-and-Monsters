@@ -17,12 +17,9 @@ MonoBehaviour:
   DamageImmunities: 
   RespawnFlag: 0
   RespawnPeriod: 0.1
-  TouchAttack: {fileID: 0}
-  RangedAttack: {fileID: 0}
-  ReachAttack: {fileID: 0}
   ClipHit: {fileID: 8300000, guid: dbfb978442c24e54391debaa05ba685e, type: 3}
   ClipHeal: {fileID: 0}
-  ClipDeathNormal: {fileID: 0}
-  ClipDeathFall: {fileID: 8300000, guid: b5e9bdd3eb0f347408eb081db5a31112, type: 3}
+  ClipDeathNormal: {fileID: 8300000, guid: 823f4eaac79b3124abd93422bd30e3d7, type: 3}
+  ClipDeathFall: {fileID: 8300000, guid: ad725dcd9806ce94ca28997a3f393a3e, type: 3}
   ClipDeathFire: {fileID: 0}
   DefaultMaterial: {fileID: 2100000, guid: c4fc3a97526b9894a8172951f4130f43, type: 2}

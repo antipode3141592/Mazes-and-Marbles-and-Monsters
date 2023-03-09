@@ -2,12 +2,12 @@
 using MarblesAndMonsters.Characters;
 using MarblesAndMonsters.Events;
 using MarblesAndMonsters.Spells;
+using MoreMountains.Feedbacks;
 using System;
 using UnityEngine;
 
 namespace MarblesAndMonsters
 {
-
     /// <summary>
     /// Spells are objects that must be attached to an object with a CharacterControl.
     ///     - 
@@ -20,7 +20,7 @@ namespace MarblesAndMonsters
         protected CharacterControl _characterControl;
         protected AnimatorController _animatorController;
         public SpellStatsBase SpellStats;
-        public ParticleSystem ParticleEffect;
+        [SerializeField] protected MMFeedbacks _feedbacks;
 
         public SpellName SpellName;
 
@@ -44,7 +44,7 @@ namespace MarblesAndMonsters
         public int QuickSlot = -1;
         public event EventHandler<SpellEventArgs> OnUnlock;
 
-        private bool isUnlocked; //has the attached character unlocked this ability?
+        bool isUnlocked; //has the attached character unlocked this ability?
         public bool IsUnlocked
         {
             get { return isUnlocked; }
@@ -58,7 +58,7 @@ namespace MarblesAndMonsters
             }
         } 
 
-        private bool isAvailable = true;  //is this spell available to cast?  false during cooldown
+        bool isAvailable = true;  //is this spell available to cast?  false during cooldown
         public bool IsAvailable
         {
             get { return isAvailable; }
@@ -84,11 +84,6 @@ namespace MarblesAndMonsters
 
         protected virtual void Update()
         {
-            ////if spell is not available
-            //if (!IsAvailable)
-            //{
-
-            //}
             if (RemainingDuration > 0.0f)
             {
                 RemainingDuration -= Time.deltaTime;
@@ -113,12 +108,6 @@ namespace MarblesAndMonsters
 
         protected virtual void OnDisable()
         {
-            ////if (!IsAvailable)
-            ////{
-            //    OnSpellEnd?.Invoke(this, EventArgs.Empty);
-            //    OnDurationEnd?.Invoke(this, EventArgs.Empty);
-            //    OnCooldownEnd?.Invoke(this, EventArgs.Empty);
-            ////}
             OnSpellStart -= SpellStartHandler;
             OnSpellEnd -= SpellEndHandler;
         }
@@ -156,10 +145,7 @@ namespace MarblesAndMonsters
         public virtual void SpellStartHandler(object sender, EventArgs e)
         {
             Debug.Log(string.Format("{0} has called SpellStartHandler", SpellName.ToString()));
-            if (ParticleEffect)
-            {
-                ParticleEffect.Play();
-            }
+            _feedbacks.PlayFeedbacks();
         }
 
         /// <summary>
@@ -170,12 +156,7 @@ namespace MarblesAndMonsters
         public virtual void SpellEndHandler(object sender, EventArgs e)
         {
             Debug.Log(string.Format("{0} has called SpellEndHandler", SpellName.ToString()));
-            if (ParticleEffect)
-            {
-                ParticleEffect.Stop();
-            }
+            _feedbacks.StopFeedbacks();
         }
-
-       
     }
 }

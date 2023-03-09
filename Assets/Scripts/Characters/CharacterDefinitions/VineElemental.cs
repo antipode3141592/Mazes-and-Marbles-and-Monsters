@@ -76,10 +76,9 @@ namespace MarblesAndMonsters.Characters
             _stateMachine.Tick();   
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        void OnCollisionEnter2D(Collision2D collision)
         {
-            audioSource.clip = MySheet.baseStats.ClipHit;
-            audioSource.Play(); //no matter what is struck, play the hit sound
+            collisionEffects.PlayFeedbacks();
         }
     }
 }
