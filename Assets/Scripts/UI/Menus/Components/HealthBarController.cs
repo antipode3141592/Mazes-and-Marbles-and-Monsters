@@ -47,7 +47,7 @@ namespace MarblesAndMonsters.Menus.Components
 
         void RemoveHeart()
         {
-            Destroy(Hearts[Hearts.Count-1].gameObject);
+            Destroy(Hearts[Hearts.Count-1]);
             Hearts.RemoveAt(Hearts.Count-1);
             HeartAnimators.RemoveAt(HeartAnimators.Count - 1);
         }

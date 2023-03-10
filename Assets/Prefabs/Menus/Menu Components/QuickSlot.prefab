@@ -28,6 +28,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2248824407542571194}
   m_RootOrder: 3
@@ -104,6 +105,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2248824407542571194}
   m_RootOrder: 4
@@ -207,7 +209,7 @@ GameObject:
   - component: {fileID: 90805654800463089}
   - component: {fileID: 5182881133702490119}
   m_Layer: 5
-  m_Name: CooldownTimer
+  m_Name: CooldownTimerForeground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,6 +225,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4857667625145959834}
   m_RootOrder: 0
@@ -282,7 +285,7 @@ GameObject:
   - component: {fileID: 8239867325055724942}
   - component: {fileID: 8451885755599679641}
   m_Layer: 5
-  m_Name: DurationTimer_1
+  m_Name: DurationTimerBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -298,6 +301,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7349202576320402791}
   m_Father: {fileID: 2248824407542571194}
@@ -358,7 +362,7 @@ GameObject:
   - component: {fileID: 7846472196419285241}
   - component: {fileID: 7736881387561690373}
   m_Layer: 5
-  m_Name: CooldownTimer_1
+  m_Name: CooldownTimerBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -374,6 +378,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1282244696699285226}
   m_Father: {fileID: 2248824407542571194}
@@ -451,6 +456,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2248824407542571194}
   m_Father: {fileID: 0}
@@ -516,6 +522,8 @@ MonoBehaviour:
   SlotImage: {fileID: 7754484320917285497}
   CooldownGuage: {fileID: 5182881133702490119}
   DurationGuage: {fileID: 6725029189471363338}
+  CooldownGuageBackground: {fileID: 7736881387561690373}
+  DurationGuageBackground: {fileID: 8451885755599679641}
   storedSpellName: 0
 --- !u!1 &5836824037788373799
 GameObject:
@@ -529,7 +537,7 @@ GameObject:
   - component: {fileID: 8838257956673222608}
   - component: {fileID: 6725029189471363338}
   m_Layer: 5
-  m_Name: DurationTimer
+  m_Name: DurationTimerForeground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -545,6 +553,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5992469045818737202}
   m_RootOrder: 0
@@ -621,6 +630,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1129025523575078072}
   - {fileID: 4857667625145959834}
@@ -714,6 +724,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2248824407542571194}
   m_RootOrder: 0

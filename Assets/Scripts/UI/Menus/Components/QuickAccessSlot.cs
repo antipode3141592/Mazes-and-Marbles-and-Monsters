@@ -14,10 +14,21 @@ namespace MarblesAndMonsters.Menus.Components
         public Image SlotImage;
         public Image CooldownGuage;
         public Image DurationGuage;
+        public Image CooldownGuageBackground;
+        public Image DurationGuageBackground;
         public SpellName storedSpellName;
+
+        Color cooldownGuageColor;
+        Color durationGuageColor;
+        Color cooldownGuageBackgroundColor;
+        Color durationGuageBackgroundColor;
 
         protected void Awake()
         {
+            cooldownGuageColor = CooldownGuage.color;
+            durationGuageColor = DurationGuage.color;
+            cooldownGuageBackgroundColor = CooldownGuageBackground.color;
+            durationGuageBackgroundColor = DurationGuageBackground.color;
             ItemImage.image.color = Color.clear;
             BackgroundImage.color = Color.clear;
         }
@@ -30,6 +41,10 @@ namespace MarblesAndMonsters.Menus.Components
             ItemImage.image.color = Color.white;
             BackgroundImage.color = Color.green;
             SlotImage.color = Color.white;
+            CooldownGuage.color = cooldownGuageColor;
+            DurationGuage.color = durationGuageColor;
+            CooldownGuageBackground.color = cooldownGuageBackgroundColor;
+            DurationGuageBackground.color = durationGuageBackgroundColor;
             ItemImage.onClick.AddListener(Player.Instance.MySheet.Spells[spellStats.SpellName].Cast);
             storedSpellName = spellStats.SpellName;
             if (Player.Instance != null)
@@ -52,8 +67,12 @@ namespace MarblesAndMonsters.Menus.Components
             ItemImage.image.color = Color.clear;
             BackgroundImage.color = Color.clear;
             SlotImage.color = Color.clear;
-            //CooldownGuage.color = Color.clear;
-            //DurationGuage.color = Color.clear;
+            CooldownGuage.color = Color.clear;
+            DurationGuage.color = Color.clear;
+            CooldownGuageBackground.color = Color.clear;
+            DurationGuageBackground.color = Color.clear;
+            CooldownGuage.rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            DurationGuage.rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             ItemImage.onClick.RemoveAllListeners();
             if (Player.Instance != null)
             {
@@ -72,14 +91,12 @@ namespace MarblesAndMonsters.Menus.Components
 
         public void CooldownStartHandler(object sender, EventArgs e)
         {
-            //CooldownGuage.color = Color.red;
             if (Debug.isDebugBuild)
                 Debug.Log(string.Format("CooldownStartHandler is handling event from {0}", sender.ToString()));
         }
 
         public void CooldownEndHandler(object sender, EventArgs e)
         {
-            //CooldownGuage.color = Color.green;
             if (Debug.isDebugBuild)
                 Debug.Log(string.Format("CooldownEndHandler is handling event from {0}", sender.ToString()));
             CooldownGuage.rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
@@ -87,22 +104,17 @@ namespace MarblesAndMonsters.Menus.Components
 
         public void CooldownHandler(object sender, UITimerEventArgs e)
         {
-            //if (Debug.isDebugBuild)
-            //    Debug.Log($"CooldownHandler is handling event from {sender} with a value {e.PercentComplete:#.##}", this);
             CooldownGuage.rectTransform.localScale = new Vector3(1.0f, 1.0f-e.PercentComplete, 1.0f);
-
         }
 
         public void DurationStartHandler(object sender, EventArgs e)
         {
-            //DurationGuage.color = Color.red;
             if (Debug.isDebugBuild)
                 Debug.Log(string.Format("DurationStartHandler is handling event from {0}", sender.ToString()));
         }
 
         public void DurationEndHandler(object sender, EventArgs e)
         {
-            //DurationGuage.color = Color.green;
             if (Debug.isDebugBuild)
                 Debug.Log(string.Format("DurationEndHandler is handling event from {0}", sender.ToString()));
             DurationGuage.rectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
@@ -110,10 +122,7 @@ namespace MarblesAndMonsters.Menus.Components
 
         public void DurationHandler(object sender, UITimerEventArgs e)
         {
-            //if (Debug.isDebugBuild)
-            //    Debug.Log($"CooldownHandler is handling event from {sender} with a value {e.PercentComplete:#.##}", this);
             DurationGuage.rectTransform.localScale = new Vector3(1.0f, 1.0f-e.PercentComplete, 1.0f);
-
         }
     }
 }

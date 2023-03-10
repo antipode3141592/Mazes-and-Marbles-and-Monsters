@@ -5,12 +5,9 @@ using UnityEngine;
 
 namespace MarblesAndMonsters.Menus.Components
 {
-
-
     public class SpellStaffUIController : MonoBehaviour
     {
-        [SerializeField]
-        protected List<QuickAccessSlot> quickSlot;
+        [SerializeField] protected List<QuickAccessSlot> quickSlot;
 
         public static int QuickSlotMax = 2;
 
