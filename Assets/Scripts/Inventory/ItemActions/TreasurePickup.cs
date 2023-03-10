@@ -1,39 +1,25 @@
 ﻿using MarblesAndMonsters.Characters;
-using System.Collections;
 using UnityEngine;
 
 namespace MarblesAndMonsters.Items
 {
     public class TreasurePickup : InventoryItem
     {
-        [SerializeField]
-        private int value = 1;
+        [SerializeField] int value = 1;
         public override void Reset()
         {
             base.Reset();
-            //Player.Instance.RemoveTreasure(value);
         }
 
-        //private void OnCollisionEnter2D(Collision2D other)
-        //{
-        //    Player.Instance.AddTreasure(value);
-        //    gameObject.SetActive(false);
-        //}
-
-        protected override void OnTriggerEnter2D(Collider2D other)
+        protected override void OnTriggerEnter2D(Collider2D collision)
         {
-            Player.Instance.AddTreasure(value);
-            animator.SetTrigger(aTriggerPickup);
-            audioSource.clip = Stats.ClipPickup;
-            audioSource.Play();
-            StartCoroutine(PickupScroll());
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                Player.Instance.AddTreasure(value);
+                animator.SetTrigger(aTriggerPickup);
+                StartCoroutine(PickupItem(pickupDelay));
+            }
             
-        }
-
-        private IEnumerator PickupScroll()
-        {
-            yield return new WaitForSeconds(0.5f);
-            gameObject.SetActive(false);
         }
     }
 }

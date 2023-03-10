@@ -1,4 +1,5 @@
 ﻿using MarblesAndMonsters.Characters;
+using MoreMountains.Feedbacks;
 using System.Collections;
 using UnityEngine;
 
@@ -8,11 +9,11 @@ namespace MarblesAndMonsters.Items
     public class KeyItem : MonoBehaviour
     {
         public KeyStats KeyStats;
-        private AudioSource audioSource;
+        protected MMFeedbacks pickupFeedbacks;
 
         private void Awake()
         {
-            audioSource = GetComponent<AudioSource>();
+            pickupFeedbacks = GetComponent<MMFeedbacks>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -21,16 +22,13 @@ namespace MarblesAndMonsters.Items
             {
                 //add key to player's 
                 Player.Instance.AddToKeyChain(this);
-                audioSource.clip = KeyStats.ClipPickup;
-                audioSource.Play();
-                //disable the object
-                //this.gameObject.SetActive(false);
                 StartCoroutine(PickupKey());
             }
         }
 
-        private IEnumerator PickupKey()
+        IEnumerator PickupKey()
         {
+            pickupFeedbacks.PlayFeedbacks();
             yield return new WaitForSeconds(0.1f);
             gameObject.SetActive(false);
         }

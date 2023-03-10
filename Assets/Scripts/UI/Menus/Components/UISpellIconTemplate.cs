@@ -1,5 +1,6 @@
 using LevelManagement.DataPersistence;
 using MarblesAndMonsters.Menus.Components;
+using MoreMountains.Feedbacks;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,10 +10,11 @@ namespace MarblesAndMonsters.Menus
 {
     public class UISpellIconTemplate : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
     {
+        [SerializeField] MMFeedbacks uiFeedbacks;
+
         public Image Icon;
         public Image SelectedBackground;
         public Image DragIcon;
-        //protected BackpackController backpackController;
         public MagicStaffController MagicStaffController;
         public bool IsUnlocked;
         public SpellStatsBase SpellStats;
@@ -25,13 +27,10 @@ namespace MarblesAndMonsters.Menus
 
         private void Awake()
         {
-            //backpackController = GetComponentInParent<BackpackController>();
             raycastResults = new List<RaycastResult>();
             graphicRaycaster = GetComponentInParent<GraphicRaycaster>();
             MagicStaffController = FindObjectOfType<MagicStaffController>();
             _backpackMenu = FindObjectOfType<BackpackMenu>(true);
-            //DragIcon = FindObjectOfType<DragIcon>(true).GetComponent<Image>();
-            //DragIcon.enabled = false;
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -54,6 +53,7 @@ namespace MarblesAndMonsters.Menus
         public void OnBeginDrag(PointerEventData eventData)
         {
             //Debug.Log("Inventory Item OnBeginDrag()");
+            uiFeedbacks.PlayFeedbacks();
             DragIcon.enabled = true;
             DragIcon.sprite = Icon.sprite;
             DragIcon.color = Color.white;
@@ -81,6 +81,7 @@ namespace MarblesAndMonsters.Menus
                     break;
                 }
             }
+            uiFeedbacks.PlayFeedbacks();
             DragIcon.enabled = false;
         }
     }

@@ -12,7 +12,6 @@ namespace MarblesAndMonsters
         protected Animator _animator;
         protected Rigidbody2D _rigidbody;
         protected SpriteRenderer _spriteRenderer;
-        protected AudioSource _audioSource;
         protected CharacterSheet _characterSheet;
         protected CharacterControl _characterControl;
 
@@ -39,7 +38,6 @@ namespace MarblesAndMonsters
             _animator = GetComponent<Animator>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            _audioSource = GetComponent<AudioSource>();
             _characterSheet = GetComponent<CharacterSheet>();
             _characterControl = GetComponent<CharacterControl>();
 
@@ -140,8 +138,6 @@ namespace MarblesAndMonsters
             {
                 case DeathType.Falling:
                     _animator.SetTrigger(aTriggerFalling);
-                    _audioSource.clip = _characterSheet.baseStats.ClipDeathFall;
-                    _audioSource.Play();
                     break;
                 case DeathType.Damage:
                     _animator.SetTrigger(aTriggerDeathByDamage);

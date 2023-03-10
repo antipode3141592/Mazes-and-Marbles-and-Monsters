@@ -1,4 +1,5 @@
 ﻿using MarblesAndMonsters.Characters;
+using MoreMountains.Feedbacks;
 using System.Collections;
 using UnityEngine;
 
@@ -8,17 +9,17 @@ namespace MarblesAndMonsters.Items
     {
         protected SpriteRenderer spriteRenderer;
         protected Animator animator;
-        protected AudioSource audioSource;
+        protected MMFeedbacks pickupFeedbacks;
         protected int aTriggerPickup;
+        [SerializeField] protected float pickupDelay = 0.1f;
 
-        //[SerializeField]
         public ItemStats Stats;
 
         protected void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
-            audioSource = GetComponent<AudioSource>();
+            pickupFeedbacks = GetComponent<MMFeedbacks>();
             aTriggerPickup = Animator.StringToHash("Pickup");
         }
 
@@ -41,14 +42,15 @@ namespace MarblesAndMonsters.Items
                 {
                     Debug.Log(string.Format("InventoryItem {0} has been picked up by player!", gameObject.name));
                     Player.Instance.AddItemToInventory(Stats);
-                    StartCoroutine(PickupItem());
+                    StartCoroutine(PickupItem(pickupDelay));
                 }
             }
         }
 
-        private IEnumerator PickupItem()
+        protected IEnumerator PickupItem(float pickupDelay)
         {
-            yield return new WaitForSeconds(0.1f);
+            pickupFeedbacks.PlayFeedbacks();
+            yield return new WaitForSeconds(pickupDelay);
             gameObject.SetActive(false);
         }
     }
