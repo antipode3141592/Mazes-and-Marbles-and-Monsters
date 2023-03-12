@@ -3,6 +3,7 @@ using FiniteStateMachine;
 using LevelManagement;
 using LevelManagement.DataPersistence;
 using MarblesAndMonsters.Characters;
+using MarblesAndMonsters.Managers;
 using MarblesAndMonsters.Menus;
 using MarblesAndMonsters.States.GameStates;
 using System;
@@ -32,13 +33,14 @@ namespace MarblesAndMonsters
         protected IInputManager _inputManager;
         protected ITimeTracker _timeTracker;
         protected ICameraManager _cameraManager;
+        protected IAudioManager _audioManager;
 
         public bool ShouldBeginLevel { get; set; } = false;
         public bool ShouldLoadNextLevel { get; set; } = false;
         #endregion
 
         [Inject]
-        public void Init(IDataManager dataManager, IMenuManager menuManager, ILevelManager levelManager, ICharacterManager characterManager, IInputManager inputManager, ITimeTracker timeTracker, ICameraManager cameraManager)
+        public void Init(IDataManager dataManager, IMenuManager menuManager, ILevelManager levelManager, ICharacterManager characterManager, IInputManager inputManager, ITimeTracker timeTracker, ICameraManager cameraManager, IAudioManager audioManager)
         {
             _dataManager = dataManager;
             _menuManager = menuManager;
@@ -47,18 +49,19 @@ namespace MarblesAndMonsters
             _inputManager = inputManager;
             _timeTracker = timeTracker;
             _cameraManager = cameraManager;
+            _audioManager = audioManager;
         }
 
         #region Unity Overrides
 
-        private void Awake()
+        void Awake()
         {
             stateMachine = GetComponent<StateMachine>();
             var timeTracker = FindObjectOfType<TimeTracker>();
             var states = new Dictionary<Type, BaseState>()
             {
                 {typeof(START), new START(manager: this) },
-                {typeof(PopulateLevel), new PopulateLevel(manager: this, characterManager: _characterManager, timeTracker: _timeTracker, cameraManager: _cameraManager) },
+                {typeof(PopulateLevel), new PopulateLevel(manager: this, characterManager: _characterManager, timeTracker: _timeTracker, cameraManager: _cameraManager, audioManager: _audioManager) },
                 {typeof(Playing), new Playing(manager: this, inputManager: _inputManager, characterManager: _characterManager, rootClock: _rootClock) },
                 {typeof(Paused), new Paused(manager: this, timeTracker, rootClock: _rootClock) },
                 {typeof(Victory), new Victory(manager: this, menuManager: _menuManager, characterManager: _characterManager, timeTracker: _timeTracker, rootClock: _rootClock) },
@@ -99,8 +102,6 @@ namespace MarblesAndMonsters
             }
             stateMachine.SwitchToNewState(typeof(Defeat));
         }
-
-
 
         IEnumerator WinRoutine(string levelId)
         {

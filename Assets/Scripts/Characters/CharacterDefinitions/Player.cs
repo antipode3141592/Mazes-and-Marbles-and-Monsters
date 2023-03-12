@@ -25,18 +25,17 @@ namespace MarblesAndMonsters.Characters
         public event EventHandler OnPlayerDeath;
         public event EventHandler OnDamaged;
 
-        private CameraManager _cameraManager;
+        CameraManager _cameraManager;
 
-        private int deathCount = 0;
-        private int treasureCount = 0;
+        int deathCount = 0;
+        int treasureCount = 0;
 
-        private List<InventorySlot> inventory;
-        private List<KeyItem> keyChain;
+        List<InventorySlot> inventory;
+        List<KeyItem> keyChain;
 
-        [SerializeField]
-        private LightingSettings lightingSettings;
-        private GlobalLight globalLight;
-        private PlayerTorch playerTorch;
+        [SerializeField] LightingSettings lightingSettings;
+        GlobalLight globalLight;
+        PlayerTorch playerTorch;
 
         public List<InventorySlot> Inventory => inventory;//read only accessor shorthand
 
@@ -47,7 +46,7 @@ namespace MarblesAndMonsters.Characters
         protected GameMenu _gameMenu;
 
         //singleton stuff
-        private static Player _instance;
+        static Player _instance;
         public static Player Instance   //singleton accessor
         {
             get { return _instance; }
@@ -71,7 +70,6 @@ namespace MarblesAndMonsters.Characters
             else
             {
                 _instance = (Player)this;
-                //DontDestroyOnLoad(gameObject);
             }
             _cameraManager = FindObjectOfType<CameraManager>();
             globalLight = FindObjectOfType<GlobalLight>();
@@ -100,20 +98,13 @@ namespace MarblesAndMonsters.Characters
                 //unlock spells
                 foreach(var spell in _dataManager.UnlockedSpells)
                 {
-                    //Debug.Log(string.Format("Unlock Spell from Datamanager:  {0}, {1}, {2}", spell.SpellStats.SpellName, spell.IsAssigned, spell.QuickSlot));
                     MySheet.Spells[spell.SpellName].SpellStats = spell.SpellStats;
                     MySheet.Spells[spell.SpellName].IsUnlocked = true;
                     MySheet.Spells[spell.SpellName].IsQuickSlotAssigned = spell.IsAssigned;
                     MySheet.Spells[spell.SpellName].QuickSlot = spell.QuickSlot;
                 }
-
-                //foreach (var key in _dataManager.CollectedKeys)
-                //{
-                //    //Debug.Log(string.Format("Collected Key = {0}", key.name));
-                //    keyChain.Add(key);
-                //}
-
-            } else
+            } 
+            else
             {
                 deathCount = 0;
                 treasureCount = 0;
@@ -128,7 +119,7 @@ namespace MarblesAndMonsters.Characters
             }
         }
 
-        private void AdjustLight()
+        void AdjustLight()
         {
             if (globalLight.Intensity < 0.9f) 
             {
@@ -271,7 +262,7 @@ namespace MarblesAndMonsters.Characters
             UpdateKeyChainUI();
         }
 
-        private void UpdateKeyChainUI()
+        void UpdateKeyChainUI()
         {
             if (_gameMenu is null)
                 return;
@@ -308,10 +299,9 @@ namespace MarblesAndMonsters.Characters
         {
             throw new System.NotImplementedException();
         }
-
         //collision stuff
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        void OnCollisionEnter2D(Collision2D collision)
         {
             collisionIntensity = Mathf.Clamp01(collision.relativeVelocity.magnitude * 0.1f);   // divide by 10, clamped to [0,1]
             collisionEffects.PlayFeedbacks(transform.position, collisionIntensity);

@@ -9,19 +9,21 @@ namespace LevelManagement.Levels
     //  levelspecs are edited in Unity editor
     //  a levellist scriptable object is attached to objects on the map screen
     //  
-    
     public class LevelList : ScriptableObject
     {
         #region INSPECTOR
-        [SerializeField] private List<LevelSpecs> levels;
-        [SerializeField] private string mapId;
-        [SerializeField] private string firstLevelId;
-        [SerializeField] public int managerSceneIndex = 0;   //splash screen is build index 0
-        [SerializeField] public int lightingSceneIndex = 1;   //splash screen is build index 0
+        [SerializeField] LevelSpecs mainMap;
+        [SerializeField] LevelSpecs startingLevel;
+        [SerializeField] int managerSceneIndex = 0;   //splash screen is build index 0
+        [SerializeField] int lightingSceneIndex = 1;   //splash screen is build index 0
+        [SerializeField] List<LevelSpecs> levels;
         #endregion
 
         public List<LevelSpecs> Levels => levels;
-        public string MapId => mapId;
-        public string FirstLevelId => firstLevelId;
+        public LevelSpecs MainMapSpecs => mainMap;
+        public LevelSpecs StartingLevel => startingLevel;
+
+        public int ManagerSceneIndex => managerSceneIndex;
+        public int LightingSceneIndex => lightingSceneIndex;
     }
 }

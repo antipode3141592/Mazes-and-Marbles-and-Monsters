@@ -3,18 +3,14 @@ using MarblesAndMonsters.Characters;
 using MarblesAndMonsters.Items;
 using MarblesAndMonsters.Spells;
 using MarblesAndMonsters.Tiles;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Zenject;
 
 namespace MarblesAndMonsters
 {
     public class CharacterManager : MonoBehaviour, ICharacterManager
     {
-        IDataManager _dataManager;
-
         //references to various game objects
         List<InventoryItem> inventoryItems;
         List<SpellPickupBase> spellPickups;
@@ -26,11 +22,7 @@ namespace MarblesAndMonsters
         public List<CharacterControl> Characters;
         public Vector2 Input_Acceleration { get; set; }
 
-        [Inject]
-        public void Init(IDataManager dataManager)
-        {
-            _dataManager = dataManager;
-        }
+        float _sensitivity;
 
         /// <summary>
         /// cache references to all spawnpoints, inventory items, gates, and keys
@@ -150,9 +142,14 @@ namespace MarblesAndMonsters
             {
                 if (character.gameObject.activeInHierarchy && character.MySheet.IsBoardMovable)
                 {
-                    BoardMovement.Move(character.MyRigidbody, Input_Acceleration, character.ForceMultiplier, _dataManager.AccelerometerSensitivity);
+                    BoardMovement.Move(character.MyRigidbody, Input_Acceleration, character.ForceMultiplier, _sensitivity);
                 }
             }
+        }
+
+        public void SetAccelerometerSensitivity(float sensitivity)
+        {
+            _sensitivity = sensitivity;
         }
     }
 }

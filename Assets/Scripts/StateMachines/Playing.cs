@@ -1,6 +1,7 @@
 ﻿using Chronos;
 using FiniteStateMachine;
 using System;
+using UnityEngine;
 
 namespace MarblesAndMonsters.States.GameStates
 {
@@ -22,6 +23,7 @@ namespace MarblesAndMonsters.States.GameStates
         public override void Enter()
         {
             _rootClock.localTimeScale = 1f;
+            _characterManager.SetAccelerometerSensitivity(PlayerPrefs.GetFloat("Sensitivity", 1f));
         }
 
         public override void HandleInput()

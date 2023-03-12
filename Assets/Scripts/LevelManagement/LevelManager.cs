@@ -1,6 +1,7 @@
 ﻿using LevelManagement.DataPersistence;
 using LevelManagement.Levels;
 using MarblesAndMonsters;
+using MarblesAndMonsters.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,14 +20,16 @@ namespace LevelManagement
 
         protected IDataManager _dataManager;
         protected IGameManager _gameManager;
+        protected IAudioManager _audioManager;
 
         protected string _currentLevelName = string.Empty;   //default to empty
 
         [Inject]
-        public void Init(IDataManager dataManager, IGameManager gameManager)
+        public void Init(IDataManager dataManager, IGameManager gameManager, IAudioManager audioManager)
         {
             _dataManager = dataManager;
             _gameManager = gameManager;
+            _audioManager = audioManager;
         }
 
         protected void Awake()
@@ -34,30 +37,21 @@ namespace LevelManagement
             //build dictionary with key equal to Id field in LevelSpecs
             //levelSpecsById = new Dictionary<string, LevelSpecs>();
             foreach (LevelSpecs level in levelList.Levels)
-            {
                 levelSpecsById.Add(level.Id, level);
-            }
             Debug.Log(string.Format("Level Dictionary has {0} key-value pairs", levelSpecsById.Count));
         }
 
         void Start()
         {
             Debug.Log($"LevelManager Start() => Scene Count = {SceneManager.sceneCount}", gameObject);
-
             //if there are three scenes open OnStart, it's a debug/playtest situation where the 
             // scene level is all ready loaded, so we need to trigger start of level manually here
             if (SceneManager.sceneCount == 3)
-            {
                 _gameManager.ShouldBeginLevel = true;
-            }
             else if (SceneManager.sceneCount == 2)
-            {
-
-            }
+                Debug.Log($"SceneCount 2", this);
             else
-            {
                 LoadMainMenuLevel();
-            }
         }
 
         /// <summary>
@@ -82,7 +76,7 @@ namespace LevelManagement
                 }
             }
             Debug.Log("attempting to load " + levelId);
-            if (Application.CanStreamedLevelBeLoaded(GetLevelSpecsById(levelId).SceneName))
+            if (Application.CanStreamedLevelBeLoaded(GetLevelSpecsById(levelId).ScenePath))
             {
                 if (_dataManager != null)
                 {
@@ -91,8 +85,8 @@ namespace LevelManagement
                     _dataManager.SavedLocation = GetLevelSpecsById(levelId).Location;
                     _dataManager.Save();
                 }
-
-                StartCoroutine(LoadLevelAsync(GetLevelSpecsById(levelId).SceneName));
+                _audioManager.PlayMusic(GetLevelSpecsById(levelId).LevelMusic);
+                StartCoroutine(LoadLevelAsync(GetLevelSpecsById(levelId).ScenePath));
             }
             else
             {
@@ -110,16 +104,12 @@ namespace LevelManagement
         {
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             while (!asyncOperation.isDone)
-            {
-                yield return null; //yield this frame
-            }
+                yield return null;
             if (_currentLevelName != string.Empty)
             {
                 AsyncOperation asyncOperation2 = SceneManager.UnloadSceneAsync(_currentLevelName);
                 while (!asyncOperation2.isDone)
-                {
-                    yield return null; //yield this frame
-                }
+                    yield return null;
             }
             _gameManager.ShouldBeginLevel = true;
             _currentLevelName = sceneName;
@@ -132,24 +122,19 @@ namespace LevelManagement
 
         IEnumerator LoadManagers()
         {
-            if (SceneManager.sceneCount == 1 && SceneManager.GetActiveScene().buildIndex == levelList.managerSceneIndex)
+            if (SceneManager.sceneCount == 1 && SceneManager.GetActiveScene().buildIndex == levelList.ManagerSceneIndex)
             {
-                AsyncOperation async = SceneManager.LoadSceneAsync(levelList.lightingSceneIndex, LoadSceneMode.Additive);
+                AsyncOperation async = SceneManager.LoadSceneAsync(levelList.LightingSceneIndex, LoadSceneMode.Additive);
                 while (!async.isDone)
-                {
                     yield return null;
-                }
             }
             else
             {
-                AsyncOperation async2 = SceneManager.LoadSceneAsync(levelList.managerSceneIndex, LoadSceneMode.Single);
-                AsyncOperation async3 = SceneManager.LoadSceneAsync(levelList.lightingSceneIndex, LoadSceneMode.Additive);
+                AsyncOperation async2 = SceneManager.LoadSceneAsync(levelList.ManagerSceneIndex, LoadSceneMode.Single);
+                AsyncOperation async3 = SceneManager.LoadSceneAsync(levelList.LightingSceneIndex, LoadSceneMode.Additive);
                 while (!async2.isDone && !async3.isDone)
-                {
                     yield return null;
-                }
             }
-
         }
 
         /// <summary>
@@ -159,19 +144,15 @@ namespace LevelManagement
         public LevelSpecs GetLevelSpecsById(string id)
         {
             if (levelSpecsById.ContainsKey(id))
-            {
                 return levelSpecsById[id];
-            }
             else
-            {
                 return GetMap();    //default to return to main map if id not found
-            }
         }
 
         public string GetCurrentLevelId()
         {
             var currentScene = SceneManager.GetActiveScene();
-            var retval = levelSpecsById.Where(x => x.Value.SceneName == currentScene.path).FirstOrDefault();
+            var retval = levelSpecsById.Where(x => x.Value.ScenePath == currentScene.path).FirstOrDefault();
             return retval.Key;
         }
 
@@ -209,30 +190,26 @@ namespace LevelManagement
         /// <returns>LevelSpecs of the desired map (Main Map, by default) </returns>
         public LevelSpecs GetMap(string mapId = "Main_Map")
         {
-            return GetLevelSpecsById(levelList.MapId);
+            return levelList.MainMapSpecs;
         }
 
         public LevelSpecs GetFirstLevel()
         {
-            return GetLevelSpecsById(levelList.FirstLevelId);
+            return levelList.StartingLevel;
         }
 
         public LevelSpecs GetFirstLevelInLocation(string location)
         {
             LevelSpecs level = levelList.Levels.Find(x => x.Location == location && x.SortOrder == 0);
             if (level != null)
-            {
                 return level;
-            }
             else
-            {
                 return GetMap();
-            }
         }
 
         public LevelSpecs CurrentLevel()
         {
-            return levelList.Levels.Find(x => x.SceneName == SceneManager.GetActiveScene().path);
+            return levelList.Levels.Find(x => x.ScenePath == SceneManager.GetActiveScene().path);
         }
     }
 }

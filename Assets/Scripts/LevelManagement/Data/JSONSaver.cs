@@ -34,7 +34,7 @@ namespace LevelManagement.DataPersistence
             }
         }
 
-        private bool CheckData(string json)
+        bool CheckData(string json)
         {
             SaveData tempSaveData = new SaveData();
             JsonUtility.FromJsonOverwrite(json, tempSaveData);
@@ -94,7 +94,7 @@ namespace LevelManagement.DataPersistence
             return hexString;
         }
 
-        private string GetSHA256(string text)
+        string GetSHA256(string text)
         {
             byte[] textToBytes = Encoding.UTF8.GetBytes(text);
             SHA256Managed mySHA256 = new SHA256Managed();

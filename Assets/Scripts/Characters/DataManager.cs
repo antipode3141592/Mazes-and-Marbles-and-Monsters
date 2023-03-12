@@ -12,30 +12,17 @@ namespace LevelManagement.DataPersistence
         SaveData saveData;
         JSONSaver jsonSaver;
 
-        public float MasterVolume { get { return saveData.masterVolume; } set { saveData.masterVolume = value; } }
-        public float SFXVolume { get { return saveData.sfxVolume; } set { saveData.sfxVolume = value; } }
-        public float MusicVolume { get { return saveData.musicVolume; } set { saveData.musicVolume = value; } }
-        public float AccelerometerSensitivity { get => saveData.accelerometerSensitivity; set => saveData.accelerometerSensitivity = value; }
         public float TotalGameTime { get => saveData.totalGameTime; set => saveData.totalGameTime = value; }
         public string SavedLocation { get { return saveData.currentLocation; } set { saveData.currentLocation = value; } }
         public string CheckPointLevelId { get { return saveData.checkPointLevelId; } set { saveData.checkPointLevelId = value; } }
-
         public int PlayerCurrentHealth { get { return saveData.playerCurrentHealth; } set { saveData.playerCurrentHealth = value; } }
         public int PlayerMaxHealth { get { return saveData.playerMaxHealth; } set { saveData.playerMaxHealth = value; } }
-
         public int PlayerTotalDeathCount { get { return saveData.playerDeathCount; } set { saveData.playerDeathCount = value; } }
-
         public int PlayerScrollCount { get { return saveData.playerScrollCount; } set { saveData.playerScrollCount = value; } }
-
         public List<LevelSaveData> LevelSaves { get { return saveData.LevelSaves; } set { saveData.LevelSaves = value; } }
-
         public List<LocationSaveData> LocationSaves { get { return saveData.LocationSaves; } set { saveData.LocationSaves = value; } }
-
         public List<SpellData> UnlockedSpells { get { return saveData.UnlockedSpells; } set { saveData.UnlockedSpells = value; } }
-
         public List<KeyItem> CollectedKeys { get { return saveData.CollectedKeys; } set { saveData.CollectedKeys = value; } }
-
-        
 
         void Awake()
         {

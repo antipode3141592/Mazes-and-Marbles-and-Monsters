@@ -9,6 +9,7 @@ namespace MarblesAndMonsters.Menus
         [SerializeField] Slider _masterVolumeSlider;
         [SerializeField] Slider _SFXVolumeSlider;
         [SerializeField] Slider _MusicVolumeSlider;
+        [SerializeField] Slider _UIVolumeSlider;
         [SerializeField] Slider _accelerometerSensitivitySlider;
 
         private void Start()
@@ -18,47 +19,43 @@ namespace MarblesAndMonsters.Menus
 
         public void OnMasterVolumeChanged(float volume)
         {
-            if (_dataManager is null)
-                return;
-            _dataManager.MasterVolume = volume;
+            PlayerPrefs.SetFloat("MasterVolume", volume);
         }
 
         public void OnSFXVolumeChanged(float volume)
         {
-            if (_dataManager is null)
-                return;
-            _dataManager.SFXVolume = volume;
+            PlayerPrefs.SetFloat("SFXVolume", volume);
         }
 
         public void OnMusicVolumeChanged(float volume)
         {
-            if (_dataManager is null)
-                return;
-            _dataManager.MusicVolume = volume;
+            PlayerPrefs.SetFloat("MusicVolume", volume);
+        }
+
+        public void OnUIVolumeChanged(float volume)
+        {
+            PlayerPrefs.SetFloat("UIVolume", volume);
         }
 
         public void OnAccelerometerSensitivityChanged(float sensitivity)
         {
-            if (_dataManager is null)
-                return;
-            _dataManager.AccelerometerSensitivity = sensitivity;
+            PlayerPrefs.SetFloat("Sensitivity", sensitivity);
         }
-
         
         public override void OnBackPressed()
         {
-            _dataManager.Save();
+            PlayerPrefs.Save();
             base.OnBackPressed();
         }
 
         //load volume states from stored SaveData object
         public void LoadData()
         {
-            _dataManager.Load();
-            _masterVolumeSlider.value = _dataManager.MasterVolume;
-            _SFXVolumeSlider.value = _dataManager.SFXVolume;
-            _MusicVolumeSlider.value = _dataManager.MusicVolume;
-            _accelerometerSensitivitySlider.value = _dataManager.AccelerometerSensitivity;
+            _masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
+            _SFXVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
+            _MusicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
+            _UIVolumeSlider.value = PlayerPrefs.GetFloat("UIVolume", 1f);
+            _accelerometerSensitivitySlider.value = PlayerPrefs.GetFloat("Sensitivity", 1f);
         }
     }
 }

@@ -9,5 +9,6 @@ namespace MarblesAndMonsters
         public void MoveAll();
         void ResetAll();
         public void SpawnAll();
+        public void SetAccelerometerSensitivity(float sensitivity);
     }
 }
