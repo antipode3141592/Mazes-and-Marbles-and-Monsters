@@ -14,7 +14,6 @@ namespace MarblesAndMonsters.Characters
     public abstract class CharacterControl: MonoBehaviour, IDamagable
     {
         #region Properties
-
         // More Mountains Feel Feedback Systems
         [SerializeField] protected MMFeedbacks collisionEffects;
         [SerializeField] protected MMFeedbacks hitEffects;
@@ -33,6 +32,8 @@ namespace MarblesAndMonsters.Characters
         public float ForceMultiplier = 1.0f;
 
         [SerializeField] float defaultInvincibilityTime = 1.0f;
+        protected bool isInvincible = false;
+        protected float invincibleTimeCounter = 0f;
 
         protected AnimatorController animatorController;
         
@@ -69,19 +70,13 @@ namespace MarblesAndMonsters.Characters
         {
             ResetHealth();
             isDying = false;
-            //comment: subscribe!
-            MySheet.OnInvincible += InvincibileOnHandler;
-            MySheet.OnInvincibleEnd += InvincibileOffHandler;
+            isInvincible = false;
             animatorController.OnDeathAnimationComplete += OnDeathAnimationCompleted;
         }
 
         protected virtual void Start()
         {
-            //_gameManager.StoreCharacter(this);
-            if (_characterManager.StoreCharacter(this))
-            {
-                //Debug.Log(String.Format("{0} has been added to Characters on GameController", this.gameObject.name));
-            }
+            _characterManager.StoreCharacter(this);
         }
 
         protected virtual void Update()
@@ -90,15 +85,22 @@ namespace MarblesAndMonsters.Characters
             if (MySheet.CurrentHealth <= 0)
             {
                 CharacterDeath(DeathType.Damage);
+                return;
+            }
+            //decrement state counters
+            if (isInvincible)
+            {
+                invincibleTimeCounter -= Time.deltaTime;
+                if (invincibleTimeCounter <= 0.0f)
+                {
+                    invincibleTimeCounter = 0.0f;
+                    isInvincible = false;
+                }
             }
         }
 
         protected virtual void OnDisable()
         {
-            //MySheet.OnBurning -= FireOnHandler;
-            //MySheet.OnBurningEnd -= FireOffHandler;
-            MySheet.OnInvincible -= InvincibileOnHandler;
-            MySheet.OnInvincibleEnd -= InvincibileOffHandler;
             animatorController.OnDeathAnimationComplete -= OnDeathAnimationCompleted;
             //if this character is the respawning type, start the spawn coroutine
             if (mySheet.RespawnFlag)
@@ -114,66 +116,28 @@ namespace MarblesAndMonsters.Characters
         #region Damage and Powers
         public virtual void TakeDamage(int damageAmount, DamageType damageType)
         {
-            //check for invincibility
-            if (mySheet.IsInvincible || mySheet.DamageImmunities.Contains(DamageType.All))
-            {
-                //Debug.Log(string.Format("{0} is invincible!", gameObject.name));
-            }
-            //check immunity to damage type
-            else if (mySheet.DamageImmunities.Contains(damageType))
-            {
-                //Debug.Log(string.Format("{0} is immune to {1} and takes no damage!", gameObject.name, damageType));
-            }
-            //check damage > armor
-            else if (damageAmount <= mySheet.Armor)
-            {
-                //Debug.Log(string.Format("{0}'s armor absorbs all damage!", gameObject.name));
-            }
-            else
-            {
-                //take that damage!
-                //adjust current health
-                mySheet.CurrentHealth -= (damageAmount - mySheet.Armor);
-                //set state for unique damage types
-                //if (damageType == DamageType.Fire) { ApplyFire(); }
-                //if (damageType == DamageType.Poison) { ApplyPoison(); }
-                //if (damageType == DamageType.Ice) { ApplyIce(); }
-
-                //check for death, if still alive, play particle effect and hit animation
-                if (mySheet.CurrentHealth <= 0)
-                {
-                    //Debug.Log("Death trigger from TakeDamage()");
-                    CharacterDeath(DeathType.Damage);
-                }
-                else
-                {
-                    hitEffects.PlayFeedbacks();
-                    OnDamage?.Invoke(this, new DamageEventArgs(damageType));
-                    //animator.SetTrigger(aTriggerDamageNormal);
-                    ApplyInvincible(defaultInvincibilityTime);
-                }
-            }
+            if (isInvincible || mySheet.DamageImmunities.Contains(DamageType.All))
+                return;
+            if (mySheet.DamageImmunities.Contains(damageType))
+                return;
+            if (damageAmount <= mySheet.Armor)
+                return;
+            
+            mySheet.CurrentHealth -= (damageAmount - mySheet.Armor);
+            //set state for unique damage types
+            //if (damageType == DamageType.Fire) { ApplyFire(); }
+            //if (damageType == DamageType.Poison) { ApplyPoison(); }
+            //if (damageType == DamageType.Ice) { ApplyIce(); }
+            hitEffects.PlayFeedbacks();
+            OnDamage?.Invoke(this, new DamageEventArgs(damageType));
+            isInvincible = true;
+            invincibleTimeCounter = defaultInvincibilityTime;
+            invincibilityEffects.PlayFeedbacks();
         }
 
         public virtual void ApplyDamageEffect(Type damageType)
         {
 
-        }
-
-        public virtual void ApplyInvincible(float duration)
-        {
-            MySheet.IsInvincible = true;
-            MySheet.InvincibleTimeCounter = duration;
-        }
-
-        void InvincibileOnHandler(object sender, EventArgs e)
-        {
-            invincibilityEffects.PlayFeedbacks();
-        }
-
-        void InvincibileOffHandler(object sender, EventArgs e)
-        {
-            invincibilityEffects.StopFeedbacks();
         }
 
         public void ApplyImpulse(Vector2 force)
@@ -189,11 +153,7 @@ namespace MarblesAndMonsters.Characters
         public void ApplyFalling(Vector3 position)
         {
             if (!isDying && !MySheet.IsLevitating)
-            {
-
-                
                 CharacterDeath(DeathType.Falling);
-            }
         }
 
         public virtual bool HealDamage(int healAmount)
@@ -201,9 +161,6 @@ namespace MarblesAndMonsters.Characters
             healEffects.PlayFeedbacks();
             return false;
         }
-
-        //
-        
         #endregion
 
         #region Spawning and Dying
@@ -220,9 +177,7 @@ namespace MarblesAndMonsters.Characters
         public virtual void CharacterDeath(DeathType deathType)
         {
             if (isDying) 
-            {
                 return; 
-            }
             
             isDying = true;
 
@@ -247,7 +202,6 @@ namespace MarblesAndMonsters.Characters
         {
             spawnPoint.Reset();
         }
-
         #endregion
     }
 }

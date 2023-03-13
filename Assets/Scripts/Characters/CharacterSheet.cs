@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using MarblesAndMonsters.Actions;
+﻿using LevelManagement.DataPersistence;
 using System;
-using LevelManagement.DataPersistence;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace MarblesAndMonsters.Characters
 {
@@ -11,41 +10,33 @@ namespace MarblesAndMonsters.Characters
     {
         public CharacterBaseStats baseStats;
 
-        private int maxHealth = 1;
-        private int currentHealth = 1;
-        private int armor;
+        int maxHealth = 1;
+        int currentHealth = 1;
+        int armor;
         public Material DefaultMaterial => baseStats.DefaultMaterial;
 
-        private bool respawnFlag;   //if true, character respawn
-        private float respawnPeriod;    //seconds before respawn
+        bool respawnFlag;   //if true, character respawn
+        float respawnPeriod;    //seconds before respawn
 
         //character states that could apply to any character
-        [SerializeField]
-        private bool isAsleep;
-        private bool isPoisoned;
-        private bool isBurning;
-        private bool isFrozen;
-        private bool isInvincible;
-        private bool isLevitating;
-        private bool isStealth;
-        [SerializeField]
-        private bool isBoardMovable = true;
+        [SerializeField] bool isAsleep;
+        bool isPoisoned;
+        bool isBurning;
+        bool isFrozen;
+        bool isLevitating;
+        bool isStealth;
+        [SerializeField] bool isBoardMovable = true;
 
         public event EventHandler OnBurning;
         public event EventHandler OnBurningEnd;
-        public event EventHandler OnInvincible;
-        public event EventHandler OnInvincibleEnd;
         public event EventHandler OnLevitating;
         public event EventHandler OnLevitatingEnd;
         public event EventHandler OnStealth;
         public event EventHandler OnStealthEnd;
 
-        private float sleepTimeCounter;
-        private float poisonTimeCounter;
-        private float burnTimeCounter;
-        private float invincibleTimeCounter;
-        private float levitatingTimeCounter;
-        private float forceBubbleTimeCounter;
+        float sleepTimeCounter;
+        float poisonTimeCounter;
+        float burnTimeCounter;
 
         //read only
         public bool RespawnFlag => respawnFlag;
@@ -82,21 +73,6 @@ namespace MarblesAndMonsters.Characters
             }
         }
         public bool IsFrozen => isFrozen;
-        public bool IsInvincible 
-        { 
-            get { return isInvincible; } 
-            set {
-                isInvincible = value; 
-                if (value)
-                {
-                    OnInvincible?.Invoke(this, EventArgs.Empty);
-                }
-                else
-                {
-                    OnInvincibleEnd?.Invoke(this, EventArgs.Empty);
-                }
-            } 
-        }
         public bool IsLevitating 
         { 
             get { return isLevitating; } 
@@ -123,11 +99,9 @@ namespace MarblesAndMonsters.Characters
         }
 
         public bool IsStealth => isStealth;
-
         public float SleepTimeCounter { get => sleepTimeCounter; set => sleepTimeCounter = value; }
         public float PoisonTimeCounter { get => poisonTimeCounter; set => poisonTimeCounter = value; }
         public float FireTimeCounter { get => burnTimeCounter; set => burnTimeCounter = value; }
-        public float InvincibleTimeCounter { get => invincibleTimeCounter; set => invincibleTimeCounter = value; }
 
         public List<DamageType> DamageImmunities;
 
@@ -135,7 +109,7 @@ namespace MarblesAndMonsters.Characters
         public Dictionary<SpellName, Spell> Spells;
 
         #region Unity Functions
-        private void Awake()
+        void Awake()
         {
             Spells = new Dictionary<SpellName,Spell>();
             DamageImmunities = new List<DamageType>();
@@ -150,24 +124,13 @@ namespace MarblesAndMonsters.Characters
         protected void OnEnable()
         {
             if (baseStats)
-            {
                 SetInitialStats();
-            }
         }
 
-        private void Update()
+        void Update()
         {
             var dT = Time.deltaTime;
             //decrement state counters
-            if (IsInvincible)
-            {
-                invincibleTimeCounter -= dT;
-                if (invincibleTimeCounter < 0.0f)
-                {
-                    invincibleTimeCounter = 0.0f;
-                    IsInvincible = false;
-                }
-            }
             if (IsPoisoned)
             {
                 poisonTimeCounter -= dT;
@@ -189,8 +152,6 @@ namespace MarblesAndMonsters.Characters
         }
         #endregion
 
-
-
         public void SetInitialStats()
         {
             armor = baseStats.Armor;
@@ -203,7 +164,6 @@ namespace MarblesAndMonsters.Characters
             {
                 DamageImmunities.Add(baseStats.DamageImmunities[i]);
             }
-            
         }
     }
 }
