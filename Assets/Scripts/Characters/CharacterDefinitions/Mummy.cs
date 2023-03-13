@@ -10,11 +10,12 @@ namespace MarblesAndMonsters.Characters
     [RequireComponent(typeof(MeleeController))]
     public class Mummy : CharacterControl
     {
-        private CharacterStateMachine _stateMachine;
+        CharacterStateMachine _stateMachine;
+
         protected override void Awake()
         {
             base.Awake();
-            _stateMachine = new CharacterStateMachine();
+            _stateMachine = new CharacterStateMachine(gameObject);
 
             IMover mover = GetComponent<IMover>();
             MeleeController meleeController = GetComponent<MeleeController>();
@@ -48,6 +49,17 @@ namespace MarblesAndMonsters.Characters
                 return false;
             };
             Func<bool> TimeElapsed(float time) => () => _stateMachine.TimeInState >= time;
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            _stateMachine.Tick();
+        }
+
+        void OnCollisionEnter2D(Collision2D collision)
+        {
+            collisionEffects.PlayFeedbacks();
         }
     }
 

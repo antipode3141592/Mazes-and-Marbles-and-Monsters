@@ -21,7 +21,7 @@ namespace MarblesAndMonsters.Characters
         protected override void Awake()
         {
             base.Awake();
-            _stateMachine = new CharacterStateMachine();
+            _stateMachine = new CharacterStateMachine(gameObject);
 
             _rigidbody2D = GetComponent<Rigidbody2D>();
             IMover mover = GetComponent<IMover>();

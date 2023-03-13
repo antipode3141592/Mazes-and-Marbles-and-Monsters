@@ -56,6 +56,7 @@ namespace MarblesAndMonsters
             {
                 if (character.isActiveAndEnabled && !character.MySheet.IsStealth && character.CompareTag(EnemyTag()))
                 {
+                    Debug.Log($"{gameObject.name} found an enemy: {character.name}");
                     enemies.Add(character.gameObject);
                 }
             }

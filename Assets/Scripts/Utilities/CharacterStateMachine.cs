@@ -12,17 +12,24 @@ namespace FiniteStateMachine
     /// </summary>
     public class CharacterStateMachine
     {
-        private IState _currentState;
+        GameObject _parentObject;
+
+        IState _currentState;
 
         public event EventHandler<UITextUpdate> OnStateChange;
 
-        private Dictionary<Type, List<Transition>> _transitions = new Dictionary<Type, List<Transition>>();
-        private List<Transition> _currentTransitions = new List<Transition>();
-        private List<Transition> _anyTransitions = new List<Transition>();
-        private static List<Transition> EmptyTransitions = new List<Transition>(capacity: 0);
+        Dictionary<Type, List<Transition>> _transitions = new Dictionary<Type, List<Transition>>();
+        List<Transition> _currentTransitions = new List<Transition>();
+        List<Transition> _anyTransitions = new List<Transition>();
+        static List<Transition> EmptyTransitions = new List<Transition>(capacity: 0);
 
         public float TimeInState = 0f;
         public Transform CurrentTarget;
+
+        public CharacterStateMachine(GameObject parentObject)
+        {
+            _parentObject = parentObject;
+        }
 
         public void Tick()
         {
@@ -46,7 +53,7 @@ namespace FiniteStateMachine
             if (_currentTransitions == null)
                 _currentTransitions = EmptyTransitions;
             OnStateChange?.Invoke(this, new UITextUpdate(_currentState.ToString()));
-            Debug.Log($"Now entering {_currentState} state");
+            Debug.Log($"{_parentObject.name} now entering {_currentState} state");
             _currentState.OnEnter();
             TimeInState = 0f;
         }
@@ -67,7 +74,7 @@ namespace FiniteStateMachine
             _anyTransitions.Add(new Transition(state, predicate));
         }
 
-        private Transition GetTransition()
+        Transition GetTransition()
         {
             foreach (var transition in _anyTransitions)
                 if (transition.Condition())

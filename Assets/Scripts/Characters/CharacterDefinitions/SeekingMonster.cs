@@ -13,7 +13,7 @@ namespace MarblesAndMonsters.Characters
         protected override void Awake()
         {
             base.Awake();
-            _stateMachine = new CharacterStateMachine();
+            _stateMachine = new CharacterStateMachine(gameObject);
             IMover mover = GetComponent<IMover>();
             MeleeController meleeController = GetComponent<MeleeController>();
             RangedController rangedController = GetComponent<RangedController>();
