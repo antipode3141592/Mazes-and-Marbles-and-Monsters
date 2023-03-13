@@ -1,4 +1,3 @@
-using MarblesAndMonsters.Characters;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,34 +11,23 @@ namespace MarblesAndMonsters
         public bool AttackAvailable;
         public EventHandler OnAttackAvailable;
 
-        [SerializeField]
-        public AttackStats AttackStats;
-        [SerializeField]
-        protected Collider2D _attackCollider;
-        [SerializeField]
-        protected ContactFilter2D _detectionFilter;
-        [SerializeField]
-        protected ContactFilter2D _lineOfSightFilter;
+        [SerializeField] public AttackStats AttackStats;
+        [SerializeField] protected Collider2D _attackCollider;
+        [SerializeField] protected ContactFilter2D _detectionFilter;
+        [SerializeField] protected ContactFilter2D _lineOfSightFilter;
 
         protected List<GameObject> _enemies;
-
         protected List<Collider2D> _collisionCheckResults;
-        private List<RaycastHit2D> _hits;
-
+        List<RaycastHit2D> _hits;
         protected CharacterManager _characterManager;
 
         public string EnemyTag()
         {
             if (CompareTag("Monster"))
-            {
                 return "Player";
-            } else
-            {
+            else
                 return "Monster";
-            }
         }
-
-
 
         protected virtual void Awake()
         {

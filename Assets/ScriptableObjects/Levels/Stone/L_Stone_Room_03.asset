@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: stone_room_03
   _map: 
-  _location: 
+  _location: stone
   _sortOrder: 2
   _displayName: Stone Room 03
   _scenePath: Assets/00_Scenes/Stone/Room_03.unity

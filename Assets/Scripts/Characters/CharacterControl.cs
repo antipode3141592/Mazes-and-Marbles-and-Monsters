@@ -36,10 +36,6 @@ namespace MarblesAndMonsters.Characters
         protected float invincibleTimeCounter = 0f;
 
         protected AnimatorController animatorController;
-        
-
-        //sound control
-        protected AudioSource audioSource;
 
         public bool isDying = false;   //similar to invincibility flag for ensuring multiple death calls won't be evaluated
 

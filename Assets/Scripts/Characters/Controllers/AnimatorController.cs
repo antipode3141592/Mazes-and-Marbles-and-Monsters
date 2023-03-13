@@ -67,7 +67,7 @@ namespace MarblesAndMonsters
             _characterControl.OnDamage += OnDamage;
         }
 
-        void Update()
+        void FixedUpdate()
         {
             //grab acceleration input
             SetLookDirection();
@@ -150,7 +150,7 @@ namespace MarblesAndMonsters
                     Debug.LogWarning("Unhandled deathtype enum!");
                     break;
             }
-            StartCoroutine(DeathAnimationDelay(delay: 0.5f, deathType: e.DeathType));
+            StartCoroutine(DeathAnimationDelay(delay: 1f, deathType: e.DeathType));
 
         }
 
