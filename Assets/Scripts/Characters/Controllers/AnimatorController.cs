@@ -67,7 +67,7 @@ namespace MarblesAndMonsters
             _characterControl.OnDamage += OnDamage;
         }
 
-        void FixedUpdate()
+        void Update()
         {
             //grab acceleration input
             SetLookDirection();
@@ -156,7 +156,7 @@ namespace MarblesAndMonsters
 
         protected virtual IEnumerator DeathAnimationDelay(float delay, DeathType deathType)
         {
-
+            Debug.Log($"{gameObject.name} death type {deathType}, animation delay {delay}", this);
             yield return new WaitForSeconds(delay);
             AfterDeathAnimation();
             OnDeathAnimationComplete?.Invoke(this, new DeathEventArgs(deathType));

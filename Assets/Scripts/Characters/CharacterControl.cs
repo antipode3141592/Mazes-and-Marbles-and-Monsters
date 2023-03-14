@@ -1,6 +1,7 @@
 ﻿using MarblesAndMonsters.Events;
 using MoreMountains.Feedbacks;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace MarblesAndMonsters.Characters
@@ -177,13 +178,27 @@ namespace MarblesAndMonsters.Characters
             
             isDying = true;
 
-            MyRigidbody.velocity = Vector2.zero;
-            MyRigidbody.isKinematic = false;
-            MyRigidbody.simulated = false;
-            
+            //StartCoroutine(ReduceVelocity());
+            MyRigidbody.velocity *= 0.1f;
+            //MyRigidbody.velocity = Vector2.zero;
+            //MyRigidbody.isKinematic = false;
+            //MyRigidbody.simulated = false;
+
             PreDeathAnimation();
             OnDying?.Invoke(this, new DeathEventArgs(deathType));
             _characterManager.Characters.Remove(this);
+        }
+
+        IEnumerator ReduceVelocity()
+        {
+            Debug.Log($"Initial dying velocity: {MyRigidbody.velocity}", this);
+            while (true)
+            {
+                
+                MyRigidbody.velocity *= 0.5f;
+                Debug.Log($"...reduced dying velocity: {MyRigidbody.velocity}", this);
+                yield return null;
+            }
         }
 
         /// <summary>
@@ -196,6 +211,7 @@ namespace MarblesAndMonsters.Characters
 
         public virtual void OnDeathAnimationCompleted(object sender, DeathEventArgs deathEventArgs)
         {
+            Debug.Log($"{gameObject.name} death animation complete, resetting spawnPoint", this);
             spawnPoint.Reset();
         }
         #endregion

@@ -286,6 +286,7 @@ namespace MarblesAndMonsters.Characters
 
         public override void OnDeathAnimationCompleted(object sender, DeathEventArgs deathEventArgs)
         {
+            Debug.Log($"{gameObject.name} death animation complete, resetting spawnPoint", this);
             _gameManager.LevelLose();
         }
 
