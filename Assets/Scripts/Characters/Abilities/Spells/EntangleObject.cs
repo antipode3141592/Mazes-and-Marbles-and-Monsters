@@ -1,6 +1,4 @@
 using MarblesAndMonsters.Characters;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,46 +12,42 @@ namespace MarblesAndMonsters.Spells
     /// </summary>
     public class EntangleObject : SpellEffectBase
     {
-        public GameObject VinePrefab;   //the vine object that enwraps entangled characters
-        public CircleCollider2D CircleCollider2D;
-        protected Dictionary<GameObject, AnimatorController> entangledCharacters;
+        [SerializeField] GameObject vinePrefab;   //the vine object that enwraps entangled characters
+        CircleCollider2D circleCollider2D;
+        Dictionary<GameObject, CharacterControl> entangledCharacters;
 
         protected override void Awake()
         {
             base.Awake();
-            CircleCollider2D = GetComponent<CircleCollider2D>();
-            entangledCharacters = new Dictionary<GameObject, AnimatorController>();
+            circleCollider2D = GetComponent<CircleCollider2D>();
+            entangledCharacters = new();
         }
 
         public override void EndEffect()
         {
-            CircleCollider2D.enabled = false;
+            circleCollider2D.enabled = false;
             foreach (var character in entangledCharacters)
-            {
-                if (character.Value)
-                {
-                    character.Value.SetBodyType(RigidbodyType2D.Dynamic);
-                }
-            }
+                character.Value.MyRigidbody.simulated = true;
+            entangledCharacters.Clear();
             base.EndEffect();
         }
 
-        private void OnTriggerStay2D(Collider2D collision)
+        void OnTriggerStay2D(Collider2D collision)
         {
             if (!collision.isTrigger && !collision.gameObject.Equals(Caster))
             {
-               
                 GameObject character = collision.gameObject;
-                AnimatorController animatorController = character.GetComponent<AnimatorController>();
-
-                if (!entangledCharacters.ContainsKey(character) && animatorController)
-                {
-                    Debug.Log($"{Caster.name}'s spell has entangled {character.name}!");
-                    animatorController.SetBodyType(RigidbodyType2D.Static);
-                    //generate a Vine.  vines have this object's transform as a parent, so when it is destroyed, all vines are destroyed
-                    Instantiate(VinePrefab, character.transform.position, Quaternion.identity, transform);
-                    entangledCharacters.Add(character, animatorController);
-                }
+                if (entangledCharacters.ContainsKey(character))
+                    return;
+                var characterControl = character.GetComponent<CharacterControl>();
+                if (characterControl is null)
+                    return;
+                Debug.Log($"{Caster.name}'s spell has entangled {character.name}!");
+                //generate a Vine.  vines have this object's transform as a parent, so when it is destroyed, all vines are destroyed
+                Instantiate(vinePrefab, character.transform.position, Quaternion.identity, transform);
+                entangledCharacters.Add(character, characterControl);
+                characterControl.MyRigidbody.velocity = Vector2.zero;
+                characterControl.MyRigidbody.simulated = false;
             }
         }
     }

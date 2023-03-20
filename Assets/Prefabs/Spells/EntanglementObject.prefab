@@ -119,9 +119,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Animator: {fileID: 0}
   Caster: {fileID: 0}
-  VinePrefab: {fileID: 4631688286060881718, guid: 8fa218f8fcb852c4b9ee85a2ebeb4e5b,
+  vinePrefab: {fileID: 4631688286060881718, guid: 8fa218f8fcb852c4b9ee85a2ebeb4e5b,
     type: 3}
-  CircleCollider2D: {fileID: 7168040535287122254}
 --- !u!95 &4322811453019497101
 Animator:
   serializedVersion: 5

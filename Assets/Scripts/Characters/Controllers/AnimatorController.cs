@@ -14,8 +14,6 @@ namespace MarblesAndMonsters
         protected SpriteRenderer _spriteRenderer;
         protected CharacterSheet _characterSheet;
         protected CharacterControl _characterControl;
-
-
         protected CharacterManager _characterManager;
         protected float _speed;
         protected Material _defaultMaterial;
@@ -32,7 +30,6 @@ namespace MarblesAndMonsters
 
         public event EventHandler<DeathEventArgs> OnDeathAnimationComplete;
 
-
         void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -40,10 +37,7 @@ namespace MarblesAndMonsters
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _characterSheet = GetComponent<CharacterSheet>();
             _characterControl = GetComponent<CharacterControl>();
-
-
             _characterManager = FindObjectOfType<CharacterManager>();
-
             _defaultMaterial = _spriteRenderer.material;
 
             //cache hashes for animation strings
@@ -82,13 +76,6 @@ namespace MarblesAndMonsters
 
         protected virtual void SetLookDirection()
         {
-            //Vector2 moveDirection = _rigidbody.velocity;
-            //if (moveDirection != Vector2.zero)
-            //{
-            //    float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
-            //    transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            //}
-            //transform.rotation = Quaternion.LookRotation(Vector3.forward, _rigidbody.velocity);
             lookDirection = _rigidbody.velocity.normalized;
             _animator.SetFloat(aFloatLookX, lookDirection.x);
             _animator.SetFloat(aFloatLookY, lookDirection.y);
@@ -112,11 +99,6 @@ namespace MarblesAndMonsters
         public virtual void ResetMaterial()
         {
             _spriteRenderer.material = _defaultMaterial;
-        }
-
-        public virtual void SetBodyType(RigidbodyType2D rigidbodyType2D)
-        {
-            _rigidbody.bodyType = rigidbodyType2D;
         }
 
         public void OnDamage(object sender, DamageEventArgs e)

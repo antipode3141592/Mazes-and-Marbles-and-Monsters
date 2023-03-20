@@ -17,7 +17,8 @@ namespace MarblesAndMonsters.Spells
         {
             base.SpellStartHandler(sender, e);
             _animatorController.SetAnimationSpeed(0f);
-            _animatorController.SetBodyType(RigidbodyType2D.Static);
+            _characterControl.MyRigidbody.velocity = Vector2.zero;
+            _characterControl.MyRigidbody.simulated = false;
             _characterControl.MySheet.DamageImmunities.Add(DamageType.All);
             _animatorController.UpdateSpriteMaterial(characterMaterial);
         }
@@ -26,7 +27,7 @@ namespace MarblesAndMonsters.Spells
         {
             base.SpellEndHandler(sender, e);
             _animatorController.SetAnimationSpeed(1f);
-            _animatorController.SetBodyType(RigidbodyType2D.Dynamic);
+            _characterControl.MyRigidbody.simulated = true;
             _characterControl.MySheet.DamageImmunities.Remove(DamageType.All);
             _animatorController.ResetMaterial(); //return to previous material
         }
