@@ -5,36 +5,51 @@ using System;
 
 namespace MarblesAndMonsters.States.GameStates
 {
-    public class Defeat : GameState
+    public class Defeat : IGameState
     {
+        IGameManager _gameManager;
         IMenuManager _menuManager;
         ICharacterManager _characterManager;
         ITimeTracker _timeTracker;
         Clock _rootClock;
 
-        public override Type Type { get => typeof(Defeat); }
+        public Type Type { get => typeof(Defeat); }
 
-        public Defeat(IGameManager manager, IMenuManager menuManager, ICharacterManager characterManager, ITimeTracker timeTracker, Clock rootClock) : base()
+        public Defeat(IGameManager gameManager, IMenuManager menuManager, ICharacterManager characterManager, ITimeTracker timeTracker, Clock rootClock)
         {
-            _manager = manager;
+            _gameManager = gameManager;
             _menuManager = menuManager;
             _characterManager = characterManager;
             _timeTracker = timeTracker;
             _rootClock = rootClock;
         }
 
-        public override void Enter()
+        public void Enter()
         {
-            base.Enter();
             _timeTracker.EndLevelTimer();
             _characterManager.ResetAll();
             _rootClock.localTimeScale = 0f;
             _menuManager.OpenMenu(MenuTypes.DefeatMenu);
         }
 
-        public override Type LogicUpdate(float deltaTime)
+        public Type LogicUpdate(float deltaTime)
         {
-            return typeof(START);
+            return typeof(END);
+        }
+
+        public void HandleInput()
+        {
+            
+        }
+
+        public void PhysicsUpdate()
+        {
+            
+        }
+
+        public void Exit()
+        {
+            
         }
     }
 }

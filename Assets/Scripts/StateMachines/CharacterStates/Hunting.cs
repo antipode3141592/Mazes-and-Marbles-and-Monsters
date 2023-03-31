@@ -1,9 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-using MarblesAndMonsters.Characters;
-using Pathfinding;
 using FiniteStateMachine;
 
 namespace MarblesAndMonsters.States.CharacterStates

@@ -1,7 +1,6 @@
 ﻿using MarblesAndMonsters.Events;
 using MoreMountains.Feedbacks;
 using System;
-using System.Collections;
 using UnityEngine;
 
 namespace MarblesAndMonsters.Characters
@@ -26,7 +25,8 @@ namespace MarblesAndMonsters.Characters
         public EventHandler<DamageEventArgs> OnDamage;
 
         //rigidbody 
-        public Rigidbody2D MyRigidbody;
+        Rigidbody2D myRigidbody;
+        public Rigidbody2D MyRigidbody => myRigidbody;
         protected CharacterSheet mySheet;
         protected SpriteRenderer mySpriteRenderer;
 
@@ -45,6 +45,8 @@ namespace MarblesAndMonsters.Characters
         protected bool Respawn = false;
 
         public CharacterSheet MySheet => mySheet; //read-only accessor for accessing stats directly (for hp, attack/def values, etc)
+        protected Guid guid;
+        public Guid Guid => guid;
 
         protected GameManager _gameManager;
         protected CharacterManager _characterManager;
@@ -53,9 +55,10 @@ namespace MarblesAndMonsters.Characters
         #region Unity Scripts
         protected virtual void Awake()
         {
+            guid = Guid.NewGuid();
             //cache some components
             mySheet = GetComponent<CharacterSheet>();
-            MyRigidbody = GetComponent<Rigidbody2D>();
+            myRigidbody = GetComponent<Rigidbody2D>();
             mySpriteRenderer = GetComponent<SpriteRenderer>();
             animatorController = GetComponent<AnimatorController>();
 
@@ -166,7 +169,7 @@ namespace MarblesAndMonsters.Characters
             spawnPoint = _spawnPoint;
         }
 
-        private void ResetHealth()
+        void ResetHealth()
         {
             mySheet.CurrentHealth = mySheet.MaxHealth;
         }
@@ -175,30 +178,11 @@ namespace MarblesAndMonsters.Characters
         {
             if (isDying) 
                 return; 
-            
             isDying = true;
-
-            //StartCoroutine(ReduceVelocity());
             MyRigidbody.velocity *= 0.1f;
-            //MyRigidbody.velocity = Vector2.zero;
-            //MyRigidbody.isKinematic = false;
-            //MyRigidbody.simulated = false;
-
             PreDeathAnimation();
             OnDying?.Invoke(this, new DeathEventArgs(deathType));
             _characterManager.Characters.Remove(this);
-        }
-
-        IEnumerator ReduceVelocity()
-        {
-            Debug.Log($"Initial dying velocity: {MyRigidbody.velocity}", this);
-            while (true)
-            {
-                
-                MyRigidbody.velocity *= 0.5f;
-                Debug.Log($"...reduced dying velocity: {MyRigidbody.velocity}", this);
-                yield return null;
-            }
         }
 
         /// <summary>

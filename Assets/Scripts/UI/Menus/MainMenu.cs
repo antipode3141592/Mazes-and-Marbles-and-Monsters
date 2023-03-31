@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 namespace MarblesAndMonsters.Menus
 {
-
     //Main Menu Controller
     //  Allow player to:
     //      -start a new game
@@ -79,13 +78,12 @@ namespace MarblesAndMonsters.Menus
             StartCoroutine(OnResumePressedRoutine());
         }
 
-        private IEnumerator OnResumePressedRoutine()
+        IEnumerator OnResumePressedRoutine()
         {
             //TransitionFader.PlayTransition(startTransitionPrefab);
             if (_dataManager != null)
             {
                 _levelManager.LoadLevel(_dataManager.CheckPointLevelId);
-                _menuManager.OpenMenu(MenuTypes.GameMenu);
                 yield return new WaitForSeconds(_playDelay);
             }
         }
@@ -96,14 +94,19 @@ namespace MarblesAndMonsters.Menus
             StartCoroutine(OnPlayPressedRoutine());
         }
 
-        private IEnumerator OnPlayPressedRoutine()
+        IEnumerator OnPlayPressedRoutine()
         {
             //TransitionFader.PlayTransition(startTransitionPrefab);
             //load first level
-            //levelLoader.LoadLevel(0);  //load first level in the level list
-            //levelLoader.LoadNextLevel();
-            _levelManager.LoadLevel(_levelManager.GetFirstLevel().Id);
-            _menuManager.OpenMenu(MenuTypes.GameMenu);
+            var specs = _levelManager.LoadLevel(_levelManager.GetFirstLevel().Id);
+            if (specs.Id == _levelManager.GetMap().Id)
+            {
+                _gameManager.OpenWorldMap();
+            }
+            else
+            {
+                _gameManager.EnterLocation();
+            }
             yield return new WaitForSeconds(_playDelay);
             //base.OnBackPressed();
         }

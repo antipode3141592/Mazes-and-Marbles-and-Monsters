@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Levels_All
   m_EditorClassIdentifier: 
   mainMap: {fileID: 11400000, guid: 898bd17adffeae947a5b48c0253e31bb, type: 2}
-  startingLevel: {fileID: 11400000, guid: d865a4fa7f18f7c4981b560756438f91, type: 2}
+  startingLevel: {fileID: 11400000, guid: 898bd17adffeae947a5b48c0253e31bb, type: 2}
   managerSceneIndex: 0
   lightingSceneIndex: 1
   levels:

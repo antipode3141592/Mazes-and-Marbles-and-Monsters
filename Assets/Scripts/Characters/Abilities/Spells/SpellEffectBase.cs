@@ -1,15 +1,13 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using MarblesAndMonsters.Characters;
 
 namespace MarblesAndMonsters.Spells
 {
     public abstract class SpellEffectBase : MonoBehaviour
     {
         public Animator Animator;
-
-        public GameObject Caster;
+        public Guid CasterGuid;
 
         protected virtual void Awake()
         {

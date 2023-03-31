@@ -3,13 +3,40 @@ using System;
 
 namespace MarblesAndMonsters.States.GameStates
 {
-    public class END : GameState
+    public class END : IGameState
     {
-        public override Type Type { get => typeof(END); }
+        IGameManager _gameManager;
 
-        public END(IGameManager manager) : base()
+        public Type Type { get => typeof(END); }
+
+        public END(IGameManager gameManager)
         {
-            _manager = manager;
+            _gameManager = gameManager;
+        }
+
+        public void Enter()
+        {
+            
+        }
+
+        public void HandleInput()
+        {
+            
+        }
+
+        public Type LogicUpdate(float deltaTime)
+        {
+            return typeof(END);
+        }
+
+        public void PhysicsUpdate()
+        {
+            
+        }
+
+        public void Exit()
+        {
+            
         }
     }
 }

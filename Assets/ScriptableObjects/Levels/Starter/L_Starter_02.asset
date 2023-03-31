@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: starter_02
   _map: 
-  _location: starter
+  _locationId: starter
+  _locationSpecs: {fileID: 11400000, guid: 898c6890ec0f54643b24287c0136b9ee, type: 2}
   _sortOrder: 2
   _displayName: Starter 02
   _scenePath: Assets/00_Scenes/Starter/Starter_02.unity

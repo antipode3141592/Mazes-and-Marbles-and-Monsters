@@ -50,10 +50,10 @@ namespace MarblesAndMonsters
             aIdle = Animator.StringToHash("Idle");
         }
 
-        void OnEnable()
-        {
-            _animator.Play(aIdle);
-        }
+        //void OnEnable()
+        //{
+        //    _animator.Play(aIdle);
+        //}
 
         void Start()
         {

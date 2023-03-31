@@ -1,3 +1,4 @@
+using MarblesAndMonsters.Characters;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace MarblesAndMonsters
         protected List<Collider2D> _collisionCheckResults;
         List<RaycastHit2D> _hits;
         protected CharacterManager _characterManager;
+        protected CharacterControl _characterControl;
 
         public string EnemyTag()
         {
@@ -34,6 +36,7 @@ namespace MarblesAndMonsters
             _collisionCheckResults = new List<Collider2D>();
             _hits = new List<RaycastHit2D>();
             _enemies = new List<GameObject>();
+            _characterControl = GetComponent<CharacterControl>();
             _characterManager = FindObjectOfType<CharacterManager>();
         }
 
@@ -43,10 +46,7 @@ namespace MarblesAndMonsters
             foreach (var character in _characterManager.Characters.FindAll(x => x != null))
             {
                 if (character.isActiveAndEnabled && !character.MySheet.IsStealth && character.CompareTag(EnemyTag()))
-                {
-                    Debug.Log($"{gameObject.name} found an enemy: {character.name}");
                     enemies.Add(character.gameObject);
-                }
             }
             if (enemies.Count>0) {
                 return true;

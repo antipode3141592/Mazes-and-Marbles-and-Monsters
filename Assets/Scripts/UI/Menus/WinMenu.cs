@@ -8,7 +8,7 @@ namespace MarblesAndMonsters.Menus
         public void OnNextLevelPressed()
         {
             _gameManager.ShouldLoadNextLevel = true;
-            base.OnBackPressed(); //return to GameMenu
+            _gameManager.EnterLocation();
         }
 
         public void OnMainMenuPressed()

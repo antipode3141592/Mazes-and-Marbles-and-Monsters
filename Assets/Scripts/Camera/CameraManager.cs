@@ -29,11 +29,6 @@ namespace MarblesAndMonsters
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
-        public void OnFollowTransformHandler(object sender, TransformEventArgs e)
-        {
-            FollowObject(e._transform);
-        }
-
         public void FollowObject(Transform followTransform)
         {
             if (_followCamera != null)

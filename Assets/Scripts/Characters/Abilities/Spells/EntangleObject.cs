@@ -1,4 +1,5 @@
 using MarblesAndMonsters.Characters;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace MarblesAndMonsters.Spells
     {
         [SerializeField] GameObject vinePrefab;   //the vine object that enwraps entangled characters
         CircleCollider2D circleCollider2D;
-        Dictionary<GameObject, CharacterControl> entangledCharacters;
+        Dictionary<Guid, CharacterControl> entangledCharacters;
 
         protected override void Awake()
         {
@@ -34,21 +35,19 @@ namespace MarblesAndMonsters.Spells
 
         void OnTriggerStay2D(Collider2D collision)
         {
-            if (!collision.isTrigger && !collision.gameObject.Equals(Caster))
-            {
-                GameObject character = collision.gameObject;
-                if (entangledCharacters.ContainsKey(character))
-                    return;
-                var characterControl = character.GetComponent<CharacterControl>();
-                if (characterControl is null)
-                    return;
-                Debug.Log($"{Caster.name}'s spell has entangled {character.name}!");
-                //generate a Vine.  vines have this object's transform as a parent, so when it is destroyed, all vines are destroyed
-                Instantiate(vinePrefab, character.transform.position, Quaternion.identity, transform);
-                entangledCharacters.Add(character, characterControl);
-                characterControl.MyRigidbody.velocity = Vector2.zero;
-                characterControl.MyRigidbody.simulated = false;
-            }
+            if (collision.isTrigger)
+                return;
+            var characterControl = collision.gameObject.GetComponent<CharacterControl>();
+            if (characterControl is null)
+                return;
+            if (entangledCharacters.ContainsKey(characterControl.Guid))
+                return;
+            Debug.Log($"{characterControl.name} has become entangled!");
+            //generate a Vine.  vines have this object's transform as a parent, so when it is destroyed, all vines are destroyed
+            Instantiate(vinePrefab, characterControl.transform.position, Quaternion.identity, transform);
+            entangledCharacters.Add(characterControl.Guid, characterControl);
+            characterControl.MyRigidbody.velocity = Vector2.zero;
+            characterControl.MyRigidbody.simulated = false;
         }
     }
 }

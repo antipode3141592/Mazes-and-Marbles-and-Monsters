@@ -89,6 +89,8 @@ namespace MarblesAndMonsters
 
         public void SpawnAll()
         {
+            if (Debug.isDebugBuild)
+                Debug.Log($"SpawnAll() called with {spawnPoints.Count} spawnPoints and {inventoryItems.Count} inventory items", this);
             foreach (SpawnPoint spawnPoint in spawnPoints)
             {
                 if (spawnPoint.isAvailable)

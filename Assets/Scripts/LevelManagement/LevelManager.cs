@@ -17,6 +17,10 @@ namespace LevelManagement
         [SerializeField] TransitionFader levelLoadTransition;
 
         Dictionary<string, LevelSpecs> levelSpecsById = new Dictionary<string, LevelSpecs>(); // key is string Id
+        [SerializeField] List<LocationSpecs> locationSpecs = new();
+
+        public Dictionary<string, LevelSpecs> LevelSpecsById => levelSpecsById;
+        public List<LocationSpecs> LocationSpecs => locationSpecs;
 
         protected IDataManager _dataManager;
         protected IGameManager _gameManager;
@@ -35,21 +39,25 @@ namespace LevelManagement
         protected void Awake()
         {
             //build dictionary with key equal to Id field in LevelSpecs
-            //levelSpecsById = new Dictionary<string, LevelSpecs>();
             foreach (LevelSpecs level in levelList.Levels)
                 levelSpecsById.Add(level.Id, level);
-            Debug.Log(string.Format("Level Dictionary has {0} key-value pairs", levelSpecsById.Count));
+            if (Debug.isDebugBuild)
+                Debug.Log(string.Format("Level Dictionary has {0} key-value pairs", levelSpecsById.Count));
         }
 
         void Start()
         {
-            Debug.Log($"LevelManager Start() => Scene Count = {SceneManager.sceneCount}", gameObject);
+            if (Debug.isDebugBuild)
+                Debug.Log($"LevelManager Start() => Scene Count = {SceneManager.sceneCount}", gameObject);
             //if there are three scenes open OnStart, it's a debug/playtest situation where the 
             // scene level is all ready loaded, so we need to trigger start of level manually here
             if (SceneManager.sceneCount == 3)
                 _gameManager.ShouldBeginLevel = true;
             else if (SceneManager.sceneCount == 2)
-                Debug.Log($"SceneCount 2", this);
+            {
+                if (Debug.isDebugBuild)
+                    Debug.Log($"SceneCount 2", this);
+            }
             else
                 LoadMainMenuLevel();
         }
@@ -57,41 +65,49 @@ namespace LevelManagement
         /// <summary>
         /// Load a specific scene by levelId
         /// </summary>
-        public void LoadLevel(string levelId)
-
+        public LevelSpecs LoadLevel(string levelId = "")
         {
-            Debug.Log(string.Format("LoadLevel(string {0})", levelId));
+            LevelSpecs _levelSpecs;
+            if (Debug.isDebugBuild)
+                Debug.Log($"LoadLevel({levelId})", this);
             if (levelId == string.Empty)
             {
                 //load next level in level list
                 if (_dataManager.CheckPointLevelId != string.Empty)
                 {
-                    Debug.Log(string.Format("CheckPointLevelId: {0}", _dataManager.CheckPointLevelId));
-                    levelId = GetNextLevelSpecs(_dataManager.CheckPointLevelId).Id;
+                    if (Debug.isDebugBuild)
+                        Debug.Log($"CheckPointLevelId: {_dataManager.CheckPointLevelId}", this);
+                    _levelSpecs = GetNextLevelSpecs(_dataManager.CheckPointLevelId);
                 }
                 else
                 {
-                    Debug.Log("checkpointlevelid is empty, using GetCurrentLevelId()");
-                    levelId = GetNextLevelSpecs(GetCurrentLevelId()).Id;
+                    if (Debug.isDebugBuild)
+                        Debug.Log("checkpointlevelid is empty, using GetCurrentLevelId()");
+                    _levelSpecs = GetNextLevelSpecs(GetCurrentLevelId());
                 }
+                levelId = _levelSpecs.Id;
+            } else
+            {
+                _levelSpecs = GetLevelSpecsById(levelId);
             }
             Debug.Log("attempting to load " + levelId);
-            if (Application.CanStreamedLevelBeLoaded(GetLevelSpecsById(levelId).ScenePath))
+            if (Application.CanStreamedLevelBeLoaded(_levelSpecs.ScenePath))
             {
                 if (_dataManager != null)
                 {
                     //update saved level id
-                    _dataManager.CheckPointLevelId = GetLevelSpecsById(levelId).Id;
-                    _dataManager.SavedLocation = GetLevelSpecsById(levelId).Location;
+                    _dataManager.CheckPointLevelId = _levelSpecs.Id;
+                    _dataManager.SavedLocation = _levelSpecs.LocationId;
                     _dataManager.Save();
                 }
-                _audioManager.PlayMusic(GetLevelSpecsById(levelId).LevelMusic);
-                StartCoroutine(LoadLevelAsync(GetLevelSpecsById(levelId).ScenePath));
+                _audioManager.PlayMusic(_levelSpecs.LevelMusic);
+                StartCoroutine(LoadLevelAsync(_levelSpecs.ScenePath));
+                return _levelSpecs;
             }
             else
             {
                 Debug.LogError("scene stream is invalid");
-                //should implement an error popup for stuff like this
+                return null;
             }
         }
 
@@ -166,7 +182,7 @@ namespace LevelManagement
             if (levelSpecsById.ContainsKey(currentId))
             {
                 //find the next level in the current location
-                LevelSpecs nextLevel = levelList.Levels.Find(x => x.Location == GetLevelSpecsById(currentId).Location
+                LevelSpecs nextLevel = levelList.Levels.Find(x => x.LocationId == GetLevelSpecsById(currentId).LocationId
                     && x.SortOrder == GetLevelSpecsById(currentId).SortOrder + 1);
                 if (nextLevel != null)
                 {
@@ -200,7 +216,7 @@ namespace LevelManagement
 
         public LevelSpecs GetFirstLevelInLocation(string location)
         {
-            LevelSpecs level = levelList.Levels.Find(x => x.Location == location && x.SortOrder == 0);
+            LevelSpecs level = levelList.Levels.Find(x => x.LocationId == location && x.SortOrder == 0);
             if (level != null)
                 return level;
             else

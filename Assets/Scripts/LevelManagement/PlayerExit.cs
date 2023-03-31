@@ -4,8 +4,6 @@ namespace MarblesAndMonsters.Objects
 {
     public class PlayerExit : MonoBehaviour
     {
-        [SerializeField]
-        protected string GoToLevelId = string.Empty;
         protected GameManager _gameManager;
 
         private void Awake()
@@ -19,7 +17,7 @@ namespace MarblesAndMonsters.Objects
             {
                 if (other.gameObject.CompareTag("Player"))
                 {
-                    _gameManager.LevelWin(GoToLevelId);
+                    _gameManager.LevelWin();
                 }
             }
         }

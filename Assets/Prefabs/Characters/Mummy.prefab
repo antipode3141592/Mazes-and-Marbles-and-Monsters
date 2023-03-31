@@ -309,7 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats: {fileID: 11400000, guid: 9f31a4084fee77e4b9fe8c579ef32e01, type: 2}
   isAsleep: 0
-  isBoardMovable: 1
+  isBoardMovable: 0
   DamageImmunities: 
 --- !u!95 &7774725849334288606
 Animator:
@@ -357,7 +357,7 @@ MonoBehaviour:
   - {x: -0.15625, y: 0.21875, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 93500
+  m_InstanceId: 99280
 --- !u!114 &5041244169876710567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,7 +405,7 @@ MonoBehaviour:
   traversableTags: -1
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
-    value: 2
+    value: -1
 --- !u!114 &6374589758187542170
 MonoBehaviour:
   m_ObjectHideFlags: 0

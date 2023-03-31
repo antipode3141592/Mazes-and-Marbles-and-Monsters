@@ -3,27 +3,46 @@ using System;
 
 namespace MarblesAndMonsters.States.GameStates
 {
-    //    START, PopulateLevel, Playing, Paused, Victory, Defeat, END
-
-
     //Start occurs when a new level/scene is loaded, so take this opportunity to check for Player, assign spawn points, etc
-    public class START : GameState
+    public class START : IGameState
     {
-        public override Type Type { get => typeof(START); }
+        IGameManager _gameManager;
 
-        public START(IGameManager manager ): base()
+        public Type Type { get => typeof(START); }
+
+        public START(IGameManager gameManager)
         {
-            _manager = manager;
+            _gameManager = gameManager;
         }
 
-        public override Type LogicUpdate(float deltaTime)
+        public Type LogicUpdate(float deltaTime)
         {
-            if (_manager.ShouldBeginLevel)
+            if (_gameManager.ShouldBeginLevel)
             {
-                _manager.ShouldBeginLevel = false;
+                _gameManager.ShouldBeginLevel = false;
                 return typeof(PopulateLevel);
             }
             return typeof(START);
         }
+
+        public void Enter()
+        {
+        }
+
+        public void HandleInput()
+        {
+            
+        }
+
+        public void PhysicsUpdate()
+        {
+            
+        }
+
+        public void Exit()
+        {
+            
+        }
     }
+
 }

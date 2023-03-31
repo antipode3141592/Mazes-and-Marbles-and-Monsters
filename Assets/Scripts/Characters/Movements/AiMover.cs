@@ -1,16 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Pathfinding;  //powered by Aron Granberg's excellent Pathfinding asset
 using System;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace MarblesAndMonsters
 {
-
     /// <summary>
     /// For position based movement, powered by Aron Granberg's Pathfinding asset
-    /// 
     /// </summary>
     public class AiMover : MonoBehaviour, IMover
     {
@@ -23,7 +19,7 @@ namespace MarblesAndMonsters
         //for pathfinding library
         protected Seeker seeker;
         protected Path path;
-
+        Rigidbody2D _rigidbody2D;
         public float speed = 2.0f;  //target speed 
 
         public float nextWaypointDistance = 0.75f;  //
@@ -36,49 +32,52 @@ namespace MarblesAndMonsters
 
         public event EventHandler OnPathEnd;
 
+        Vector2 dir;
+        Vector2 velocity;
+        float distanceToWaypoint;
+
         #region Unity Functions
-        private void Awake()
+        void Awake()
         {
             seeker = GetComponent<Seeker>();
-            Mode = MovementMode.None;
+            _rigidbody2D = GetComponent<Rigidbody2D>();
             parentTransform = GetComponentInParent<Transform>();
         }
 
-        private void OnEnable()
+        void OnEnable()
         {
             seeker.pathCallback += OnPathCalculationComplete;
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             seeker.pathCallback -= OnPathCalculationComplete;
         }
 
         public void Move()
         {
-            if (path == null)
+            if (path is null)
+            {
+                Debug.Log($"path null, movement skipped", this);
                 return;
+            }
             // Check in a loop if we are close enough to the current waypoint to switch to the next one.
             // We do this in a loop because many waypoints might be close to each other and we may reach
             // several of them in the same frame.
             reachedEndOfPath = false;
             // The distance to the next waypoint in the path
-            float distanceToWaypoint;
             while (true)
             {
                 // If you want maximum performance you can check the squared distance instead to get rid of a
                 // square root calculation. But that is outside the scope of this tutorial.
-                distanceToWaypoint = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
+                distanceToWaypoint = Vector2.Distance(transform.position, path.vectorPath[currentWaypoint]);
                 if (distanceToWaypoint < nextWaypointDistance)
                 {
                     // Check if there is another waypoint or if we have reached the end of the path
                     if (currentWaypoint + 1 < path.vectorPath.Count)
-                    {
                         currentWaypoint++;
-                    }
                     else
                     {
-                        //Debug.Log("End of Path!");
                         // Set a status variable to indicate that the agent has reached the end of the path.
                         // You can use this to trigger some special code if your game requires that.
                         reachedEndOfPath = true;
@@ -95,11 +94,11 @@ namespace MarblesAndMonsters
             }
             // Direction to the next waypoint
             // Normalize it so that it has a length of 1 world unit
-            Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
+            dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
             // Multiply the direction by our desired speed to get a velocity
-            Vector3 velocity = dir * speed;
-            //Debug.Log($"{gameObject.name} is roaming at {velocity.ToString()} velocity");
-            transform.position += velocity * Time.deltaTime;
+            velocity = dir * speed;
+            _rigidbody2D.velocity = velocity;
+            //transform.position += velocity * Time.deltaTime;
         }
 
         /// <summary>
@@ -134,12 +133,15 @@ namespace MarblesAndMonsters
 
         public void SetTarget(Transform target)
         {
+            
             if (target == null)
             {
                 TargetTransform = null;
+                Debug.Log($"Setting move target to random nearby target", this);
                 SetNewDestination(GetRandomNearbyTarget());
             } else
             {
+                Debug.Log($"Setting move target to {target.name}", this);
                 TargetTransform = target;
                 SetNewDestination(target.position);
             }
@@ -166,7 +168,7 @@ namespace MarblesAndMonsters
             }
         }
 
-        private Vector2 GetRandomNearbyTarget()
+        Vector2 GetRandomNearbyTarget()
         {
             return Random.insideUnitCircle * 5f + (Vector2)parentTransform.position;
         }

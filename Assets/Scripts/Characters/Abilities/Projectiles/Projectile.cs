@@ -1,38 +1,36 @@
 using MarblesAndMonsters.Characters;
 using MarblesAndMonsters.Pooling;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using Zenject;
 
 namespace MarblesAndMonsters
 {
     public abstract class Projectile : MonoBehaviour
     {
         public ProjectileStats ProjectileStats;
-        public GameObject Caster;
+        public Guid CasterGuid;
+        public string CasterTag;
         public Vector2 Direction = new Vector2(0f, 0f);
         public ProjectilePooler Pooler;
         Rigidbody2D rigidBody;
 
-        private void Awake()
+        void Awake()
         {
             rigidBody = GetComponent<Rigidbody2D>();
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject != Caster)
-            {
-                CollisionFunction(collision);
-                Pooler.Release(this);
-            }
-        }
-
-        private void Update()
+        void Update()
         {
             rigidBody.MovePosition(rigidBody.position + Direction * Time.deltaTime * ProjectileStats.Speed);
-            //transform.Translate((Vector3)Direction * Time.deltaTime * ProjectileStats.Speed);
+        }
+
+        void OnCollisionEnter2D(Collision2D collision)
+        {
+            var characterControl = collision.gameObject.GetComponent<CharacterControl>();
+            if (characterControl is not null && characterControl.Guid == CasterGuid)
+                return;
+            CollisionFunction(collision);
+            Pooler.Release(this);
         }
 
         internal abstract void CollisionFunction(Collision2D collision);

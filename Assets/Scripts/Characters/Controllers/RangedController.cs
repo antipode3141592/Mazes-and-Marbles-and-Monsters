@@ -9,16 +9,13 @@ namespace MarblesAndMonsters
     public class RangedController : CombatControl<RangedController>
     {
         public Transform CurrentTarget;
-        [SerializeField]
-        protected ProjectileStats projectileStats;
+        [SerializeField] protected ProjectileStats projectileStats;
         public ProjectilePooler ProjectilePooler;
 
         protected override void Awake()
         {
             base.Awake();
-            //projectilePooler = FindObjectOfType<ProjectilePooler>();
         }
-
 
         public override int TryAttack()
         {
@@ -47,21 +44,20 @@ namespace MarblesAndMonsters
             return 0;
         }
 
-        
-
         IEnumerator FireProjectile(float attackDelay, Vector2 direction)
         {
-            var proj = ProjectilePooler.Get();
-            proj.transform.position = transform.position;
             //start attack animation
             //GameObject _projectileGameObject = Instantiate(projectileStats.projectilePrefab, transform.position, Quaternion.identity);
             //Projectile projectile = _projectileGameObject.GetComponent<Projectile>();
-            //projectile.Caster = gameObject;
-            proj.Caster = gameObject;
-            proj.tag = gameObject.tag;
+            //projectile.Caster = gameObject;   
 
             yield return new WaitForSeconds(attackDelay);
-            proj.SetDirection(direction);
+            Projectile projectile = ProjectilePooler.Get();
+            projectile.transform.position = transform.position;
+            projectile.CasterGuid = _characterControl.Guid;
+            projectile.CasterTag = _characterControl.gameObject.tag;
+            projectile.tag = _characterControl.gameObject.tag;
+            projectile.SetDirection(direction);
         }
     }
 

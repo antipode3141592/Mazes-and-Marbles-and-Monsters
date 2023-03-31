@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: stone_room_02
   _map: 
-  _location: stone
+  _locationId: stone
+  _locationSpecs: {fileID: 11400000, guid: 6457dab624bf20d41bce44337814ed0d, type: 2}
   _sortOrder: 1
   _displayName: Stone Room 02
   _scenePath: Assets/00_Scenes/Stone/Room_02.unity

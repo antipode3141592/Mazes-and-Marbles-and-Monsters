@@ -4,22 +4,13 @@ using UnityEngine.Tilemaps;
 
 namespace MarblesAndMonsters.Objects
 {
-
     public class Pit : MonoBehaviour
     {
-        public Tilemap tileMap;
-        public TilemapCollider2D tilemapCollider;
+        TilemapCollider2D tilemapCollider;
 
         protected void Awake()
         {
-            if (tileMap == null)
-            {
-                tileMap = gameObject.GetComponent<Tilemap>();
-            }
-            if (tilemapCollider == null)
-            {
-                tilemapCollider = GetComponent<TilemapCollider2D>();
-            }
+            tilemapCollider = GetComponent<TilemapCollider2D>();
         }
 
         void OnTriggerStay2D(Collider2D other)
@@ -28,13 +19,7 @@ namespace MarblesAndMonsters.Objects
             {
                 CharacterControl character = other.GetComponent<CharacterControl>();
                 if (character != null)
-                {
-
-                    //var position = other.transform.position;
-                    //var tilemapPosition = tileMap.WorldToCell(position);
                     character.ApplyFalling(other.transform.position);
-                }
-
             }
         }
     }

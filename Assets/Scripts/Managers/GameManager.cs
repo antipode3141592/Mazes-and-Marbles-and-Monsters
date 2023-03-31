@@ -22,9 +22,9 @@ namespace MarblesAndMonsters
         [SerializeField] Clock _rootClock; 
 
         //state machine stuff
-        protected StateMachine stateMachine;
+        protected GameStateMachine stateMachine;
 
-        public BaseState CurrentState => stateMachine.CurrentState;
+        public IGameState CurrentState => stateMachine.CurrentState;
 
         protected ILevelManager _levelManager;
         protected IDataManager _dataManager;
@@ -56,17 +56,18 @@ namespace MarblesAndMonsters
 
         void Awake()
         {
-            stateMachine = GetComponent<StateMachine>();
+            stateMachine = GetComponent<GameStateMachine>();
             var timeTracker = FindObjectOfType<TimeTracker>();
-            var states = new Dictionary<Type, BaseState>()
+            var states = new Dictionary<Type, IGameState>()
             {
-                {typeof(START), new START(manager: this) },
-                {typeof(PopulateLevel), new PopulateLevel(manager: this, characterManager: _characterManager, timeTracker: _timeTracker, cameraManager: _cameraManager, audioManager: _audioManager) },
-                {typeof(Playing), new Playing(manager: this, inputManager: _inputManager, characterManager: _characterManager, rootClock: _rootClock) },
-                {typeof(Paused), new Paused(manager: this, timeTracker, rootClock: _rootClock) },
-                {typeof(Victory), new Victory(manager: this, menuManager: _menuManager, characterManager: _characterManager, timeTracker: _timeTracker, rootClock: _rootClock) },
-                {typeof(Defeat), new Defeat(manager: this, menuManager: _menuManager, characterManager: _characterManager, timeTracker: _timeTracker, rootClock: _rootClock) },
-                {typeof(END), new END(manager: this) }
+                {typeof(START), new START(gameManager: this) },
+                {typeof(PopulateLevel), new PopulateLevel(gameManager: this, characterManager: _characterManager, timeTracker: _timeTracker, cameraManager: _cameraManager, audioManager: _audioManager) },
+                {typeof(Playing), new Playing(gameManager: this, inputManager: _inputManager, characterManager: _characterManager, menuManager: _menuManager, rootClock: _rootClock) },
+                {typeof(Paused), new Paused(gameManager: this, timeTracker, rootClock: _rootClock) },
+                {typeof(Victory), new Victory(gameManager: this, menuManager: _menuManager, characterManager: _characterManager, timeTracker: _timeTracker, rootClock: _rootClock) },
+                {typeof(Defeat), new Defeat(gameManager: this, menuManager: _menuManager, characterManager: _characterManager, timeTracker: _timeTracker, rootClock: _rootClock) },
+                {typeof(END), new END(gameManager: this) },
+                {typeof(ViewingMap), new ViewingMap() }
             };
             Debug.Log($"{name} is storing the following states:  {states.Keys}");
             stateMachine.SetStates(states);
@@ -86,11 +87,23 @@ namespace MarblesAndMonsters
         }
 
         #region LevelManagement
-        public void LevelWin(string goToLevelId)
+        public void EnterLocation()
+        {
+            stateMachine.SwitchToNewState(typeof(START));
+            _menuManager.OpenMenu(MenuTypes.GameMenu);
+        }
+
+        public void OpenWorldMap()
+        {
+            stateMachine.SwitchToNewState(typeof(ViewingMap));
+            _menuManager.OpenMenu(MenuTypes.MapMenu);
+        }
+
+        public void LevelWin()
         {
             stateMachine.SwitchToNewState(typeof(Victory));
             SaveGameData();
-            StartCoroutine(WinRoutine(goToLevelId));
+            StartCoroutine(WinRoutine());
         }
 
         public void LevelLose()
@@ -103,20 +116,22 @@ namespace MarblesAndMonsters
             stateMachine.SwitchToNewState(typeof(Defeat));
         }
 
-        IEnumerator WinRoutine(string levelId)
+        IEnumerator WinRoutine()
         {
 
             //TransitionFader.PlayTransition(endTransition);
             //yield return new WaitForSeconds(0.5f);
             //TransitionFader.PlayTransition(transitionPrefab);
             if (Debug.isDebugBuild)
-                Debug.Log($"WinRoutine({levelId}): awaiting ShouldLoadNextLevel...", this);
+                Debug.Log($"WinRoutine(): awaiting ShouldLoadNextLevel...", this);
             while (!ShouldLoadNextLevel)
                 yield return null;
-
+            ShouldLoadNextLevel = false;
             if (Debug.isDebugBuild)
                 Debug.Log($"Load Next Level", this);
-            _levelManager.LoadLevel(levelId);
+            var specs = _levelManager.LoadLevel();
+            if (specs.Id == _levelManager.GetMap().Id)
+                stateMachine.SwitchToNewState(typeof(ViewingMap));
             //float fadeDelay = endTransition != null ? endTransition.Delay + endTransition.FadeOnDuration : 0f;
             yield return null;
 
@@ -148,7 +163,7 @@ namespace MarblesAndMonsters
                 }
                 string levelId = _levelManager.GetCurrentLevelId();
                 _dataManager.UpdateLevelSaves(new LevelSaveData(levelId,
-                    _levelManager.GetLevelSpecsById(levelId).Location, 0, true, _timeTracker.LevelTime));
+                    _levelManager.GetLevelSpecsById(levelId).LocationId, 0, true, _timeTracker.LevelTime));
             }
             //store unlocked spells
             foreach (var spell in Player.Instance.MySheet.Spells)

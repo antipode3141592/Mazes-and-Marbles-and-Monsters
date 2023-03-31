@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-
-namespace FiniteStateMachine
+﻿namespace FiniteStateMachine
 {
     public interface IState
     {

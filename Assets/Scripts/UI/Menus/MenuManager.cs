@@ -32,7 +32,6 @@ namespace MarblesAndMonsters.Menus
             menuCollection.Add(MenuTypes.WinMenu, FindObjectOfType<WinMenu>(true));
             menuCollection.Add(MenuTypes.DefeatMenu, FindObjectOfType<DefeatMenu>(true));
             menuCollection.Add(MenuTypes.MapMenu, FindObjectOfType<MapMenu>(true));
-            menuCollection.Add(MenuTypes.MapPopupMenu, FindObjectOfType<MapPopupMenu>(true));
         }
 
         void Start()
@@ -68,6 +67,8 @@ namespace MarblesAndMonsters.Menus
             }
             var _menu = menuCollection[menuType];
             _menu.gameObject.SetActive(true);
+            if (_menuStack.Contains(_menu))
+                return;
             _menuStack.Push(_menu);
             if (Debug.isDebugBuild)
                 Debug.Log($"After push to stack, there are {_menuStack.Count} menus in _menuStack");

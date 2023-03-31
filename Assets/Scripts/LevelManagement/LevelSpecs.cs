@@ -21,7 +21,8 @@ namespace LevelManagement.Levels
         //for 
         [SerializeField] protected string _id; //unique id for level
         [SerializeField] protected string _map;         //belongs to this map collection
-        [SerializeField] protected string _location;    //belongs to this location
+        [SerializeField] protected string _locationId;    //belongs to this location
+        [SerializeField] protected LocationSpecs _locationSpecs;
         [SerializeField] protected int _sortOrder;      // when negative, level is "hidden" 
         
         [SerializeField] protected string _displayName; //the display name
@@ -30,7 +31,6 @@ namespace LevelManagement.Levels
 
         [SerializeField] protected string _description;
         [SerializeField] protected string _thumbnailLocation;    //file location for thumbnail of level
-        
         #endregion
 
         #region PROPERTIES
@@ -38,17 +38,12 @@ namespace LevelManagement.Levels
         public string DisplayName => _displayName;
         public string ScenePath => _scenePath;
         public string Map => _map;
-        public string Location => _location;
+        public string LocationId => _locationId;
         public string Id => _id;
         public string ThumbnailLocation => _thumbnailLocation;
         public AudioClip LevelMusic => levelMusic;
-
         public int SortOrder => _sortOrder;
         #endregion
-
-        public LevelSpecs()
-        {
-            
-        }
     }
+
 }

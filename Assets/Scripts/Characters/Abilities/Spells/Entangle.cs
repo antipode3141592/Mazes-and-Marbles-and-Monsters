@@ -20,8 +20,8 @@ namespace MarblesAndMonsters.Spells
         {
             base.SpellStartHandler(sender, e);
             _entangleObject = Instantiate<EntangleObject>(entanglePrefab, transform.position, Quaternion.identity);
-            _entangleObject.tag = gameObject.tag;
-            _entangleObject.Caster = gameObject;
+            _entangleObject.tag = _characterControl.gameObject.tag;
+            _entangleObject.CasterGuid = _characterControl.Guid;
             _entangleObject.SetDeathTime(SpellStats.Duration);
         }
 
