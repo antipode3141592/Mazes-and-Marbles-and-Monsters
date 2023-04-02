@@ -6,6 +6,7 @@ namespace LevelManagement.DataPersistence
     public interface IDataManager
     {
         public string CheckPointLevelId { get; set; }
+        public string CurrentLocationId { get; set; }
         public List<KeyItem> CollectedKeys { get; set; }
         public List<LevelSaveData> LevelSaves { get; set; }
         public List<LocationSaveData> LocationSaves { get; set; }
@@ -14,7 +15,6 @@ namespace LevelManagement.DataPersistence
         public int PlayerMaxHealth { get; set; }
         public int PlayerScrollCount { get; set; }
         public int PlayerTotalDeathCount { get; set; }
-        public string SavedLocation { get; set; }
         
         public List<SpellData> UnlockedSpells { get; set; }
 

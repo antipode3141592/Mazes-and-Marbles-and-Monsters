@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
-using System;
-using Sirenix.OdinInspector;
 
 //code based on the course content at https://www.udemy.com/course/level-management-in-unity/ , which was super helpeful and highly recommended
 
@@ -21,7 +18,6 @@ namespace LevelManagement.Levels
         //for 
         [SerializeField] protected string _id; //unique id for level
         [SerializeField] protected string _map;         //belongs to this map collection
-        [SerializeField] protected string _locationId;    //belongs to this location
         [SerializeField] protected LocationSpecs _locationSpecs;
         [SerializeField] protected int _sortOrder;      // when negative, level is "hidden" 
         
@@ -38,7 +34,8 @@ namespace LevelManagement.Levels
         public string DisplayName => _displayName;
         public string ScenePath => _scenePath;
         public string Map => _map;
-        public string LocationId => _locationId;
+        public string LocationId => _locationSpecs.LocationId;
+        public LocationSpecs LocationSpecs => _locationSpecs;
         public string Id => _id;
         public string ThumbnailLocation => _thumbnailLocation;
         public AudioClip LevelMusic => levelMusic;

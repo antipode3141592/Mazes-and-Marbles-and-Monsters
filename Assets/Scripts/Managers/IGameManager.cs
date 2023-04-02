@@ -1,4 +1,5 @@
 ﻿using FiniteStateMachine;
+using LevelManagement.Levels;
 
 namespace MarblesAndMonsters
 {
@@ -11,7 +12,7 @@ namespace MarblesAndMonsters
         void EnterLocation();
         void OpenWorldMap();
         void LevelLose();
-        void LevelWin();
+        void LevelWin(LevelSpecs gotoLevel);
         void PauseGame();
         void SaveGameData();
         void UnpauseGame();

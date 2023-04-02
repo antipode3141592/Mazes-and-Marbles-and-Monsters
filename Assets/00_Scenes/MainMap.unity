@@ -551,6 +551,12 @@ PrefabInstance:
       propertyPath: locationId
       value: starter
       objectReference: {fileID: 0}
+    - target: {fileID: 24452670902050865, guid: 5b0c095b74ddae249b38ad6ae583c5cd,
+        type: 3}
+      propertyPath: locationSpecs
+      value: 
+      objectReference: {fileID: 11400000, guid: 898c6890ec0f54643b24287c0136b9ee,
+        type: 2}
     - target: {fileID: 24452670902050869, guid: 5b0c095b74ddae249b38ad6ae583c5cd,
         type: 3}
       propertyPath: m_Name
@@ -783,6 +789,12 @@ PrefabInstance:
       propertyPath: locationId
       value: stone
       objectReference: {fileID: 0}
+    - target: {fileID: 24452670902050865, guid: 5b0c095b74ddae249b38ad6ae583c5cd,
+        type: 3}
+      propertyPath: locationSpecs
+      value: 
+      objectReference: {fileID: 11400000, guid: 6457dab624bf20d41bce44337814ed0d,
+        type: 2}
     - target: {fileID: 24452670902050869, guid: 5b0c095b74ddae249b38ad6ae583c5cd,
         type: 3}
       propertyPath: m_Name

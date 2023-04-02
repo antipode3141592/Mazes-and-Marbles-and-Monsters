@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: main_map
   _map: 
-  _location: 
+  _locationSpecs: {fileID: 11400000, guid: 348bee2fd2d9a7b43aecf1018bef1274, type: 2}
   _sortOrder: 0
   _displayName: Main Map
   _scenePath: Assets/00_Scenes/MainMap.unity

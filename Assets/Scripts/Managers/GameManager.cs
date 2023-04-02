@@ -2,6 +2,7 @@
 using FiniteStateMachine;
 using LevelManagement;
 using LevelManagement.DataPersistence;
+using LevelManagement.Levels;
 using MarblesAndMonsters.Characters;
 using MarblesAndMonsters.Managers;
 using MarblesAndMonsters.Menus;
@@ -99,11 +100,11 @@ namespace MarblesAndMonsters
             _menuManager.OpenMenu(MenuTypes.MapMenu);
         }
 
-        public void LevelWin()
+        public void LevelWin(LevelSpecs gotoLevel)
         {
             stateMachine.SwitchToNewState(typeof(Victory));
             SaveGameData();
-            StartCoroutine(WinRoutine());
+            StartCoroutine(WinRoutine(gotoLevel));
         }
 
         public void LevelLose()
@@ -116,7 +117,7 @@ namespace MarblesAndMonsters
             stateMachine.SwitchToNewState(typeof(Defeat));
         }
 
-        IEnumerator WinRoutine()
+        IEnumerator WinRoutine(LevelSpecs gotoLevel)
         {
 
             //TransitionFader.PlayTransition(endTransition);
@@ -129,7 +130,7 @@ namespace MarblesAndMonsters
             ShouldLoadNextLevel = false;
             if (Debug.isDebugBuild)
                 Debug.Log($"Load Next Level", this);
-            var specs = _levelManager.LoadLevel();
+            var specs = _levelManager.LoadLevel(gotoLevel is null ? "": gotoLevel.Id);
             if (specs.Id == _levelManager.GetMap().Id)
                 stateMachine.SwitchToNewState(typeof(ViewingMap));
             //float fadeDelay = endTransition != null ? endTransition.Delay + endTransition.FadeOnDuration : 0f;
@@ -152,7 +153,7 @@ namespace MarblesAndMonsters
             if (_dataManager.CheckPointLevelId != string.Empty)
             {
                 _dataManager.UpdateLevelSaves(new LevelSaveData(_dataManager.CheckPointLevelId,
-                    _dataManager.SavedLocation, 0, true, _timeTracker.LevelTime));
+                    _dataManager.CurrentLocationId, 0, true, _timeTracker.LevelTime));
             }
             else
             {
@@ -161,7 +162,9 @@ namespace MarblesAndMonsters
                     Debug.LogWarning($"No LevelManager, skipping Save");
                     return;
                 }
-                string levelId = _levelManager.GetCurrentLevelId();
+                string levelId = _levelManager.CurrentLevel().Id;
+                if (levelId == _levelManager.GetMap().Id)
+                    return;
                 _dataManager.UpdateLevelSaves(new LevelSaveData(levelId,
                     _levelManager.GetLevelSpecsById(levelId).LocationId, 0, true, _timeTracker.LevelTime));
             }

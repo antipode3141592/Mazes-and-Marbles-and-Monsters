@@ -18,3 +18,5 @@ MonoBehaviour:
     type: 3}
   relicImage: {fileID: 21300000, guid: 34e3a2aeb07c9734bb04890039324219, type: 3}
   totalRelics: 5
+  isKnown: 1
+  isAvailable: 0

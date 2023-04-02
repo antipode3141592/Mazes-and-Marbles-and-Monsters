@@ -42,7 +42,7 @@ namespace MarblesAndMonsters.Menus
                
                 scrollCount.text = "Scrolls Collected: " + _dataManager.PlayerScrollCount;
                 currentLevel.text = string.Format("Current Level: {0} - {1}",
-                    _dataManager.SavedLocation, 
+                    _dataManager.CurrentLocationId, 
                     _dataManager.CheckPointLevelId);
                 playerHealth.text = "Health: " + _dataManager.PlayerMaxHealth;
                 deathCount.text = "Deaths: " + _dataManager.PlayerTotalDeathCount;

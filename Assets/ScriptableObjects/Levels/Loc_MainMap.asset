@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f1c72cab526ca244a896c5f2e34ac8c, type: 3}
-  m_Name: Loc_starter
+  m_Name: Loc_MainMap
   m_EditorClassIdentifier: 
-  locationId: starter
-  displayName: Starter
-  thumbnail: {fileID: -2122830317182695682, guid: c0552b4369867d64998e786dbb6d525e,
-    type: 3}
-  relicImage: {fileID: 897710771807637462, guid: ef82981a7efbb664daec1d9dbb4889e5,
-    type: 3}
-  totalRelics: 5
+  locationId: world_map
+  displayName: World Map
+  thumbnail: {fileID: 0}
+  relicImage: {fileID: 0}
+  totalRelics: 0
+  isKnown: 1
+  isAvailable: 1

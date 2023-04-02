@@ -13,7 +13,7 @@ namespace LevelManagement.DataPersistence
         JSONSaver jsonSaver;
 
         public float TotalGameTime { get => saveData.totalGameTime; set => saveData.totalGameTime = value; }
-        public string SavedLocation { get { return saveData.currentLocation; } set { saveData.currentLocation = value; } }
+        public string CurrentLocationId { get { return saveData.currentLocation; } set { saveData.currentLocation = value; } }
         public string CheckPointLevelId { get { return saveData.checkPointLevelId; } set { saveData.checkPointLevelId = value; } }
         public int PlayerCurrentHealth { get { return saveData.playerCurrentHealth; } set { saveData.playerCurrentHealth = value; } }
         public int PlayerMaxHealth { get { return saveData.playerMaxHealth; } set { saveData.playerMaxHealth = value; } }

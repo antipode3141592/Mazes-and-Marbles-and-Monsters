@@ -25,6 +25,7 @@ namespace MarblesAndMonsters.Menus
         public Button ResetButton;
 
         string _locationId;
+        LocationSpecs _locationSpecs;
 
         [Inject]
         public void Init(IDataManager dataManager, ILevelManager levelManager, IGameManager gameManager)
@@ -51,7 +52,7 @@ namespace MarblesAndMonsters.Menus
 
         void LoadFirstLevel()
         {
-            LevelSpecs firstLevelSpecs = _levelManager.GetFirstLevelInLocation(_locationId);
+            LevelSpecs firstLevelSpecs = _levelManager.GetFirstLevelInLocation(_locationSpecs);
             _gameManager.EnterLocation();
             _levelManager.LoadLevel(firstLevelSpecs.Id);
         }
@@ -62,15 +63,14 @@ namespace MarblesAndMonsters.Menus
 
         }
 
-        public void SetLocationData(string locationId)
+        public void SetLocationData(LocationSpecs locationSpecs)
         {
-            _locationId = locationId;
-            List<LevelSaveData> levels = _dataManager.LevelSaves.FindAll(x => x.LocationId == locationId && x.Completed == true);
+            _locationSpecs = locationSpecs;
+            List<LevelSaveData> levels = _dataManager.LevelSaves.FindAll(x => x.LocationId == locationSpecs.LocationId && x.Completed == true);
             //count completed levels
             int completedLevels = levels.Count;
-            int totalLevels = _levelManager.LevelSpecsById.Count(x => x.Value.LocationId == locationId);
+            int totalLevels = locationSpecs.LevelSpecs.Count();
             LevelsCompleteText.text = $"{completedLevels} / {totalLevels} levels";
-            LocationSpecs locationSpecs = _levelManager.LocationSpecs.Find(x => x.LocationId == locationId);
             LocationNameText.text = locationSpecs.DisplayName;
             RelicImage.sprite = locationSpecs.RelicImage;
             RelicsCompleteText.text = $"{locationSpecs.TotalRelics} relics";

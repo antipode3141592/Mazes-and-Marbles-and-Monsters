@@ -1,6 +1,5 @@
 using System;
 
-
 namespace LevelManagement.DataPersistence
 {
     /// <summary>
@@ -12,20 +11,16 @@ namespace LevelManagement.DataPersistence
         public string LocationId;   //key
         public bool Completed;      //true if player has completed all 
         public string CheckpointLevelId;    //level ID to restore to
+        public bool IsKnown;
+        public bool IsAvailable;
 
-        public LocationSaveData(string id = null , string checkpointLevelId = null, bool complete = false) 
+        public LocationSaveData(string id = null, string checkpointLevelId = null, bool complete = false, bool isKnown = false, bool isAvailable = false) 
         {
             LocationId = id;
             Completed = complete;
             CheckpointLevelId = checkpointLevelId;
-        }
-
-        public bool LocationCompletionCheck()
-        {
-            //if all levels with SortOrder => 0 are Completed, set Completed to true and return true
-
-            //else, location is incomplete and return false
-            return false;
+            IsKnown = isKnown;
+            IsAvailable = isAvailable;
         }
     }
 }
