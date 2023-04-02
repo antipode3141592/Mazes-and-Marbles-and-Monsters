@@ -21,10 +21,8 @@ namespace MarblesAndMonsters.Menus
         public Text LevelsCompleteText;
         public Text RelicsCompleteText;
         public Image RelicImage;
-        public Button PlayButton;
-        public Button ResetButton;
+        public Button StartButton;
 
-        string _locationId;
         LocationSpecs _locationSpecs;
 
         [Inject]
@@ -55,12 +53,6 @@ namespace MarblesAndMonsters.Menus
             LevelSpecs firstLevelSpecs = _levelManager.GetFirstLevelInLocation(_locationSpecs);
             _gameManager.EnterLocation();
             _levelManager.LoadLevel(firstLevelSpecs.Id);
-        }
-
-
-        public void OnResetClicked()
-        {
-
         }
 
         public void SetLocationData(LocationSpecs locationSpecs)

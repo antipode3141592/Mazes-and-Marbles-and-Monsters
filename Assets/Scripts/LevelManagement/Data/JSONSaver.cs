@@ -65,8 +65,6 @@ namespace LevelManagement.DataPersistence
                     {
                         Debug.LogWarning("JSONSAVER Load: invalid hash, aborting file read...");
                     }
-
-                    
                 }
                 return true;
             }

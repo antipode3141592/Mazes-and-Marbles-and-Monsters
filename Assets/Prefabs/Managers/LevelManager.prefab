@@ -48,6 +48,7 @@ MonoBehaviour:
   lightingSceneIndex: 1
   mainMap: {fileID: 11400000, guid: 898bd17adffeae947a5b48c0253e31bb, type: 2}
   startingLevel: {fileID: 11400000, guid: 898bd17adffeae947a5b48c0253e31bb, type: 2}
+  startingLocation: {fileID: 11400000, guid: 898c6890ec0f54643b24287c0136b9ee, type: 2}
   levelLoadTransition: {fileID: 5985439094147491876, guid: 2d2dfd4d5b6b4614f96baa149f6749b3,
     type: 3}
   locationSpecs:

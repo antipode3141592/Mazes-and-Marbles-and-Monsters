@@ -15,6 +15,7 @@ namespace LevelManagement.Levels
         [SerializeField] bool isKnown;
         [SerializeField] bool isAvailable;
         [SerializeField] List<LevelSpecs> levelSpecs;
+        [SerializeField] List<LocationSpecs> nextLocations;
 
         public string LocationId => locationId;
         public string DisplayName => displayName;
@@ -25,6 +26,7 @@ namespace LevelManagement.Levels
         public bool IsAvailable => isAvailable;
 
         public List<LevelSpecs> LevelSpecs => levelSpecs;
+        public List<LocationSpecs> NextLocations => nextLocations;
     }
 
 }

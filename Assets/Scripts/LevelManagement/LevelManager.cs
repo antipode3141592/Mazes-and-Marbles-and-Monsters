@@ -16,6 +16,7 @@ namespace LevelManagement
         [SerializeField] int lightingSceneIndex = 1;
         [SerializeField] LevelSpecs mainMap;
         [SerializeField] LevelSpecs startingLevel;
+        [SerializeField] LocationSpecs startingLocation;
         [SerializeField] TransitionFader levelLoadTransition;
         [SerializeField] List<LocationSpecs> locationSpecs = new();
 
@@ -26,6 +27,8 @@ namespace LevelManagement
         protected IAudioManager _audioManager;
 
         protected string _currentLevelName = string.Empty;   //default to empty
+
+        public LocationSpecs StartingLocation => startingLocation;
 
         [Inject]
         public void Init(IDataManager dataManager, IGameManager gameManager, IAudioManager audioManager)
@@ -60,11 +63,11 @@ namespace LevelManagement
             if (levelId == string.Empty)
             {
                 //load next level in level list
-                if (_dataManager.CheckPointLevelId != string.Empty)
+                if (_dataManager.CurrentLevelId != string.Empty)
                 {
                     if (Debug.isDebugBuild)
-                        Debug.Log($"CheckPointLevelId: {_dataManager.CheckPointLevelId}", this);
-                    _levelSpecs = GetNextLevelSpecs(GetLevelSpecsById(_dataManager.CheckPointLevelId));
+                        Debug.Log($"CurrentLevelId: {_dataManager.CurrentLevelId}", this);
+                    _levelSpecs = GetNextLevelSpecs(GetLevelSpecsById(_dataManager.CurrentLevelId));
                 }
                 else
                 {
@@ -81,12 +84,12 @@ namespace LevelManagement
                 Debug.Log("attempting to load " + levelId, this);
             if (Application.CanStreamedLevelBeLoaded(_levelSpecs.ScenePath))
             {
-                if (_dataManager != null)
+                if (_levelSpecs != GetMap() && _dataManager != null)
                 {
                     //update saved level id
                     if (Debug.isDebugBuild)
                         Debug.Log($"storing current location and level to data manager: {_levelSpecs.Id}, {_levelSpecs.LocationId}", this);
-                    _dataManager.CheckPointLevelId = _levelSpecs.Id;
+                    _dataManager.CurrentLevelId = _levelSpecs.Id;
                     _dataManager.CurrentLocationId = _levelSpecs.LocationId;
                     _dataManager.Save();
                 }

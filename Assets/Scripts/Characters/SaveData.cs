@@ -10,40 +10,31 @@ namespace LevelManagement.DataPersistence
     public class SaveData
     {
         //general game settings
-        public float totalGameTime;
+        public float totalGameTime = 0f;
 
         //level data
-        public string currentLocation;
-        public string checkPointLevelId; //game restores to this level (after load, for example)
+        public string currentLocationId = string.Empty;
+        public string checkPointLevelId = string.Empty; //game restores to this level (after load, for example)
 
         //completed levels data
-        public List<LevelSaveData> LevelSaves;
-        public List<LocationSaveData> LocationSaves;
+        public List<LevelSaveData> LevelSaves = new();
+        public List<LocationSaveData> LocationSaves = new();
 
         //player stats
-        public int playerCurrentHealth;
-        public int playerMaxHealth;
-        public int playerDeathCount;
-        public int playerScrollCount;
+        public int playerCurrentHealth = 3;
+        public int playerMaxHealth = 3;
+        public int playerDeathCount = 0;
+        public int playerScrollCount = 0;
 
         //spells
-        public List<SpellData> UnlockedSpells;
+        public List<SpellData> UnlockedSpells = new();
         //keys
-        public List<KeyItem> CollectedKeys;
+        public List<KeyItem> CollectedKeys = new();
 
-        public string hashValue;    //for verifying save file integrity
+        public string hashValue = string.Empty;    //for verifying save file integrity
 
         public SaveData()
         {
-            totalGameTime = 0f;
-            playerMaxHealth = 3; //default max health is 3 hearts
-            playerDeathCount = 0;
-            playerScrollCount = 0;
-            hashValue = "";
-            LevelSaves = new List<LevelSaveData>();
-            LocationSaves = new List<LocationSaveData>();
-            UnlockedSpells = new List<SpellData>();
-            CollectedKeys = new List<KeyItem>();
         }
     }
 

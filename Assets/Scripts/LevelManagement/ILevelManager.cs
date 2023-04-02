@@ -6,6 +6,8 @@ namespace LevelManagement
     public interface ILevelManager
     {
         public List<LocationSpecs> LocationSpecs { get; }
+        public LocationSpecs StartingLocation { get; }
+
         public LevelSpecs GetFirstLevel();
         public LevelSpecs GetFirstLevelInLocation(LocationSpecs locationSpecs);
         public LevelSpecs GetLevelSpecsById(string id);

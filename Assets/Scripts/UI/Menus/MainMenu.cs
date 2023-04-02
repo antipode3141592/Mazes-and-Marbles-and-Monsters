@@ -43,7 +43,7 @@ namespace MarblesAndMonsters.Menus
                 scrollCount.text = "Scrolls Collected: " + _dataManager.PlayerScrollCount;
                 currentLevel.text = string.Format("Current Level: {0} - {1}",
                     _dataManager.CurrentLocationId, 
-                    _dataManager.CheckPointLevelId);
+                    _dataManager.CurrentLevelId);
                 playerHealth.text = "Health: " + _dataManager.PlayerMaxHealth;
                 deathCount.text = "Deaths: " + _dataManager.PlayerTotalDeathCount;
             }
@@ -83,7 +83,7 @@ namespace MarblesAndMonsters.Menus
             //TransitionFader.PlayTransition(startTransitionPrefab);
             if (_dataManager != null)
             {
-                _levelManager.LoadLevel(_dataManager.CheckPointLevelId);
+                _levelManager.LoadLevel(_dataManager.CurrentLevelId);
                 yield return new WaitForSeconds(_playDelay);
             }
         }

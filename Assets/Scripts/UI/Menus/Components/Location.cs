@@ -41,11 +41,22 @@ namespace MarblesAndMonsters.Menus
 
         void Start()
         {
+            string currentLocationId = _dataManager.CurrentLocationId;
+            if (string.Equals(currentLocationId, string.Empty, System.StringComparison.OrdinalIgnoreCase))
+            {
+                Debug.Log($"setting location to LevelManager.StartingLocation: {_levelManager.StartingLocation.LocationId}", this);
+                currentLocationId = _levelManager.StartingLocation.LocationId;
+            }
+                
+            if (Debug.isDebugBuild)
+                Debug.Log($"CurrentLocationId: '{currentLocationId}'", this);
             var locationSave = _dataManager.LocationSaves.Find(x => x.LocationId == locationSpecs.LocationId);
             if (locationSave is null)
-                SetState(isOccupied: false, isAvailable: locationSpecs.IsAvailable, isComplete: false);
+                SetState(isOccupied: currentLocationId == locationSpecs.LocationId, 
+                    isAvailable: locationSpecs.IsAvailable,
+                    isComplete: false);
             else
-                SetState(isOccupied: _dataManager.CurrentLocationId == locationSpecs.LocationId,
+                SetState(isOccupied: currentLocationId == locationSpecs.LocationId,
                     isAvailable: locationSave.IsAvailable || locationSpecs.IsAvailable,
                     isComplete: locationSave.Completed);
         }

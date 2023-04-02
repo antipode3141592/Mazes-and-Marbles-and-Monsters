@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f1c72cab526ca244a896c5f2e34ac8c, type: 3}
   m_Name: Loc_stone
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   locationId: stone
   displayName: Stone Tower
   thumbnail: {fileID: -2122830317182695682, guid: c0552b4369867d64998e786dbb6d525e,
@@ -20,3 +29,8 @@ MonoBehaviour:
   totalRelics: 5
   isKnown: 1
   isAvailable: 0
+  levelSpecs:
+  - {fileID: 11400000, guid: f46d986e2a3edb542906ce1d4cdce39e, type: 2}
+  - {fileID: 11400000, guid: 48fdb88bec0ade149b6867647fd98fe5, type: 2}
+  - {fileID: 11400000, guid: 9bc60b2533e21aa41bec3b7011726077, type: 2}
+  - {fileID: 11400000, guid: 96188007ab29cd54b8a20afbe1fc09e3, type: 2}

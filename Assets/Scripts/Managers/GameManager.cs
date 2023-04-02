@@ -150,9 +150,9 @@ namespace MarblesAndMonsters
             _dataManager.PlayerCurrentHealth = Player.Instance.MySheet.CurrentHealth;
             _dataManager.PlayerTotalDeathCount = Player.Instance.DeathCount;
             _dataManager.PlayerScrollCount = Player.Instance.TreasureCount;
-            if (_dataManager.CheckPointLevelId != string.Empty)
+            if (_dataManager.CurrentLevelId != string.Empty)
             {
-                _dataManager.UpdateLevelSaves(new LevelSaveData(_dataManager.CheckPointLevelId,
+                _dataManager.UpdateLevelSaves(new LevelSaveData(_dataManager.CurrentLevelId,
                     _dataManager.CurrentLocationId, 0, true, _timeTracker.LevelTime));
             }
             else
@@ -162,11 +162,14 @@ namespace MarblesAndMonsters
                     Debug.LogWarning($"No LevelManager, skipping Save");
                     return;
                 }
-                string levelId = _levelManager.CurrentLevel().Id;
+                var currentLevel = _levelManager.CurrentLevel();
+                string levelId = currentLevel.Id;
+                string locationId = currentLevel.LocationId;
                 if (levelId == _levelManager.GetMap().Id)
                     return;
                 _dataManager.UpdateLevelSaves(new LevelSaveData(levelId,
                     _levelManager.GetLevelSpecsById(levelId).LocationId, 0, true, _timeTracker.LevelTime));
+                
             }
             //store unlocked spells
             foreach (var spell in Player.Instance.MySheet.Spells)

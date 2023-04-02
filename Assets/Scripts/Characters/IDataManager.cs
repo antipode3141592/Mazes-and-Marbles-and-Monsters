@@ -5,7 +5,7 @@ namespace LevelManagement.DataPersistence
 {
     public interface IDataManager
     {
-        public string CheckPointLevelId { get; set; }
+        public string CurrentLevelId { get; set; }
         public string CurrentLocationId { get; set; }
         public List<KeyItem> CollectedKeys { get; set; }
         public List<LevelSaveData> LevelSaves { get; set; }
@@ -19,7 +19,7 @@ namespace LevelManagement.DataPersistence
         public List<SpellData> UnlockedSpells { get; set; }
 
         public void Clear();
-        public void Load();
+        public bool Load();
         public void Save();
         public void UpdateLevelSaves(LevelSaveData levelData);
         public void UpdateLocationSaves(LocationSaveData locationData);

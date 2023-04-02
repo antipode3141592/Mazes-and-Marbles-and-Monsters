@@ -12,12 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f1c72cab526ca244a896c5f2e34ac8c, type: 3}
   m_Name: Loc_starter
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   locationId: starter
   displayName: Starter
   thumbnail: {fileID: -2122830317182695682, guid: c0552b4369867d64998e786dbb6d525e,
     type: 3}
   relicImage: {fileID: 897710771807637462, guid: ef82981a7efbb664daec1d9dbb4889e5,
     type: 3}
-  totalRelics: 5
+  totalRelics: 8
   isKnown: 1
   isAvailable: 1
+  levelSpecs:
+  - {fileID: 11400000, guid: d865a4fa7f18f7c4981b560756438f91, type: 2}
+  - {fileID: 11400000, guid: 6355d3b64df993a46b72a7342a9212fe, type: 2}
+  - {fileID: 11400000, guid: 9353f09853d75e44ab53e55239c1f40c, type: 2}
+  - {fileID: 11400000, guid: 903caf5513b1d25429458ad1dacacd20, type: 2}
+  - {fileID: 11400000, guid: 7101e1c5f0278bb45bf03d64c0a15aea, type: 2}
+  nextLocations:
+  - {fileID: 11400000, guid: 6457dab624bf20d41bce44337814ed0d, type: 2}
